@@ -3,7 +3,7 @@ import {Redirect as Route} from 'react-router-dom';
 
 const Redirect = () => {
     return(
-        <Route to={'/ka'}/>
+        <Route to={'/ka/main'}/>
     )
 }
 

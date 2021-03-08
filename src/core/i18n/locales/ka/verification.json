@@ -1,0 +1,24 @@
+{
+  "DOCUMENT_TYPE": "დოკუმენტის ტიპი",
+  "ID_CARD": "პირადობის მოწმობა",
+  "PASSPORT": "პასპორტი",
+  "OLD_ID_CARD": "ძველი პირადობა",
+  "UPLOAD_SELF": " ატვირთეთ სელფი",
+  "UPLOAD_FRONT_SIDE": " ატვირთეთ წინა მხარე",
+  "UPLOAD_BACK_SIDE": " ატვირთეთ უკანა მხარე",
+  "TAKE_PICTURE": "გადაღება",
+  "UPLOAD": "ატვირთვა",
+  "CHANGE_PICTURE": "ფოტოს შეცვლა",
+  "PLEASE_CHOOSE_FRONT_SIDE": "<h5>პირადობის მოწმობის წინა მხარე</h5>",
+  "PLEASE_CHOOSE_BACK_SIDE": "<h5>პირადობის მოწმობის უკანა მხარე</h5>",
+  "PLEASE_CHOOSE_PASSPORT": "<h5>პასპორტის ფოტო</h5>",
+  "PLEASE_UPLOAD_SELFIE": "<h5>მომხმარებლის ფოტო(სელფი) პირადობის მოწმობასთან ერთად</h5>",
+  "TAKE": "გადაღება",
+  "NEW_PICTURE": "ახალი ფოტო",
+  "TAKE_SELFIE": "სელფის გადაღება",
+  "PASSPORT_PICTURE": "პასპორტის ფოტო",
+  "SAVE": "შენახვა",
+  "UPLOAD_SUCCESS": "აიტვირთა წარმატებით",
+  "UPLOAD_ERROR": "ატვირთვისას დაფიქსირდა შეცდომა"
+
+}

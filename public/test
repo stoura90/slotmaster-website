@@ -1,0 +1,23 @@
+const el = document.querySelector('blinkid-in-browser');
+
+        el.engineLocation = window.engineLocation;
+        el.licenseKey = window.licenseKey;
+        el.recognizers = ['BlinkIdRecognizer'];
+        window.setTimeout(() => {
+            el.translations = {
+                'action-message': 'Alternative CTA'
+            };
+        }, 3000);
+
+
+        el.addEventListener('scanError', ev => {
+            console.log('scanError', ev.detail);
+
+            el.setUiState('ERROR');
+        });
+
+
+        el.addEventListener('scanSuccess', ev => {
+            console.log('scanSuccess', ev.detail);
+
+        });
