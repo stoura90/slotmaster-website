@@ -35,7 +35,7 @@ sftp.connect({
 let sum=0;
 sftp.on('upload', info => {
     sum+=utils.getFileSize(info.source);
-    progress.update(parseFloat(((utils.getMb(sum)/total)*100).toFixed(2)), {
+    progress.update(Math.round(parseFloat(((utils.getMb(sum)/total)*100))), {
         speed: '125'
     });
 });
