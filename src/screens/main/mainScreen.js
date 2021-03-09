@@ -1,28 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {Footer, Header} from "../../components";
-import {useParams} from "react-router-dom";
+import React, {useEffect} from 'react';
 import {useNavigation} from "../../core/hooks/useNavigation";
 
 
 const MainScreen = () =>{
 
-    const params = useParams();
-    const navigator = useNavigation();
-
-
+    const nav  = useNavigation();
     useEffect(()=>{
-        console.log(navigator.params);
-
+        console.log(nav)
     },[]);
 
     return (
-        <>
-            <Header/>
-
-
-
-            <Footer/>
-        </>
+        <div>
+           dsadasd
+        </div>
     )
 }
 

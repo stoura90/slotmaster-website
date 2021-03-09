@@ -1,5 +1,6 @@
 import { useParams} from "react-router-dom";
 export function useNavigation() {
+
     let params  = useParams();
     const url = new URL(window.location);
     const set=(key,value)=>{

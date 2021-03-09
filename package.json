@@ -63,6 +63,7 @@
   "devDependencies": {
     "@svgr/cli": "^5.5.0",
     "@svgr/webpack": "^5.5.0",
+    "brunch": "^4.0.0",
     "cli-progress": "^3.9.0",
     "envify": "^4.1.0",
     "http-proxy-middleware": "^1.0.6",
