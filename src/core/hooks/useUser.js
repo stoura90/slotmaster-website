@@ -1,5 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
-import {SIGN_IN} from "lb-core/store/actionTypes";
+import {SIGN_IN} from "../store/actionTypes";
+
 export function useUser() {
     const User = useSelector(store=>store.User);
     const dispatch = useDispatch();

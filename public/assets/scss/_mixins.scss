@@ -1,0 +1,156 @@
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+// example: @include animation('slide-down 5s 3');
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};
+}
+
+// example: @include box-shadow(1px, 2px, 2px, 2px, #000);
+@mixin box-shadow($hoff: false, $voff: false, $blur: false, $spread: false, $color: false){
+  box-shadow: $hoff $voff $blur $spread $color;
+}
+
+// example: @include single-text-shadow(1px, 2px, 2px, #000);
+@mixin single-text-shadow($hoff: false, $voff: false, $blur: false, $color: false) {
+  text-shadow: $hoff $voff $blur $color;
+}
+
+// example: @include translate(0);
+@mixin translate($value) {
+  -webkit-transform: translatez($value);
+  -moz-transform: translatez($value);
+  -ms-transform: translatez($value);
+  -o-transform: translatez($value);
+  transform: translatez($value);
+}
+
+// example: @include transition(0);
+@mixin transition($value) {
+  -webkit-transition: all $value ease-in-out;
+  -moz-transition: all $value ease-in-out;
+  -o-transition: all $value ease-in-out;
+  transition: all $value ease-in-out;
+}
+
+// example: @include transform("origin", 0, 0);
+@mixin transform($type, $values...) {
+  $n: length($values);
+  $i: 1;
+
+  $originVal: ();
+
+  @while $i <= $n {
+    $itemVal: (nth($values, $i));
+    @if $type == "rotate" or $type == "rotateY" or $type == "rotateX" {
+      $originVal: append($originVal, $itemVal + deg);
+    } @else {
+      $originVal: append($originVal, $itemVal + px);
+    }
+
+    $i: $i + 1;
+  }
+  -webkit-transform: #{$type}($originVal);
+  -moz-transform: #{$type}($originVal);
+  transform: #{$type}($originVal);
+}
+
+
+@mixin dots() {
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+@mixin transition($args) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+
+// example @include breakpoint(940) { width:80%; }
+// Media Query Breakpoints
+@mixin breakpoint($size) {
+  @media only screen and (max-width: $size + px) { @content; }
+}
+
+// Text Legibility
+@mixin cleartext {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+// Word wrap
+@mixin word-wrap {
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+
+// Ellipsis overflow
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// Hide text (alternative to using the old "-9999em" method)
+@mixin notext {
+  font: 0/0 a;
+  color: transparent;
+}
+
+// Disable selection
+@mixin noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+// example: @include background-cover();
+@mixin background-cover(){
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+// example: @include linearGradient(#cccccc, #333333);
+@mixin linearGradient($top, $bottom) {
+  background: #{$top}; /* Old browsers */
+  background:    -moz-linear-gradient(top, #{$top} 0%, #{$bottom} 100%); /* FF3.6+ */
+  background:        -webkit-gradient(linear, left top, left bottom, color-stop(0%, #{$top}), color-stop(100%, #{$bottom})); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #{$top} 0%, #{$bottom} 100%); /* Chrome10+,Safari5.1+ */
+  background:      -o-linear-gradient(top, #{$top} 0%, #{$bottom} 100%); /* Opera 11.10+ */
+  background:     -ms-linear-gradient(top, #{$top} 0%, #{$bottom} 100%); /* IE10+ */
+  background:         linear-gradient(to bottom, #{$top} 0%, #{$bottom} 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$top}', endColorstr='#{$bottom}', GradientType=0 ); /* IE6-9 */
+}
+
+@mixin display-flex () {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}

@@ -10,8 +10,10 @@ const MainScreen = () =>{
     },[]);
 
     return (
-        <div>
-           dsadasd
+        <div className="str-height">
+            <div className="width">
+                dsadasd
+            </div>
         </div>
     )
 }

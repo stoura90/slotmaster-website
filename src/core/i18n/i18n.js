@@ -4,43 +4,30 @@ import Backend from 'i18next-xhr-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { useTranslation ,withTranslation} from 'react-i18next';
 //language files
-//en
-import en from "./locales/en/translation.json";
-import verification_ka from "./locales/ka/verification.json";
+
 //ka
-import ka from "./locales/ka/translation.json";
-import verification_en from "./locales/en/verification.json";
-//ru
-import ru from "./locales/ru/translation.json";
-import verification_ru from "./locales/ru/verification.json";
+import main_ka from "./locales/ka/main.json";
+
+
 
 i18n
     .use(Backend)
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-        fallbackLng: 'en',
-        lng: 'en',
+        fallbackLng: 'ka',
+        lng: 'ka',
         debug: true,
         interpolation: {
             escapeValue: false,
         },
         resources: {
-            en: {
-                translations: en,
-                verification:verification_en
-            },
             ka: {
-                translations: ka,
-                verification:verification_ka
-            },
-            ru: {
-                translations: ru,
-                verification:verification_ru
+                main: main_ka,
             }
         },
-        ns: ["translations","verification"],
-        defaultNS: "translations"
+        ns: ["main"],
+        defaultNS: "main"
     });
 
 
