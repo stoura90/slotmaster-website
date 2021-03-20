@@ -30,7 +30,7 @@ const Modal = ({children,styles,title,onClickBackDrop,closeButton,onClose})=>{
             </div>
             <div className={"footer"}>
                <Button
-                   className={"primary"}
+                   className={"danger"}
                     title={"დახურვა"}
                    onCLick={()=>alert()}
                />
