@@ -61,6 +61,9 @@
     ]
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "@svgr/cli": "^5.5.0",
     "@svgr/webpack": "^5.5.0",
     "brunch": "^4.0.0",

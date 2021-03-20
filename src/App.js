@@ -2,7 +2,7 @@ import {Suspense} from 'react'
 
 import {store as Store} from './core/store/store'
 import {Provider} from "./core";
-import {Footer, Header, MainNavigator} from "./components";
+import {Footer, Guest, Header, MainNavigator, Modal} from "./components";
 
 
 const  App=()=> {
@@ -12,6 +12,12 @@ const  App=()=> {
             <Header/>
                 <MainNavigator/>
             <Footer/>
+            <Modal
+                styles={{width: '500px'}}
+                onClickBackDrop={()=>console.log("close modal")}
+            >
+                <Guest/>
+            </Modal>
           </Provider>
       </Suspense>
   )
