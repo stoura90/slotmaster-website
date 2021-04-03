@@ -13,11 +13,11 @@ const Header =()=>{
         <div id="header">
             <div className="header_wrapper">
                 <div className='header'>
-                    <div className='w'>
+                    <div className='max-w'>
                         <table cellPadding='0' cellSpacing='0' style={{width: '100%', height: '64px'}}>
                             <tbody>
                             <tr>
-                                <td className="h_logo">
+                                <td className="logo">
                                     <span>YOUR LOGO</span>
                                     {/*<a href='/'>
                                         <span>Company Logo</span>
@@ -34,31 +34,31 @@ const Header =()=>{
                                         {!User.isLogged?
                                             <div className="auth_form_panel">
 
-                                                <div className="lb_auth">
+                                                <div className="zl2-auth">
                                                     <input type='text' autoComplete="off"
                                                         //onFocus="this.placeholder = ''"
                                                            name='username'
                                                            //value={this.state.userParam.user}
                                                            //onChange={(e) => this.setState(State("userParam.user", e.target.value, this.state))}
-                                                           placeholder={t('სახელი')} className='lb_input icon-user'/>
+                                                           placeholder={t('სახელი')} className='zl2-input icon-user'/>
                                                     {/*<div className="rep_button">Reset</div>*/}
                                                 </div>
-                                                <div className="lb_auth">
+                                                <div className="zl2-auth">
                                                     <input type='password' autoComplete="off"
                                                         //onFocus="this.placeholder = ''"
                                                            name='password'
                                                            //value={this.state.userParam.pass}
                                                            //onChange={(e) => this.setState(State("userParam.pass", e.target.value, this.state))}
-                                                           placeholder={t('პაროლი')} className='lb_input icon-password'/>
+                                                           placeholder={t('პაროლი')} className='zl2-input icon-password'/>
                                                     {/*<div className="rep_button">Reset</div>*/}
                                                 </div>
-                                                <div className="lb_auth"><input type='button' onClick={()=>signIn()} value={t('შესვლა')} className='lb_login_btn'/></div>
-                                                <div className="lb_auth"><a className="go_register">{t('რეგისტრაცია')}</a> </div>
+                                                <div className="zl2-auth"><input type='button' onClick={()=>signIn()} value={t('შესვლა')} className='zl2-login_btn'/></div>
+                                                <div className="zl2-auth"><a className="go_register">{t('რეგისტრაცია')}</a> </div>
 
-                                                {/*<div className="lb_auth qr_auth" style={{display: 'none'}}>
+                                                {/*<div className="zl2-auth qr_auth" style={{display: 'none'}}>
                                                     <div className="qr_auth_button">&nbsp;</div>
                                                 </div>
-                                                <div className="lb_auth">
+                                                <div className="zl2-auth">
                                                     <div className="lang" data-lang="ka">
                                                         <div className="current_lang">&nbsp;</div>
                                                         <div className="lang_box">
@@ -72,12 +72,12 @@ const Header =()=>{
                                                 </div>*/}
                                             </div>
                                             :
-                                            <div className="lb_user_panel">
-                                                {/*<div className="lb_up">
-                                                    <div className="lb_ubox">
+                                            <div className="zl2-user_panel">
+                                                {/*<div className="zl2-up">
+                                                    <div className="zl2-ubox">
                                                         <div>&nbsp;</div>
                                                     </div>
-                                                    <div className="lb_ubox user_progr_status">
+                                                    <div className="zl2-ubox user_progr_status">
                                                         <div className="status" data-status="5">
                                                             <span>zura.ph</span>
                                                         </div>
@@ -95,22 +95,22 @@ const Header =()=>{
                                                             <a href="/" className="user_prgr_a">გაეცანით აქციის წესებს</a>
                                                         </div>
                                                     </div>
-                                                    <div className="lb_ubox">
+                                                    <div className="zl2-ubox">
                                                         <div className="pin">
                                                             <span>121662</span>
                                                         </div>
                                                     </div>
-                                                    <div className="lb_ubox">
+                                                    <div className="zl2-ubox">
                                                         <div className="money" data-onof="" onClick={()=>this.change_display_amount()}>
                                                             <span>138.64</span>
                                                             <div className="switch_money">&nbsp;</div>
                                                         </div>
                                                     </div>
                                                 </div>*/}
-                                                {/*<div className="lb_ubox"><a className="u_btn balance" href="/">ბალანსის შევსება</a></div>*/}
-                                                <div className="lb_ubox"><span className="u_btn myroom" onClick={()=>signOut()} style={{background:"#e53935",color:"#fff"}}>Log Out</span></div>
+                                                {/*<div className="zl2-ubox"><a className="u_btn balance" href="/">ბალანსის შევსება</a></div>*/}
+                                                <div className="zl2-ubox"><span className="u_btn myroom" onClick={()=>signOut()} style={{background:"#e53935",color:"#fff"}}>Log Out</span></div>
 
-                                                {/*<div className="lb_ubox">
+                                                {/*<div className="zl2-ubox">
                                                     <div className="u_btn u_drop">&nbsp;
                                                         <div className="u_drop_box">
                                                             <div className="user">
@@ -133,7 +133,7 @@ const Header =()=>{
                                                         </div>
                                                     </div>
                                                 </div>*/}
-                                                {/*<div className="lb_ubox">
+                                                {/*<div className="zl2-ubox">
                                                     <div className="lang" data-lang="ka">
                                                         <div className="current_lang">&nbsp;</div>
                                                         <div className="lang_box">

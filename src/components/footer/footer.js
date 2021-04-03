@@ -4,7 +4,7 @@ import '../footer/footer.scss';
 const Footer =()=>{
     return(
         <footer>
-            <nav className="w">
+            <nav className="max-w">
                 <ul>
                     <li>
                         <a href='#'>Menu Type</a>
@@ -22,12 +22,12 @@ const Footer =()=>{
                 </ul>
             </nav>
 
-            <div className="w fc">
-                <div className="fc_box" style={{'paddingBottom':'0'}}>
+            <div className="max-w footer-content">
+                <div className="content-box" style={{'paddingBottom':'0'}}>
                     Footer Content
                 </div>
 
-                {/*<div className="fc_box">
+                {/*<div className="content-box">
                     <div className="fc_title">
                         <h2>Games</h2>
                     </div>
@@ -46,7 +46,7 @@ const Footer =()=>{
 
                     </ul>
                 </div>
-                <div className="fc_box">
+                <div className="content-box">
                     <div className="fc_title">
                         <h2>News</h2>
                     </div>
@@ -66,7 +66,7 @@ const Footer =()=>{
 
                     </ul>
                 </div>
-                <div className="fc_box">
+                <div className="content-box">
                     <div className="fc_title">
                         <h2>Contact</h2>
                     </div>
@@ -81,15 +81,13 @@ const Footer =()=>{
                 </div>*/}
             </div>
 
-            <div className="w">
-                <div className="f_foot">
+            <div className="max-w">
+                <div className="footer_age">
                     <div data-old="+18">&nbsp;</div>
                     <div data-old="+21" style={{marginLeft:'15px'}}>&nbsp;</div>
                     <p>Copyright © 2021 by your Company Name</p>
                 </div>
             </div>
-
-            <div className="f_line"></div>
 
         </footer>
     );

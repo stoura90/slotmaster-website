@@ -6,7 +6,7 @@ body {
 }
 
 // container
-.w {
+.max-w {
   width: 100%;
   max-width: 1580px;
   margin: 0 auto;
@@ -228,10 +228,10 @@ ul.cild_menu li:first-child {
 
 
 
-.menu.lb_nav ul li a span.dot {
+.menu.zl2-nav ul li a span.dot {
   position: relative;
 }
-.menu.lb_nav ul li a span.dot:after{
+.menu.zl2-nav ul li a span.dot:after{
   content: '';
   position: absolute;
   right: -1px;
@@ -242,7 +242,7 @@ ul.cild_menu li:first-child {
   background-repeat: no-repeat;
 }
 
-.menu.lb_nav ul li:hover a span.dot:after{
+.menu.zl2-nav ul li:hover a span.dot:after{
   content: '';
   position: absolute;
   right: 0px;
@@ -309,7 +309,7 @@ body[data-page="slots"] .rsContent{
   background: #202126;
   border-bottom: 1px solid #2e3037;
 
-  .h_logo {
+  .logo {
     width: 225px;
     min-width: 150px;
     position: relative;
@@ -431,13 +431,13 @@ body[data-page="slots"] .rsContent{
 
 
   // login authed panel
-  .lb_user_panel {
+  .zl2-user_panel {
     display: flex;
     align-items: center;
     flex-direction: row;
     justify-content: flex-end;
 
-    .lb_ubox {
+    .zl2-ubox {
       position: relative;
       margin-right: 10px;
 
@@ -640,14 +640,14 @@ body[data-page="slots"] .rsContent{
       }
     }
 
-    .lb_up {
+    .zl2-up {
       display: flex;
       flex: 1;
       max-width: 600px;
       padding: 0 40px;
       justify-content: space-evenly;
 
-      .lb_ubox {
+      .zl2-ubox {
         color: #fff;
         align-self: center;
         //margin-right: 0;
@@ -773,22 +773,22 @@ body[data-page="slots"] .rsContent{
 
   // login form panel
   .auth_form_panel,
-  .lb_user_panel {
+  .zl2-user_panel {
     display: flex;
     align-items: center;
     flex-direction: row;
     justify-content: flex-end;
     //margin-right: -56px;
 
-    .lb_auth,
-    .lb_ubox {
+    .zl2-auth,
+    .zl2-ubox {
       position: relative;
       margin-right: 10px;
 
       &:last-child {margin: 0;}
 
       .go_register,
-      .lb_login_btn {
+      .zl2-login_btn {
         color: #fff;
         font-family: 'lbet-mt', sans-serif;
         //font-size: 1rem;
@@ -808,7 +808,7 @@ body[data-page="slots"] .rsContent{
           cursor: pointer;
         }
       }
-      .lb_login_btn {
+      .zl2-login_btn {
         background: #309a7d;
         padding: .5rem 1.5rem;
         border: none;
@@ -819,7 +819,7 @@ body[data-page="slots"] .rsContent{
         }
       }
 
-      .lb_input {
+      .zl2-input {
         border: none;
         border-radius: 3px;
         //padding: 10px 85px 10px 38px;
@@ -983,11 +983,11 @@ body[data-page="slots"] .rsContent{
     }
   }
   .header {
-    .h_logo {
+    .logo {
       img {min-width: 150px}
     }
-    .lb_user_panel {
-      .lb_up {padding: 0 20px}
+    .zl2-user_panel {
+      .zl2-up {padding: 0 20px}
     }
     .h_prom {
       padding-left: 2.5rem;
@@ -1008,15 +1008,15 @@ body[data-page="slots"] .rsContent{
 
   .header {
     .auth_form_panel {
-      .lb_auth {
+      .zl2-auth {
         .lang {
           margin-left: 0;
         }
       }
     }
 
-    .lb_user_panel {
-      .lb_ubox {
+    .zl2-user_panel {
+      .zl2-ubox {
         .lang {
           margin-left: 0;
         }
@@ -1024,8 +1024,8 @@ body[data-page="slots"] .rsContent{
     }
 
     .auth_form_panel {
-      .lb_auth {
-        .lb_input {
+      .zl2-auth {
+        .zl2-input {
           margin-left: 0;
           max-width: 200px;
         }
@@ -1040,7 +1040,7 @@ body[data-page="slots"] .rsContent{
 
   footer {
 
-    .fc {
+    .footer-content {
       margin: 0 20px;
       width: calc(100% - 40px);
     }
@@ -1079,9 +1079,12 @@ body[data-page="slots"] .rsContent{
     nav {
       padding: 0 20px;
     }
-    .fc {
+    .footer-content {
       margin: 0 20px;
       width: calc(100% - 40px);
+    }
+    .footer_age {
+      padding: 0 20px;
     }
   }
 
@@ -1129,7 +1132,7 @@ body[data-page="slots"] .rsContent{
 
   .header {
     .auth_form_panel,
-    .lb_user_panel {
+    .zl2-user_panel {
       margin: 0;
     }
   }
