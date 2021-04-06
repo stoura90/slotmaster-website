@@ -1,0 +1,521 @@
+.promo-card {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  background-color: $card-bg;
+  border-radius: 6px;
+
+  .promo-card-cover {
+    width: 100%;
+    height: 200px;
+  }
+
+  .promo-card-body {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 12px 12px;
+    @media(min-width: $md) {
+      padding: 23px 20px 16px;
+    }
+
+    .promo-card-title {
+      font-family: $proximaSemi;
+      font-weight: 600;
+      font-size: 18px;
+      text-align: left;
+      color: $text-light;
+      @media(min-width: $md) {
+        font-size: 20px;
+      }
+    }
+
+    .promo-card-paragraph {
+      display: block;
+      overflow-wrap: break-word;
+      padding: 0;
+      margin: 15px 0 20px;
+      width: 100%;
+      height: 64px;
+      font-family: $proximaSemi;
+      font-weight: 600;
+      font-size: 14px;
+      text-align: left;
+      color: $text-dark;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      line-height: 1.2;
+      @media(min-width: $md) {
+        margin: 19px 0 16px;
+        font-size: 16px;
+      }
+    }
+
+    .btn-dy {
+      display: block;
+      padding: 19px 19px 16px;
+      text-align: center;
+      text-transform: capitalize;
+      background-color: #262f44;
+      border-radius: 6px;
+      font-family: $proximaSemi;
+      font-weight: 600;
+      font-size: 14px;
+      color: $text-dark;
+      transition: all 0.15s linear;
+      line-height: 1;
+      @media(min-width: $md) {
+        font-size: 16px;
+        background-color: $btn-dark;
+      }
+      &:hover {
+        background-color: $btn-yellow;
+        color: #191f31;
+      }
+    }
+  }
+}
+
+.slot-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 6px;
+  max-width: 124px;
+  width: 100%;
+  height: 163px;
+  transition: all 0.15s linear;
+  @media(min-width: $md) {
+    max-width: 175px;
+    height: 230px;
+  }
+
+  .slot-card-hover {
+    width: 100%;
+    height: 100%;
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      content: "";
+      background-color: rgba(#131b26, 0.9);
+      animation: fadeIn 0.15s linear;
+    }
+  }
+
+  .slot-card-cover {
+    width: 100%;
+    height: 100%;
+  }
+
+  .play-btn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    width: 70px;
+    height: 70px;
+    z-index: 2;
+    animation: fadeIn 0.2s linear;
+  }
+
+  &:hover {
+    .play-btn {
+      display: block;
+    }
+    .slot-card-hover {
+      &::after {
+        display: block;
+      }
+    }
+  }
+}
+
+// sport cards
+.sport-card {
+  overflow: hidden;
+  border-radius: 6px;
+  background: $theme-search;
+  margin: 0;
+  padding: 24px 28px 16px;
+  width: 260px;
+
+  @media(min-width: $md) {
+    padding: 32px 16px 15px;
+    width: 100%;
+    height: 260px;
+  }
+
+  .team {
+    img {
+      max-width: 70px;
+      max-height: 70px;
+      object-fit: contain;
+    }
+    .team-name {
+      max-width: 100px;
+      margin: 16px 0 0;
+      font-family: $proximaSemi;
+      font-weight: 600;
+      font-size: 14px;
+      text-align: center;
+      color: #c6d1ed;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      line-height: 1;
+      text-transform: capitalize;
+    }
+  }
+
+  .match-date {
+    margin: 18px 0;
+    font-family: $proxima;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    color: #7385b1;
+  }
+
+  .match-bets {
+    div {
+      display: block;
+      cursor: pointer;
+      width: 60px;
+      padding: 14px 5px 12px;
+      border-radius: 6px;
+      background: #21273e;
+      font-family: $proximaSemi;
+      font-weight: 600;
+      font-size: 14px;
+      text-align: center;
+      color: #93a4cd;
+      line-height: 1;
+      transition: all 0.15s linear;
+      &:hover {
+        color: $text-light;
+      }
+      @media(min-width: $md) {
+        width: 70px;
+      }
+    }
+  }
+
+  &.live {
+    background-image: url("../../../assets/img/match-live-bg.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    .match-live-details {
+      padding: 0 47px;
+      margin: 23px 0 19px;
+
+      .score {
+        font-family: $proxima;
+        font-weight: 700;
+        font-size: 20px;
+        text-align: center;
+        color: #bdc8e3;
+        line-height: 1;
+      }
+
+      .match-time {
+        position: relative;
+        font-family: $proxima;
+        font-weight: 700;
+        font-size: 20px;
+        text-align: center;
+        color: #68e088;
+        line-height: 1;
+        &::after {
+          position: absolute;
+          right: -8px;
+          top: 3px;
+          display: block;
+          content: "";
+          width: 5px;
+          height: 5px;
+          background: #68e088;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}
+
+// deposit & withdraw cards
+.billing-card {
+  padding: 24px 16px 16px;
+  height: 216px;
+  border-radius: 6px;
+  background: transparent;
+  border: 2px solid #1c243a;
+  overflow: hidden;
+  margin-bottom: 16px;
+  @media(min-width: $md) {
+    height: 289px;
+    margin-bottom: 20px;
+  }
+
+  .billing-name {
+    display: flex;
+    align-items: center;
+    max-width: 140px;
+    width: fit-content;
+    max-height: 43px;
+    height: 100%;
+    img {
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .billing-info {
+    @media(min-width: $md) {
+      padding-left: 12px;
+      & > * {
+        &:not(:last-child) {
+          margin-bottom: 23px;
+        }
+      }
+    }
+    .currency {
+      font-weight: 600;
+      font-size: 17px;
+      text-align: left;
+      color: $text-dark;
+      opacity: 0.2;
+      line-height: 1;
+      letter-spacing: 1;
+      margin-right: 12px;
+      @media(min-width: $md) {
+        margin-right: 12px;
+      }
+    }
+
+    .amount-limit {
+      font-family: $proximaSemi;
+      font-weight: 600;
+      font-size: 16px;
+      text-align: left;
+      color: #c6d1ed;
+      line-height: 1;
+    }
+
+    .percent {
+      margin-right: 12px;
+    }
+
+    .percent-com {
+      font-family: $proximaSemi;
+      font-weight: 600;
+      font-size: 16px;
+      text-align: left;
+      color: #c6d1ed;
+      line-height: 1;
+      letter-spacing: 1;
+    }
+
+    .reflection {
+      margin-right: 12px;
+    }
+
+    .reflection-duration {
+      font-family: $proximaSemi;
+      font-weight: 600;
+      font-size: 16px;
+      text-align: left;
+      color: #c6d1ed;
+    }
+  }
+
+  .btn-dep,
+  .btn-dark {
+    width: 100%;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .btn-dep {
+    font-size: 18px;
+    border-radius: 6px;
+    background-color: #00984a;
+    @media(min-width: $md) {
+      font-size: 16px;
+      background-color: #0ab45c;
+      border-radius: 4px;
+    }
+  }
+}
+
+// upload card
+.upload-card {
+  padding: 20px;
+  width: 100%;
+  height: 285px;
+  border-radius: 6px;
+  background: transparent;
+  border: 2px solid #1c243a;
+
+  .step {
+    font-weight: 600;
+    font-size: 18px;
+    text-align: left;
+    color: #c6d1ed;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .paragraph {
+    display: block;
+    margin: 0;
+    height: 51px;
+    font-family: $proximaSemi;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+    color: $text-dark;
+    margin-bottom: 0;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .custom-file-upload {
+    margin-top: 28px;
+    width: 100%;
+    height: 134px;
+    border-radius: 6px;
+    background-image: url("../../../assets/img/icons/border-dashed.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    overflow: hidden;
+    cursor: pointer;
+    & > div {
+      margin-top: 15px;
+      font-weight: 600;
+      font-size: 18px;
+      text-align: left;
+      color: #c6d1ed;
+    }
+  }
+
+  .btn-dark {
+    font-size: 16px;
+  }
+
+  .upload-successfully {
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    color: $success;
+    line-height: 1;
+    padding: 50px 0 46px;
+  }
+
+  .upload-wrong {
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    color: $error;
+    line-height: 1;
+    padding: 50px 0 46px;
+  }
+}
+
+// contact card
+.contact-item {
+  padding: 20px;
+  border-radius: 6px;
+  background: transparent;
+  border: 2px solid #1c243a;
+  margin-top: 16px;
+
+  @media(min-width: $md) {
+    padding: 25px;
+    margin-top: 20px;
+  }
+
+  img {
+    margin-right: 16px;
+    @media(min-width: $md) {
+      margin-right: 25px;
+    }
+  }
+
+  .contact-type-title {
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+    color: $text-dark;
+    line-height: 1;
+    margin-bottom: 2px;
+    @media(min-width: $md) {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .contact-type {
+    font-weight: 600;
+    font-size: 16px;
+    text-align: left;
+    color: #c6d1ed;
+    line-height: 1;
+
+    &.underline {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+
+// transaction small card
+.small-card {
+  width: 100%;
+  height: 80px;
+  padding: 20px;
+  border-radius: 6px;
+  background: transparent;
+  border: 2px solid #1c243a;
+  margin-bottom: 12px;
+  &.wrong {
+    border-color: $error;
+  }
+  .money {
+    font-family: $proximaSemi;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: right;
+    color: #c6d1ed;
+  }
+  .tr-time {
+    font-family: $proximaSemi;
+    font-weight: 600;
+    font-size: 12px;
+    text-align: right;
+    color: #4d5a7d;
+    line-height: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

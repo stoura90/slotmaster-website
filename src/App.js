@@ -9,15 +9,17 @@ const  App=()=> {
   return (
       <Suspense  fallback={"loading ..."}>
           <Provider store={Store}>
-            <Header/>
+           {/* <Header/>*/}
                 <MainNavigator/>
+{/*
             <Footer/>
-            <Modal
+*/}
+            {/*<Modal
                 styles={{width: '500px'}}
                 onClickBackDrop={()=>console.log("close modal")}
             >
                 <Guest/>
-            </Modal>
+            </Modal>*/}
           </Provider>
       </Suspense>
   )

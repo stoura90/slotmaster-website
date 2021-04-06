@@ -1,0 +1,219 @@
+.casino-list {
+    .slot-card {
+        margin-bottom: 12px;
+        width: 100%;
+        height: 145px;
+        @media(min-width: $md) {
+            max-width: 175px;
+            height: 230px;
+        }
+    }
+}
+
+// show more 
+.show-more {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+    @media(min-width: $md) {
+        margin-top: 43px;
+    }
+    .show-info {
+        font-family: $proximaSemi;
+        font-weight: 600;
+        font-size: 16px;
+        text-align: left;
+        color: #4d5a7d;
+        margin-bottom: 17px;
+    }
+}
+
+// main filter
+.main-filter {
+    margin-top: 16px;
+    @media(min-width: $lg) {
+        margin-top: 40px;
+    }
+
+    .search {
+        width: 100%;
+        @media(min-width: $md) {
+            max-width: 736px;
+            margin-right: 12px;
+            margin-bottom: 0;
+        }
+        & input {
+            height: 46px;
+            @media(min-width: $md) {
+                height: 50px;
+            }
+        }
+    }
+
+    .select-label {
+        max-width: 100%;
+        width: 100%;
+        @media(min-width: $md) {
+            max-width: 175px;
+        }
+        &:not(:last-child) {
+            margin-bottom: 12px;
+            @media(min-width: $md) {
+                margin-bottom: 0;
+                margin-right: 12px;
+            }
+        }
+    }
+
+    &.slot {
+        .search {
+            max-width: 923px;
+        }
+    }
+}
+
+// promo
+.promo-list {
+    .row {
+        & [class*="col-"] {
+            margin-bottom: 16px;
+        }
+    }
+}
+
+// page
+.page {
+    margin-top: 20px;
+    @media(min-width: $md) {
+        margin-top: 40px;
+    }
+
+    .page-wrapper {
+        margin-top: 44px;
+    }
+
+    .page-headline {
+        font-weight: 600;
+        font-size: 22px;
+        text-align: left;
+        color: $text-light;
+        line-height: 1;
+        margin-bottom: 19px;
+        @media(min-width: $md) {
+            font-weight: 600;
+            font-size: 24px;
+        }
+    }
+
+    .contact {
+        .page-headline {
+            margin-bottom: 10px;
+            @media(min-width: $md) {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .page-body {
+        p {
+            font-size: 16px;
+            @media(min-width: $md) {
+                font-size: 14px;
+            }
+        }
+        & > * {
+            text-align: left;
+            color: $text-dark;
+            font-weight: 500;
+        }   
+    }
+}
+
+// pages link button
+.page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    height: 46px;
+    border-radius: 6px;
+    background: $card-bg;
+    font-family: $proximaSemi;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    color: #c6d1ed;
+    border: none;
+    &:hover {
+        font-family: $proximaBold;
+        background-color: $btn-yellow;
+        color: #191f31;
+        @media(min-width: $md) {
+            font-family: $proximaSemi;
+            background-color: #232e46;
+            color: $text-light;
+        }
+    } 
+    &:focus {
+        font-family: $proximaBold;
+        background-color: $btn-yellow;
+        color: #191f31;
+        outline: none;
+        box-shadow: none;
+        @media(min-width: $md) {
+            font-family: $proximaSemi;
+            background-color: #232e46;
+            color: $text-light;
+        }
+    }
+    &.active {
+        font-family: $proximaBold;
+        background-color: $btn-yellow;
+        color: #191f31;
+        @media(min-width: $md) {
+            font-family: $proximaSemi;
+            background-color: #232e46;
+            color: $text-light;
+        }
+    }
+
+    @media(min-width: $md) {
+        height: 50px;
+        padding: 0 5px;
+        margin-bottom: 12px;
+        font-size: 16px;
+        color: $text-dark;
+        font-weight: 600;
+    }
+}
+
+// page head
+.page-head {
+    position: relative;
+    width: 100%;
+    height: 72px;
+    padding: 15px;
+    background-color: $navbar-bg;
+
+    .text {
+        margin: 0 auto;
+        font-family: $proximaSemi;
+        font-weight: 600;
+        font-size: 20px;
+        text-align: center;
+        color: $white;
+    }
+
+    .back {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        background-color: #20293e;
+    }
+}

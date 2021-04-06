@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19" height="12" viewBox="0 0 19 12">
+  <g id="Interface-Essential_View_view-1" data-name="Interface-Essential / View / view-1" transform="translate(-227.005 -3573.599)">
+    <g id="Group_395" transform="translate(227.005 3573.599)">
+      <g id="view-1">
+        <path id="Shape_1087" d="M236.5,3573.6c3.485-.049,6.959,2.44,9.054,4.8a1.827,1.827,0,0,1,0,2.392c-2.073,2.335-5.5,4.808-8.939,4.808h-.244c-3.431,0-6.856-2.473-8.926-4.808a1.826,1.826,0,0,1,0-2.392C229.545,3576.041,233.02,3573.552,236.5,3573.6Zm0,2.27a3.731,3.731,0,1,0,3.643,3.73A3.687,3.687,0,0,0,236.5,3575.87Z" transform="translate(-227.005 -3573.6)" fill="#8f9ec8" fill-rule="evenodd"/>
+        <path id="Oval_96" d="M238.613,3582.226a1.613,1.613,0,1,0-1.613-1.613A1.615,1.615,0,0,0,238.613,3582.226Z" transform="translate(-229.113 -3574.613)" fill="#8f9ec8"/>
+      </g>
+    </g>
+  </g>
+</svg>

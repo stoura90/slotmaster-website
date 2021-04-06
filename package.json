@@ -32,12 +32,14 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "sass": "^1.32.7",
+    "swiper": "^6.5.3",
     "uuid": "^8.3.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && node deploy/deploy.js",
+    "build": "react-scripts build ",
+    "deploy": "react-scripts build && node deploy/deploy.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

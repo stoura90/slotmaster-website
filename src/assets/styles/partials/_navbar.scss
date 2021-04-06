@@ -1,0 +1,197 @@
+@import "../variables";
+.navbar {
+    width: 100%;
+    padding: 0;
+    height: fit-content;
+
+    .navbar-head {
+        width: 100%;
+        background-color: $navbar-bg;
+        padding: 20px 0;
+        @media(min-width: $lg) {
+            padding: 20px 0 14px;
+        }
+
+        .navbar-brand {
+            display: block;
+            width: 80px;
+            height: 66px;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .authorization-interface {
+            .navbar-balance {
+                & > * {
+                    line-height: 1;
+                    letter-spacing: 1;
+                }
+                .currency {
+                    font-family: $proxima;
+                    font-weight: 600;
+                    font-size: 16px;
+                    text-align: right;
+                    color: #939db9;
+                }
+                .current-balance {
+                    font-family: $proxima;
+                    font-weight: 600;
+                    font-size: 20px;
+                    text-align: right;
+                    color: $text-light;
+                }
+                margin-right: 12px;
+            }
+
+            .account-link {
+                display: flex;
+                width: 40px;
+                height: 40px;
+                border-radius: 6px;
+                background-color: #20293e;
+                padding: 12px;
+                margin-left: 8px;
+                transition: all .15s linear;
+                &:hover {
+                    background-color: #2f3b55;
+                }
+
+                @media(min-width: $md) {
+                    width: 50px;
+                    height: 50px;
+                    background-color: #2b354b;
+                    padding: 14px;
+                    margin-right: 12px;
+                    margin-left: 0;
+                }
+            }
+
+            .deposit-link {
+                display: flex;
+                align-items: center;
+                text-transform: capitalize;
+                padding: 0 20px;
+                font-family: $proximaBold;
+                font-weight: 700;
+                font-size: 14px;
+                text-align: left;
+                color: $white;
+                height: 40px;
+                border-radius: 6px;
+                background-color: #0ab45c;
+                transition: all .15s linear;
+                &:hover {
+                    background-color: #0ab45c;
+                }
+                @media(min-width: $md) {
+                    height: 50px;
+                    padding: 0 26px;
+                    background-color: #00984a;
+                    color: $text-light;
+                    font-weight: 600;
+                    font-size: 18px;
+                }
+            }
+
+            .btn-primary {
+                margin-left: 20px;
+                @media(min-width: $lg){
+                    margin-left: 32px;
+                }
+            }
+        }
+    }
+
+    .navbar-collapse {
+        width: 100%;
+        background-color: rgba($navbar-bg, 0.6);
+        
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            overflow-x: scroll;
+            height: fit-content;
+            margin: 0 -12px;
+            padding: 0 12px;
+            &::-webkit-scrollbar {
+                display: none;
+                scrollbar-width: none;
+            }
+            @media(min-width: $md) {
+                margin: unset;
+                padding: unset;
+                overflow-x: unset;
+            }
+
+            .nav-item {
+                &:not(:last-child) {
+                    margin-right: 30px;
+                    @media(min-width: $md) {
+                        margin-right: 40px;
+                    }
+                }
+                &:last-child {
+                    padding-right: 12px;
+                    @media(min-width: $md) {
+                        padding-right: 0;
+                    }
+                }
+
+                .nav-link {
+                    position: relative;
+                    height: 100%;
+                    padding: 20px 0;
+                    font-family: $proxima;
+                    font-weight: 600;
+                    font-size: 16px;
+                    text-align: center;
+                    color: #abb3ca;
+                    line-height: initial;
+                    text-transform: capitalize;
+                    letter-spacing: 0.3px;
+                    @media(min-width: $md) {
+                        font-size: 18px;
+                        color: #abb3ca;
+                        padding: 23px 0;
+                    }
+                    &.home {
+                        fill: #ABB3CA;
+                        margin-left: 11px;
+                    }
+                    &.active {
+                        color: $white;
+                        @media(min-width: $md) {
+                            color: $text-light;
+                        }
+                        &::after {
+                            position: absolute;
+                            bottom: 0;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            display: block;
+                            content: '';
+                            width: 100%;
+                            height: 2px;
+                            border-radius: 2px 2px 0px 0px;
+                            background: $btn-yellow;
+                            @media(min-width: $md) {
+                                height: 4px;
+                                border-radius: 4px 4px 0px 0px;
+                            } 
+                        }
+                        &.home {
+                            fill: $text-light;
+                            &::after {
+                                width: 46px;
+                            }
+                        }
+                    }
+                    &:hover {
+                        color: $text-light;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -4,11 +4,17 @@ import MainNavigator from './navigator/MainNavigator';
 import  Guest from './guest/guest';
 import Modal from "./modal/modal";
 import Button from './button/button'
+import Carousel from "./swiper/swiper";
+import FooterCarousel from "./swiper/bottomSwiper";
+import HeaderCarousel from "./swiper/headerSwiper";
 export {
     Header,
     Footer,
     MainNavigator,
     Guest,
     Modal,
-    Button
+    Button,
+    Carousel,
+    FooterCarousel,
+    HeaderCarousel
 }

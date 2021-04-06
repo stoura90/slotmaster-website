@@ -1,0 +1,279 @@
+button, .btn-primary {
+    border: none;
+    &:focus {
+        outline: none;
+        box-shadow: none;
+        border: none;
+    }
+    &:active {
+        outline: none;
+        box-shadow: none;
+        border: none;
+    }
+}
+
+.btn-text {
+    display: block;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: left;
+    color: $white;
+    border: none;
+    @media(min-width: $lg) {
+        font-size: 18px;
+        color: #abb3ca;
+    }
+    &:hover {
+        color: $text-light;
+    }
+    &:focus {
+        color: $text-light;
+    }
+}
+
+.btn-primary {
+    background-color: $btn-yellow;
+    border-radius: 6px;
+    padding: 12px 19px;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    color: #191f31;
+    line-height: 1;
+    transition: all .15s linear;
+    @media(min-width: $lg) {
+        font-size: 18px;
+        padding: 16px 32px;
+    }
+    &:hover {
+        background-color: #ffcb39;
+        color: #191f31;
+    }
+    &:focus {
+        background-color: #ffcb39;
+        color: #191f31;
+    }
+    &:active {
+        background-color: #ffcb39;
+        color: #191f31;
+    }
+}
+
+.show-more-btn {
+    border-radius: 6px;
+    background: $theme-search;
+    padding: 16px 32px;
+    width: fit-content;
+    font-family: $proximaSemi;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+    color: #b1c0e8;
+    text-transform: capitalize;
+    cursor: pointer;
+    line-height: 1;
+    transition: all .15s linear;
+    @media(min-width: $md) {
+        padding: 18px 30px 16px;
+        font-size: 16px;
+        color: $text-dark;
+    }
+    &:hover {
+        color: $text-light;
+        background: #232e46;
+    }
+    &:focus {
+        color: $text-light;
+        background: #232e46;
+    }
+}
+
+.btn-for-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: #1c2436;
+    border: none;
+    transition: all .15s linear;
+    &:hover {
+        background-color: #252f45;
+    }
+    @media(min-width: $md) {
+        background-color: $btn-dark;
+        border-radius: 6px;
+    }
+}
+
+.btn-dep {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 58px;
+    height: 50px;
+    border-radius: 4px;
+    background-color: #0ab45c;   
+    font-family: $proxima;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    color: $white;  
+    white-space: nowrap;
+    transition: all .15s linear;
+    &:hover {
+        background: #0ab45c;
+        color: $text-light;  
+    } 
+    &:focus {
+        background: #0ab45c;
+        color: $text-light;  
+        box-shadow: none;
+        border: none;
+    }
+
+    @media(min-width: $md) {
+        font-size: 18px;
+        border-radius: 6px;
+        color: $text-light;  
+        background-color: #00984a;
+    }
+}
+
+.btn-dark {
+    display: flex;
+    align-items: center;
+    padding: 0 58px;
+    height: 50px;
+    border-radius: 6px;
+    background: #232b42;        
+    font-family: $proximaSemi;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    color: $text-light;  
+    white-space: nowrap;
+    transition: all .15s linear;
+    &:hover {
+        background: #2a3651;
+        color: $text-light;  
+    } 
+    &:focus {
+        background: #2a3651;
+        color: $text-light; 
+        box-shadow: none;
+        outline: none; 
+    } 
+}
+
+.btn-change-password {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    background: #232e46;
+    font-family: $proximaSemi;
+    font-weight: 600;
+    font-size: 16px;
+    color: #99a8d4;
+}
+
+.btn-confirm {
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: 50px;
+    padding: 0 37px;
+    border-radius: 4px;
+    background: #232e46;
+    font-family: $proximaSemi;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+    color: #c6d1ed;
+    transition: all .15s linear;
+    &:hover {
+        background-color: #2a3651;
+    }
+    &:focus {
+        background-color: #2a3651;
+    }
+    @media(min-width: $md) {
+        color: #99a8d4;
+        padding: 0 28px;
+    }
+}
+
+.btn-clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 58px;
+    height: 50px;
+    border-radius: 4px;
+    background: #1f283f;        
+    font-family: $proximaSemi;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    color: #c6d1ed;  
+    white-space: nowrap;
+    transition: all .15s linear;
+    margin-top: 12px;
+    margin-bottom: 16px;
+    &:hover {
+        background: #2a3651;
+        color: $text-light;  
+    } 
+    &:focus {
+        background: #2a3651;
+        color: $text-light; 
+        box-shadow: none;
+        outline: none; 
+    } 
+}
+
+.btn-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 345px;
+    width: 100%;
+    height: 50px;
+    border-radius: 4px;
+    background: #232e46;
+    font-family: $proximaSemi;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    color: #c6d1ed;
+
+}
+
+.filter-button {
+    padding: 16px;
+    width: 46px;
+    height: 46px;
+    border-radius: 6px;
+    background: $theme-search;
+    margin-left: 8px;
+}
+
+.btn-okay {
+    background-color: transparent;
+    font-family: $proximaSemi;
+    font-weight: 600;
+    text-decoration: underline;
+    font-size: 16px;
+    text-align: center;
+    color: $text-dark;
+    padding-bottom: 22px;
+}

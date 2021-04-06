@@ -1,0 +1,476 @@
+.modal {
+    background-color: $theme-bg;
+    @media(min-width: $md) {
+        background-color: transparent;
+    }
+
+    .modal-dialog-centered {
+        display: block;
+        margin: 0;
+        max-width: 100%;
+        @media(min-width: $md) {
+            display: flex;
+            margin: 0.5rem auto;
+            &.auth-modal {
+                max-width: 362px;
+            }
+            &.sign-up {
+                max-width: 736px;
+            }
+        }
+        .modal-content {
+            border: none;
+            border-radius: 0;
+            background-color: transparent;
+            padding: 0;
+            min-height: 100vh;
+            height: 100%;
+            @media(min-width: $md) {
+                min-height: auto;
+                height: auto;
+                border-radius: 6px;
+                background-color: $main1;
+                padding: 39px 36px 32px;
+            }
+
+            .modal-sub-title {
+                font-family: $proximaSemi;
+                font-weight: 500;
+                font-size: 18px;
+                text-align: left;
+                color: $white;
+                margin-bottom: 27px;
+            }
+
+            .modal-head {
+                position: relative;
+                display: flex;
+                align-items: center;
+                flex-direction: row-reverse;
+                padding: 16px;
+                background-color: $navbar-bg;
+                margin-bottom: 40px;
+                height: 64px;
+                @media(min-width: $md) {
+                    height: auto;
+                }
+                &.space {
+                    margin-bottom: 28px;
+                    @media(min-width: $md) {
+                        margin-bottom: 0;
+                    }
+                }
+                @media(min-width: $md) {
+                    position: static;
+                    margin-bottom: 0;
+                    background-color: transparent;
+                    padding: 0;
+                    display: block;
+                }
+                .close {
+                    position: relative;
+                    top: unset;
+                    right: unset;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 20px;
+                    background: #20293e;
+                    @media(min-width: $md) {
+                        position: absolute;
+                        top: 20px;
+                        right: 20px;
+                        width: unset;
+                        height: unset;
+                        border-radius: 0;
+                        border: none;
+                        background-color: transparent;
+                        cursor: pointer;
+                        z-index: 99;
+                        transition: all .15s linear;
+                        &:hover {
+                            opacity: 0.6;
+                        }
+                    }
+                }
+
+                .modal-title {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    @media(min-width: $md) {
+                        position: static;
+                        top: unset;
+                        left: unset;
+                        transform: unset;
+                    }
+                }
+            }
+
+            .btn-primary {
+                padding: 17px 0;
+                font-size: 16px;
+                @media(min-width: $md) {
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
+
+.auth-modal {
+    position: relative;
+    width: 100%;
+    &.sign-up {
+        .signUp-form {
+            padding: 0 15px;
+            @media(min-width: $md) {
+                margin: 31px 0 0;
+                padding: 0;
+            }
+            .row {
+                & [class*="col-"] {
+                    margin-bottom: 16px;
+                    .select-label {
+                        .select2 {
+                            width: 100% !important;
+                        }
+                    }
+
+                    button {
+                        margin-top: 16px;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+    .close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        z-index: 99;
+        transition: all .15s linear;
+        &:hover {
+            opacity: 0.6;
+        }
+    }
+    .modal-content {
+        border-radius: 6px;
+        background: $main1;
+        box-shadow: 0px 0px 0px rgba(21, 27, 41, 0.08);
+        .modal-title {
+            font-family: $proxima;
+            font-weight: 700;
+            font-size: 20px;
+            text-align: left;
+            color: $text-light;
+        }
+
+        .modal-successfully {
+            position: relative;
+            padding: 20px 15px;
+            .text {
+                font-family: $proximaSemi;
+                font-weight: 600;
+                font-size: 24px;
+                text-align: center;
+                color: $success;
+                margin-top: 40px;
+            }
+            .btn-back {
+                position: absolute;
+                bottom: 20px;
+            }
+        }
+
+        .confirm-form {
+            padding: 0 20px;
+            @media(min-width: $md) {
+                padding: 0;
+            }
+        }
+
+        .change-password {
+            input {
+                @media(max-width: $md - 1) {
+                    border-radius: 4px;
+                    background: transparent;
+                    border: 2px solid #1c243a;
+                    & + label {
+                        top: 15px !important;
+                        font-weight: 500;
+                        font-size: 16px;
+                        text-align: left;
+                        color: #4d5a7d;
+                    }
+
+                    &:focus + label {
+                        top: 5px !important;
+                    }
+                }
+            }
+            .input-label.active {
+                label {
+                    top: 5px !important;
+                }
+            }
+
+            .btn-dep {
+                @media(max-width: $md) {
+                    margin-top: 28px;
+                }
+            }
+        }
+
+        .form {
+            padding: 0 15px;
+            @media(min-width: $md) {
+                margin: 31px 0 0;
+                padding: 0;
+            }
+            .input-label {
+                margin-bottom: 12px;
+                @media(min-width: $md) {
+                    margin-bottom: 16px;
+                }
+            }
+
+            button {
+                width: 100%;
+                margin-top: 16px;
+            }
+        }
+    }
+}
+
+// deposit modal
+.deposit-modal {
+    max-width: 549px !important;
+    width: 100%;
+
+    .modal-head {
+        @media(min-width: $md) {
+            height: auto !important;
+        }
+    }
+
+    .modal-content {
+        position: relative;
+        border-radius: 6px;
+        padding: 0 !important;
+        background: $main1;
+        box-shadow: 0px 0px 0px rgba(21, 27, 41, 0.08);
+        @media(min-width: $md) {
+            padding: 44px 39px 32px !important;
+        } 
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: transparent;
+            transition: all .15s linear;
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+
+        .currency {
+            font-weight: 600;
+            font-size: 17px;
+            text-align: left;
+            color: #4d5a7d;
+            margin-right: 10px;
+            line-height: 1;
+        }
+        .amount-limit {
+            font-family: $proximaSemi;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: left;
+            color: #c6d1ed;
+            line-height: 1;
+        }
+
+        .percent-com {
+            font-family: $proximaSemi;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: left;
+            color: #c6d1ed;
+            line-height: 1;
+            margin-left: 10px;
+        }
+
+        .reflection-duration {
+            font-family: $proximaSemi;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: left;
+            color: #c6d1ed;
+            line-height: 1;
+            margin-left: 10px;
+        }
+
+        .billing-info {
+            margin-top: 39px;
+            margin-bottom: 37px;
+            @media(min-width: $md) {
+                & > * {
+                    &:not(:last-child) {
+                        margin-right: 60px;
+                    }
+                }
+            }
+        }
+
+        .input-label {
+            max-width: 100%;
+            .amount-currency {
+                position: absolute;
+                right: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-family: $proximaSemi;
+                font-weight: 600;
+                font-size: 14px;
+                text-align: left;
+                color: #c6d1ed;
+            }
+        }
+
+        .btn-dep {
+            margin-top: 32px;
+        }
+    }
+
+    .deposit-form {
+        padding: 28px 20px 20px;
+        @media(min-width: $md) {
+            padding: 0;
+        }
+    }
+}
+
+// modal divider
+.modal-divider {
+    width: 100%;
+    height: 2px;
+    background-color: #181f2e;
+    border: none;
+    margin: 8px 0 25px;
+    padding: 0;
+    &.half {
+        margin: 20px 0 25px;
+    }
+}
+
+// document modal content
+.document-modal-content {
+    padding: 24px 15px 20px;
+
+    &.mh-100 {
+        min-height: calc(100% - 72px);
+    }
+
+    .space {
+        height: 36px;
+    }
+
+    .step {
+        font-family: $proximaSemi;
+        font-weight: 600;
+        font-size: 18px;
+        text-align: left;
+        color: $white;
+        margin-bottom: 15px;
+    }
+
+    // card
+    .card {
+        position: relative;
+        width: 100%;
+        height: 140px;
+        border-radius: 4px;
+        padding: 20px 16px 23px;
+        border: 2px solid;
+        background: transparent;
+        border-image: url("../../../assets/img/dashed-card.png");
+        border-image-slice: 1;
+        border-image-width: 1;
+        border-image-outset: 1;
+        &.active {
+            border-image: url("../../../assets/img/dashed-active.png");
+            border-image-slice: 1;
+            border-image-width: 1;
+            border-image-outset: 1;
+        }
+        .remove {
+            position: absolute;
+            right: -10px;
+            top: -20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #1c243a;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        label {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .text {
+            font-family: $proximaSemi;
+            font-weight: 500;
+            font-size: 14px;
+            text-align: center;
+            color: $text-dark;
+            line-height: 1.3;
+        }
+        .status {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: $proximaSemi;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            color: $btn-yellow;
+            &.wrong {
+                color: $error;
+            }
+            &.success {
+                color: $success;
+            }
+        }
+    }
+
+    .btn-primary {
+        margin-top: 51px;
+        font-family: $proximaBold;
+        font-weight: 700;
+        font-size: 16px;
+        color: #191f31;
+        border-radius: 4px;
+    }
+}
+
+// transaction form
+.transaction-form {
+    .modal-sub-title.date {
+        margin-bottom: 19px !important;
+    }
+    .datepicker-label {
+        margin-bottom: 24px;
+    }
+}
