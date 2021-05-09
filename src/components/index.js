@@ -7,6 +7,7 @@ import Button from './button/button'
 import Carousel from "./swiper/swiper";
 import FooterCarousel from "./swiper/bottomSwiper";
 import HeaderCarousel from "./swiper/headerSwiper";
+import SlotCard from "./slots/slotsCard";
 export {
     Header,
     Footer,
@@ -16,5 +17,6 @@ export {
     Button,
     Carousel,
     FooterCarousel,
-    HeaderCarousel
+    HeaderCarousel,
+    SlotCard
 }

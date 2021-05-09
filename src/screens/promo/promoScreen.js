@@ -1,11 +1,13 @@
 import React, {useEffect} from 'react';
 import {useNavigation} from "../../core/hooks/useNavigation";
-import { ajax, bayern, betsoft, bitcoin, evolutionGaming,inter, kings,liver,logoM,manCity,manUn,milan, narcos, neteller, netent,pirate,slider1, slotSardCover,sun,tonys, webmoney} from '../../assets/img/images';
+import { ajax, bayern, betsoft, bitcoin, evolutionGaming,inter, kings,liver,logoM,manCity,manUn,milan, narcos, neteller, netent,pirate,slider1, slotSardCover,sun,tonys, webmoney,promo1,promo2,promo3,promo4,promo5,promoCardCover} from '../../assets/img/images';
 import {discord, logo, play} from "../../assets/img/icons/icons";
-import {Carousel, FooterCarousel, HeaderCarousel} from "../../components";
+import {Carousel, FooterCarousel, HeaderCarousel, SlotCard} from "../../components";
+import _ from "lodash";
+import PromoCard from "../../components/promo/promoCard";
 
 
-const MainScreen = () =>{
+const PromoScreen = () =>{
     const nav  = useNavigation();
     useEffect(()=>{
         console.log(nav)
@@ -49,7 +51,7 @@ const MainScreen = () =>{
                         <div className="container">
                             <ul className="navbar-nav">
                                 <li className="nav-item d-none d-md-flex">
-                                    <a className="nav-link active home" href="./main">
+                                    <a className="nav-link home" href="./main">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="24"
@@ -89,7 +91,7 @@ const MainScreen = () =>{
                                     <a className="nav-link" href="./slots">Slot</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="./promo">Promo</a>
+                                    <a className="nav-link active" href="./promo">Promo</a>
                                 </li>
                             </ul>
                         </div>
@@ -106,7 +108,7 @@ const MainScreen = () =>{
                         {id:1, icon:slider1 }
                     ]} />
 
-{/*
+                    {/*
                     <div className="swiper-container">
                         <div className="swiper-wrapper d-flex align-items-center">
                             <div className="swiper-slide">
@@ -163,172 +165,44 @@ const MainScreen = () =>{
             </header>
             <main>
                 <div className="container">
-                    <div className="row">
-                        <div className="col-12 col-md-6">
+
+                    <ul className="d-flex align-items-center flex-wrap promo-tabs list-unstyled">
+                        <li className="nav-item" role="presentation">
+                            <a href="#" className="nav-link active"> All </a>
+                        </li>
+                        <li className="nav-item" role="presentation">
+                            <a href="#" className="nav-link"> Casino </a>
+                        </li>
+                        <li className="nav-item" role="presentation">
+                            <a href="#" className="nav-link"> Sports </a>
+                        </li>
+                        <li className="nav-item" role="presentation">
+                            <a href="#" className="nav-link"> Shop </a>
+                        </li>
+                    </ul>
+                    <div className="col-12 d-flex align-items-center section-head">
+                        <a href="#">
+                            <div className="section-heading">all Provider</div>
+                        </a>
+                    </div>
+
+                    <div className="tab-content promo-list" id="myTabContent">
+                        <div>
                             <div className="row">
-                                <div
-                                    className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
-                                    <div className="section-heading">Sport</div>
-                                    <a href="#">View all</a>
-                                </div>
-                                <div className="col-12">
-                                    <div className="row scroll">
-                                        <div className="sport-col col-md-6">
-                                            <div
-                                                className="d-flex flex-column justify-content-between sport-card"
-                                            >
-                                                <div className="d-flex align-items-start">
-                                                    <div
-                                                        className="d-flex flex-column align-items-center w-50 team"
-                                                    >
-                                                        <img src={milan} alt="A.C. Milan"/>
-                                                        <span className="team-name">A.C. Milan</span>
-                                                    </div>
-                                                    <div
-                                                        className="d-flex flex-column align-items-center w-50 team"
-                                                    >
-                                                        <img src={inter} alt="Inter Milan"/>
-                                                        <span className="team-name">Inter Milan</span>
-                                                    </div>
-                                                </div>
-                                                <div className="d-block w-100 text-center match-date">
-                                                    Jan 28, 12:00 AM
-                                                </div>
-                                                <div className="match-bets d-flex justify-content-between">
-                                                    <div>1.23</div>
-                                                    <div>4.09</div>
-                                                    <div>1.21</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="sport-col col-md-6">
-                                            <div
-                                                className="d-flex flex-column justify-content-between sport-card"
-                                            >
-                                                <div className="d-flex align-items-start">
-                                                    <div
-                                                        className="d-flex flex-column align-items-center w-50 team"
-                                                    >
-                                                        <img src={manCity} alt="Manchester City"/>
-                                                        <span className="team-name">Manchester City</span>
-                                                    </div>
-                                                    <div
-                                                        className="d-flex flex-column align-items-center w-50 team"
-                                                    >
-                                                        <img src={liver} alt="Liverpool FC"/>
-                                                        <span className="team-name">Liverpool FC</span>
-                                                    </div>
-                                                </div>
-                                                <div className="d-block w-100 text-center match-date">
-                                                    Jan 29, 12:00 AM
-                                                </div>
-                                                <div className="match-bets d-flex justify-content-between">
-                                                    <div>3.58</div>
-                                                    <div>3.92</div>
-                                                    <div>2.02</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-6">
-                            <div className="row">
-                                <div
-                                    className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
-                                    <div className="section-heading">live</div>
-                                    <a href="#">View all</a>
-                                </div>
-                                <div className="col-12">
-                                    <div className="row scroll">
-                                        <div className="sport-col col-md-6">
-                                            <div
-                                                className="d-flex flex-column justify-content-between sport-card live"
-                                            >
-                                                <div className="d-flex align-items-start">
-                                                    <div
-                                                        className="d-flex flex-column align-items-center w-50 team"
-                                                    >
-                                                        <img src={bayern} alt="FC Bayern Mu"/>
-                                                        <span className="team-name">FC Bayern Munchen</span>
-                                                    </div>
-                                                    <div
-                                                        className="d-flex flex-column align-items-center w-50 team"
-                                                    >
-                                                        <img src={ajax} alt="ajax amsterdam"/>
-                                                        <span className="team-name">ajax amsterdam</span>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className="d-flex justify-content-between match-live-details"
-                                                >
-                                                    <span className="score">1</span>
-                                                    <span className="match-time">54</span>
-                                                    <span className="score">0</span>
-                                                </div>
-                                                <div className="match-bets d-flex justify-content-between">
-                                                    <div>1.03</div>
-                                                    <div>2.03</div>
-                                                    <div>2.23</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="sport-col col-md-6">
-                                            <div
-                                                className="d-flex flex-column justify-content-between sport-card live"
-                                            >
-                                                <div className="d-flex align-items-start">
-                                                    <div
-                                                        className="d-flex flex-column align-items-center w-50 team"
-                                                    >
-                                                        <img src={manCity} alt="Manchester City"/>
-                                                        <span className="team-name">Manchester City</span>
-                                                    </div>
-                                                    <div
-                                                        className="d-flex flex-column align-items-center w-50 team"
-                                                    >
-                                                        <img src={manUn} alt="Manchester United"/>
-                                                        <span className="team-name">Manchester United</span>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className="d-flex justify-content-between match-live-details"
-                                                >
-                                                    <span className="score">2</span>
-                                                    <span className="match-time">90+</span>
-                                                    <span className="score">2</span>
-                                                </div>
-                                                <div className="match-bets d-flex justify-content-between">
-                                                    <div>1.23</div>
-                                                    <div>3.33</div>
-                                                    <div>2.11</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <PromoCard count={20} data={[
+                                    {id:1,icon:promo1},
+                                    {id:1,icon:promo2},
+                                    {id:1,icon:promo3},
+                                    {id:1,icon:promo4},
+                                    {id:1,icon:promo5},
+                                    {id:1,icon:promoCardCover}
+                                ]} />
+
                             </div>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
-                            <div className="section-heading">slots</div>
-                            <a href="#">View all</a>
-                        </div>
-                        <div className="col-12">
-                            <Carousel count={6} data={[{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover}]}/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
-                            <div className="section-heading">casino</div>
-                            <a href="#">View all</a>
-                        </div>
-                        <div className="col-12">
-                            <Carousel count={6} data={[{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover}]}/>
-                        </div>
-                    </div>
+
+
                 </div>
             </main>
             <footer>
@@ -513,4 +387,4 @@ const MainScreen = () =>{
     )
 }
 
-export default MainScreen
+export default PromoScreen
