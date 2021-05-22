@@ -727,7 +727,7 @@
   font-style: normal;
 }
 :root {
-  --swiper-theme-color: #007aff;
+  --swiper-theme-color:#007aff;
 }
 
 .swiper-container {
@@ -858,7 +858,7 @@
 }
 
 :root {
-  --swiper-navigation-size: 44px;
+  --swiper-navigation-size:44px;
 }
 
 .swiper-button-next, .swiper-button-prev {
@@ -910,11 +910,11 @@
 }
 
 .swiper-button-next.swiper-button-white, .swiper-button-prev.swiper-button-white {
-  --swiper-navigation-color: #ffffff;
+  --swiper-navigation-color:#ffffff;
 }
 
 .swiper-button-next.swiper-button-black, .swiper-button-prev.swiper-button-black {
-  --swiper-navigation-color: #000000;
+  --swiper-navigation-color:#000000;
 }
 
 .swiper-button-lock {
@@ -1076,11 +1076,11 @@ button.swiper-pagination-bullet {
 }
 
 .swiper-pagination-white {
-  --swiper-pagination-color: #ffffff;
+  --swiper-pagination-color:#ffffff;
 }
 
 .swiper-pagination-black {
-  --swiper-pagination-color: #000000;
+  --swiper-pagination-color:#000000;
 }
 
 .swiper-pagination-lock {
@@ -1167,11 +1167,11 @@ button.swiper-pagination-bullet {
 }
 
 .swiper-lazy-preloader-white {
-  --swiper-preloader-color: #fff;
+  --swiper-preloader-color:#fff;
 }
 
 .swiper-lazy-preloader-black {
-  --swiper-preloader-color: #000;
+  --swiper-preloader-color:#000;
 }
 
 @keyframes swiper-preloader-spin {
@@ -7445,7 +7445,7 @@ readers do not read off random characters that represent icons */
   --bs-dark: #212529;
   --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --bs-gradient:linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+  --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
 }
 
 *,
@@ -9603,13 +9603,13 @@ progress {
   }
 }
 .table {
-  --bs-table-bg:transparent;
+  --bs-table-bg: transparent;
   --bs-table-striped-color: #212529;
-  --bs-table-striped-bg:rgba(0, 0, 0, 0.05);
+  --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
   --bs-table-active-color: #212529;
-  --bs-table-active-bg:rgba(0, 0, 0, 0.1);
+  --bs-table-active-bg: rgba(0, 0, 0, 0.1);
   --bs-table-hover-color: #212529;
-  --bs-table-hover-bg:rgba(0, 0, 0, 0.075);
+  --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
   width: 100%;
   margin-bottom: 1rem;
   color: #212529;
@@ -9658,17 +9658,17 @@ progress {
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) {
-  --bs-table-accent-bg:var(--bs-table-striped-bg);
+  --bs-table-accent-bg: var(--bs-table-striped-bg);
   color: var(--bs-table-striped-color);
 }
 
 .table-active {
-  --bs-table-accent-bg:var(--bs-table-active-bg);
+  --bs-table-accent-bg: var(--bs-table-active-bg);
   color: var(--bs-table-active-color);
 }
 
 .table-hover > tbody > tr:hover {
-  --bs-table-accent-bg:var(--bs-table-hover-bg);
+  --bs-table-accent-bg: var(--bs-table-hover-bg);
   color: var(--bs-table-hover-color);
 }
 
@@ -11440,7 +11440,7 @@ fieldset:disabled .btn {
 }
 
 .dropdown-menu-start {
-  --bs-position:start;
+  --bs-position: start;
 }
 
 .dropdown-menu-start[data-bs-popper] {
@@ -11449,7 +11449,7 @@ fieldset:disabled .btn {
 }
 
 .dropdown-menu-end {
-  --bs-position:end;
+  --bs-position: end;
 }
 
 .dropdown-menu-end[data-bs-popper] {
@@ -11459,7 +11459,7 @@ fieldset:disabled .btn {
 
 @media (min-width: 576px) {
   .dropdown-menu-sm-start {
-    --bs-position:start;
+    --bs-position: start;
   }
 
   .dropdown-menu-sm-start[data-bs-popper] {
@@ -11468,7 +11468,7 @@ fieldset:disabled .btn {
   }
 
   .dropdown-menu-sm-end {
-    --bs-position:end;
+    --bs-position: end;
   }
 
   .dropdown-menu-sm-end[data-bs-popper] {
@@ -11478,7 +11478,7 @@ fieldset:disabled .btn {
 }
 @media (min-width: 768px) {
   .dropdown-menu-md-start {
-    --bs-position:start;
+    --bs-position: start;
   }
 
   .dropdown-menu-md-start[data-bs-popper] {
@@ -11487,7 +11487,7 @@ fieldset:disabled .btn {
   }
 
   .dropdown-menu-md-end {
-    --bs-position:end;
+    --bs-position: end;
   }
 
   .dropdown-menu-md-end[data-bs-popper] {
@@ -11497,7 +11497,7 @@ fieldset:disabled .btn {
 }
 @media (min-width: 992px) {
   .dropdown-menu-lg-start {
-    --bs-position:start;
+    --bs-position: start;
   }
 
   .dropdown-menu-lg-start[data-bs-popper] {
@@ -11506,7 +11506,7 @@ fieldset:disabled .btn {
   }
 
   .dropdown-menu-lg-end {
-    --bs-position:end;
+    --bs-position: end;
   }
 
   .dropdown-menu-lg-end[data-bs-popper] {
@@ -11516,7 +11516,7 @@ fieldset:disabled .btn {
 }
 @media (min-width: 1200px) {
   .dropdown-menu-xl-start {
-    --bs-position:start;
+    --bs-position: start;
   }
 
   .dropdown-menu-xl-start[data-bs-popper] {
@@ -11525,7 +11525,7 @@ fieldset:disabled .btn {
   }
 
   .dropdown-menu-xl-end {
-    --bs-position:end;
+    --bs-position: end;
   }
 
   .dropdown-menu-xl-end[data-bs-popper] {
@@ -11535,7 +11535,7 @@ fieldset:disabled .btn {
 }
 @media (min-width: 1400px) {
   .dropdown-menu-xxl-start {
-    --bs-position:start;
+    --bs-position: start;
   }
 
   .dropdown-menu-xxl-start[data-bs-popper] {
@@ -11544,7 +11544,7 @@ fieldset:disabled .btn {
   }
 
   .dropdown-menu-xxl-end {
-    --bs-position:end;
+    --bs-position: end;
   }
 
   .dropdown-menu-xxl-end[data-bs-popper] {
@@ -14604,15 +14604,15 @@ fieldset:disabled .btn {
 }
 
 .ratio-4x3 {
-  --bs-aspect-ratio:calc(3 / 4 * 100%);
+  --bs-aspect-ratio: calc(3 / 4 * 100%);
 }
 
 .ratio-16x9 {
-  --bs-aspect-ratio:calc(9 / 16 * 100%);
+  --bs-aspect-ratio: calc(9 / 16 * 100%);
 }
 
 .ratio-21x9 {
-  --bs-aspect-ratio:calc(9 / 21 * 100%);
+  --bs-aspect-ratio: calc(9 / 21 * 100%);
 }
 
 .fixed-top {
@@ -19764,6 +19764,25 @@ fieldset:disabled .btn {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+@font-face {
+  font-family: "Proxima light";
+  src: url("fonts/proximanovalight.otf");
+}
+@font-face {
+  font-family: "Proxima";
+  src: url("fonts/proximanovaregular.otf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Proxima Regular";
+  src: url("fonts/proximanovaregular.otf");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Proxima Bold";
+  src: url("fonts/proximanovabold.otf");
+  font-weight: 600;
+}
 input,
 textarea {
   border: none;
@@ -22967,25 +22986,6 @@ footer .social-list .social-item:hover .discord {
   box-shadow: -5px 0 0 #ffbc00, 5px 0 0 #ffbc00 !important;
 }
 
-@font-face {
-  font-family: "Proxima light";
-  src: url("fonts/proximanovalight.otf");
-}
-@font-face {
-  font-family: "Proxima";
-  src: url("fonts/proximanovaregular.otf");
-  font-weight: 400;
-}
-@font-face {
-  font-family: "Proxima Regular";
-  src: url("fonts/proximanovaregular.otf");
-  font-weight: 500;
-}
-@font-face {
-  font-family: "Proxima Bold";
-  src: url("fonts/proximanovabold.otf");
-  font-weight: 600;
-}
 * {
   padding: 0;
   margin: 0;

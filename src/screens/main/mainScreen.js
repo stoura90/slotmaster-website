@@ -476,6 +476,9 @@ const MainScreen = () =>{
                                 <img src={discord} alt="" className="discord"/>
                             </a>
                         </div>
+                        <div>
+                            <iframe src="https://licensing.gaming-curacao.com/validator/?lh=3a84155f3027a434172149ba09f2bce5&template=seal" style={{'width':'150px','height':'50px','border':'none','marginLeft':'20px'}}/>
+                        </div>
                     </div>
                 </div>
             </footer>

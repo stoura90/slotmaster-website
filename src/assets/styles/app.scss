@@ -7,26 +7,6 @@
 @import './partials/font-awesome';
 @import './partials/bootstrap';
 
-
-// @import './bootstrap/bootstrap.scss';
-// import variables
-@import 'variables';
-
-// import components
-@import './partials/inputs';
-@import './partials/cards';
-@import './partials/navbar';
-@import './partials/buttons';
-@import './partials/carousels';
-@import './partials/section';
-@import './partials/pages';
-@import './partials/tabs';
-@import './partials/modals';
-@import './partials/account';
-@import './partials/footer';
-@import './partials/table';
-@import './partials/calendar';
-
 @font-face {
     font-family: 'Proxima light';
     src: url("fonts/proximanovalight.otf");
@@ -48,6 +28,27 @@
     src: url('fonts/proximanovabold.otf');
     font-weight: 600;
 }
+
+// @import './bootstrap/bootstrap.scss';
+// import variables
+@import 'variables';
+
+// import components
+@import './partials/inputs';
+@import './partials/cards';
+@import './partials/navbar';
+@import './partials/buttons';
+@import './partials/carousels';
+@import './partials/section';
+@import './partials/pages';
+@import './partials/tabs';
+@import './partials/modals';
+@import './partials/account';
+@import './partials/footer';
+@import './partials/table';
+@import './partials/calendar';
+
+
 * {
     padding: 0;
     margin: 0;
