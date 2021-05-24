@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {useNavigation} from "../../core/hooks/useNavigation";
-import { ajax, bayern, betsoft, bitcoin, evolutionGaming,inter, kings,liver,logoM,manCity,manUn,milan, narcos, neteller, netent,pirate,slider1, slotSardCover,sun,tonys, webmoney} from '../../assets/img/images';
+import { ajax, bayern, betsoft, bitcoin, evolutionGaming,inter, kings,liver,logoM,manCity,manUn,milan, narcos, neteller, netent,pirate,slider1,sl2, slotSardCover,sun,tonys, webmoney} from '../../assets/img/images';
 import {discord, logo, play} from "../../assets/img/icons/icons";
-import {Carousel, FooterCarousel, HeaderCarousel} from "../../components";
+import {Carousel, FooterCarousel, HeaderCarousel, Swp} from "../../components";
 
 
 const MainScreen = () =>{
@@ -95,71 +95,29 @@ const MainScreen = () =>{
                         </div>
                     </div>
                 </nav>
-                <div className="header-slider">
+                <div className="container slider">
+                    <Swp count={3}  data={[
+                        {id:1, icon:sl2 },
+                        {id:2, icon:sl2 },
+                        {id:3, icon:sl2 },
+                        {id:4, icon:sl2 },
+                        {id:5, icon:sl2 },
+                        {id:6, icon:sl2 },
+                        {id:7, icon:sl2 }
+                    ]}/>
+                </div>
+
+                {/*<div className="header-slider">
                     <HeaderCarousel count={3}  data={[
                         {id:1, icon:slider1 },
-                        {id:2, icon:slider1 },
-                        {id:3, icon:slider1 },
-                        {id:4, icon:slider1 },
-                        {id:5, icon:slider1 },
-                        {id:6, icon:slider1 },
-                        {id:7, icon:slider1 }
+                        {id:1, icon:slider1 },
+                        {id:1, icon:slider1 },
+                        {id:1, icon:slider1 },
+                        {id:1, icon:slider1 },
+                        {id:1, icon:slider1 },
+                        {id:1, icon:slider1 }
                     ]} />
-
-{/*
-                    <div className="swiper-container">
-                        <div className="swiper-wrapper d-flex align-items-center">
-                            <div className="swiper-slide">
-                                <a href="#">
-                                    <img src={slider1} alt=""/>
-                                </a>
-                            </div>
-                            <div className="swiper-slide">
-                                <a href="#">
-                                    <img src={slider1} alt=""/>
-                                </a>
-                            </div>
-                            <div className="swiper-slide">
-                                <a href="#">
-                                    <img src={slider1} alt=""/>
-                                </a>
-                            </div>
-                            <div className="swiper-slide">
-                                <a href="#">
-                                    <img src={slider1} alt=""/>
-                                </a>
-                            </div>
-                            <div className="swiper-slide">
-                                <a href="#">
-                                    <img src={slider1} alt=""/>
-                                </a>
-                            </div>
-                            <div className="swiper-slide">
-                                <a href="#">
-                                    <img src={slider1} alt=""/>
-                                </a>
-                            </div>
-                            <div className="swiper-slide">
-                                <a href="#">
-                                    <img src={slider1} alt=""/>
-                                </a>
-                            </div>
-                            <div className="swiper-slide">
-                                <a href="#">
-                                    <img src={slider1} alt=""/>
-                                </a>
-                            </div>
-                            <div className="swiper-slide">
-                                <a href="#">
-                                    <img src={slider1} alt=""/>
-                                </a>
-                            </div>
-                        </div>
-                        <div className="swiper-pagination"/>
-                        <div className="swiper-button swiper-button-prev"/>
-                        <div className="swiper-button swiper-button-next"/>
-                    </div>*/}
-                </div>
+                </div>*/}
             </header>
             <main>
                 <div className="container">

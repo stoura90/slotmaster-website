@@ -22497,4 +22497,9 @@ a:hover {
   line-height: inherit;
 }
 
+.slider {
+  height: 419px;
+  margin-top: 30px;
+}
+
 /*# sourceMappingURL=app.css.map */

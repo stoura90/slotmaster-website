@@ -36,6 +36,7 @@ import promo5 from './promo-5.png';
 import promoCardCover from './promo-card-cover.png';
 import skrill from './skrill.png';
 import skrillSmall from './skrill-small.png';
+import sl2 from './sl2.png';
 import slider1 from './slider-1.png';
 import slider2 from './slider-2.svg';
 import slotSardCover from './slot-card-cover.png';
@@ -85,6 +86,7 @@ export  {
     promoCardCover,
     skrill,
     skrillSmall,
+    sl2,
     slider1,
     slider2,
     slotSardCover,
