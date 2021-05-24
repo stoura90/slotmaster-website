@@ -1,0 +1,360 @@
+.promo-tabs {
+  border: none;
+  margin: 16px 0 0;
+  @media(min-width: $md) {
+    margin: 40px 0;
+  } 
+  .nav-item {
+    width: 80px;
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+    @media(min-width: $md) {
+      width: fit-content;
+      &:not(:last-child) {
+        margin-right: 12px;
+      }
+    }
+    &:last-child {
+      .nav-link {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+    background: $card-bg;
+    font-family: $proximaSemi;
+    font-size: 14px;
+    text-align: center;
+    color: #c6d1ed;
+    transition: all 0.15s linear;
+    border: none;
+    @media(min-width: $md) {
+      width: 175px;
+      height: 50px;
+      font-size: 16px;
+      color: $text-dark;
+    }
+    &.active {
+      background-color: $btn-yellow;
+      color: #191f31;
+      font-weight: 700;
+      @media(min-width: $md) {
+        background-color: #232e46;
+        color: $text-light;
+      }
+    }
+    &:hover {
+      background-color: $btn-yellow;
+      color: #191f31;
+      @media(min-width: $md) {
+        background-color: #232e46;
+        color: $text-light;
+      }
+    }
+  }
+}
+
+// account tabs
+.account-tabs {
+  border: none;
+  margin-bottom: 28px;
+  &.finances {
+    display: none;
+    column-count: 3;
+    @media(min-width: $md) {
+      display: block;
+    }
+  }
+  @media(min-width: $md) {
+    margin-bottom: 51px;
+  }
+  .nav-item::marker {
+    display: none;
+  }
+  .nav-item {
+    &:not(:last-child) {
+      margin-bottom: 12px;
+      @media(min-width: $md) {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .nav-link {
+    width: 100%;
+    height: 50px;
+    border-radius: 6px;
+    background: $card-bg;
+    border: none;
+    transition: all 0.15s linear;
+    padding: 0 16px;
+    &.secondery {
+      background: transparent;
+      border: 2px solid #1c243a;
+    }
+    @media(min-width: $md) {
+      height: 60px;
+      padding: 0 20px;
+    } 
+    span {
+      font-family: $proximaSemi;
+      font-size: 16px;
+      text-align: left;
+      color: $text-dark;
+      line-height: 1;
+    }
+    svg {
+      width: 14px;
+      height: 14px;
+      fill: #4d5a7d;
+      transition: all 0.15s linear;
+      @media(min-width: $md) {
+        width: 16px;
+        height: 16px;
+      }
+    }
+    &:hover {
+      background: #20283a;
+      svg {
+        fill: $text-label;
+      }
+    }
+    &.active {
+      background: #20283a;
+    }
+  }
+}
+
+.account-tab-inner {
+  margin: 0 0 0;
+
+  .mb-sub-tabs {
+    margin-bottom: 28px;
+  }
+
+  .form-title {
+    font-family: $proxima;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: left;
+    color: $text-dark;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+
+  .input-label-border,
+  .select-label-border {
+    margin-bottom: 12px;
+    max-width: 100%;
+  }
+}
+
+.tab-headline {
+  font-family: $proxima;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: left;
+  color: $text-light;
+  line-height: 1;
+  margin-bottom: 39px;
+  padding-left: 5px;
+  @media(min-width: $md) {
+    padding-left: 0;
+    margin-bottom: 32px;
+  }
+}
+
+.confirmed {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 16px;
+  font-family: $proximaSemi;
+  font-size: 14px;
+  text-align: left;
+  color: $success;
+}
+
+.back {
+  width: fit-content;
+  margin-bottom: 39px;
+  .tab-headline {
+    white-space: nowrap;
+    margin-bottom: 0;
+    margin-left: 12px;
+  }
+}
+
+.content-row {
+  margin-bottom: 40px;
+}
+
+.upload-status {
+    padding: 47px 0 120px;
+    @media(min-width: $md) {
+      padding: 142px 0 196px;
+    }
+}
+
+.try-again {
+  width: 100%;
+  margin-top: 108px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: $proximaSemi;
+  font-size: 16px;
+  text-align: center;
+  color: #c6d1ed;
+  background-color: #232e46;
+  border-radius: 4px;
+  padding: 13px;
+  transition: all .15s linear;
+  &:hover {
+    color: $text-dark;
+    opacity: 0.7;
+    text-decoration: none;
+  }
+  @media(min-width: $md) {
+    width: fit-content;
+    text-decoration: underline;
+    margin-top: 190px;
+    margin-left: auto;
+    margin-right: auto;
+    color: $text-dark;
+    background-color: transparent;
+    border-radius: 0;
+  }
+}
+
+.failed-upload-text {
+  font-weight: 600;
+  font-size: 22px;
+  text-align: center;
+  color: $error;
+  line-height: 1;
+}
+
+.success-upload-text {
+    font-weight: 600;
+    font-size: 22px;
+    text-align: center;
+    color: $success;
+    line-height: 1;
+}
+
+.waiting-text {
+  font-weight: 600;
+  font-size: 22px;
+  text-align: center;
+  color: $text-label;
+  line-height: 1;
+}
+
+.loading-dots {
+  text-align: center;
+  width: 100%;
+  margin-top: 26px;
+  line-height: 1;
+  @media(min-width: $md) {
+    margin-top: 40px;
+  }
+
+  &--dot {
+    animation: dot-keyframes 1.5s infinite ease-in-out;
+    background-color: #6b7fba;
+    border-radius: 10px;
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    margin-right: 2px;
+
+    &:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 1s;
+    }
+  }
+}
+
+
+// mobile sub tabs
+.mb-sub-tabs {
+  display: flex;
+  align-items: center;
+  width: calc(100% + 24px);
+  margin: 7px -12px 73px;
+  border: none;
+  > li {
+    width: 50%;
+  }
+  .item {
+    font-family: $proximaSemi;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    color: #6e7997;
+    width: 100%;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #6e7997;
+    background-color: transparent;
+    &.active {
+      border-color: $btn-yellow;
+      color: $btn-yellow;
+    }
+  }
+  &.finances {
+    margin-bottom: 28px;
+    >li {
+      width: 30%;
+      &:first-child {
+        width: 24%;
+      }
+      &:last-child {
+        width: 46%;
+      }
+    }
+  }
+}
+
+.documents {
+  margin-bottom: 20px;
+  .btn-primary {
+    width: 100%;
+    padding: 17px;
+    font-size: 16px;
+    font-family: $proximaBold;
+    text-align: center;
+    border-radius: 4px;
+  }
+}
+
+// personal responsive tabs
+.personal-data {
+  .tab-pane {
+    @media(min-width: $md) {
+      display: block;
+    }
+  }
+}
+
+@keyframes dot-keyframes {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}

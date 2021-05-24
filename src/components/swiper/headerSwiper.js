@@ -30,7 +30,8 @@ const  HeaderCarousel = (props) =>{
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log('slide change')}
             loop={true}
-            WrapperClass={"test"}
+            wrapperClass={"test"}
+
         >
             {
                 _.map(data, (v,index)=>{

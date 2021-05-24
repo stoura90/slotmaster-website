@@ -4,8 +4,9 @@ import { ajax, bayern, betsoft, bitcoin, evolutionGaming,inter, kings,liver,logo
 import {discord, logo, play} from "../../assets/img/icons/icons";
 import {Carousel, FooterCarousel, HeaderCarousel, SlotCard} from "../../components";
 import _ from "lodash";
-
-
+import {filter} from "../../assets/img/icons/icons"
+import "../../assets/styles/_select2.scss"
+import {CustomDropdown} from "../../components/dropdown/dropDown";
 const SlotsScreen = () =>{
     const nav  = useNavigation();
     useEffect(()=>{
@@ -177,29 +178,19 @@ const SlotsScreen = () =>{
                                 <span className="btn-search"></span>
                             </div>
                             <div className="select-label d-none d-lg-flex me-0">
-                                <select
-                                    className="select2 select2-checkbox"
-                                    name="provider"
-                                    multiple
-                                    placeholder="Provider"
-                                    id="clear"
-                                >
-                                    <option value=""></option>
-                                    <option value="1">Evolution Gaming</option>
-                                    <option value="2">Playtech</option>
-                                    <option value="3">Pragmatic Play LC</option>
-                                    <option value="4">Ezugi</option>
-                                    <option value="5">Evoplay Entertai...</option>
-                                    <option value="6">Evolution Gaming</option>
-                                    <option value="7">BetGames TV</option>
-                                    <option value="8">Authentic</option>
-                                    <option disabled>clear</option>
-                                </select>
-                                <label htmlFor="clear">Provider</label>
+                                <CustomDropdown label={"Provider"} data={[
+                                    { id:1, name:"Evolution Gaming",checked:false},
+                                    { id:2, name:"Pragmatic Play LC",checked:false},
+                                    { id:3, name:"Pragmatic Play LC",checked:false},
+                                    { id:4, name:"Evoplay Entertai...",checked:false},
+                                    { id:5, name:"BetGames TV",checked:false},
+                                    { id:6, name:"Authentic",checked:false},
+                                    { id:7, name:"Playtech",checked:false},
+                                ]}/>
                             </div>
                             <div className="filter-button d-lg-none" data-bs-toggle="modal"
                                  data-bs-target="#FilterModal">
-                                <img src="img/icons/filter.svg" alt="Filter"/>
+                                <img src={filter} alt="Filter"/>
                             </div>
                         </div>
                         <div className="col-12 d-flex align-items-center section-head">

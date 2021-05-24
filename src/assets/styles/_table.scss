@@ -1,0 +1,49 @@
+.transaction-table {
+    margin-top: 39px;
+
+    .table-head {
+        & [class*="col"] {
+            padding-left: 28px;
+        }
+        padding: 0;
+        margin-bottom: 15px;
+    }
+
+    .table-th {
+        border: none;
+        font-weight: 600;
+        font-size: 16px;
+        text-align: left;
+        color: $text-dark;
+    }
+
+    .table-tbody {
+        border-radius: 6px;
+        background: transparent;
+        border: 2px solid #1c243a;
+        height: 58px;
+        padding: 0;
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+        & [class*="col"] {
+            padding-left: 28px;
+        }
+        .table-td {
+            font-weight: 600;
+            font-size: 16px;
+            text-align: left;
+            color: #c6d1ed;
+            line-height: 1;
+            & img {
+                max-width: 82px;
+            }
+            &.success {
+                color: $success;
+            }
+            &.canceled {
+                color: $error;
+            }
+        }
+    }
+}
