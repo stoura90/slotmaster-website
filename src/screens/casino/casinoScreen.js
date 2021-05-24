@@ -4,6 +4,7 @@ import { ajax, bayern, betsoft, bitcoin, evolutionGaming,inter, kings,liver,logo
 import {discord, logo, play} from "../../assets/img/icons/icons";
 import {Carousel, FooterCarousel, HeaderCarousel, SlotCard} from "../../components";
 import _ from "lodash";
+import {CustomDropdown} from "../../components/dropdown/dropDown";
 
 
 const CasinoScreen = () =>{
@@ -167,6 +168,7 @@ const CasinoScreen = () =>{
 
                     <div className="row">
                         <div className="col-12 d-flex align-items-center flex-row main-filter">
+
                             <div className="search">
                                 <input
                                     type="text"
@@ -176,43 +178,23 @@ const CasinoScreen = () =>{
                                 />
                                 <span className="btn-search"></span>
                             </div>
-                            <div className="select-label d-none d-lg-block">
-                                <select
-                                    className="select2 select2-checkbox"
-                                    name="categories"
-                                    multiple
-                                    placeholder="Category"
-                                    id="clear"
-                                >
-                                    <option value=""></option>
-                                    <option value="1">Live Blackjacks</option>
-                                    <option value="2">Live Roulette</option>
-                                    <option value="3">Live Baccarat</option>
-                                    <option disabled>clear</option>
-                                </select>
-                                <label htmlFor="clear">Categories</label>
+                            <CustomDropdown style={{height:"174px"}}label={"Categories"} data={[
+                                { id:1, name:"Live Blackjacks",checked:false},
+                                { id:2, name:"Live Roulette",checked:false},
+                                { id:3, name:"Live Baccarat",checked:false}
+                            ]}/>
+                            <div style={{marginLeft:'10px'}}>
+
                             </div>
-                            <div className="select-label d-none d-lg-block me-0">
-                                <select
-                                    className="select2 select2-checkbox"
-                                    name="provider"
-                                    multiple
-                                    placeholder="Provider"
-                                    id="clear"
-                                >
-                                    <option value=""></option>
-                                    <option value="1">Evolution Gaming</option>
-                                    <option value="2">Playtech</option>
-                                    <option value="3">Pragmatic Play LC</option>
-                                    <option value="4">Ezugi</option>
-                                    <option value="5">Evoplay Entertai...</option>
-                                    <option value="6">Evolution Gaming</option>
-                                    <option value="7">BetGames TV</option>
-                                    <option value="8">Authentic</option>
-                                    <option disabled>clear</option>
-                                </select>
-                                <label htmlFor="clear">Provider</label>
-                            </div>
+                            <CustomDropdown label={"Provider"} data={[
+                                { id:1, name:"Evolution Gaming",checked:false},
+                                { id:2, name:"Pragmatic Play LC",checked:false},
+                                { id:3, name:"Pragmatic Play LC",checked:false},
+                                { id:4, name:"Evoplay Entertai...",checked:false},
+                                { id:5, name:"BetGames TV",checked:false},
+                                { id:6, name:"Authentic",checked:false},
+                                { id:7, name:"Playtech",checked:false},
+                            ]}/>
                             <div
                                 className="filter-button d-lg-none"
                                 data-bs-toggle="modal"

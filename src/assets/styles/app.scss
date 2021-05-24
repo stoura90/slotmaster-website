@@ -2,10 +2,29 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css');
 @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css');
 
-@import './partials/select2';
-@import './partials/swiper.min';
-@import './partials/font-awesome';
-@import './partials/bootstrap';
+
+// @import './bootstrap/bootstrap.scss';
+// import variables
+@import 'variables';
+
+// import components
+@import './select2';
+//@import './swiper.min';
+@import './font-awesome';
+@import './bootstrap';
+@import './inputs'; 
+@import './cards';
+@import './navbar';
+@import './buttons';
+@import './carousels';
+@import './section';
+@import './pages';
+@import './tabs';
+@import './modals';
+@import './account';
+@import './footer';
+@import './table';
+@import './calendar';
 
 @font-face {
     font-family: 'Proxima light';
@@ -28,27 +47,6 @@
     src: url('fonts/proximanovabold.otf');
     font-weight: 600;
 }
-
-// @import './bootstrap/bootstrap.scss';
-// import variables
-@import 'variables';
-
-// import components
-@import './partials/inputs';
-@import './partials/cards';
-@import './partials/navbar';
-@import './partials/buttons';
-@import './partials/carousels';
-@import './partials/section';
-@import './partials/pages';
-@import './partials/tabs';
-@import './partials/modals';
-@import './partials/account';
-@import './partials/footer';
-@import './partials/table';
-@import './partials/calendar';
-
-
 * {
     padding: 0;
     margin: 0;

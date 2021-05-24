@@ -1,0 +1,123 @@
+.slot-custom-search{
+  position: relative;
+  width: 100%;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  background-color: #192034;
+  height:50px;
+  border-radius: 6px;
+  cursor: pointer;
+  .slot-search-input{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .search-input{
+      cursor: pointer;
+      font-size: 16px;
+      .selected{
+        color:gray;
+        font-size: 16px;
+        font-weight: 600;
+        color: #8f9ec8;
+      }
+      .provider{
+        font-family: "Proxima Regular", Helvetica;
+        font-weight: 600;
+        font-size: 16px;
+        text-align: left;
+        color: #4d5a7d;
+      }
+
+    }
+    .search-arrow-icon{
+
+        .icon{
+          width: 12px;
+          height: 26px;
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+    }
+  }
+  .search-input-content{
+    position: absolute;
+    top: 50px;
+    width: 380px;
+    height: 240px;
+    right: 0px;
+    z-index: 9999;
+    margin-top:10px;
+    border-radius: 6px;
+    background-color: #192034;
+    display: flex;
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 10px;
+    flex-direction: column;
+    .clear-button{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+
+      height: 40px;
+      border-radius: 4px;
+      background: #1f283f;
+      margin-bottom: 0;
+      font-family: "Proxima Regular", Helvetica;
+      font-weight: 600;
+      cursor: pointer;
+      color:#8f9ec8
+    }
+    ul{
+      list-style-type: none;
+
+      display: flex;
+      flex-wrap: wrap;
+      padding: 10px 20px;
+
+      li{
+        display: inline-block;
+        width: 50%;
+        flex: 50%;
+        padding: 0 !important;
+        min-height: auto;
+        color: #8f9ec8;
+        cursor: pointer;
+        .checkbox{
+          color: #8f9ec8;
+          font-weight: 600;
+          font-size: 16px;
+          display: inline-flex;
+          &:before{
+            top:3px;
+            content: "";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            background: #1f283f;
+            margin-right: 8px;
+            vertical-align: middle;
+          }
+          &.checked{
+            &:before{
+              background-color: #f7c829;
+              background-image: url("../../assets/img/icons/checked.svg");
+              background-repeat: no-repeat;
+              background-size: 12px;
+              background-position: center;
+            }
+          }
+        }
+      }
+
+
+    }
+  }
+}

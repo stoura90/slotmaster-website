@@ -1,0 +1,54 @@
+.section-head {
+    margin: 28px 0 15px;
+    @media(min-width: $md) {
+        margin: 43px 0 15px;
+    }
+    .section-heading {
+        display: block;
+        margin: 0 9px 0 0;
+        font-weight: 600;
+        font-size: 18px;
+        text-align: left;
+        color: $white;
+        text-transform: capitalize;
+        @media(min-width: $md) {
+            font-size: 20px;
+            color: $text-light;
+        }
+        & + a {
+            font-family: $proximaSemi;
+            font-weight: 600;
+            text-decoration: underline;
+            font-size: 14px;
+            text-align: right;
+            color: #657290;
+            &:hover {
+                text-decoration: underline;
+            }
+            @media(min-width: $md) {
+                color: $text-dark;
+                font-size: 12px;
+            }
+        }
+    }
+}
+
+// when horizontall scroll
+.scroll {
+    @media(max-width: $md - 1) {
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        margin-right: -12px !important;
+        margin-left: -12px !important;
+        padding-left: 6px;
+        padding-right: 6px;
+
+        &::-webkit-scrollbar {
+            display: none;
+            scrollbar-width: none;
+        }
+        .sport-col {
+            width: auto;
+        }
+    }
+}

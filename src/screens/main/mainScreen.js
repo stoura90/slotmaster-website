@@ -98,12 +98,12 @@ const MainScreen = () =>{
                 <div className="header-slider">
                     <HeaderCarousel count={3}  data={[
                         {id:1, icon:slider1 },
-                        {id:1, icon:slider1 },
-                        {id:1, icon:slider1 },
-                        {id:1, icon:slider1 },
-                        {id:1, icon:slider1 },
-                        {id:1, icon:slider1 },
-                        {id:1, icon:slider1 }
+                        {id:2, icon:slider1 },
+                        {id:3, icon:slider1 },
+                        {id:4, icon:slider1 },
+                        {id:5, icon:slider1 },
+                        {id:6, icon:slider1 },
+                        {id:7, icon:slider1 }
                     ]} />
 
 {/*
@@ -440,7 +440,9 @@ const MainScreen = () =>{
                             laws of Curaçao. Nexus Group Enterprises N.V. is licensed
                         </div>
                         <div className="d-none d-md-flex align-items-center social-list">
-                            <a
+                            <iframe src="https://licensing.gaming-curacao.com/validator/?lh=3a84155f3027a434172149ba09f2bce5&template=seal" width={150} height={50}/>
+
+                        <a
                                 href="#"
                                 target="_blank"
                                 className="d-flex align-items-center justify-content-center social-item rounded-circle"
