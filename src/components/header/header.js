@@ -1,8 +1,42 @@
 import React, {useEffect} from 'react';
-import {logo} from "../../assets/img/icons/icons";
 import {logoM, sl2} from "../../assets/img/images";
 import {Swp} from "../index";
 import {useUser} from "../../core/hooks/useUser";
+import {
+    restriction18,
+    account,
+    arrowLeft,
+    arrowLeftBack,
+    borderDashed,
+    checked,
+    checkedMb,
+    clockModal,
+    close,
+    discord,
+    fileUpload,
+    filter,
+    hArrows,
+    home,
+    logo,
+    logout,
+    multiArrow,
+    netnet,
+    percent,
+    percentModal,
+    play,
+    plus,
+    reload,
+    remove,
+    search,
+    searchLight,
+    selectArrow,
+    skrillSmall,
+    sliderArrowNext,
+    sliderArrowPrev,
+    time,
+    viewOff,
+    viewOn,
+} from '../../assets/img/icons/icons';
 
 const Header = () =>{
     const {User,signOut} = useUser();
@@ -26,8 +60,27 @@ const Header = () =>{
                             >
                                 {
                                     User.isLogged? <>
+                                            <div className="navbar-balance d-flex flex-column">
+                                                <span className="currency">USD</span>
+                                                <span className="current-balance">911.11</span>
+                                            </div>
+                                            <a href="./account.html" className="account-link">
+                                                <img src={account} alt=""/>
+                                            </a>
+                                            <a href="./deposit" className="deposit-link">deposit</a>
+                                        <button
+                                            class="navbar-toggler"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#navbarSupportedContent"
+                                            aria-controls="navbarSupportedContent"
+                                            aria-expanded="false"
+                                            aria-label="Toggle navigation"
+                                        >
+                                            <span class="navbar-toggler-icon"></span>
+                                        </button>
 
-                                        <div className="btn-primary text-capitalize">
+                                        {/*<div className="btn-primary text-capitalize">
                                             {User.data.firstName}
 
                                         </div>
@@ -37,7 +90,7 @@ const Header = () =>{
                                                 onClick={()=>signOut()}
                                             >
                                                 SignOut
-                                            </button>
+                                            </button>*/}
 
                                     </>:
                                     <>
@@ -114,17 +167,7 @@ const Header = () =>{
                     </div>
                 </div>
             </nav>
-            <div className="container slider">
-                <Swp count={3}  data={[
-                    {id:1, icon:sl2 },
-                    {id:2, icon:sl2 },
-                    {id:3, icon:sl2 },
-                    {id:4, icon:sl2 },
-                    {id:5, icon:sl2 },
-                    {id:6, icon:sl2 },
-                    {id:7, icon:sl2 }
-                ]}/>
-            </div>
+
 
             {/*<div className="header.bkp-slider">
                     <HeaderCarousel count={3}  data={[

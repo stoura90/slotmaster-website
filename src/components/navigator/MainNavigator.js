@@ -1,20 +1,25 @@
 import React, {useEffect} from "react";
 import {BrowserRouter as Router, BrowserRouter, Redirect, Route} from "react-router-dom";
-import routes from "../../route";
+import {guestRoutes,userRoutes} from "../../route";
 import {createBrowserHistory} from "history";
+import {useUser} from "../../core/hooks/useUser";
 
 
 const MainNavigator = ()=>{
     const browserHistory = createBrowserHistory();
+    const {User} = useUser();
     useEffect(() => {
        console.log(navigator)
     }, []);
 
 
+
+
     return (
         <Router history={browserHistory}>
             <BrowserRouter>
-                {routes.map((route, idx) => {
+                {
+                    (User.isLogged?userRoutes:guestRoutes).map((route, idx) => {
                     return route.component ? (
                         <Route
                             key={idx}
