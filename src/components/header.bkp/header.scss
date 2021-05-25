@@ -368,7 +368,7 @@ body[data-page="slots"] .rsContent{
       &:after {
         width: 121px;
         height: 41px;
-        //background: url(/assets/images/header/promo_mask.png);
+        //background: url(/assets/images/header.bkp/promo_mask.png);
         position: absolute;
         animation: example 3s cubic-bezier(0.65, 0.05, 0.36, 1) 7s infinite alternate;
         top: 0;
@@ -520,7 +520,7 @@ body[data-page="slots"] .rsContent{
                 height: 44px;
                 border-radius: 50px;
                 position: relative;
-                //background: #000 url("/assets/images/header/avatar.png") no-repeat;
+                //background: #000 url("/assets/images/header.bkp/avatar.png") no-repeat;
                 background-size: inherit !important;
 
                 &:before {

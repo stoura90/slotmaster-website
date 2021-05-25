@@ -1,9 +1,178 @@
-import React from "react";
+import React, {useState} from "react";
+import {close} from "../../../assets/img/icons/icons";
+import _ from 'lodash'
+import {Actions} from "../../../core";
+const MobilePrefixList=[
+    {id:1,prefix: "+1"},
+    {id:673,prefix: "+673"},
+    {id:359,prefix: "+359"},
+    {id:226,prefix: "+226"},
+    {id:257,prefix: "+257"}
+]
 
+const CurrencyList=[
+    {id:840,name: "USD"},
+    {id:978,name: "EUR"},
+    {id:981,name: "GEL"},
+    {id:643,name: "RUB"}
+]
+
+const CountryList=[
+    {id:"VGB",name: "British Virgin Islands"},
+    {id:"BRN",name: "Brunei Darussalam"},
+    {id:"BGR",name: "Bulgaria"},
+    {id:"BFA",name: "Burkina Faso"},
+    {id:"BDI",name: "Burundi"},
+]
 
 const SignUp =() =>{
 
+    const [signUpForm,setSignUpForm]=useState({
+        mail:"",
+        firstName:"",
+        lastName:"",
+        mobilePrefix:1,
+        mobile:"",
+        countryCode:"VGB",
+        currencyCode:840,
+        password:"",
+        password2:""
+    })
 
-    return <div>SignUp</div>
+    const onSignUp=()=>{
+        Actions.User.signUp(signUpForm).then(response=>{
+            if(response.status){
+                document.getElementById("close-sign-up").click();
+                document.getElementById("signIn-btn").click();
+                alert("Registration completed successfully")
+            }
+        })
+    }
+
+    return (
+        <div className="modal fade"
+             id="SignupModal"
+             tabIndex="-1"
+             aria-labelledby="SignupModalLabel"
+             aria-hidden="true"
+        >
+            <div className="modal-dialog modal-dialog-centered auth-modal sign-up">
+                <div className="modal-content">
+                    <div className="modal-head">
+                        <button className="close"  id={"close-sign-up"} data-bs-dismiss="modal">
+                            <img src={close} alt="Close modal"/>
+                        </button>
+                        <div className="modal-title">Sign Up</div>
+                    </div>
+                    <form onSubmit={(event)=>{
+                        event.preventDefault();
+                        onSignUp();
+                    }} className="signUp-form">
+                        <div className="row">
+                            <div className="col-12 col-md-6">
+                                <div className="input-label">
+                                    <input type="text" name="name" id="name"
+                                           value={signUpForm.firstName}
+                                           onChange={event => setSignUpForm({...signUpForm,firstName:event.target.value})}
+                                    />
+                                    <label htmlFor="name">Name</label>
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-6">
+                                <div className="input-label">
+                                    <input type="text" name="surname" id="surname"
+                                           value={signUpForm.lastName}
+                                           onChange={event => setSignUpForm({...signUpForm,lastName:event.target.value})}
+                                    />
+                                    <label htmlFor="surname">Surname</label>
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-6">
+                                <div className="input-label">
+                                    <input type="email" name="email" id="email"
+                                           value={signUpForm.mail}
+                                           onChange={event => setSignUpForm({...signUpForm,mail:event.target.value})}
+                                    />
+                                    <label htmlFor="email">Email</label>
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-6" style={{display:"flex"}}>
+                                <div className="input-label" style={{width:"150px"}}>
+                                    <select className="select2" placeholder="Code"
+                                            value={signUpForm.mobilePrefix}
+                                            onChange={event => setSignUpForm({...signUpForm,mobilePrefix:event.target.value})}
+                                    >
+                                        {
+                                            _.map(MobilePrefixList, (v,k)=><option key={k} value={v.id}>{v.prefix}</option>)
+                                        }
+                                    </select>
+                                    <label htmlFor="phone">Prefix</label>
+                                </div>
+                                <div className="input-label" style={{width:"100%",marginLeft:'10px'}}>
+                                    <input type="number" name="phone" id="phone"
+                                           value={signUpForm.mobile}
+                                           onChange={event => setSignUpForm({...signUpForm,mobile:event.target.value})}
+                                    />
+                                    <label htmlFor="phone">Phone</label>
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-6">
+                                <div className="select-label">
+                                    <select className="select2" placeholder="Country"
+                                            value={signUpForm.countryCode}
+                                            onChange={event => setSignUpForm({...signUpForm,countryCode:event.target.value})}
+                                    >
+                                        {
+                                            _.map(CountryList, (v,k)=><option key={k} value={v.id}>{v.name}</option>)
+                                        }
+                                    </select>
+                                    <label htmlFor="select">Country</label>
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-6">
+                                <div className="select-label">
+                                    <select className="select2" placeholder="Currency"
+                                            value={signUpForm.currencyCode}
+                                            onChange={event => setSignUpForm({...signUpForm,currencyCode:event.target.value})}
+                                    >
+                                        {
+                                            _.map(CurrencyList, (v,k)=><option key={k} value={v.id}>{v.name}</option>)
+                                        }
+                                    </select>
+                                    <label htmlFor="select">Currency</label>
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-6">
+                                <div className="input-label">
+                                    <input type="password" name="password" id="password"
+                                           value={signUpForm.password}
+                                           onChange={event => setSignUpForm({...signUpForm,password:event.target.value})}
+                                    />
+                                    <label htmlFor="password">Password</label>
+                                    <div className="toggle-password hide"></div>
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-6">
+                                <div className="input-label">
+                                    <input
+                                        type="password"
+                                        name="confirm-password"
+                                        id="confirmPassword"
+                                        value={signUpForm.password2}
+                                        onChange={event => setSignUpForm({...signUpForm,password2:event.target.value})}
+                                    />
+                                    <label htmlFor="confirmPassword">Repeat Password</label>
+                                    <div className="toggle-password hide"></div>
+                                </div>
+                            </div>
+                            <div className="col-12">
+                                <button type="submit" className="btn-primary">Sign Up</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    )
 }
 export default SignUp;
