@@ -1,14 +1,20 @@
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 
-import React from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "./assets/styles/app.css"
+import {Provider} from "./core";
+import {store as Store} from "./core/store/store";
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <Suspense  fallback={"loading ..."}>
+          <Provider store={Store}>
+            <App />
+          </Provider>
+      </Suspense>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,14 +1,20 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 module.exports = function(app) {
     app.use(
-        '/api',
+        '/v1',
         createProxyMiddleware({
-            target: 'https://prod.lider-bet.com',
+            target: 'http://10.0.2.34:8072',
             logLevel:"debug",
-            changeOrigin: true,
+            changeOrigin: false,
+        })
+    );
+    app.use(
+        '/us/v1',
+        createProxyMiddleware({
+            target: 'http://10.0.2.34:8072',
+            logLevel:"debug",
+            changeOrigin: false,
         })
     );
 
 };
-
-

@@ -49,8 +49,8 @@ window.addEventListener('load', function(e){
         }
     })
 
-    // swiper slide in header
-    const swiper = new Swiper('.header-slider .swiper-container', {
+    // swiper slide in header.bkp
+    const swiper = new Swiper('.header.bkp-slider .swiper-container', {
         // Optional parameters
         direction: 'horizontal',
         slidesPerView: 1,
@@ -77,23 +77,23 @@ window.addEventListener('load', function(e){
       
     });
 
-    // header swiper slide pagination position
+    // header.bkp swiper slide pagination position
     
     if(swiper.$el !== undefined) {
         const container = $('.container').innerWidth()
-        const activeSlider = $('.header-slider .swiper-slide-active').offset().left
-        const bullets = $('.header-slider .swiper-pagination')
+        const activeSlider = $('.header.bkp-slider .swiper-slide-active').offset().left
+        const bullets = $('.header.bkp-slider .swiper-pagination')
         if(window.innerWidth > 992) {
 
             $(bullets).css({
                 'left': `${(activeSlider + container) - ($(bullets).innerWidth() / 3) - 4}px`
             })
     
-            // header swiper slide arrows position
-            $('.header-slider .swiper-button-prev').css({
+            // header.bkp swiper slide arrows position
+            $('.header.bkp-slider .swiper-button-prev').css({
                 'left': `${($(document).innerWidth() - container) / 2 - 30}px`
             })
-            $('.header-slider .swiper-button-next').css({
+            $('.header.bkp-slider .swiper-button-next').css({
                 'right': `${($(document).innerWidth() - container) / 2 - 30}px`
             })
         } else {

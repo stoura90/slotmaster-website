@@ -1,27 +1,37 @@
-import {Suspense} from 'react'
+import {Suspense, useEffect} from 'react'
 
 import {store as Store} from './core/store/store'
-import {Provider} from "./core";
+import {Actions, Provider} from "./core";
 import {Footer, Guest, Header, MainNavigator, Modal} from "./components";
+import {close} from "./assets/img/icons/icons";
+import EventEmitter from "./core/utils/eventEmitter";
+import {useDispatch} from "react-redux";
 
-
+const eventEmitter = new EventEmitter();
 const  App=()=> {
-  return (
-      <Suspense  fallback={"loading ..."}>
-          <Provider store={Store}>
-           {/* <Header/>*/}
-                <MainNavigator/>
-{/*
-            <Footer/>
-*/}
-            {/*<Modal
-                styles={{width: '500px'}}
-                onClickBackDrop={()=>console.log("close modal")}
-            >
-                <Guest/>
-            </Modal>*/}
-          </Provider>
-      </Suspense>
+    const dispatch = useDispatch()
+    useEffect(()=>{
+        ping();
+        eventEmitter.on("httpError",(event)=>console.log(event))
+
+        return ()=>{
+            eventEmitter.removeListener("httpError")
+        }
+    },[])
+
+    const ping = ()=>{
+        dispatch(Actions.User.ping())
+    }
+  return (<>
+          <MainNavigator/>
+          <Guest/>
+        </>
+
+
+
+
+
+
   )
 }
 

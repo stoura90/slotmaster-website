@@ -19318,8 +19318,8 @@ input.for-confirm {
   }
 }
 .input-label input[type=password] + label {
-  top: 17px;
-  transform: unset;
+  /*top: 17px;
+  transform: unset;*/
 }
 .input-label input:focus {
   outline: none;
@@ -22497,9 +22497,40 @@ a:hover {
   line-height: inherit;
 }
 
-.slider {
-  height: 419px;
-  margin-top: 30px;
+.select2 {
+  display: flex;
+  width: 100%;
+  border-radius: 4px;
+  background-color: #262e45;
+  color: #8f9ec8;
+  padding: 26px 16px 10px;
+  height: 50px;
+  border: none;
+  font-family: "Proxima Regular", Helvetica;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: left;
+  transition: all 0.15s linear;
+}
+
+.select-label {
+  position: relative;
+}
+.select-label label {
+  position: absolute;
+  top: 25%;
+  left: 16px;
+  transform: translateY(-50%);
+  font-family: "Proxima Regular", Helvetica;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: left;
+  color: #8f9ec8;
+  transition: all 0.15s linear;
+}
+
+.input-label label {
+  top: 25%;
 }
 
 /*# sourceMappingURL=app.css.map */
