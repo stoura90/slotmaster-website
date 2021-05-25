@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {close} from "../../../assets/img/icons/icons";
 import _ from 'lodash'
 import {Actions} from "../../../core";
+import "./signUp.scss"
 const MobilePrefixList=[
     {id:1,prefix: "+1"},
     {id:673,prefix: "+673"},
@@ -38,15 +39,28 @@ const SignUp =() =>{
         password:"",
         password2:""
     })
-
+    const [errors,setErrors]=useState([])
     const onSignUp=()=>{
-        Actions.User.signUp(signUpForm).then(response=>{
-            if(response.status){
-                document.getElementById("close-sign-up").click();
-                document.getElementById("signIn-btn").click();
-                alert("Registration completed successfully")
-            }
-        })
+        let error = _.chain(signUpForm).map((v,k)=>{ return  {key:k,value:v}}).filter(v=>!v.value).map(v=>v.key).value();
+        if(signUpForm.password.trim().length<6 || signUpForm.password !== signUpForm.password2){
+            error=[...error,"password","password2"]
+        }
+        if(errors.length>0){
+            setErrors([...error])
+            alert("Passwords do not match")
+        }else{
+            Actions.User.signUp(signUpForm).then(response=>{
+                if(response.status){
+                    document.getElementById("close-sign-up").click();
+                    document.getElementById("signIn-btn").click();
+                    alert("Registration completed successfully")
+                }
+            })
+        }
+
+    }
+    const error=(key)=>{
+        return errors.indexOf(key)>-1?"error":""
     }
 
     return (
@@ -70,7 +84,7 @@ const SignUp =() =>{
                     }} className="signUp-form">
                         <div className="row">
                             <div className="col-12 col-md-6">
-                                <div className="input-label">
+                                <div className={`input-label ${error("firstName")}`}>
                                     <input type="text" name="name" id="name"
                                            value={signUpForm.firstName}
                                            onChange={event => setSignUpForm({...signUpForm,firstName:event.target.value})}
@@ -79,7 +93,7 @@ const SignUp =() =>{
                                 </div>
                             </div>
                             <div className="col-12 col-md-6">
-                                <div className="input-label">
+                                <div className={`input-label ${error("lastName")}`}>
                                     <input type="text" name="surname" id="surname"
                                            value={signUpForm.lastName}
                                            onChange={event => setSignUpForm({...signUpForm,lastName:event.target.value})}
@@ -88,7 +102,7 @@ const SignUp =() =>{
                                 </div>
                             </div>
                             <div className="col-12 col-md-6">
-                                <div className="input-label">
+                                <div className={`input-label ${error("mail")}`}>
                                     <input type="email" name="email" id="email"
                                            value={signUpForm.mail}
                                            onChange={event => setSignUpForm({...signUpForm,mail:event.target.value})}
@@ -108,7 +122,7 @@ const SignUp =() =>{
                                     </select>
                                     <label htmlFor="phone">Prefix</label>
                                 </div>
-                                <div className="input-label" style={{width:"100%",marginLeft:'10px'}}>
+                                <div className={`input-label ${error("mobile")}`} style={{width:"100%",marginLeft:'10px'}}>
                                     <input type="number" name="phone" id="phone"
                                            value={signUpForm.mobile}
                                            onChange={event => setSignUpForm({...signUpForm,mobile:event.target.value})}
@@ -117,7 +131,7 @@ const SignUp =() =>{
                                 </div>
                             </div>
                             <div className="col-12 col-md-6">
-                                <div className="select-label">
+                                <div className="select-label" >
                                     <select className="select2" placeholder="Country"
                                             value={signUpForm.countryCode}
                                             onChange={event => setSignUpForm({...signUpForm,countryCode:event.target.value})}
@@ -143,7 +157,7 @@ const SignUp =() =>{
                                 </div>
                             </div>
                             <div className="col-12 col-md-6">
-                                <div className="input-label">
+                                <div className={`input-label ${error("password")}`}>
                                     <input type="password" name="password" id="password"
                                            value={signUpForm.password}
                                            onChange={event => setSignUpForm({...signUpForm,password:event.target.value})}
@@ -153,7 +167,7 @@ const SignUp =() =>{
                                 </div>
                             </div>
                             <div className="col-12 col-md-6">
-                                <div className="input-label">
+                                <div className={`input-label ${error("password2")}`}>
                                     <input
                                         type="password"
                                         name="confirm-password"
