@@ -31,7 +31,6 @@ const  HeaderCarousel = (props) =>{
             onSlideChange={() => console.log('slide change')}
             loop={true}
             wrapperClass={"test"}
-
         >
             {
                 _.map(data, (v,index)=>{
