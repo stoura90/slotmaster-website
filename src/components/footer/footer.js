@@ -1,94 +1,163 @@
 import React from 'react';
 import '../footer/footer.scss';
+import {FooterCarousel} from "../index";
+import {betsoft, evolutionGaming, netent} from "../../assets/img/images";
+import {discord} from "../../assets/img/icons/icons";
 
 const Footer =()=>{
     return(
         <footer>
-            <nav className="max-w">
-                <ul>
-                    <li>
-                        <a href='#'>Menu Type</a>
-                    </li>
-                    <li>
-                        <a href='#'>Menu Type</a>
-                    </li>
-                    <li>
-                        <a href='#'>Menu Type</a>
-                    </li>
-                    <li>
-                        <a href='#'>Menu Type</a>
-                    </li>
-
-                </ul>
-            </nav>
-
-            <div className="max-w footer-content">
-                <div className="content-box" style={{'paddingBottom':'0'}}>
-                    Footer Content
-                </div>
-
-                {/*<div className="content-box">
-                    <div className="fc_title">
-                        <h2>Games</h2>
-                    </div>
-                    <ul className="foot_nav">
-                        <li><a href='#'>Game Name</a></li>
-                        <li><a href='#'>Game Name</a></li>
-                        <li><a href='#'>Game Name</a></li>
-                        <li><a href='#'>Game Name</a></li>
-                        <li><a href='#'>Game Name</a></li>
-                        <li><a href='#'>Game Name</a></li>
-                        <li><a href='#'>Game Name</a></li>
-                        <li><a href='#'>Game Name</a></li>
-                        <li><a href='#'>Game Name</a></li>
-                        <li><a href='#'>Game Name</a></li>
-                        <li><a href='#'>Game Name</a></li>
-
-                    </ul>
-                </div>
-                <div className="content-box">
-                    <div className="fc_title">
-                        <h2>News</h2>
-                    </div>
-                    <ul className="news_list">
-                        <li>
-                            <div className="ft_new_img" style={{background: '#ccc url(./img/sl.png)'}}></div>
-                            <ol>2019.11.25</ol>
-                            <div className="ft_new_text" onClick="goCurrentPromotion('egtrace-nov')">
-                                <p>Here You can write your news text</p></div>
-                        </li>
-                        <li>
-                            <div className="ft_new_img" style={{background: '#ccc url(./img/sl.png)'}}></div>
-                            <ol>2019.11.25</ol>
-                            <div className="ft_new_text" onClick="goCurrentPromotion('egtrace-nov')">
-                                <p>Here You can write your news text</p></div>
-                        </li>
-
-                    </ul>
-                </div>
-                <div className="content-box">
-                    <div className="fc_title">
-                        <h2>Contact</h2>
-                    </div>
-                    <div className="fc_contact">
-                        <div className="row" data-ico="phone">
-                            <p><a href="tel:0000000000" data-name="Information Center"><span>000</span>0 00 00 00</a></p>
-                        </div>
-                        <div className="row" data-ico="email">
-                            <a href="mailto:supportlider-bet.com" data-name="E-Mile">support@yourDomine.com</a>
+            <div className="container">
+                <div className="row gx-0 align-items-center">
+                    <div className="col-12 d-md-none">
+                        <div className="d-flex align-items-center justify-content-between social-list">
+                            <a
+                                href="#"
+                                target="_blank"
+                                className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                            >
+                                <i className="fab fa-facebook-f facebook"/>
+                            </a>
+                            <a
+                                href="#"
+                                target="_blank"
+                                className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                            >
+                                <i className="fab fa-reddit-alien reddit"/>
+                            </a>
+                            <a
+                                href="#"
+                                target="_blank"
+                                className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                            >
+                                <i className="fab fa-instagram instagram"/>
+                            </a>
+                            <a
+                                href="#"
+                                target="_blank"
+                                className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                            >
+                                <i className="fab fa-twitter twitter"></i>
+                            </a>
+                            <a
+                                href="#"
+                                target="_blank"
+                                className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                            >
+                                <img src="img/icons/discord.svg" alt="" className="discord"/>
+                            </a>
                         </div>
                     </div>
-                </div>*/}
-            </div>
+                    <div className="col-12 col-lg-3">
+                        <ul className="footer-menu">
+                            <li>
+                                <a href="#">About Us</a>
+                            </li>
+                            <li>
+                                <a href="#">Blog</a>
+                            </li>
+                            <li>
+                                <a href="#">Promotions</a>
+                            </li>
+                            <li>
+                                <a href="#">Affiliates</a>
+                            </li>
+                            <li>
+                                <a href="./terms.html">Terms and conditions</a>
+                            </li>
+                            <li>
+                                <a href="./contact.html">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="col-12 col-lg-3">
+                        <ul className="footer-menu">
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">KYC Policy</a></li>
+                            <li><a href="#">AML Policy</a></li>
+                            <li className="d-none d-md-flex"><a href="#">Responsible Gaming Policy</a></li>
+                            <li className="d-md-none"><a href="#">Responsible Gaming</a></li>
+                            <li><a href="#">Self Exclusion Policy</a></li>
+                            <li><a href="#">Underage Gaming Policy</a></li>
+                        </ul>
+                    </div>
+                    <div className="col-12 col-lg-6">
+                        <div className="row gx-0">
+                            <div className={"position-relative  logo-list ft-carousel-1"}>
+                                <FooterCarousel count={3} data={[
+                                    {id:1,icon:evolutionGaming},
+                                    {id:1,icon:netent},
+                                    {id:1,icon:betsoft},
+                                    {id:1,icon:betsoft},
+                                ]}/>
+                            </div>
+                            <div className={"position-relative  logo-list ft-carousel-2 last"}>
+                                <FooterCarousel count={3} data={[
+                                    {id:1,icon:evolutionGaming},
+                                    {id:1,icon:netent},
+                                    {id:1,icon:betsoft},
+                                    {id:1,icon:betsoft},
+                                ]}/>
+                            </div>
 
-            <div className="max-w">
-                <div className="footer_age">
-                    <div data-old="+18">&nbsp;</div>
-                    <div data-old="+21" style={{marginLeft:'15px'}}>&nbsp;</div>
-                    <p>Copyright © 2021 by your Company Name</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="d-flex align-items-center footer-bt">
+                    <div
+                        className="d-flex align-items-center justify-content-center restriction"
+                    >
+                        <span>+18</span>
+                    </div>
+                    <div className="footer-copyright">
+                        Copyright © 2021 www.planetaxbet.com is operated by Group
+                        Enterprises N.V., a company registered and established under the
+                        laws of Curaçao. Nexus Group Enterprises N.V. is licensed
+                    </div>
+                    <div className="d-none d-md-flex align-items-center social-list">
+
+
+                        <a
+                            href="#"
+                            target="_blank"
+                            className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                        >
+                            <i className="fab fa-facebook-f facebook"/>
+                        </a>
+                        <a
+                            href="#"
+                            target="_blank"
+                            className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                        >
+                            <i className="fab fa-reddit-alien reddit"/>
+                        </a>
+                        <a
+                            href="#"
+                            target="_blank"
+                            className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                        >
+                            <i className="fab fa-instagram instagram"/>
+                        </a>
+                        <a
+                            href="#"
+                            target="_blank"
+                            className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                        >
+                            <i className="fab fa-twitter twitter"/>
+                        </a>
+                        <a
+                            href="#"
+                            target="_blank"
+                            className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                        >
+                            <img src={discord} alt="" className="discord"/>
+                        </a>
+                    </div>
+                    <div>
+                        <iframe src="https://licensing.gaming-curacao.com/validator/?lh=3a84155f3027a434172149ba09f2bce5&template=seal" style={{'width':'150px','height':'50px','border':'none','marginLeft':'20px'}}/>
+                    </div>
                 </div>
             </div>
-
         </footer>
     );
 }
