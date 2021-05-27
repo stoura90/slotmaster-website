@@ -57,15 +57,21 @@ const Request = {
             this.dispatchLoader(this.data.loaderData.event,true);
         }
         return new Promise((resolve, ) => {
+            let customHeader;
+            if(localStorage.getItem("access_token")){
+                 customHeader =((header) ? {
+                    headers:{...header, Authorization: `Bearer `+localStorage.getItem("access_token")},
+                }:{
+                    headers:{
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        Authorization: `Bearer `+localStorage.getItem("access_token")
+                    }
+                })
+            }else{
+                 customHeader=header
+            }
           try {
-            http.post(url,data,((header) ? {
-                headers:{...header, Authorization: `Bearer `+localStorage.getItem("access_token")},
-            }:{
-                headers:{
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    Authorization: `Bearer `+localStorage.getItem("access_token")
-                }
-            })).then( response => {
+            http.post(url,data,customHeader).then( response => {
               if(response.status===200){
                   resolve({status:true,data:response.data})
               }else{

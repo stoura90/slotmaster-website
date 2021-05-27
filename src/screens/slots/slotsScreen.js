@@ -30,6 +30,11 @@ import _ from "lodash";
 import {filter} from "../../assets/img/icons/icons"
 import "../../assets/styles/_select2.scss"
 import {CustomDropdown} from "../../components/dropdown/dropDown";
+
+const  data = [
+
+]
+
 const SlotsScreen = () =>{
     const nav  = useNavigation();
     useEffect(()=>{
@@ -92,9 +97,9 @@ const SlotsScreen = () =>{
                             <div className="row casino-list">
 
                                 <SlotCard count={20} data={[
-                                    {id:1,icon:slotSardCover},
-                                    {id:1,icon:pirate},
-                                    {id:1,icon:tonys},
+                                    {id:"c7b1d1e6171965bbe4e6394d2bdf1600aeb45994",icon:"https://staging.slotegrator.com/api/index.php/image/get?hash=c7b1d1e6171965bbe4e6394d2bdf1600aeb45994.png"},
+                                    {id:"3b678c88129d8adafea920128d761f7a81fd2294",icon:"https://staging.slotegrator.com/api/index.php/image/get?hash=3b678c88129d8adafea920128d761f7a81fd2294.png"},
+                                    /*{id:1,icon:tonys},
                                     {id:1,icon:narcos},
                                     {id:1,icon:kings},
                                     {id:1,icon:slotSardCover},
@@ -103,7 +108,7 @@ const SlotsScreen = () =>{
                                     {id:1,icon:tonys},
                                     {id:1,icon:narcos},
                                     {id:1,icon:kings},
-                                    {id:1,icon:slotSardCover}
+                                    {id:1,icon:slotSardCover}*/
                                     ]} />
 
 
