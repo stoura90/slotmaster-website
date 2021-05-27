@@ -8,18 +8,12 @@ import {Loader} from "../index";
 
 const SlotCard =(props)=> {
     const {loader}=useLoader()
-    const [data,setData]= useState(props.data)
-    const [count,setCount] = useState(props.count || 5)
     const {play}= useSLot()
-    useEffect(()=> {
-        setCount(props.count)
-    },[props.count])
-
 
 
     return (
 
-            _.map(data, (v,index)=>{
+            _.map(props.data, (v,index)=>{
                 return  (
                     <div className="col-4 col-lg-3" key={index}>
 

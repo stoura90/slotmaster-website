@@ -20,7 +20,7 @@ window.addEventListener('load', function(e){
     })
 
     $('select[name="mlt"]').select2MultiCheckboxes({
-    	templateSelection: function(selected, total) {
+    ",icon:"templateSelection: function(selected, total) {
             return "Selected " + selected.length + " of " + total;
         }
     })

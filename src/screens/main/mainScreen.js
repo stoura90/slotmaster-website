@@ -4,6 +4,7 @@ import { ajax, bayern, betsoft, bitcoin, evolutionGaming,inter, kings,liver,logo
 import {discord, logo, play} from "../../assets/img/icons/icons";
 import {Carousel, FooterCarousel, Header, HeaderCarousel, Swp, Footer} from "../../components";
 import {useSLot} from "../../core/hooks/useSLot";
+import {SLOTS_DATA} from "../../data/slots";
 
 
 const MainScreen = () =>{
@@ -193,10 +194,7 @@ const MainScreen = () =>{
                                 id={"font-slot"}
                                 count={Math.round(containerWidth/300)}
                                 onClick={(e)=>play(e)}
-                                data={[
-                                    {id:"c7b1d1e6171965bbe4e6394d2bdf1600aeb45994",icon:"https://staging.slotegrator.com/api/index.php/image/get?hash=c7b1d1e6171965bbe4e6394d2bdf1600aeb45994.png"},
-                                    {id:"3b678c88129d8adafea920128d761f7a81fd2294",icon:"https://staging.slotegrator.com/api/index.php/image/get?hash=3b678c88129d8adafea920128d761f7a81fd2294.png"},
-                                ]}/>
+                                data={SLOTS_DATA.splice(0,10)}/>
                         </div>
                     </div>
                     <div className="row">
