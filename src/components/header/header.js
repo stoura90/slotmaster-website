@@ -37,9 +37,12 @@ import {
     viewOff,
     viewOn,
 } from '../../assets/img/icons/icons';
+import {Link, useParams} from "react-router-dom";
 
 const Header = () =>{
     const {User,signOut} = useUser();
+    const {lang} = useParams();
+    console.log('lang',lang)
     useEffect(()=>{
         console.log(User)
     },[])
@@ -64,10 +67,9 @@ const Header = () =>{
                                                 <span className="currency">USD</span>
                                                 <span className="current-balance">911.11</span>
                                             </div>
-                                            <a href="./account.html" className="account-link">
-                                                <img src={account} alt=""/>
-                                            </a>
-                                            <a href="./deposit" className="deposit-link">deposit</a>
+
+                                            <Link  to={`/${lang}/account`} className="account-link"><img src={account} alt=""/></Link>
+                                            <Link  to={`/${lang}/deposit`} className="deposit-link">deposit</Link>
                                         <button
                                             class="navbar-toggler"
                                             type="button"
@@ -121,7 +123,7 @@ const Header = () =>{
                     <div className="container">
                         <ul className="navbar-nav">
                             <li className="nav-item d-none d-md-flex">
-                                <a className="nav-link active home" href="./main">
+                                <Link to={`/${lang}/main`} className="nav-link active home">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="24"
@@ -143,7 +145,7 @@ const Header = () =>{
                                             </g>
                                         </g>
                                     </svg>
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Sport</a>
@@ -155,13 +157,13 @@ const Header = () =>{
                                 <a className="nav-link" href="#">Virtuals</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="./casino">Casino</a>
+                                <Link to={`/${lang}/casino`} className="nav-link">Casino</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="./slots">Slot</a>
+                                <Link to={`/${lang}/slots`} className="nav-link">Slot</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="./promo">Promo</a>
+                                <Link  to={`/${lang}/promo`} className="nav-link">Promo</Link>
                             </li>
                         </ul>
                     </div>
