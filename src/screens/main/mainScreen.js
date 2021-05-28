@@ -1,14 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation} from "../../core/hooks/useNavigation";
 import { ajax, bayern, betsoft, bitcoin, evolutionGaming,inter, kings,liver,logoM,manCity,manUn,milan, narcos, neteller, netent,pirate,slider1,sl2, slotSardCover,sun,tonys, webmoney} from '../../assets/img/images';
 import {discord, logo, play} from "../../assets/img/icons/icons";
 import {Carousel, FooterCarousel, Header, HeaderCarousel, Swp, Footer} from "../../components";
+import {useSLot} from "../../core/hooks/useSLot";
+import {SLOTS_DATA} from "../../data/slots";
 
 
 const MainScreen = () =>{
     const nav  = useNavigation();
+    const {play}=useSLot()
+    const ref=useRef();
+    const [containerWidth,setContainerWidth]=useState(window.innerWidth)
     useEffect(()=>{
-        console.log(nav)
+        if(ref){
+            setContainerWidth(ref.current.clientWidth)
+        }
 
     },[nav]);
     return (
@@ -28,7 +35,7 @@ const MainScreen = () =>{
             </div>
 
             <main>
-                <div className="container">
+                <div className="container" ref={ref}>
                     <div className="row">
                         <div className="col-12 col-md-6">
                             <div className="row">
@@ -183,7 +190,11 @@ const MainScreen = () =>{
                             <a href="#">View all</a>
                         </div>
                         <div className="col-12">
-                            <Carousel count={6} data={[{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover}]}/>
+                            <Carousel
+                                id={"font-slot"}
+                                count={Math.round(containerWidth/300)}
+                                onClick={(e)=>play(e)}
+                                data={SLOTS_DATA.splice(0,10)}/>
                         </div>
                     </div>
                     <div className="row">
@@ -192,7 +203,9 @@ const MainScreen = () =>{
                             <a href="#">View all</a>
                         </div>
                         <div className="col-12">
-                            <Carousel count={6} data={[{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover}]}/>
+                            <Carousel
+                                id={"font-games"}
+                                onClick={e=>console.log(e)} count={6} data={[{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover}]}/>
                         </div>
                     </div>
                 </div>

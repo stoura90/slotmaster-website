@@ -7,5 +7,8 @@ export const Config ={
    },
    Config:{
 
+   },
+   Slot:{
+      PLAY:"/ss/v1/api/secured/gis?gameId={gameId}&lang=ru"
    }
 }

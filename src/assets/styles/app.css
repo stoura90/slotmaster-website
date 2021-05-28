@@ -19594,16 +19594,13 @@ input.for-confirm {
   display: block;
   overflow: hidden;
   border-radius: 6px;
-  max-width: 124px;
   width: 100%;
   height: 163px;
   transition: all 0.15s linear;
-}
-@media (min-width: 768px) {
-  .slot-card {
+  /*@media(min-width: $md) {
     max-width: 175px;
     height: 230px;
-  }
+  }*/
 }
 .slot-card .slot-card-hover {
   width: 100%;
@@ -19623,6 +19620,9 @@ input.for-confirm {
 .slot-card .slot-card-cover {
   width: 100%;
   height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 .slot-card .play-btn {
   position: absolute;
@@ -20737,13 +20737,11 @@ button:active, .btn-primary:active {
 .casino-list .slot-card {
   margin-bottom: 12px;
   width: 100%;
-  height: 145px;
-}
-@media (min-width: 768px) {
-  .casino-list .slot-card {
-    max-width: 175px;
-    height: 230px;
-  }
+  /*height: 195px;*/
+  /* @media(min-width: $md) {
+       max-width: 175px;
+       height: 230px;
+   }*/
 }
 
 .show-more {

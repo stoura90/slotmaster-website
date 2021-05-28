@@ -45,10 +45,11 @@ const SignUp =() =>{
         if(signUpForm.password.trim().length<6 || signUpForm.password !== signUpForm.password2){
             error=[...error,"password","password2"]
         }
-        if(errors.length>0){
+        if(error.length>0){
             setErrors([...error])
             alert("Passwords do not match")
         }else{
+            localStorage.removeItem("access_token")
             Actions.User.signUp(signUpForm).then(response=>{
                 if(response.status){
                     document.getElementById("close-sign-up").click();

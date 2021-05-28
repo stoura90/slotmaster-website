@@ -4,6 +4,7 @@ import {NavBar} from "./NavBar";
 import {Theme} from "./Theme";
 import {BottomBar} from "./BottomBar";
 import Modals from "./Modals";
+import {Loader} from "./Loader"
 
 const root = combineReducers({
     User,
@@ -11,6 +12,7 @@ const root = combineReducers({
     Theme,
     NavBar,
     BottomBar,
+    Loader
 });
 
 export default root;

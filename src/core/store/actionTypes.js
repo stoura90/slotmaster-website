@@ -6,4 +6,5 @@ export const AUTH="AUTH";
 export const PING="PING";
 export const SIGN_IN="SIGN_IN";
 export const SIGN_IN_MODAL="SIGN_IN_MODAL";
+export const LOADER_TOGGLE="LOADER_TOGGLE";
 

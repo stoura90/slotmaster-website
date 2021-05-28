@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigation} from "../../core/hooks/useNavigation";
 import {
     ajax,
@@ -30,12 +30,16 @@ import _ from "lodash";
 import {filter} from "../../assets/img/icons/icons"
 import "../../assets/styles/_select2.scss"
 import {CustomDropdown} from "../../components/dropdown/dropDown";
+import {SLOTS_DATA} from "../../data/slots";
+
+const  data = [
+
+]
+
 const SlotsScreen = () =>{
     const nav  = useNavigation();
-    useEffect(()=>{
-        console.log(nav)
+    const [show,setShow]=useState(20)
 
-    },[nav]);
     return (
         <>
             <Header/>
@@ -90,33 +94,19 @@ const SlotsScreen = () =>{
 
                         <div className="col-12">
                             <div className="row casino-list">
-
-                                <SlotCard count={20} data={[
-                                    {id:1,icon:slotSardCover},
-                                    {id:1,icon:pirate},
-                                    {id:1,icon:tonys},
-                                    {id:1,icon:narcos},
-                                    {id:1,icon:kings},
-                                    {id:1,icon:slotSardCover},
-                                    {id:1,icon:slotSardCover},
-                                    {id:1,icon:pirate},
-                                    {id:1,icon:tonys},
-                                    {id:1,icon:narcos},
-                                    {id:1,icon:kings},
-                                    {id:1,icon:slotSardCover}
-                                    ]} />
-
-
+                                <SlotCard count={show} data={show===SLOTS_DATA.length? SLOTS_DATA:SLOTS_DATA.splice(0,show)} />
                             </div>
                         </div>
 
-
-                        <div className="col-12">
-                            <div className="show-more">
-                                <div className="show-info">You’ve viewed 40 of 911 games</div>
-                                <div className="show-more-btn">show more</div>
+                        {
+                            show !== SLOTS_DATA.length&&<div className="col-12">
+                                <div className="show-more">
+                                    <div className="show-info">You’ve viewed {show} of {SLOTS_DATA.length} games</div>
+                                    <div className="show-more-btn" onClick={()=>setShow(SLOTS_DATA.length)}>show more</div>
+                                </div>
                             </div>
-                        </div>
+                        }
+
 
                     </div>
 

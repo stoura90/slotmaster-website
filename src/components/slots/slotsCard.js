@@ -1,24 +1,29 @@
 import React,{useEffect,useState} from 'react'
 import _ from 'lodash'
-import {play} from "../../assets/img/icons/icons";
+import {play as PlayIcon} from "../../assets/img/icons/icons";
+import {Actions} from "../../core";
+import {useSLot} from "../../core/hooks/useSLot";
+import {useLoader} from "../../core/hooks/useLoader";
+import {Loader} from "../index";
 
 const SlotCard =(props)=> {
-    const [data,setData]= useState(props.data)
-    const [count,setCount] = useState(props.count || 5)
-    useEffect(()=> {
-        setCount(props.count)
-    },[props.count])
+    const {loader}=useLoader()
+    const {play}= useSLot()
+
 
     return (
 
-            _.map(data, (v,index)=>{
+            _.map(props.data, (v,index)=>{
                 return  (
-                    <div className="col-4 col-lg-3 col-xl-2" key={index}>
+                    <div className="col-4 col-lg-3" key={index}>
+
                         <div className="slot-card">
-                            <a href="#" className="slot-card-hover">
-                                <img src={v.icon} alt="" className="slot-card-cover"/>
-                                <img src={play} alt="" className="play-btn"/>
-                            </a>
+                            {loader===v.id && <Loader/>}
+                            <span className="slot-card-hover">
+                                <div className="slot-card-cover" style={{backgroundImage:`url(${v.icon})`}}/>
+                                <img src={v.icon} alt="" style={{visibility:"hidden"}} />
+                                <img src={PlayIcon} alt="" className="play-btn" onClick={()=>play(v)}/>
+                            </span>
                         </div>
                     </div>
                 )
