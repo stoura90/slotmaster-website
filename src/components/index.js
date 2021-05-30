@@ -10,6 +10,7 @@ import HeaderCarousel from "./swiper/headerSwiper";
 import SlotCard from "./slots/slotsCard";
 import Swp from "./swp/swp";
 import Loader from "./loader/loader"
+import Balance from "./balance/balance";
 export {
     Header,
     Footer,
@@ -22,5 +23,6 @@ export {
     HeaderCarousel,
     SlotCard,
     Swp,
-    Loader
+    Loader,
+    Balance
 }
