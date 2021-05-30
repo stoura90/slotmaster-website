@@ -118,7 +118,6 @@ const Request = {
             http.get(url,customHeader).then(
                 response=>{
                     if(response.status===200){
-                        console.log('res',response)
                         resolve({status:true,data:response.data})
                     }else{
                         if(this.enableEvents) {

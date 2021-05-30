@@ -42,10 +42,7 @@ import {Link, useParams} from "react-router-dom";
 const Header = () =>{
     const {User,signOut} = useUser();
     const {lang} = useParams();
-    console.log('lang',lang)
-    useEffect(()=>{
-        console.log(User)
-    },[])
+    console.log(useParams())
     return (
         <header>
             <nav className="navbar navbar-expand-md flex-column">

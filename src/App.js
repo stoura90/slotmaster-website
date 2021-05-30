@@ -26,12 +26,6 @@ const  App=()=> {
           <MainNavigator/>
           <Guest/>
         </>
-
-
-
-
-
-
   )
 }
 

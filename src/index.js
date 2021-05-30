@@ -10,7 +10,7 @@ import {Provider} from "./core";
 import {store as Store} from "./core/store/store";
 ReactDOM.render(
   <React.StrictMode>
-      <Suspense  fallback={"loading ..."}>
+      <Suspense  fallback={""}>
           <Provider store={Store}>
             <App />
           </Provider>

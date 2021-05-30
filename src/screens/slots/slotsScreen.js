@@ -1,53 +1,28 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigation} from "../../core/hooks/useNavigation";
-import {
-    ajax,
-    bayern,
-    betsoft,
-    bitcoin,
-    evolutionGaming,
-    inter,
-    kings,
-    liver,
-    logoM,
-    manCity,
-    manUn,
-    milan,
-    narcos,
-    neteller,
-    netent,
-    pirate,
-    sl2,
-    slider1,
-    slotSardCover,
-    sun,
-    tonys,
-    webmoney
-} from '../../assets/img/images';
-import {discord, logo, play} from "../../assets/img/icons/icons";
-import {Carousel, Footer, FooterCarousel, Header, HeaderCarousel, SlotCard, Swp} from "../../components";
-import _ from "lodash";
+import { sl2} from '../../assets/img/images';
+import { Footer, Header,SlotCard, Swp} from "../../components";
+
 import {filter} from "../../assets/img/icons/icons"
 import "../../assets/styles/_select2.scss"
 import {CustomDropdown} from "../../components/dropdown/dropDown";
-import {SLOTS_DATA} from "../../data/slots";
 import {Actions} from "../../core";
-
+import _ from "lodash"
 
 const SlotsScreen = () =>{
-    const nav  = useNavigation();
     const [show,setShow]=useState(20);
-    const [data,setData]=useState([]);
+    const [providers,setProviders]=useState([])
+    const [list,setList]=useState([])
 
 
     useEffect(()=>{
-        loadData();
+        loadProvider();
     },[])
 
-    const loadData = async () => {
-        const response = await Actions.Slot.list();
-        console.log('response',response)
-        setData(response.status?response.data.data:[]);
+    const loadProvider =   () => {
+        Actions.Slot.list().then(response=>setProviders(response.status?response.data.data:[]))
+    }
+    const loadSlots =   (id) => {
+        Actions.Slot.listByProvider(id).then(response=>setList(response.status?response.data.data:[]))
     }
 
     return (
@@ -96,6 +71,12 @@ const SlotsScreen = () =>{
                                 <img src={filter} alt="Filter"/>
                             </div>
                         </div>
+
+                        <div className="col-12 d-flex align-items-center section-head">
+                            {
+                                _.map(providers,provider=><div style={{marginLeft:"20px",color:"white"}}  key={provider.id} onClick={()=>loadSlots(provider.id)}>{provider.name}</div>)
+                            }
+                        </div>
                         <div className="col-12 d-flex align-items-center section-head">
                             <a href="#">
                                 <div className="section-heading">all Provider</div>
@@ -104,15 +85,15 @@ const SlotsScreen = () =>{
 
                         <div className="col-12">
                             <div className="row casino-list">
-                                <SlotCard count={show} data={show===data.length? data: data.splice(0,show)} />
+                                <SlotCard  data={list} />
                             </div>
                         </div>
 
                         {
-                            show !== data.length&&<div className="col-12">
+                            show !== list.length&&<div className="col-12">
                                 <div className="show-more">
-                                    <div className="show-info">You’ve viewed {show} of {data.length} games</div>
-                                    <div className="show-more-btn" onClick={()=>setShow(data.length)}>show more</div>
+                                    <div className="show-info">You’ve viewed {show} of {list.length} games</div>
+                                    <div className="show-more-btn" onClick={()=>setShow(list.length)}>show more</div>
                                 </div>
                             </div>
                         }
