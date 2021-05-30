@@ -96,19 +96,29 @@ const Request = {
             }
         })
     },
-    get:function(url){
+    get:function(url,header){
         if(this.data.loader){
             this.dispatchLoader(this.data.loaderData.event,true);
         }
 
         return new Promise((resolve) => {
-            http.get(url,{
+            let customHeader;
+            if(localStorage.getItem("access_token")){
+                customHeader =((header) ? {
+                    headers:{...header, Authorization: `Bearer `+localStorage.getItem("access_token")},
+                }:{
                     headers:{
+                        'Content-Type': 'application/x-www-form-urlencoded',
                         Authorization: `Bearer `+localStorage.getItem("access_token")
                     }
-            }).then(
+                })
+            }else{
+                customHeader=header
+            }
+            http.get(url,customHeader).then(
                 response=>{
                     if(response.status===200){
+                        console.log('res',response)
                         resolve({status:true,data:response.data})
                     }else{
                         if(this.enableEvents) {

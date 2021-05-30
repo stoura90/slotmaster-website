@@ -71,7 +71,7 @@ const Header = () =>{
                                             <Link  to={`/${lang}/account`} className="account-link"><img src={account} alt=""/></Link>
                                             <Link  to={`/${lang}/deposit`} className="deposit-link">deposit</Link>
                                         <button
-                                            class="navbar-toggler"
+                                            className="navbar-toggler"
                                             type="button"
                                             data-bs-toggle="collapse"
                                             data-bs-target="#navbarSupportedContent"
@@ -79,7 +79,7 @@ const Header = () =>{
                                             aria-expanded="false"
                                             aria-label="Toggle navigation"
                                         >
-                                            <span class="navbar-toggler-icon"></span>
+                                            <span className="navbar-toggler-icon"></span>
                                         </button>
 
                                         {/*<div className="btn-primary text-capitalize">

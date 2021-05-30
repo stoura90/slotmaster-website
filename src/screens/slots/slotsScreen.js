@@ -31,14 +31,24 @@ import {filter} from "../../assets/img/icons/icons"
 import "../../assets/styles/_select2.scss"
 import {CustomDropdown} from "../../components/dropdown/dropDown";
 import {SLOTS_DATA} from "../../data/slots";
+import {Actions} from "../../core";
 
-const  data = [
-
-]
 
 const SlotsScreen = () =>{
     const nav  = useNavigation();
-    const [show,setShow]=useState(20)
+    const [show,setShow]=useState(20);
+    const [data,setData]=useState([]);
+
+
+    useEffect(()=>{
+        loadData();
+    },[])
+
+    const loadData = async () => {
+        const response = await Actions.Slot.list();
+        console.log('response',response)
+        setData(response.status?response.data.data:[]);
+    }
 
     return (
         <>
@@ -94,15 +104,15 @@ const SlotsScreen = () =>{
 
                         <div className="col-12">
                             <div className="row casino-list">
-                                <SlotCard count={show} data={show===SLOTS_DATA.length? SLOTS_DATA:SLOTS_DATA.splice(0,show)} />
+                                <SlotCard count={show} data={show===data.length? data: data.splice(0,show)} />
                             </div>
                         </div>
 
                         {
-                            show !== SLOTS_DATA.length&&<div className="col-12">
+                            show !== data.length&&<div className="col-12">
                                 <div className="show-more">
-                                    <div className="show-info">You’ve viewed {show} of {SLOTS_DATA.length} games</div>
-                                    <div className="show-more-btn" onClick={()=>setShow(SLOTS_DATA.length)}>show more</div>
+                                    <div className="show-info">You’ve viewed {show} of {data.length} games</div>
+                                    <div className="show-more-btn" onClick={()=>setShow(data.length)}>show more</div>
                                 </div>
                             </div>
                         }

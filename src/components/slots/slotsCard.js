@@ -6,14 +6,18 @@ import {useSLot} from "../../core/hooks/useSLot";
 import {useLoader} from "../../core/hooks/useLoader";
 import {Loader} from "../index";
 
-const SlotCard =(props)=> {
+const SlotCard =({data})=> {
     const {loader}=useLoader()
     const {play}= useSLot()
 
+    useEffect(()=>{
+        console.log('d',data)
+    },[data])
 
     return (
 
-            _.map(props.data, (v,index)=>{
+
+            _.map(data, (v,index)=>{
                 return  (
                     <div className="col-4 col-lg-3" key={index}>
 
