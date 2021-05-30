@@ -19591,31 +19591,44 @@ input.for-confirm {
 
 .slot-card {
   position: relative;
-  display: block;
   overflow: hidden;
   border-radius: 6px;
   width: 100%;
-  height: 163px;
   transition: all 0.15s linear;
   /*@media(min-width: $md) {
     max-width: 175px;
     height: 230px;
   }*/
+  display: flex;
+  flex-direction: column;
+  color: #fff;
 }
 .slot-card .slot-card-hover {
   width: 100%;
-  height: 100%;
+  height: 13vw;
+  max-height: 180px;
+  position: relative;
+  background-size: cover !important;
+  border-radius: 4px;
 }
-.slot-card .slot-card-hover::after {
+.slot-card .slot-card-hover:hover {
+  cursor: pointer;
+}
+.slot-card .slot-card-hover:hover:after {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: none;
   content: "";
   background-color: rgba(19, 27, 38, 0.9);
   animation: fadeIn 0.15s linear;
+}
+.slot-card .slot-card-hover:hover .play-btn {
+  display: block;
+}
+.slot-card .slot-card-hover:hover .slot-card-hover::after {
+  display: block;
 }
 .slot-card .slot-card-cover {
   width: 100%;
@@ -19635,11 +19648,37 @@ input.for-confirm {
   z-index: 2;
   animation: fadeIn 0.2s linear;
 }
-.slot-card:hover .play-btn {
-  display: block;
+.slot-card .info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 5px;
 }
-.slot-card:hover .slot-card-hover::after {
-  display: block;
+.slot-card .info .name {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 500;
+}
+.slot-card .info .like {
+  position: relative;
+  align-items: center;
+  display: flex;
+  background: #283248;
+  padding: 0px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.slot-card .info .like i {
+  width: 20px;
+  height: 12px;
+  display: inline-block;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAwCAMAAABkKdmIAAAA81BMVEUAAABUXWdfaHFlbndnb3hpcXprc3xtdX1weIBze4N2foZ8g4t9hIuBiI+Jj5aKkZiOlJqTmZ+XnaOYnqSZnqSboKadoqieo6mfpKqjqK2lqq+prrOrsLWvs7ivtLizt7u3u7+5vcG8wMTAxMfBxMjHys3Iy87JzM/O0dPP0dTQ09bT1djV19rX2dvY2tzY2t3Z293a3N7b3d/c3uDd3+He4OLg4ePi5OXm5+np6uzq6+zr7O3t7u/w8fHx8fLx8vP19fb29/f4+Pn5+fn7+/v9/f3+/v7////t7u/19fb5+fn5+vr7+/v8/Pz9/f7+/v7///9mc2CiAAAASHRSTlMAAg8VGBocHiAkJy0vMzw8QEdLS01PUVFUWFpeYGVlaW1vcnZ4fn6BhYeHiYuNkJCQkpKUlJaYmp+ho6OlqamprrCysrS2uLj7AcVYAAABB0lEQVR42s3SQ4IzQBCG4Yrzcya2bdt2Uve/TGz2t5t3/zSL3qSMt9tFEyEVedswLRUX/zu8Ly1OLIsD6ZuFiYePJZCrHKopBIWmdyKTv2JCkmOUBFco8Q74XF0tIgJDvpQUuUf4WiztAiK94quavz8KWYFvin4UqvKtmD/OiyOV2RUz0L4/Vb5tms9cCn4TkXvI19P31eS3DYsqCvEp51bo2vyp9C2x9vhjvVsSYoF+KunCZBiASYBgUsJJXQ2TihwmSUJJT4+ShYtQMlbBZGGBCTthMtPCpCxFSc9IIFnYCCXsw0keJ1mYrNwwqf9CSVtHj8Tffl0roqRHIhhOSNsdHWr8ExQb0MjOHgsePzgAAAAASUVORK5CYII=) no-repeat;
+  background-size: contain;
+  margin-bottom: 2px;
+}
+.slot-card .info .like:hover {
+  cursor: pointer;
+  background: #475575;
 }
 
 .sport-card {
@@ -22529,6 +22568,36 @@ a:hover {
 
 .input-label label {
   top: 25%;
+}
+
+.sl_nav {
+  background: #1d2434;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+.sl_nav .sl_item {
+  color: #abb3ca;
+  padding: 0 10px;
+  line-height: 50px;
+  text-decoration: none;
+  float: left;
+  display: block;
+  position: relative;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+.sl_nav .sl_item:hover {
+  cursor: pointer;
+  color: #fff;
+}
+.sl_nav .sl_home {
+  background: #19212f url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAApCAMAAABnXgszAAAA21BMVEUAAAAZHk1FHiMZPlxVPiMZHmNcHiMZPnFqPiMZPn8ZTH96PiN6TCMZHoYZPoaBHiMZTI0ZYpxqkaqmkXGerbGuppWuraOurbEZfsYZgsYZkc7DgiNcn9WBrdzTmyNVsONctOPaplzaqWPhuIaIxvGXzvGe1fHpu3jpwoaX1fim2Pim3Piu3Pi13/i85vjxxobxxo3xzpzx1aOm3P/D6v/D7f/M7f/42Kr43Kr43LH437j49Pj4+//x///4////1aP/3Kr/7cb/+/j///j////x///4//////H///89WmoAAAAARXRSTlMACgwaHCAkLjI8PEJCRERISlpobnB2dnaDg4uLk5mboaGhoamvr6+xsbW1tbW1tbm5ubm9vb29v7+/v7+/wcHHx8fHx8ciD8sfAAAAv0lEQVR42u3UBW7EAAxEUZc5ZeZ2mZkxOPe/0HI4di6QL7aeLB4KdP7weEpitx1gcCGJmzZW9YU/ykrYRhZA75gRLUA2SgWeuhHmrAzI5qSEQI2AOSoiVP2YEYw5KiCy2r4jMmCq2iINLr0qCNvkVmIvBcSYb8hpv9RETLOErFKHw5FItP9DooPPMU+0P9r0MWHJlHblWfJlkzeTIda7TV6NhESRFx/50WE3v7bJVRt2epbo7nnX06V3fu3rPS0BaxwLOCeq4KQAAAAASUVORK5CYII=") no-repeat center;
+  width: 20px;
+  background-size: 20px;
+  height: 50px;
+  padding: 0 26px;
 }
 
 /*# sourceMappingURL=app.css.map */

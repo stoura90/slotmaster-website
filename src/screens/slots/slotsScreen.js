@@ -12,14 +12,27 @@ const SlotsScreen = () =>{
     const [show,setShow]=useState(20);
     const [providers,setProviders]=useState([])
     const [list,setList]=useState([])
+    const [selectedProvider,setSelectedProvider]=useState(null)
 
 
     useEffect(()=>{
         loadProvider();
     },[])
 
+    useEffect(()=>{
+        if(selectedProvider){
+            console.log('dddd',selectedProvider)
+            loadSlots(selectedProvider.id)
+        }
+    },[selectedProvider])
+
     const loadProvider =   () => {
-        Actions.Slot.list().then(response=>setProviders(response.status?response.data.data:[]))
+        Actions.Slot.list().then(response=> {
+            if(response.status){
+                setSelectedProvider(response.data.data[0])
+            }
+            setProviders(response.status?response.data.data:[])
+        })
     }
     const loadSlots =   (id) => {
         Actions.Slot.listByProvider(id).then(response=>setList(response.status?response.data.data:[]))
@@ -45,7 +58,7 @@ const SlotsScreen = () =>{
                 <div className="container">
 
                     <div className="row">
-                        <div className="col-12 d-flex align-items-center main-filter slot">
+                        {/*<div className="col-12 d-flex align-items-center main-filter slot">
                             <div className="search">
                                 <input
                                     type="text"
@@ -70,16 +83,22 @@ const SlotsScreen = () =>{
                                  data-bs-target="#FilterModal">
                                 <img src={filter} alt="Filter"/>
                             </div>
-                        </div>
+                        </div>*/}
+
+
 
                         <div className="col-12 d-flex align-items-center section-head">
-                            {
-                                _.map(providers,provider=><div style={{marginLeft:"20px",color:"white"}}  key={provider.id} onClick={()=>loadSlots(provider.id)}>{provider.name}</div>)
-                            }
+                            <div className="sl_nav">
+                                <div className="sl_item sl_home" onClick={()=> setSelectedProvider(null)}/>
+                                {
+                                    _.map(providers,provider=><div className="sl_item" key={provider.id} onClick={()=>setSelectedProvider(provider)}>{provider.name}</div>)
+                                }
+                            </div>
+
                         </div>
                         <div className="col-12 d-flex align-items-center section-head">
                             <a href="#">
-                                <div className="section-heading">all Provider</div>
+                                <div className="section-heading">{selectedProvider?.name}</div>
                             </a>
                         </div>
 

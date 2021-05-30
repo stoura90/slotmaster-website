@@ -80,31 +80,55 @@
 
 .slot-card {
   position: relative;
-  display: block;
+  //display: block;
   overflow: hidden;
   border-radius: 6px;
   //max-width: 124px;
   width: 100%;
-  height: 163px;
+  //height: 163px;
   transition: all 0.15s linear;
   /*@media(min-width: $md) {
     max-width: 175px;
     height: 230px;
   }*/
 
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+
   .slot-card-hover {
     width: 100%;
-    height: 100%;
-    &::after {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: none;
-      content: "";
-      background-color: rgba(#131b26, 0.9);
-      animation: fadeIn 0.15s linear;
+    height: 13vw;
+    max-height: 180px;
+    position: relative;
+    //height: 100%;
+    background-size: cover !important;
+    border-radius: 4px;
+
+
+
+
+    &:hover {
+      cursor: pointer;
+      &:after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        content: "";
+        background-color: rgba(#131b26, 0.9);
+        animation: fadeIn 0.15s linear;
+      }
+
+      .play-btn {
+        display: block;
+      }
+      .slot-card-hover {
+        &::after {
+          display: block;
+        }
+      }
     }
   }
 
@@ -128,14 +152,41 @@
     animation: fadeIn 0.2s linear;
   }
 
-  &:hover {
-    .play-btn {
-      display: block;
+
+
+  .info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 5px;
+    .name{
+      flex: 1;
+      font-size: 12px;
+      font-weight: 500;
     }
-    .slot-card-hover {
-      &::after {
-        display: block;
+    .like {
+      position: relative;
+      align-items: center;
+      display: flex;
+      background: #283248;
+      padding: 0px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+
+      i {
+        width: 20px;
+        height: 12px;
+        display: inline-block;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAwCAMAAABkKdmIAAAA81BMVEUAAABUXWdfaHFlbndnb3hpcXprc3xtdX1weIBze4N2foZ8g4t9hIuBiI+Jj5aKkZiOlJqTmZ+XnaOYnqSZnqSboKadoqieo6mfpKqjqK2lqq+prrOrsLWvs7ivtLizt7u3u7+5vcG8wMTAxMfBxMjHys3Iy87JzM/O0dPP0dTQ09bT1djV19rX2dvY2tzY2t3Z293a3N7b3d/c3uDd3+He4OLg4ePi5OXm5+np6uzq6+zr7O3t7u/w8fHx8fLx8vP19fb29/f4+Pn5+fn7+/v9/f3+/v7////t7u/19fb5+fn5+vr7+/v8/Pz9/f7+/v7///9mc2CiAAAASHRSTlMAAg8VGBocHiAkJy0vMzw8QEdLS01PUVFUWFpeYGVlaW1vcnZ4fn6BhYeHiYuNkJCQkpKUlJaYmp+ho6OlqamprrCysrS2uLj7AcVYAAABB0lEQVR42s3SQ4IzQBCG4Yrzcya2bdt2Uve/TGz2t5t3/zSL3qSMt9tFEyEVedswLRUX/zu8Ly1OLIsD6ZuFiYePJZCrHKopBIWmdyKTv2JCkmOUBFco8Q74XF0tIgJDvpQUuUf4WiztAiK94quavz8KWYFvin4UqvKtmD/OiyOV2RUz0L4/Vb5tms9cCn4TkXvI19P31eS3DYsqCvEp51bo2vyp9C2x9vhjvVsSYoF+KunCZBiASYBgUsJJXQ2TihwmSUJJT4+ShYtQMlbBZGGBCTthMtPCpCxFSc9IIFnYCCXsw0keJ1mYrNwwqf9CSVtHj8Tffl0roqRHIhhOSNsdHWr8ExQb0MjOHgsePzgAAAAASUVORK5CYII=) no-repeat;
+        background-size: contain;
+        margin-bottom: 2px;
       }
+
+      &:hover {
+        cursor: pointer;
+        background: #475575;
+      }
+
     }
   }
 }

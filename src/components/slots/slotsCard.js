@@ -14,11 +14,15 @@ const SlotCard =({data})=> {
                     <div className="col-4 col-lg-3" key={index}>
                         <div className="slot-card">
                             {loader===v.id && <Loader/>}
-                            <span className="slot-card-hover">
-                                <div className="slot-card-cover" style={{backgroundImage:`url(${v.imageUrl})`}}/>
-                                <img src={v.imageUrl} alt="" style={{visibility:"hidden"}} />
-                                <img src={PlayIcon} alt="" className="play-btn" onClick={()=>play(v)}/>
-                            </span>
+                            <div className="slot-card-hover" style={{backgroundImage:`url(${v.imageUrl})`}} onClick={()=>play(v)}>
+                                <div className="slot-card-cover"/>
+                                {/*<img src={v.imageUrl} alt="" style={{visibility:"hidden"}} />*/}
+                                <img src={PlayIcon} alt="" className="play-btn" />
+                            </div>
+                            <div className="info">
+                                <div className="name">{v.name}</div>
+                                <div className="like"><i/><span>2274</span></div>
+                            </div>
                         </div>
                     </div>
                 )
