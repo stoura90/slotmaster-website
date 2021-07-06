@@ -10,7 +10,8 @@ export const Config ={
    },
    Slot:{
       PLAY:"/ss/v1/api/secured/gis?gameId={gameId}&lang=ru",
-      LIST:"/ss/v1/api/slot/providers",
+      //LIST:"/ss/v1/api/slot/providers",
+      LIST:"/ss/v1/api/slot/categories",
       LIST_BY_PROVIDER:"/ss/v1/api/slot/providers/{slotProviderId}"
    }
 }

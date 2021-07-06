@@ -5,7 +5,7 @@ import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import "./assets/styles/app.css"
+import "./assets/styles/app.scss"
 import {Provider} from "./core";
 import {store as Store} from "./core/store/store";
 ReactDOM.render(

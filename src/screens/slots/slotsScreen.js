@@ -11,6 +11,7 @@ import _ from "lodash"
 const SlotsScreen = () =>{
     const [show,setShow]=useState(20);
     const [providers,setProviders]=useState([])
+    const [filters,setFilters]=useState([])
     const [list,setList]=useState([])
     const [selectedProvider,setSelectedProvider]=useState(null)
 
@@ -26,16 +27,26 @@ const SlotsScreen = () =>{
         }
     },[selectedProvider])
 
-    const loadProvider =   () => {
+    const homeClick = () => {
+        setSelectedProvider(null);
+        loadProvider();
+    }
+
+    const loadProvider = () => {
         Actions.Slot.list().then(response=> {
             if(response.status){
-                setSelectedProvider(response.data.data[0])
+                setSelectedProvider(response.data.data.providers[0]);
             }
-            setProviders(response.status?response.data.data:[])
+            setProviders(response.status?response.data.data.providers:[]);
+            setFilters(response.status?response.data.data.filterGroups:[]);
         })
     }
-    const loadSlots =   (id) => {
+    const loadSlots = (id) => {
         Actions.Slot.listByProvider(id).then(response=>setList(response.status?response.data.data:[]))
+    }
+
+    const getFilteredSlots = (id) => {
+        console.log(id)
     }
 
     return (
@@ -87,15 +98,26 @@ const SlotsScreen = () =>{
 
 
 
-                        <div className="col-12 d-flex align-items-center section-head">
+                        <div className="col-12 section-head">
                             <div className="sl_nav">
-                                <div className="sl_item sl_home" onClick={()=> setSelectedProvider(null)}/>
+                                <div className="sl_item sl_home" onClick={()=> homeClick()}/>
                                 {
                                     _.map(providers,provider=><div className="sl_item" key={provider.id} onClick={()=>setSelectedProvider(provider)}>{provider.name}</div>)
                                 }
                             </div>
+                            <div className="sl_filter">
+                                <ul>
+                                    {
+                                        _.map(filters,filter => <li key={filter.id} onClick={()=>getFilteredSlots(filter.id)}>{filter.name}  <i>{filter.id}</i></li>)
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="col-12 d-flex align-items-center section-head">
 
                         </div>
+
                         <div className="col-12 d-flex align-items-center section-head">
                             <a href="#">
                                 <div className="section-heading">{selectedProvider?.name}</div>
