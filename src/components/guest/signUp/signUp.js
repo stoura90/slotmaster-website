@@ -39,6 +39,22 @@ const SignUp =() =>{
         password:"",
         password2:""
     })
+
+    const [passType, setPassType] = useState({
+        pass1:'password',
+        pass2:'password'
+    });
+
+    const togglePassType=(pass)=>{
+        if(pass === 'pass1'){
+            setPassType(passType.pass1 === 'text'?{...passType,pass1:'password'}:{...passType,pass1:'text'})
+        }else{
+            setPassType(passType.pass2 === 'text'?{...passType,pass2:'password'}:{...passType,pass2:'text'})
+        }
+
+        console.log(pass)
+    }
+
     const [errors,setErrors]=useState([])
     const onSignUp=()=>{
         let error = _.chain(signUpForm).map((v,k)=>{ return  {key:k,value:v}}).filter(v=>!v.value).map(v=>v.key).value();
@@ -159,25 +175,27 @@ const SignUp =() =>{
                             </div>
                             <div className="col-12 col-md-6">
                                 <div className={`input-label ${error("password")}`}>
-                                    <input type="password" name="password" id="password"
+                                    <input type={passType.pass1}
+                                           name="password"
+                                           id="password"
                                            value={signUpForm.password}
                                            onChange={event => setSignUpForm({...signUpForm,password:event.target.value})}
                                     />
                                     <label htmlFor="password">Password</label>
-                                    <div className="toggle-password hide"></div>
+                                    <div className={`toggle-password ${passType.pass1==='text'?'active':'hide'}`} onClick={()=>{togglePassType('pass1')}}/>
                                 </div>
                             </div>
                             <div className="col-12 col-md-6">
                                 <div className={`input-label ${error("password2")}`}>
                                     <input
-                                        type="password"
+                                        type={passType.pass2}
                                         name="confirm-password"
                                         id="confirmPassword"
                                         value={signUpForm.password2}
                                         onChange={event => setSignUpForm({...signUpForm,password2:event.target.value})}
                                     />
                                     <label htmlFor="confirmPassword">Repeat Password</label>
-                                    <div className="toggle-password hide"></div>
+                                    <div className={`toggle-password ${passType.pass2==='text'?'active':'hide'}`} onClick={()=>{togglePassType('pass2')}}/>
                                 </div>
                             </div>
                             <div className="col-12">
