@@ -84,7 +84,7 @@ const Request = {
                 if(this.enableEvents) {
                     eventEmitter.emit("httpError",{severity: 'error', summary: 'Http Error', detail: `error  ${reason.response.status}`, sticky: false,life:2000})
                 }
-                resolve({ status:false })
+                resolve({ status:false,data: JSON.parse(reason.response.data.error) })
             })
           }catch (e) {
               console.log(e.message)

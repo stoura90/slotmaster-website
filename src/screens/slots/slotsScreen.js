@@ -46,7 +46,8 @@ const SlotsScreen = () =>{
     }
 
     const getFilteredSlots = (id) => {
-        console.log(id)
+        setSelectedProvider({...selectedProvider,name: null});
+        Actions.Slot.listByFilter(id).then(response=>setList(response.status?response.data.data:[]))
     }
 
     return (
@@ -108,7 +109,7 @@ const SlotsScreen = () =>{
                             <div className="sl_filter">
                                 <ul>
                                     {
-                                        _.map(filters,filter => <li key={filter.id} onClick={()=>getFilteredSlots(filter.id)}>{filter.name}  <i>{filter.id}</i></li>)
+                                        _.map(filters,filter => <li key={filter.id} onClick={()=>getFilteredSlots(filter.id)}>{filter.name}  <i>{filter?.options?.itemsCount}</i></li>)
                                     }
                                 </ul>
                             </div>
@@ -118,11 +119,15 @@ const SlotsScreen = () =>{
 
                         </div>
 
-                        <div className="col-12 d-flex align-items-center section-head">
-                            <a href="#">
-                                <div className="section-heading">{selectedProvider?.name}</div>
-                            </a>
-                        </div>
+                        {
+                            selectedProvider?.name &&
+                            <div className="col-12 d-flex align-items-center section-head">
+                                <a href="#">
+                                    <div className="section-heading">{selectedProvider?.name}</div>
+                                </a>
+                            </div>
+                        }
+
 
                         <div className="col-12">
                             <div className="row casino-list">
