@@ -1,6 +1,7 @@
 import {Config} from "../../index";
 import {PING, SIGN_IN} from "../actionTypes";
 import Request from "../../http/http";
+import Http from "../../http/http2";
 import {query_string} from "../../utils";
 const signIn = (data) =>async (dispatch)=>{
     const response = await Request.post(Config.User.SIGN_IN,query_string({
@@ -47,12 +48,14 @@ const signOut = () => async (dispatch)=>{
 }
 
 const ping = () =>async (dispatch)=>{
-  const response = await Request.setEvents(false).get(Config.User.PING)
-  dispatch({
-    type: PING,
-      payload: response.status?response.data.data:{},
-      status:response.status
-  })
+    (new Http()).get(Config.User.PING).then(response=>{
+         console.log(response)
+         dispatch({
+             type: PING,
+             payload: response.status?response.data.data:{},
+             status:response.status
+         })
+     })
 }
 
 const signUp = async (data) => {
