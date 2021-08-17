@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { sl2} from '../../assets/img/images';
 import { Footer, Header,SlotCard, Swp} from "../../components";
-
-import {filter} from "../../assets/img/icons/icons"
 import "../../assets/styles/_select2.scss"
-import {CustomDropdown} from "../../components/dropdown/dropDown";
 import {Actions} from "../../core";
 import _ from "lodash"
 
@@ -22,7 +19,6 @@ const SlotsScreen = () =>{
 
     useEffect(()=>{
         if(selectedProvider){
-            console.log('dddd',selectedProvider)
             loadSlots(selectedProvider.id)
         }
     },[selectedProvider])
@@ -34,12 +30,14 @@ const SlotsScreen = () =>{
 
     const loadProvider = () => {
         Actions.Slot.list().then(response=> {
+            console.log("slot response ", response)
+
             if(response.status){
                 setSelectedProvider(response.data.data.providers[0]);
             }
             setProviders(response.status?response.data.data.providers:[]);
             setFilters(response.status?response.data.data.filterGroups:[]);
-        })
+        }).catch(reason => console.log(reason))
     }
     const loadSlots = (id) => {
         Actions.Slot.listByProvider(id).then(response=>setList(response.status?response.data.data:[]))

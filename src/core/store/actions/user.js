@@ -12,7 +12,9 @@ const signIn = (data) =>async (dispatch)=>{
         }
     });
     if(response.status){
+        console.log(response)
         localStorage.setItem('access_token',response.data.access_token);
+        localStorage.setItem('GRD_refresh_token',response.data.refresh_token);
         dispatch(ping())
         dispatch({
             type: SIGN_IN,

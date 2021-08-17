@@ -35,19 +35,16 @@ const Request = {
         this.data.loaderData = {event: event, uuid: uuid};
         return this;
     },
-
     dispatchLoader: function(event='app',status=false){
         if(!this.events['loader'][event]) return;
         this.events["loader"][event].forEach(callback=>callback(status))
         return this;
     },
-
     subscribeLoader: function (event,callback) {
         if(!this.events["loader"][event]) this.events["loader"][event] = [];
         this.events["loader"][event].push(callback)
         return this;
     },
-
     unsubscribeLoader: function(event){
         if(this.events["loader"][event]) delete this.events["loader"][event];
         return this;
@@ -100,7 +97,6 @@ const Request = {
         if(this.data.loader){
             this.dispatchLoader(this.data.loaderData.event,true);
         }
-
         return new Promise((resolve) => {
             let customHeader;
             if(localStorage.getItem("access_token")){
@@ -138,8 +134,10 @@ const Request = {
                 this.dispatchLoader(this.data.loaderData.event,false);
             }
         })
-    }
+    },
+    refreshToken:function (){
 
+    }
 };
 
 export default Request;
