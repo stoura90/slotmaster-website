@@ -79,7 +79,11 @@ const Balance = () =>{
                     <span onClick={()=>{
                         signOut(()=>{
                             console.log("callback")
-
+                            try {
+                                localStorage.clear()
+                            }finally {
+                                window.location.href="/"
+                            }
 
 
                         });

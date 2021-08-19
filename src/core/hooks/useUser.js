@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {SIGN_IN} from "../store/actionTypes";
-
+import _ from 'lodash'
 export function useUser() {
     const User = useSelector(store=>store.User);
     const dispatch = useDispatch();
@@ -21,7 +21,9 @@ export function useUser() {
                 data: {}
             }
         })
-        console.log(callback)
+        if(callback && _.isFunction(callback)){
+            callback()
+        }
     }
 
     return  {User, signIn, signOut}
