@@ -50,7 +50,7 @@ const SlotsScreen = () =>{
 
     return (
         <>
-            <Header/>
+            <Header page={"slots"}/>
 
             <div className="container slider">
                 <Swp count={3}  data={[

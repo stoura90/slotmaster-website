@@ -6,23 +6,25 @@ import {
     logo,
 } from '../../assets/img/icons/icons';
 import {Link, useParams} from "react-router-dom";
-
-const Header = () =>{
+import PropTypes from 'prop-types';
+const Header = ({page}) =>{
     const {User} = useUser();
     const {lang} = useParams();
-    console.log(useParams())
+    useEffect(()=>{
+        console.log(page)
+    },[page])
     return (
         <header>
             <nav className="navbar navbar-expand-md flex-column">
                 <div className="navbar-head">
                     <div className="container">
                         <div className="d-flex justify-content-between">
-                            <a className="navbar-brand d-none d-lg-flex" href="/">
+                            <Link className="navbar-brand d-none d-lg-flex" to="/">
                                 <img src={logo} alt=""/>
-                            </a>
-                            <a className="navbar-brand w-auto h-auto d-lg-none" href="/">
+                            </Link>
+                            <Link className="navbar-brand w-auto h-auto d-lg-none" to="/">
                                 <img src={logoM} alt=""/>
-                            </a>
+                            </Link>
                             <div
                                 className="authorization-interface d-flex align-items-center"
                             >
@@ -44,7 +46,7 @@ const Header = () =>{
                                             aria-expanded="false"
                                             aria-label="Toggle navigation"
                                         >
-                                            <span className="navbar-toggler-icon"></span>
+                                            <span className="navbar-toggler-icon"/>
                                         </button>
 
                                         {/*<div className="btn-primary text-capitalize">
@@ -88,7 +90,7 @@ const Header = () =>{
                     <div className="container">
                         <ul className="navbar-nav">
                             <li className="nav-item d-none d-md-flex">
-                                <Link to={`/${lang}/main`} className="nav-link active home">
+                                <Link to={`/${lang}/main`} className={`nav-link  home ${page==='main'? 'active':''}`}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="24"
@@ -113,29 +115,27 @@ const Header = () =>{
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={`/${lang}/sport`} className="nav-link">Sport</Link>
+                                <Link to={`/${lang}/sport`} className={`nav-link ${page==='sport'? 'active':''}`}>Sport</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Live</a>
+                                <a  className={`nav-link ${page==='live'? 'active':''}`} href="#">Live</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Virtuals</a>
+                                <a  className={`nav-link ${page==='virtuals'? 'active':''}`} href="#">Virtuals</a>
                             </li>
                             <li className="nav-item">
-                                <Link to={`/${lang}/casino`} className="nav-link">Casino</Link>
+                                <Link to={`/${lang}/casino`}  className={`nav-link ${page==='casino'? 'active':''}`}>Casino</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={`/${lang}/slots`} className="nav-link">Slot</Link>
+                                <Link to={`/${lang}/slots`}  className={`nav-link ${page==='slots'? 'active':''}`}>Slot</Link>
                             </li>
                             <li className="nav-item">
-                                <Link  to={`/${lang}/promo`} className="nav-link">Promo</Link>
+                                <Link  to={`/${lang}/promo`}  className={`nav-link ${page==='promo'? 'active':''}`}>Promo</Link>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
-
-
             {/*<div className="header.bkp-slider">
                     <HeaderCarousel count={3}  data={[
                         {id:1, icon:slider1 },
@@ -149,5 +149,11 @@ const Header = () =>{
                 </div>*/}
         </header>
     )
+}
+Header.propTypes={
+    page:PropTypes.string
+}
+Header.defaultProps={
+    page:'main'
 }
 export default Header;

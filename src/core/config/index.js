@@ -7,7 +7,7 @@ export const Config ={
    },
    Config:{
       REFRESH_TOKEN:"/v1/api/refresh_token",
-      SPORT_TOKEN:"/web-service/v1/api/secured/sport/get/url"
+      SPORT_TOKEN:"/ws/v1/api/secured/sport/get/url"
    },
    Slot:{
       PLAY:"/ss/v1/api/secured/gis?gameId={gameId}&lang=ru",

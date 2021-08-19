@@ -25,7 +25,7 @@ const DepositScreen = () =>{
     },[nav]);
     return (
         <>
-            <Header/>
+            <Header page={"deposit"}/>
 
             <main className="account">
                 <div className="container">

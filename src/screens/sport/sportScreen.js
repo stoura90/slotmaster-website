@@ -10,7 +10,7 @@ const SportScreen=()=>{
     },[])
 
     return  <>
-        <Header/>
+        <Header page={"sport"}/>
 
         <main>
             <Sport.EuropeanView/>

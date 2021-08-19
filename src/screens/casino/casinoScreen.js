@@ -20,7 +20,7 @@ const CasinoScreen = () =>{
     },[nav]);
     return (
         <>
-            <Header/>
+            <Header page={"casino"}/>
 
             <div className="container slider">
                 <Swp count={3}  data={[

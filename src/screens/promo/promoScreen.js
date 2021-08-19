@@ -21,7 +21,7 @@ const PromoScreen = () =>{
     },[nav]);
     return (
         <>
-            <Header/>
+            <Header page={"promo"}/>
 
             <div className="container slider">
                 <Swp count={3}  data={[

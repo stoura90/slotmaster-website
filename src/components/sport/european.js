@@ -51,10 +51,11 @@ export const EuropeanView=()=>{
         }))
     }
     useLayoutEffect( () => {
-        console.log(User)
+
         if (User.isLogged) {
             response.then(res=>{
                 if(res.status){
+                    console.log(res)
                     loadFrame({...params,token:res.data.data.token})
                 }else {
                    loadFrame(params)

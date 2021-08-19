@@ -19,7 +19,7 @@ const TransactionScreen = () =>{
     },[nav]);
     return (
         <>
-            <Header/>
+            <Header page={"transaction"}/>
 
             <main className="account">
                 <div className="container">

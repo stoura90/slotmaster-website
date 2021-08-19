@@ -11,7 +11,7 @@ const AccountScreen = () =>{
     },[nav]);
     return (
         <>
-            <Header/>
+            <Header page={'account'}/>
 
             <main className="account">
                 <div className="container">
