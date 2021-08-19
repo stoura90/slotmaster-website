@@ -1,8 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation} from "../../core/hooks/useNavigation";
-import { ajax, bayern, betsoft, bitcoin, evolutionGaming,inter, kings,liver,logoM,manCity,manUn,milan, narcos, neteller, netent,pirate,slider1,sl2, slotSardCover,sun,tonys, webmoney} from '../../assets/img/images';
-import {discord, logo, play} from "../../assets/img/icons/icons";
-import {Carousel, FooterCarousel, Header, HeaderCarousel, Swp, Footer} from "../../components";
+import { ajax, bayern,inter,liver,manCity,manUn,milan,sl2, slotSardCover} from '../../assets/img/images';
+import {Carousel, Header, Swp, Footer} from "../../components";
 import {useSLot} from "../../core/hooks/useSLot";
 import {SLOTS_DATA} from "../../data/slots";
 

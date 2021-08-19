@@ -1,46 +1,14 @@
 import React, {useEffect} from 'react';
 import {logoM, sl2} from "../../assets/img/images";
-import {Swp} from "../index";
 import {useUser} from "../../core/hooks/useUser";
 import {
-    restriction18,
     account,
-    arrowLeft,
-    arrowLeftBack,
-    borderDashed,
-    checked,
-    checkedMb,
-    clockModal,
-    close,
-    discord,
-    fileUpload,
-    filter,
-    hArrows,
-    home,
     logo,
-    logout,
-    multiArrow,
-    netnet,
-    percent,
-    percentModal,
-    play,
-    plus,
-    reload,
-    remove,
-    search,
-    searchLight,
-    selectArrow,
-    skrillSmall,
-    sliderArrowNext,
-    sliderArrowPrev,
-    time,
-    viewOff,
-    viewOn,
 } from '../../assets/img/icons/icons';
 import {Link, useParams} from "react-router-dom";
 
 const Header = () =>{
-    const {User,signOut} = useUser();
+    const {User} = useUser();
     const {lang} = useParams();
     console.log(useParams())
     return (
@@ -145,7 +113,7 @@ const Header = () =>{
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Sport</a>
+                                <Link to={`/${lang}/sport`} className="nav-link">Sport</Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Live</a>

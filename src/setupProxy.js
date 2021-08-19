@@ -20,6 +20,15 @@ module.exports = function(app) {
         })
     );
     app.use(
+        '/web-service',
+        createProxyMiddleware({
+            //target: 'http://10.0.2.34:8072',
+            target: 'http://192.168.30.50:8072',
+            logLevel:"debug",
+            changeOrigin: false,
+        })
+    );
+    app.use(
         '/v1',
         createProxyMiddleware({
             //target: 'http://10.0.2.34:8072',

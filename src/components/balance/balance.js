@@ -48,6 +48,7 @@ const Balance = () =>{
     },[])
     return (
         <>
+
             <div className="col-12 d-flex justify-content-between">
                 <div className="d-flex flex-column flex-md-row align-items-md-center">
                     <span className="user-fullname">Nick Tamarashvili</span>
@@ -75,7 +76,15 @@ const Balance = () =>{
                             transform="translate(0.012 -46.924)"
                         />
                     </svg>
-                    <span onClick={()=>signOut()}>Log Out</span>
+                    <span onClick={()=>{
+                        signOut(()=>{
+                            console.log("callback")
+
+
+
+                        });
+
+                    }}>Log Out</span>
                 </a>
             </div>
             <div className="col-12">

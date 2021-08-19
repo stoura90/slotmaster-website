@@ -1,32 +1,14 @@
 import React, {useEffect} from 'react';
 import {useNavigation} from "../../core/hooks/useNavigation";
 import {
-    ajax,
-    bayern,
-    betsoft,
-    bitcoin,
-    evolutionGaming,
-    inter,
     kings,
-    liver,
-    logoM,
-    manCity,
-    manUn,
-    milan,
     narcos,
-    neteller,
-    netent,
     pirate,
     sl2,
-    slider1,
     slotSardCover,
-    sun,
     tonys,
-    webmoney
 } from '../../assets/img/images';
-import {discord, logo, play} from "../../assets/img/icons/icons";
-import {Carousel, Footer, FooterCarousel, Header, HeaderCarousel, SlotCard, Swp} from "../../components";
-import _ from "lodash";
+import { Footer, Header, SlotCard, Swp} from "../../components";
 import {CustomDropdown} from "../../components/dropdown/dropDown";
 
 

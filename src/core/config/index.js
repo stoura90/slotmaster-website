@@ -6,7 +6,8 @@ export const Config ={
       PING: "/us/v1/api/secured/ping"
    },
    Config:{
-      REFRESH_TOKEN:"/v1/api/refresh_token"
+      REFRESH_TOKEN:"/v1/api/refresh_token",
+      SPORT_TOKEN:"/web-service/v1/api/secured/sport/get/url"
    },
    Slot:{
       PLAY:"/ss/v1/api/secured/gis?gameId={gameId}&lang=ru",

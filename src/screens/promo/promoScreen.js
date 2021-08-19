@@ -1,27 +1,6 @@
 import React, {useEffect} from 'react';
 import {useNavigation} from "../../core/hooks/useNavigation";
 import {
-    ajax,
-    bayern,
-    betsoft,
-    bitcoin,
-    evolutionGaming,
-    inter,
-    kings,
-    liver,
-    logoM,
-    manCity,
-    manUn,
-    milan,
-    narcos,
-    neteller,
-    netent,
-    pirate,
-    slider1,
-    slotSardCover,
-    sun,
-    tonys,
-    webmoney,
     promo1,
     promo2,
     promo3,
@@ -30,9 +9,7 @@ import {
     promoCardCover,
     sl2
 } from '../../assets/img/images';
-import {discord, logo, play} from "../../assets/img/icons/icons";
-import {Carousel, Footer, FooterCarousel, Header, HeaderCarousel, SlotCard, Swp} from "../../components";
-import _ from "lodash";
+import { Footer,  Header, Swp} from "../../components";
 import PromoCard from "../../components/promo/promoCard";
 
 

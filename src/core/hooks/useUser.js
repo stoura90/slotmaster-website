@@ -13,13 +13,16 @@ export function useUser() {
             }
         })
     }
-    const signOut = ()=> dispatch({
-        type:SIGN_IN,
-        payload:{
-            isLogged:false,
-            data: {}
-        }
-    })
+    const signOut = (callback=null)=>{
+        dispatch({
+            type:SIGN_IN,
+            payload:{
+                isLogged:false,
+                data: {}
+            }
+        })
+        console.log(callback)
+    }
 
     return  {User, signIn, signOut}
 }
