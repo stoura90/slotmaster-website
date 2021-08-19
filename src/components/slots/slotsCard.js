@@ -13,7 +13,7 @@ const SlotCard =({data})=> {
                 return  (
                     <div className="col-4 col-lg-3" key={index}>
                         <div className="slot-card">
-                            {loader===v.id && <Loader/>}
+                            {loader===v.gameId && <Loader/>}
                             <div className="slot-card-hover" style={{backgroundImage:`url(${v.imageUrl})`}} onClick={()=>play(v)}>
                                 <div className="slot-card-cover"/>
                                 {/*<img src={v.imageUrl} alt="" style={{visibility:"hidden"}} />*/}

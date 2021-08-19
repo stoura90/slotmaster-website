@@ -8,6 +8,7 @@ export function useSLot() {
     const User = useUser();
     const {setLoader} = useLoader()
     const play=(slot)=>{
+
         if(!User.User.isLogged){
             document.getElementById("signIn-btn").click();
             return;
