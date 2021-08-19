@@ -6,6 +6,8 @@ const request =  axios.create({
     baseURL: '/'
 })
 let loaders = new Map();
+let refreshToken=false;
+
 class Http {
     loader=null;
     try=1;
@@ -28,8 +30,11 @@ class Http {
         return this;
     }
     get(url,header=null){
+        console.log(refreshToken)
+
         return new Promise((resolve, reject) => {
             return new Promise((resolve,reject ) => {
+
                 let customHeader;
                 if(localStorage.getItem("access_token")){
                     customHeader =((header) ? {
@@ -59,9 +64,12 @@ class Http {
                         })
                     }
                 }).catch( async reason => {
-                    if (this.try ===1 && localStorage.getItem("GRD_refresh_token") && reason.message === "Request failed with status code 401") {
+
+                    if (this.try ===1 && localStorage.getItem("GRD_refresh_token") && reason.message === "Request failed with status code 401" ) {
                         this.try+=1;
+                        refreshToken="loading";
                         const response = await this.refreshToken()
+                        refreshToken="loaded";
                         if (response) {
                             this.get(url, customHeader).then(response=>{
                                 if(response.status===200){

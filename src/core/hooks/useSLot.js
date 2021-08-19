@@ -15,6 +15,7 @@ export function useSLot() {
         }
         setLoader(slot.gameId)
         Actions.Slot.play(slot).then(response=>{
+            console.log(response)
             if(response.status && response.data.data.result===0){
                 setTimeout(()=>window.open(response.data.data.url,"_blank"),10)
             }else{
