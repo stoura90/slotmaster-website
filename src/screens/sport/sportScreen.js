@@ -12,14 +12,11 @@ const SportScreen=()=>{
     return  <>
         <Header/>
 
-
         <main>
-            <div className="container">
-                <Sport.EuropeanView/>
-            </div>
+            <Sport.EuropeanView/>
         </main>
 
-        <Footer/>
+        {/*<Footer/>*/}
 
     </>
 }
