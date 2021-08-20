@@ -65,7 +65,7 @@ const SignUp =() =>{
             setErrors([...error])
             alert("Passwords do not match")
         }else{
-            localStorage.removeItem("access_token")
+            localStorage.removeItem("GRD_access_token")
             Actions.User.signUp(signUpForm).then(response=>{
                 if(response.status){
                     document.getElementById("close-sign-up").click();

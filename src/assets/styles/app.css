@@ -22622,6 +22622,7 @@ a:hover {
   color: #a2a9b3;
   padding: 10px;
   font-family: "FiraGO", sans-serif;
+  align-items: center;
 }
 .sl_filter ul li i {
   margin-left: 10px;
@@ -22635,6 +22636,13 @@ a:hover {
   border-radius: 50px;
   font-style: normal;
   line-height: 30px;
+}
+.sl_filter ul li:hover {
+  cursor: pointer;
+  color: #fff;
+}
+.sl_filter ul li:hover i {
+  color: #a2a9b3;
 }
 
 /*# sourceMappingURL=app.css.map */

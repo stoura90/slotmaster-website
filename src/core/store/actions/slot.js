@@ -5,13 +5,13 @@ const play =(slot)=>{
     return (new Http()).get(Config.Slot.PLAY.replace("{gameId}",slot.gameId))
 }
 const list =  () => {
-    return (new Http()).setLoader("zura-loader").get(Config.Slot.LIST);
+    return (new Http()).permitAll().setLoader("zura-loader").get(Config.Slot.LIST);
 }
 const listByProvider =  (id) => {
-    return (new Http()).get(Config.Slot.LIST_BY_PROVIDER.replace("{slotProviderId}",id));
+    return (new Http()).permitAll().get(Config.Slot.LIST_BY_PROVIDER.replace("{slotProviderId}",id));
 }
 const listByFilter =  (id) => {
-    return (new Http()).get(Config.Slot.LIST_BY_FILTER.replace("{filterId}",id));
+    return (new Http()).permitAll().get(Config.Slot.LIST_BY_FILTER.replace("{filterId}",id));
 }
 export default {
     play,

@@ -55,13 +55,13 @@ const Request = {
         }
         return new Promise((resolve, ) => {
             let customHeader;
-            if(localStorage.getItem("access_token")){
+            if(localStorage.getItem("GRD_access_token")){
                  customHeader =((header) ? {
-                    headers:{...header, Authorization: `Bearer `+localStorage.getItem("access_token")},
+                    headers:{...header, Authorization: `Bearer `+localStorage.getItem("GRD_access_token")},
                 }:{
                     headers:{
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        Authorization: `Bearer `+localStorage.getItem("access_token")
+                        Authorization: `Bearer `+localStorage.getItem("GRD_access_token")
                     }
                 })
             }else{
@@ -73,13 +73,13 @@ const Request = {
                   resolve({status:true,data:response.data})
               }else{
                   if(this.enableEvents){
-                      eventEmitter.emit("httpError",{severity: 'error', summary: 'Http Error', detail: `error  ${response.status}`, sticky: false,life:2000})
+                      eventEmitter.emit("httpError",{type:"http",severity: 'error', summary: 'Http Error', detail: `error  ${response.status}`, sticky: false,life:2000})
                   }
                   resolve({status:false,data:response.data})
               }
             }).catch(reason => {
                 if(this.enableEvents) {
-                    eventEmitter.emit("httpError",{severity: 'error', summary: 'Http Error', detail: `error  ${reason.response.status}`, sticky: false,life:2000})
+                    eventEmitter.emit("httpError",{type:"http",severity: 'error', summary: 'Http Error', detail: `error  ${reason.response.status}`, sticky: false,life:2000})
                 }
                 resolve({ status:false,data: JSON.parse(reason.response.data.error) })
             })
@@ -99,13 +99,13 @@ const Request = {
         }
         return new Promise((resolve) => {
             let customHeader;
-            if(localStorage.getItem("access_token")){
+            if(localStorage.getItem("GRD_access_token")){
                 customHeader =((header) ? {
-                    headers:{...header, Authorization: `Bearer `+localStorage.getItem("access_token")},
+                    headers:{...header, Authorization: `Bearer `+localStorage.getItem("GRD_access_token")},
                 }:{
                     headers:{
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        Authorization: `Bearer `+localStorage.getItem("access_token")
+                        Authorization: `Bearer `+localStorage.getItem("GRD_access_token")
                     }
                 })
             }else{
@@ -117,13 +117,13 @@ const Request = {
                         resolve({status:true,data:response.data})
                     }else{
                         if(this.enableEvents) {
-                            eventEmitter.emit("httpError",{severity: 'error', summary: 'Http Error', detail: `error  ${response.status}`, sticky: false,life:2000})
+                            eventEmitter.emit("httpError",{type:"http",severity: 'error', summary: 'Http Error', detail: `error  ${response.status}`, sticky: false,life:2000})
                         }
                         resolve({status:false,data:response.data})
                     }
                 }).catch(reason => {
                 if(this.enableEvents) {
-                    eventEmitter.emit("httpError",{severity: 'error', summary: 'Http Error', detail: `error  ${reason.response.status}`, sticky: false,life:2000})
+                    eventEmitter.emit("httpError",{type:"http",severity: 'error', summary: 'Http Error', detail: `error  ${reason.response.status}`, sticky: false,life:2000})
 
                 }
 

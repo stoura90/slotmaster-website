@@ -14,7 +14,7 @@ const signIn = (data) =>async (dispatch)=>{
     });
     if(response.status){
         console.log(response)
-        localStorage.setItem('access_token',response.data.access_token);
+        localStorage.setItem('GRD_access_token',response.data.access_token);
         localStorage.setItem('GRD_refresh_token',response.data.refresh_token);
         dispatch(ping())
         dispatch({
@@ -28,7 +28,7 @@ const signIn = (data) =>async (dispatch)=>{
             type:'error',
             details:"invalid credentials"
         })
-        localStorage.removeItem('access_token');
+        localStorage.removeItem('GRD_access_token');
     }
  return response;
 }
@@ -48,14 +48,17 @@ const signOut = () => async (dispatch)=>{
 }
 
 const ping = () =>async (dispatch)=>{
-    (new Http()).get(Config.User.PING).then(response=>{
-         console.log(response)
-         dispatch({
-             type: PING,
-             payload: response.status?response.data.data:{},
-             status:response.status
-         })
-     })
+    return new Promise((resolve => {
+        (new Http()).get(Config.User.PING).then(response=>{
+
+            dispatch({
+                type: PING,
+                payload: response.status?response.data.data:{},
+                status:response.status
+            })
+        }).finally(()=>resolve(true))
+    }))
+
 }
 
 const signUp = async (data) => {

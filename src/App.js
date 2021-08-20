@@ -1,28 +1,43 @@
-import {Suspense, useEffect} from 'react'
+import {Suspense, useEffect, useLayoutEffect, useState} from 'react'
 
-import {store as Store} from './core/store/store'
 import {Actions, Provider} from "./core";
 import {Footer, Guest, Header, MainNavigator, Modal} from "./components";
-import {close} from "./assets/img/icons/icons";
 import EventEmitter from "./core/utils/eventEmitter";
 import {useDispatch} from "react-redux";
+import {useUser} from "./core/hooks/useUser";
 
 const eventEmitter = new EventEmitter();
 const  App=()=> {
-    const dispatch = useDispatch()
-    useEffect(()=>{
-        ping();
-        eventEmitter.on("httpError",(event)=>console.log(event))
+    const dispatch = useDispatch();
+    const {signOut} = useUser()
+    const [loaded,setLoaded]=useState(false)
+    useEffect( () => {
+         ping()
+        eventEmitter.on("httpError", errorHandler)
 
-        return ()=>{
+        return () => {
             eventEmitter.removeListener("httpError")
         }
     },[])
 
-    const ping = ()=>{
-        dispatch(Actions.User.ping())
+    const errorHandler=(event)=>{
+        console.log(event)
+        switch (event.type){
+            case 'signOut': signOut();break;
+            case 'signIn': signOut(()=>{
+                setTimeout(()=>{
+                    document.getElementById("signIn-btn").click();
+                },200)
+
+
+            });break;
+            default: break;
+        }
     }
-  return (<>
+    const ping = () => {
+          dispatch(Actions.User.ping()).then(setLoaded)
+    }
+  return loaded && (<>
           <MainNavigator/>
           <Guest/>
         </>

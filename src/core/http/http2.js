@@ -1,16 +1,21 @@
 import axios from 'axios';
 import {Config} from "../index";
 import {query_string} from "../utils";
-
+import EventEmitter from "../utils/eventEmitter";
 const request =  axios.create({
     baseURL: '/'
 })
-let loaders = new Map();
-let refreshToken=false;
+const eventEmitter = new EventEmitter();
 
+let loaders = new Map();
 class Http {
-    loader=null;
     try=1;
+    loader=null;
+    auth=true;
+    permitAll(){
+        this.auth=false;
+        return this;
+    }
     setLoader(loader){
        this.loader=loader;
        return this;
@@ -30,19 +35,16 @@ class Http {
         return this;
     }
     get(url,header=null){
-        console.log(refreshToken)
-
         return new Promise((resolve, reject) => {
             return new Promise((resolve,reject ) => {
-
                 let customHeader;
-                if(localStorage.getItem("access_token")){
+                if(localStorage.getItem("GRD_access_token")){
                     customHeader =((header) ? {
-                        headers:{...header, Authorization: `Bearer `+localStorage.getItem("access_token")},
+                        headers:{...header, Authorization: `Bearer `+localStorage.getItem("GRD_access_token")},
                     }:{
                         headers:{
                             'Content-Type': 'application/x-www-form-urlencoded',
-                            Authorization: `Bearer `+localStorage.getItem("access_token")
+                            Authorization: `Bearer `+localStorage.getItem("GRD_access_token")
                         }
                     })
                 }else{
@@ -64,12 +66,9 @@ class Http {
                         })
                     }
                 }).catch( async reason => {
-
                     if (this.try ===1 && localStorage.getItem("GRD_refresh_token") && reason.message === "Request failed with status code 401" ) {
                         this.try+=1;
-                        refreshToken="loading";
                         const response = await this.refreshToken()
-                        refreshToken="loaded";
                         if (response) {
                             this.get(url, customHeader).then(response=>{
                                 if(response.status===200){
@@ -84,10 +83,29 @@ class Http {
                                     })
                                 }})
                         } else {
-                            reject({
-                                status: false,
-                                reason: reason
-                            })
+
+                            if(!this.auth){
+                                delete customHeader.headers.Authorization;
+                                this.get(url, customHeader).then(response=>{
+                                    if(response.status===200){
+                                        resolve({
+                                            status:true,
+                                            data:response.data
+                                        })
+                                    }else {
+                                        reject({
+                                            status: false,
+                                            reason: response
+                                        })
+                                    }})
+                            }else{
+                                eventEmitter.emit("httpError",{type:"signIn"})
+                                reject({
+                                    status: false,
+                                    reason: reason
+                                })
+                            }
+
                         }
                     } else {
                         reject({
@@ -101,7 +119,6 @@ class Http {
                     }
                 })
             }).then(response=>{
-                console.log("response",response);
                 resolve(response);
             }).catch(reason => {
                 if(reason.reason.status){
@@ -109,8 +126,6 @@ class Http {
                 }else{
                     reject(reason.reason)
                 }
-                console.log("reason", reason)
-
             })
         })
    }
@@ -121,13 +136,13 @@ class Http {
                     this.dispatchLoader(this.loader,true)
                 }
                 let customHeader;
-                if(localStorage.getItem("access_token")){
+                if(localStorage.getItem("GRD_access_token")){
                     customHeader =((header) ? {
-                        headers:{...header, Authorization: `Bearer `+localStorage.getItem("access_token")},
+                        headers:{...header, Authorization: `Bearer `+localStorage.getItem("GRD_access_token")},
                     }:{
                         headers:{
                             'Content-Type': 'application/x-www-form-urlencoded',
-                            Authorization: `Bearer `+localStorage.getItem("access_token")
+                            Authorization: `Bearer `+localStorage.getItem("GRD_access_token")
                         }
                     })
                 }else{
@@ -140,7 +155,6 @@ class Http {
                             data:response.data
                         })
                     }else{
-                        console.log(response)
                         reject({
                             status:false,
                             reason:response
@@ -164,10 +178,27 @@ class Http {
                                     })
                                 }})
                         } else {
-                            reject({
-                                status: false,
-                                reason: reason
-                            })
+                            if(!this.auth){
+                                delete customHeader.headers.Authorization;
+                                this.post(url,data, customHeader).then(response=>{
+                                    if(response.status===200){
+                                        resolve({
+                                            status:true,
+                                            data:response.data
+                                        })
+                                    }else {
+                                        reject({
+                                            status: false,
+                                            reason: response
+                                        })
+                                    }})
+                            }else{
+                                eventEmitter.emit("httpError",{type:"signIn"})
+                                reject({
+                                    status: false,
+                                    reason: reason
+                                })
+                            }
                         }
                     } else {
                         reject({
@@ -185,21 +216,25 @@ class Http {
 
    }
     async refreshToken() {
-        const response = await request.post(Config.Config.REFRESH_TOKEN, query_string({refresh_token: localStorage.getItem("GRD_refresh_token")}), {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
+        try{
+            const response = await request.post(Config.Config.REFRESH_TOKEN, query_string({refresh_token: localStorage.getItem("GRD_refresh_token")}), {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            })
+            if(response.status===200){
+                localStorage.setItem("GRD_access_token",response.data.access_token)
+                localStorage.setItem("GRD_refresh_token",response.data.refresh_token)
+                return true;
             }
-        })
-        if(response.status===200){
-            localStorage.setItem("access_token",response.data.access_token)
-            localStorage.setItem("GRD_refresh_token",response.data.refresh_token)
-            return true;
+            return false;
+        }catch (ex){
+            eventEmitter.emit("httpError",{type:"signOut"})
+            localStorage.removeItem('GRD_access_token')
+            localStorage.removeItem("GRD_refresh_token")
+            return false;
         }
 
-        localStorage.removeItem('access_token')
-        localStorage.removeItem("GRD_refresh_token")
-        return false;
     }
 }
-
 export default Http;
