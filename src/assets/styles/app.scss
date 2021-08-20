@@ -237,6 +237,7 @@ a {
             color: #a2a9b3;
             padding:10px;
             font-family: 'FiraGO', sans-serif;
+            align-items: center;
             i {
 
                 margin-left:10px;
@@ -254,6 +255,14 @@ a {
                 &[data-like] {
 
                 }
+            }
+            &:hover {
+                cursor: pointer;
+                color: #fff;
+                i {
+                    color: #a2a9b3;
+                }
+
             }
         }
     }

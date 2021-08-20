@@ -195,6 +195,9 @@ class Http {
             localStorage.setItem("GRD_refresh_token",response.data.refresh_token)
             return true;
         }
+
+        localStorage.removeItem('access_token')
+        localStorage.removeItem("GRD_refresh_token")
         return false;
     }
 }
