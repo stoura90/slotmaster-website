@@ -18,8 +18,8 @@ export const EuropeanView=()=>{
     }
 
     const [params]=useState({
-        "server":"https://sport.planetaxbet.com/",
-        "token":"hBreKeUz0ZC6cAt6nijJaURNQR17w50v",
+        "server":"https://sport.staging.planetaxbet.com/",
+        "token":"_",
         "currentPage":"Home",
         "language":"en",
         "timeZone":4,
@@ -55,7 +55,6 @@ export const EuropeanView=()=>{
         if (User.isLogged) {
             response.then(res=>{
                 if(res.status){
-                    console.log(res)
                     loadFrame({...params,token:res.data.data.token})
                 }else {
                    loadFrame(params)
