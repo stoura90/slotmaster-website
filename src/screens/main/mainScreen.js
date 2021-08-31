@@ -106,7 +106,7 @@ const MainScreen = () =>{
                                 </div>
                             </div>*/}
                         </div>
-                        <div className="col-12 col-md-6">
+                       {/* <div className="col-12 col-md-6">
                             <div className="row">
                                 <div
                                     className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
@@ -182,7 +182,7 @@ const MainScreen = () =>{
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>*/}
                     </div>
                     <div className="row">
                         <div className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
