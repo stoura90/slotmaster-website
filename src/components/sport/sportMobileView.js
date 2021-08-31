@@ -2,7 +2,7 @@ import React, {useEffect, useLayoutEffect, useMemo, useState} from "react";
 import {useUser} from "../../core/hooks/useUser";
 import {Actions} from "../../core";
 import _ from 'lodash'
-export const MobileView=()=>{
+export const SportMobileView=()=>{
     const {User} = useUser();
     const SportLogin=(event)=>{
         document.getElementById("signIn-btn").click()

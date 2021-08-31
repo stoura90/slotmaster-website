@@ -1,7 +1,8 @@
 import {EuropeanView} from "./european";
-import {MobileView} from "./mobile";
-
+import { SportMobileView} from "./sportMobileView";
+import {TopMatchesWidget} from './topMatchesWidget'
 export default {
     EuropeanView,
-    MobileView
+    SportMobileView,
+    TopMatchesWidget
 }

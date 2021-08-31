@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation} from "../../core/hooks/useNavigation";
 import { ajax, bayern,inter,liver,manCity,manUn,milan,sl2, slotSardCover} from '../../assets/img/images';
-import {Carousel, Header, Swp, Footer} from "../../components";
+import {Carousel, Header, Swp, Footer, Sport} from "../../components";
 import {useSLot} from "../../core/hooks/useSLot";
 import {SLOTS_DATA} from "../../data/slots";
 
@@ -37,9 +37,10 @@ const MainScreen = () =>{
                 <div className="container" ref={ref}>
                     <div className="row">
                         <div className="col-12 col-md-6">
-                            <div className="row">
-                                <div
-                                    className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
+                            <Sport.TopMatchesWidget/>
+
+                           {/* <div className="row">
+                                <div className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
                                     <div className="section-heading">Sport</div>
                                     <a href="#">View all</a>
                                 </div>
@@ -103,7 +104,7 @@ const MainScreen = () =>{
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*/}
                         </div>
                         <div className="col-12 col-md-6">
                             <div className="row">

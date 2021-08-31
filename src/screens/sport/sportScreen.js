@@ -3,6 +3,7 @@ import {useEffect} from "react";
 import {Footer, Header} from "../../components";
 import {isMobile} from "react-device-detect";
 import {Sport} from "../../components";
+import {SportMobileView} from "../../components/sport/sportMobileView";
 const SportScreen=()=>{
     const nav  = useNavigation();
 
@@ -15,7 +16,7 @@ const SportScreen=()=>{
 
         <main>
             {
-                isMobile? <Sport.MobileView/>:<Sport.EuropeanView/>
+                isMobile? <Sport.SportMobileView/>:<Sport.EuropeanView/>
             }
 
         </main>
