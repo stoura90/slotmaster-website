@@ -25,7 +25,7 @@ export const SportMobileView=()=>{
         "loginTrigger": SportLogin,
         "sportsBookView":"europeanView",
         "fixedHeight":true,
-        "clearSiteStyles":true,
+        "clearSiteStyles":false,
         "onUniqueIdChange":(uuid)=>console.log(uuid),
         "onBalanceChange":balanceChangeHandler,
         "events":{
