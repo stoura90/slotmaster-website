@@ -27,7 +27,7 @@ export const EuropeanView=()=>{
         "login": SportLogin,
         "sportsBookView":"europeanView",
         "fixedHeight":true,
-        "clearSiteStyles":true,
+        "clearSiteStyles":false,
         "balanceChangeCallback":balanceChangeHandler,
         "onNavigateCallback":onNavigateHandler,
         "eventsHandler":eventsHandlerCallback
