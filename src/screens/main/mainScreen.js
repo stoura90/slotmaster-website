@@ -36,9 +36,8 @@ const MainScreen = () =>{
             <main>
                 <div className="container" ref={ref}>
                     <div className="row">
-                        <div className="col-12{/* col-md-6*/}">
+                        <div className="col-12">
                             <Sport.TopMatchesWidget/>
-
                            {/* <div className="row">
                                 <div className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
                                     <div className="section-heading">Sport</div>

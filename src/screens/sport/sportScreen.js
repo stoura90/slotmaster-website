@@ -1,9 +1,8 @@
 import {useNavigation} from "../../core/hooks/useNavigation";
 import {useEffect} from "react";
-import {Footer, Header} from "../../components";
+import { Header} from "../../components";
 import {isMobile} from "react-device-detect";
 import {Sport} from "../../components";
-import {SportMobileView} from "../../components/sport/sportMobileView";
 const SportScreen=()=>{
     const nav  = useNavigation();
 

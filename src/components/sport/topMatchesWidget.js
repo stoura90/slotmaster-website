@@ -6,7 +6,7 @@ export const TopMatchesWidget=()=>{
     const {User} = useUser();
     const [params]=useState({
         "server":"https://sport.staging.planetaxbet.com/",
-        "target":"#sport_top_match_iframe",
+        "target":"#top-matches-container",
         "defaultLanguage": "en"
     })
     const getToken=()=>{
@@ -17,7 +17,6 @@ export const TopMatchesWidget=()=>{
         window.Bootstrapper.boot(parameters, { name: "TopMatches" });
     }
     useLayoutEffect( () => {
-        console.log("load top matches view")
         if (User.isLogged) {
             response.then(res=>{
                 if(res.status){
@@ -30,5 +29,5 @@ export const TopMatchesWidget=()=>{
             loadFrame(params)
         }
     },[])
-    return <div id="sport_top_match_iframe"/>
+    return <div id="top-matches-container"/>
 }

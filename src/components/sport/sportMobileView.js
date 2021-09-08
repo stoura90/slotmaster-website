@@ -12,13 +12,11 @@ export const SportMobileView=()=>{
     }
     const [params]=useState({
         "server":"https://sport.staging.planetaxbet.com/",
-        "containerId":"mobile_sport_div_iframe",
+        "containerId":"application-container",
         "token":"-",
         "defaultLanguage":"en",
-        "view": "default",
         "timeZone":4,
         "hasRouterDisabled":false,
-        "bottomNavBar":false,
         "loginTrigger": SportLogin,
         "onUniqueIdChange":(uuid)=>console.log(uuid),
         "onBalanceChange":balanceChangeHandler,
@@ -49,5 +47,5 @@ export const SportMobileView=()=>{
             loadFrame(params)
         }
     },[])
-    return <div id="mobile_sport_div_iframe"/>
+    return <div id="application-container"/>
 }
