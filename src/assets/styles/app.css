@@ -22265,6 +22265,7 @@ footer .footer-bt .restriction {
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.15s linear;
+  margin-right: 15px;
 }
 footer .footer-bt .restriction span {
   font-family: "Proxima Regular", Helvetica;
@@ -22289,10 +22290,7 @@ footer .footer-bt .footer-copyright {
   font-size: 16px;
   text-align: left;
   color: #4d5a7d;
-  margin-left: 15px;
-}
-footer .social-list {
-  margin-left: auto;
+  margin-right: 15px;
 }
 footer .social-list .social-item {
   width: 50px;
@@ -22325,6 +22323,9 @@ footer .social-list .social-item:hover .twitter {
 }
 footer .social-list .social-item:hover .discord {
   filter: brightness(100);
+}
+footer .swiper-slide a img {
+  width: auto;
 }
 
 .transaction-table {
@@ -22643,6 +22644,13 @@ a:hover {
 }
 .sl_filter ul li:hover i {
   color: #a2a9b3;
+}
+
+.swiper-slide a {
+  display: block;
+}
+.swiper-slide a img {
+  width: 100%;
 }
 
 /*# sourceMappingURL=app.css.map */

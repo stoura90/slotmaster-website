@@ -112,6 +112,7 @@ footer {
       border-radius: 50%;
       cursor: pointer;
       transition: all 0.15s linear;
+      margin-right: 15px;
       span {
         font-family: $proximaSemi;
         font-weight: 600;
@@ -137,12 +138,12 @@ footer {
       font-size: 16px;
       text-align: left;
       color: #4d5a7d;
-      margin-left: 15px;
+      margin-right: 15px;
     }
   }
 
   .social-list {
-    margin-left: auto;
+    //margin-left: auto;
 
     .social-item {
       width: 50px;
@@ -178,6 +179,14 @@ footer {
         .discord {
           filter: brightness(100);
         }
+      }
+    }
+  }
+
+  .swiper-slide {
+    a {
+      img {
+        width: auto;
       }
     }
   }
