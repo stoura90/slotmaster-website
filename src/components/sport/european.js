@@ -2,8 +2,11 @@ import React, {useEffect, useLayoutEffect, useMemo, useState} from "react";
 import {useUser} from "../../core/hooks/useUser";
 import {Actions} from "../../core";
 import _ from 'lodash'
+import Listeners from "../../utils/listeners";
+import {Timeout} from "../../utils/timeOut";
 export const EuropeanView=()=>{
     const {User} = useUser();
+    const [token,setToken]=useState("-")
     const SportLogin=(event)=>{
         document.getElementById("signIn-btn").click()
     }
@@ -16,7 +19,6 @@ export const EuropeanView=()=>{
     const eventsHandlerCallback=(event)=>{
         console.log("eventsHandlerCallback",event)
     }
-
     const [params]=useState({
         "server":"https://sport.staging.planetaxbet.com/",
         "token":"_",
@@ -33,28 +35,21 @@ export const EuropeanView=()=>{
         "eventsHandler":eventsHandlerCallback
 
     })
-
-
-
-
     const getToken=()=>{
         return  Actions.Sport.token()
     }
     const response = useMemo(async () => await getToken(), []);
-
+    const listeners=Listeners();
     const loadFrame=(parameters)=>{
-        console.log(_.map(parameters,(v,k)=>{
-            return [k,v]
-        }))
         window.SportFrame.frame(_.map(parameters,(v,k)=>{
             return [k,v]
         }))
     }
     useLayoutEffect( () => {
-        console.log("load european view")
         if (User.isLogged) {
             response.then(res=>{
                 if(res.status){
+                    setToken(res.data.data.token)
                     loadFrame({...params,token:res.data.data.token})
                 }else {
                    loadFrame(params)
@@ -63,9 +58,19 @@ export const EuropeanView=()=>{
         }else{
             loadFrame(params)
         }
+        listeners.onWindowResizeListener((window)=>{
+            if(Timeout.timeout){
+                Timeout.clear()
+            }
+            Timeout.set(()=>{
+                loadFrame({...params,token:token})
+            },200)
+        })
+        return ()=>{
+            listeners.onRemoveWindowResizeListener(e=>{
+                console.log("removeListener")
+            })
+        }
     },[])
-
-
-
     return <div id="sport_div_iframe"/>
 }
