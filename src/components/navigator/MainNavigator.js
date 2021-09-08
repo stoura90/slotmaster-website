@@ -8,12 +8,6 @@ import {useUser} from "../../core/hooks/useUser";
 const MainNavigator = ()=>{
     const browserHistory = createBrowserHistory();
     const {User} = useUser();
-    useEffect(() => {
-       console.log(navigator)
-    }, []);
-
-
-
 
     return (
         <Router history={browserHistory}>
