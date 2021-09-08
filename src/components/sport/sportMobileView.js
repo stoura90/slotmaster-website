@@ -13,19 +13,13 @@ export const SportMobileView=()=>{
     const [params]=useState({
         "server":"https://sport.staging.planetaxbet.com/",
         "containerId":"mobile_sport_div_iframe",
-        "token":"_",
-        "currentPage":"Home",
+        "token":"-",
         "defaultLanguage":"en",
         "view": "default",
-        "language":"en",
         "timeZone":4,
-        "oddsFormat":0,
         "hasRouterDisabled":false,
         "bottomNavBar":false,
         "loginTrigger": SportLogin,
-        "sportsBookView":"europeanView",
-        "fixedHeight":true,
-        "clearSiteStyles":false,
         "onUniqueIdChange":(uuid)=>console.log(uuid),
         "onBalanceChange":balanceChangeHandler,
         "events":{
@@ -39,9 +33,8 @@ export const SportMobileView=()=>{
     }
     const response = useMemo(async () => await getToken(), []);
     const loadFrame=(parameters)=>{
-        console.log(parameters)
-        window.Bootstrapper.boot(parameters, { name: "Mobile" });
-        }
+        window.Bootstrapper.boot(parameters, { name: "Mobile" , newBetSlip: true});
+    }
     useLayoutEffect( () => {
         console.log("mobile_view_load")
         if (User.isLogged) {
