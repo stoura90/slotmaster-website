@@ -31,10 +31,9 @@ export const SportMobileView=()=>{
     }
     const response = useMemo(async () => await getToken(), []);
     const loadFrame=(parameters)=>{
-        window.Bootstrapper.boot(parameters, { name: "Mobile" , newBetSlip: true});
+        window.Bootstrapper.boot(parameters, { name: "Mobile" });
     }
     useLayoutEffect( () => {
-        console.log("mobile_view_load")
         if (User.isLogged) {
             response.then(res=>{
                 if(res.status){

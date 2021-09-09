@@ -58,19 +58,19 @@ export const EuropeanView=()=>{
         }else{
             loadFrame(params)
         }
-        listeners.onWindowResizeListener((window)=>{
+       /* listeners.onWindowResizeListener((window)=>{
             if(Timeout.timeout){
                 Timeout.clear()
             }
             Timeout.set(()=>{
                 loadFrame({...params,token:token})
             },200)
-        })
-        return ()=>{
+        })*/
+       /* return ()=>{
             listeners.onRemoveWindowResizeListener(e=>{
                 console.log("removeListener")
             })
-        }
+        }*/
     },[])
     return <div id="sport_div_iframe"/>
 }
