@@ -12,16 +12,12 @@ const SportScreen=()=>{
 
     return  <>
         <Header page={"sport"}/>
-
         <main>
             {
                 isMobile? <Sport.SportMobileView/>:<Sport.EuropeanView/>
             }
-
         </main>
-
         {/*<Footer/>*/}
-
     </>
 }
 

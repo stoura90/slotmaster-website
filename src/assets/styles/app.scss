@@ -26,6 +26,7 @@
 @import './table';
 @import './calendar';
 
+
 @font-face {
     font-family: 'Proxima light';
     src: url("fonts/proximanovalight.otf");
@@ -180,7 +181,6 @@ a {
     }
 }
 
-
 .sl_nav {
     //background: #1d2434;
     background-color: #1d2329;
@@ -267,3 +267,8 @@ a {
         }
     }
 }
+
+
+
+// override all styles
+@import './override';

@@ -18,6 +18,11 @@ export const SportMobileView=()=>{
         "timeZone":4,
         "hasRouterDisabled":false,
         "loginTrigger": SportLogin,
+
+        "sportsBookView":"europeanView",
+        "fixedHeight":true,
+        "clearSiteStyles":false,
+
         "onUniqueIdChange":(uuid)=>console.log(uuid),
         "onBalanceChange":balanceChangeHandler,
         "events":{

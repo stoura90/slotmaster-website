@@ -37,14 +37,14 @@ const Footer =()=>{
                                 target="_blank"
                                 className="d-flex align-items-center justify-content-center social-item rounded-circle"
                             >
-                                <i className="fab fa-twitter twitter"></i>
+                                <i className="fab fa-twitter twitter"/>
                             </a>
                             <a
                                 href="#"
                                 target="_blank"
                                 className="d-flex align-items-center justify-content-center social-item rounded-circle"
                             >
-                                <img src="img/icons/discord.svg" alt="" className="discord"/>
+                                <img src={discord} alt="" className="discord"/>
                             </a>
                         </div>
                     </div>
@@ -103,60 +103,73 @@ const Footer =()=>{
                         </div>
                     </div>
                 </div>
-                <div className="d-flex align-items-center footer-bt">
-                    <div
-                        className="d-flex align-items-center justify-content-center restriction"
-                    >
-                        <span>+18</span>
-                    </div>
-                    <div className="footer-copyright">
-                        Copyright © 2021 www.planetaxbet.com is operated by Group
-                        Enterprises N.V., a company registered and established under the
-                        laws of Curaçao. Nexus Group Enterprises N.V. is licensed
-                    </div>
-                    <div className="d-none d-md-flex align-items-center social-list">
 
 
-                        <a
-                            href="#"
-                            target="_blank"
-                            className="d-flex align-items-center justify-content-center social-item rounded-circle"
-                        >
-                            <i className="fab fa-facebook-f facebook"/>
-                        </a>
-                        <a
-                            href="#"
-                            target="_blank"
-                            className="d-flex align-items-center justify-content-center social-item rounded-circle"
-                        >
-                            <i className="fab fa-reddit-alien reddit"/>
-                        </a>
-                        <a
-                            href="#"
-                            target="_blank"
-                            className="d-flex align-items-center justify-content-center social-item rounded-circle"
-                        >
-                            <i className="fab fa-instagram instagram"/>
-                        </a>
-                        <a
-                            href="#"
-                            target="_blank"
-                            className="d-flex align-items-center justify-content-center social-item rounded-circle"
-                        >
-                            <i className="fab fa-twitter twitter"/>
-                        </a>
-                        <a
-                            href="#"
-                            target="_blank"
-                            className="d-flex align-items-center justify-content-center social-item rounded-circle"
-                        >
-                            <img src={discord} alt="" className="discord"/>
-                        </a>
+                <div className="row gx-0 align-items-center">
+                    <div className="col-12 col-lg-6">
+                        <div className="d-flex align-items-center footer-bt">
+                            <div className="d-flex align-items-center justify-content-center restriction">
+                                <span>+18</span>
+                            </div>
+                            <div className="footer-copyright d-flex align-items-center">
+                                Copyright © 2021 www.planetaxbet.com is operated by Group
+                                Enterprises N.V., a company registered and established under the
+                                laws of Curaçao. Nexus Group Enterprises N.V. is licensed
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <iframe src="https://licensing.gaming-curacao.com/validator/?lh=3a84155f3027a434172149ba09f2bce5&template=seal" style={{'width':'150px','height':'50px','border':'none','marginLeft':'20px'}}/>
+                    <div className="col-12 col-lg-6">
+                        <div className="d-flex align-items-center justify-content-center footer-bt">
+
+                            <div className="d-none d-md-flex align-items-center social-list">
+
+
+                                <a
+                                    href="#"
+                                    target="_blank"
+                                    className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                                >
+                                    <i className="fab fa-facebook-f facebook"/>
+                                </a>
+                                <a
+                                    href="#"
+                                    target="_blank"
+                                    className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                                >
+                                    <i className="fab fa-reddit-alien reddit"/>
+                                </a>
+                                <a
+                                    href="#"
+                                    target="_blank"
+                                    className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                                >
+                                    <i className="fab fa-instagram instagram"/>
+                                </a>
+                                <a
+                                    href="#"
+                                    target="_blank"
+                                    className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                                >
+                                    <i className="fab fa-twitter twitter"/>
+                                </a>
+                                <a
+                                    href="#"
+                                    target="_blank"
+                                    className="d-flex align-items-center justify-content-center social-item rounded-circle"
+                                >
+                                    <img src={discord} alt="" className="discord"/>
+                                </a>
+                            </div>
+                            <div>
+                                <iframe src="https://licensing.gaming-curacao.com/validator/?lh=3a84155f3027a434172149ba09f2bce5&template=seal"
+                                        style={{'width':'150px','height':'50px','border':'none','marginLeft':'20px'}}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
+
             </div>
         </footer>
     );
