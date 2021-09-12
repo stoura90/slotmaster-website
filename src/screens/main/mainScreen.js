@@ -188,7 +188,7 @@ const MainScreen = () =>{
                             <div className="section-heading">slots</div>
                             <a href="#">View all</a>
                         </div>
-                        <div className="col-12">
+                        <div className="col-12 main-slots-area" data-count={Math.round(containerWidth/300)}>
                             <Carousel
                                 id={"font-slot"}
                                 count={Math.round(containerWidth/300)}
@@ -201,10 +201,12 @@ const MainScreen = () =>{
                             <div className="section-heading">casino</div>
                             <a href="#">View all</a>
                         </div>
-                        <div className="col-12">
+                        <div className="col-12 main-casino-area" data-count={Math.round(containerWidth/300)}>
                             <Carousel
                                 id={"font-games"}
-                                onClick={e=>console.log(e)} count={6} data={[{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover}]}/>
+                                count={Math.round(containerWidth/300)}
+                                onClick={e=>console.log(e)}
+                                data={[{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover}]}/>
                         </div>
                     </div>
                 </div>

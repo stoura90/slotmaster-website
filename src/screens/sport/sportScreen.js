@@ -3,6 +3,8 @@ import {useEffect} from "react";
 import { Header} from "../../components";
 import {isMobile} from "react-device-detect";
 import {Sport} from "../../components";
+
+import load from '../../assets/img/load.gif';
 const SportScreen=()=>{
     const nav  = useNavigation();
 
@@ -12,7 +14,7 @@ const SportScreen=()=>{
 
     return  <>
         <Header page={"sport"}/>
-        <main>
+        <main className='sp_cont' style={{background:`url(${load})`}}>
             {
                 isMobile? <Sport.SportMobileView/>:<Sport.EuropeanView/>
             }

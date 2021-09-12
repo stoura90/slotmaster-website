@@ -6,3 +6,73 @@
     }
   }
 }
+
+
+.main-slots-area {
+  &[data-count="4"] {
+    .slot-card {
+      .slot-card-hover {
+        height: 15vw;
+      }
+    }
+  }
+  &[data-count="3"] {
+    .slot-card {
+      .slot-card-hover {
+        height: 20vw;
+      }
+    }
+  }
+  &[data-count="2"] {
+    .slot-card {
+      .slot-card-hover {
+        height: 22vw;
+      }
+    }
+  }
+  &[data-count="1"] {
+    .slot-card {
+      .slot-card-hover {
+        height: 46vw;
+      }
+    }
+  }
+}
+
+
+.main-casino-area {
+  &[data-count="4"] {
+    .slot-card {
+      .slot-card-hover {
+        height: 15vw;
+      }
+    }
+  }
+  &[data-count="3"] {
+    .slot-card {
+      .slot-card-hover {
+        height: 20vw;
+      }
+    }
+  }
+  &[data-count="2"] {
+    .slot-card {
+      .slot-card-hover {
+        height: 22vw;
+      }
+    }
+  }
+  &[data-count="1"] {
+    .slot-card {
+      .slot-card-hover {
+        height: 46vw;
+      }
+    }
+  }
+}
+
+.sp_cont {
+  min-height: 300px;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
