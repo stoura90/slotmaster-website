@@ -12,7 +12,7 @@ const  App=()=> {
     const {signOut} = useUser()
     const [loaded,setLoaded]=useState(false)
     useEffect( () => {
-       // ping()
+        ping()
         eventEmitter.on("httpError", errorHandler)
 
         return () => {

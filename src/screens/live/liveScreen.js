@@ -6,24 +6,17 @@ import {Sport} from "../../components";
 
 import load from '../../assets/img/load.gif';
 import {useParams} from "react-router-dom";
-const SportScreen=(props)=>{
-    const nav  = useNavigation();
-    const params = useParams()
-    useEffect(()=>{
-        console.log(props)
-        console.log(params)
-        console.log(isMobile)
-    },[])
+const LiveScreen=(props)=>{
 
     return  <>
-        <Header page={"sport"}/>
+        <Header page={"live"}/>
         <main className='sp_cont' style={{background:`url(${load})`}}>
             {
-                isMobile? <Sport.SportMobileView/>:<Sport.EuropeanView view={"Home"}/>
+                isMobile? <Sport.SportMobileView/>:<Sport.EuropeanView view={"EventView"}/>
             }
         </main>
         {/*<Footer/>*/}
     </>
 }
 
-export default SportScreen;
+export default LiveScreen;

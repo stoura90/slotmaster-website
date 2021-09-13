@@ -4,7 +4,7 @@ import {Actions} from "../../core";
 import _ from 'lodash'
 import Listeners from "../../utils/listeners";
 import {Timeout} from "../../utils/timeOut";
-export const EuropeanView=()=>{
+export const EuropeanView=({view})=>{
     const {User} = useUser();
     const [token,setToken]=useState("-")
     const SportLogin=(event)=>{
@@ -22,7 +22,7 @@ export const EuropeanView=()=>{
     const [params]=useState({
         "server":"https://sport.staging.planetaxbet.com/",
         "token":"_",
-        "currentPage":"Home",
+        "currentPage":view,
         "language":"en",
         "timeZone":4,
         "oddsFormat":0,
@@ -40,9 +40,9 @@ export const EuropeanView=()=>{
     }
     const response = useMemo(async () => await getToken(), []);
     const listeners=Listeners();
-    const loadFrame=(parameters)=>{
-        window.SportFrame.frame(_.map(parameters,(v,k)=>{
-            return [k,v]
+    const loadFrame= (parameters) => {
+        window.SportFrame.frame(_.map(parameters, (v, k) => {
+            return [k, v]
         }))
     }
     useLayoutEffect( () => {

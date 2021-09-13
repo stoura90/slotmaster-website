@@ -20,6 +20,7 @@ const MainNavigator = ()=>{
                             path={route.path}
                             exact={route.exact}
                             name={route.name}
+                            params={{page:route.page}}
                             render={props => (
                                 <route.component {...props} />
                             )} />

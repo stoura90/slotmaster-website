@@ -3,7 +3,8 @@ import {Config} from "../index";
 import {query_string} from "../utils";
 import EventEmitter from "../utils/eventEmitter";
 const request =  axios.create({
-    baseURL: '/'
+    baseURL: '/',
+    timeout:1000
 })
 const eventEmitter = new EventEmitter();
 

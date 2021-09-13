@@ -9,39 +9,40 @@ const casino = React.lazy(() => import(("./screens/casino/casinoScreen")));
 const deposit = React.lazy(() => import(("./screens/deposit/depositScreen")));
 const account = React.lazy(() => import(("./screens/account/accountScreen")));
 const sport = React.lazy(() => import(("./screens/sport/sportScreen")));
+const live = React.lazy(() => import(("./screens/live/liveScreen")));
 const transaction = React.lazy(() => import(("./screens/transaction/transactionScreen")));
 
 
 
 export const guestRoutes = [
-    { path: '/', name: 'Home', exact:true, component: Redirect },
-    { path: '/:lang', name: 'Home', exact:true, component: Redirect },
-    { path: '/:lang/main', name: 'Home', exact:true, component: main },
-    { path: '/:lang/main/:params', name: 'Home', exact:true, component: main },
-    { path: '/:lang/contact', name: 'Home', exact:false, component: contact },
-    { path: '/:lang/slots', name: 'Slots', exact:false, component: slots },
-    { path: '/:lang/promo', name: 'Promo', exact:false, component: promo },
-    { path: '/:lang/casino', name: 'Casino', exact:false, component: casino },
-    { path: '/:lang/sport', name: 'Sport', exact:false, component: sport },
-    { path: '/:lang/live', name: 'Live', exact:false, component: sport },
+    { path: '/', name: 'Home', exact:true, component: Redirect, page:"main" },
+    { path: '/:lang', name: 'Home', exact:true, component: Redirect, page:"main" },
+    { path: '/:lang/main', name: 'Home', exact:true, component: main, page:"main" },
+    { path: '/:lang/main/:params', name: 'Home', exact:true, component: main, page:"main" },
+    { path: '/:lang/contact', name: 'Home', exact:false, component: contact , page:"contact"},
+    { path: '/:lang/slots', name: 'Slots', exact:false, component: slots, page:"slots" },
+    { path: '/:lang/promo', name: 'Promo', exact:false, component: promo , page:"promo"},
+    { path: '/:lang/casino', name: 'Casino', exact:false, component: casino, page:"casino" },
+    { path: '/:lang/sport', name: 'Sport', exact:false, component: sport, page:"sport" },
+    { path: '/:lang/live', name: 'Live', exact:false, component: live, page:"live" },
 
 
 ];
 
 export const userRoutes = [
-    { path: '/', name: 'Home', exact:true, component: Redirect },
-    { path: '/:lang', name: 'Home', exact:true, component: Redirect },
-    { path: '/:lang/main', name: 'Home', exact:true, component: main },
-    { path: '/:lang/main/:params', name: 'Home', exact:true, component: main },
-    { path: '/:lang/contact', name: 'Home', exact:false, component: contact },
-    { path: '/:lang/slots', name: 'Slots', exact:false, component: slots },
-    { path: '/:lang/promo', name: 'Promo', exact:false, component: promo },
-    { path: '/:lang/casino', name: 'Casino', exact:false, component: casino },
-    { path: '/:lang/deposit', name: 'Deposit', exact:false, component: deposit },
-    { path: '/:lang/account', name: 'Account', exact:false, component: account },
-    { path: '/:lang/sport', name: 'Sport', exact:false, component: sport },
-    { path: '/:lang/live', name: 'Live', exact:false, component: sport },
-    { path: '/:lang/transaction', name: 'Transaction', exact:false, component: transaction },
+    { path: '/', name: 'Home', exact:true, component: Redirect , page:"main"},
+    { path: '/:lang', name: 'Home', exact:true, component: Redirect , page:"main"},
+    { path: '/:lang/main', name: 'Home', exact:true, component: main, page:"main" },
+    { path: '/:lang/main/:params', name: 'Home', exact:true, component: main , page:"main"},
+    { path: '/:lang/contact', name: 'Home', exact:false, component: contact, page:"main" },
+    { path: '/:lang/slots', name: 'Slots', exact:false, component: slots, page:"slots" },
+    { path: '/:lang/promo', name: 'Promo', exact:false, component: promo, page:"promo" },
+    { path: '/:lang/casino', name: 'Casino', exact:false, component: casino, page:"casino" },
+    { path: '/:lang/deposit', name: 'Deposit', exact:false, component: deposit, page:"deposit" },
+    { path: '/:lang/account', name: 'Account', exact:false, component: account, page:"account" },
+    { path: '/:lang/sport', name: 'Sport', exact:false, component: sport, page:"sport" },
+    { path: '/:lang/live', name: 'Live', exact:false, component: live, page:"live" },
+    { path: '/:lang/transaction', name: 'Transaction', exact:false, component: transaction , page:"transaction"},
 ];
 
 
