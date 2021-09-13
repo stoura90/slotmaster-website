@@ -4,7 +4,7 @@ const utils = require("./deployUtils")
 let sftp = new Client();
 const path = require('path');
 const src = path.join(__dirname, '..', 'build/');
-let remote = '/var/www/planetaxbet/website';
+let remote = '/var/www/slotmaster/website';
 const total = utils.getTotalSize(`${src}`);
 
 const progress = new cliProgress.Bar({
@@ -15,22 +15,22 @@ const progress = new cliProgress.Bar({
 });
 
 sftp.connect({
-  host: '212.72.155.131',
-  port: 22,
-  username: "root",
-  password: "Ek9eDrZQwL"
+    host: 'shalamberidze.com',
+    port: 22,
+    username: "kapana",
+    password: "123456"
 }).then(() => {
-  //console.log('\x1b[32m',"connect",'\x1b[37m')
-  //console.log('\x1b[32m',"start upload",'\x1b[37m')
+    //console.log('\x1b[32m',"connect",'\x1b[37m')
+    //console.log('\x1b[32m',"start upload",'\x1b[37m')
 
-  return sftp.uploadDir(src, remote);
+    return sftp.uploadDir(src, remote);
 }).then(data => {
     sftp.end().then(r => {
         console.log('\x1b[32m', "\nupload successful", '\x1b[37m')
         progress.stop();
     });
 }).catch(err => {
-  console.log(err, 'catch error');
+    console.log(err, 'catch error');
 })
 let sum=0;
 sftp.on('upload', info => {

@@ -12,7 +12,7 @@ const  App=()=> {
     const {signOut} = useUser()
     const [loaded,setLoaded]=useState(false)
     useEffect( () => {
-        ping()
+       // ping()
         eventEmitter.on("httpError", errorHandler)
 
         return () => {
@@ -22,7 +22,6 @@ const  App=()=> {
     },[])
 
     const errorHandler=(event)=>{
-        console.log(event)
         switch (event.type){
             case 'signOut': signOut();break;
             case 'signIn': signOut(()=>{

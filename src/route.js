@@ -23,6 +23,8 @@ export const guestRoutes = [
     { path: '/:lang/promo', name: 'Promo', exact:false, component: promo },
     { path: '/:lang/casino', name: 'Casino', exact:false, component: casino },
     { path: '/:lang/sport', name: 'Sport', exact:false, component: sport },
+    { path: '/:lang/live', name: 'Live', exact:false, component: sport },
+
 
 ];
 
@@ -38,6 +40,7 @@ export const userRoutes = [
     { path: '/:lang/deposit', name: 'Deposit', exact:false, component: deposit },
     { path: '/:lang/account', name: 'Account', exact:false, component: account },
     { path: '/:lang/sport', name: 'Sport', exact:false, component: sport },
+    { path: '/:lang/live', name: 'Live', exact:false, component: sport },
     { path: '/:lang/transaction', name: 'Transaction', exact:false, component: transaction },
 ];
 
