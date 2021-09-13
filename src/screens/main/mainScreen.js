@@ -4,10 +4,12 @@ import { ajax, bayern,inter,liver,manCity,manUn,milan,sl2, slotSardCover} from '
 import {Carousel, Header, Swp, Footer, Sport} from "../../components";
 import {useSLot} from "../../core/hooks/useSLot";
 import {SLOTS_DATA} from "../../data/slots";
+import {useParams} from "react-router-dom";
 
 
 const MainScreen = () =>{
     const nav  = useNavigation();
+    const {lang}=useParams();
     const {play}=useSLot()
     const ref=useRef();
     const [containerWidth,setContainerWidth]=useState(window.innerWidth)
@@ -37,7 +39,7 @@ const MainScreen = () =>{
                 <div className="container" ref={ref}>
                     <div className="row">
                         <div className="col-12">
-                            <Sport.TopMatchesWidget/>
+                            <Sport.TopMatchesWidget lang={lang}/>
                            {/* <div className="row">
                                 <div className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
                                     <div className="section-heading">Sport</div>

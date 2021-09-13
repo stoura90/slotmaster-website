@@ -2,8 +2,11 @@ import React, {useEffect, useLayoutEffect, useMemo, useState} from "react";
 import {useUser} from "../../core/hooks/useUser";
 import {Actions} from "../../core";
 import _ from 'lodash'
-export const TopMatchesWidget=()=>{
+import {useHistory} from "react-router-dom";
+export const TopMatchesWidget=({lang})=>{
     const {User} = useUser();
+    const history = useHistory();
+
     const [params]=useState({
         "server":"https://sport.staging.planetaxbet.com/",
         "target":"#top-matches-container",
@@ -14,7 +17,20 @@ export const TopMatchesWidget=()=>{
     }
     const response = useMemo(async () => await getToken(), []);
     const loadFrame=(parameters)=>{
-        window.Bootstrapper.boot(parameters, { name: "TopMatches" });
+        window.Bootstrapper.boot(parameters, { name: "TopMatches" })
+        .then(addTopMatchesEventsListeners)
+
+    }
+    function addTopMatchesEventsListeners(topMatches){
+
+        topMatches.addEventListener('navigateToEvent', function (messageEvent) {
+            console.log("navigate",messageEvent)
+            history.push(`/${lang}/sport`)
+
+        }); // console.log(messageEvent.data.Id);
+        topMatches.addEventListener('navigateToChampionship', function (messageEvent) {
+            console.log("navigateToChampionship",messageEvent)
+        }); // console.log(messageEvent.data.Id);
     }
     useLayoutEffect( () => {
         if (User.isLogged) {
