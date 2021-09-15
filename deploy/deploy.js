@@ -4,7 +4,7 @@ const utils = require("./deployUtils")
 let sftp = new Client();
 const path = require('path');
 const src = path.join(__dirname, '..', 'build/');
-let remote = '/var/www/slotmaster/website';
+let remote = '/var/www/planetaxbet/website';
 const total = utils.getTotalSize(`${src}`);
 
 const progress = new cliProgress.Bar({
@@ -15,10 +15,10 @@ const progress = new cliProgress.Bar({
 });
 
 sftp.connect({
-    host: 'shalamberidze.com',
+    host: 'staging.planetaxbet.com',
     port: 22,
-    username: "kapana",
-    password: "123456"
+    username: "root",
+    password: "Ek9eDrZQwL"
 }).then(() => {
     //console.log('\x1b[32m',"connect",'\x1b[37m')
     //console.log('\x1b[32m',"start upload",'\x1b[37m')

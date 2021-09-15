@@ -16,7 +16,7 @@ module.exports = function(app) {
         createProxyMiddleware({
             //target: 'http://10.0.2.34:8072',
             //target: 'http://192.168.30.50:8072',
-            target: 'http://192.168.10.50:8072',
+            target: 'https://192.168.10.50:8072',
             logLevel:"debug",
             changeOrigin: false,
         })

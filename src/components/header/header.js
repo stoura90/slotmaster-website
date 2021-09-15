@@ -11,7 +11,7 @@ const Header = ({page}) =>{
     const {User} = useUser();
     const {lang} = useParams();
     useEffect(()=>{
-        console.log(page)
+        console.log(User)
     },[page])
     return (
         <header>
@@ -31,8 +31,8 @@ const Header = ({page}) =>{
                                 {
                                     User.isLogged? <>
                                             <div className="navbar-balance d-flex flex-column">
-                                                <span className="currency">USD</span>
-                                                <span className="current-balance">911.11</span>
+                                                <span className="currency">{User.data.accounts.main.currency.iso3}</span>
+                                                <span className="current-balance">{(User.data.accounts.main.amount/100).toFixed(2)}</span>
                                             </div>
 
                                             <Link  to={`/${lang}/account`} className="account-link"><img src={account} alt=""/></Link>
