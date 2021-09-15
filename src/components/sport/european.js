@@ -3,15 +3,17 @@ import {useUser} from "../../core/hooks/useUser";
 import {Actions} from "../../core";
 import _ from 'lodash'
 import Listeners from "../../utils/listeners";
-import {Timeout} from "../../utils/timeOut";
+import {useDispatch} from "react-redux";
 export const EuropeanView=({view})=>{
     const {User} = useUser();
+    const dispatch=useDispatch()
     const [token,setToken]=useState("-")
     const SportLogin=(event)=>{
         document.getElementById("signIn-btn").click()
     }
     const balanceChangeHandler=(event)=>{
         console.log("balanceChangeHandler",event)
+        dispatch(Actions.User.ping())
     }
     const onNavigateHandler=(event)=>{
         console.log("onNavigateHandler",event)

@@ -2,13 +2,16 @@ import React, {useEffect, useLayoutEffect, useMemo, useState} from "react";
 import {useUser} from "../../core/hooks/useUser";
 import {Actions} from "../../core";
 import _ from 'lodash'
+import {useDispatch} from "react-redux";
 export const SportMobileView=()=>{
     const {User} = useUser();
+    const dispatch = useDispatch();
     const SportLogin=(event)=>{
         document.getElementById("signIn-btn").click()
     }
     const balanceChangeHandler=(event)=>{
         console.log("balanceChangeHandler",event)
+        dispatch(Actions.User.ping())
     }
     const [params]=useState({
         "server":"https://sport.staging.planetaxbet.com/",
