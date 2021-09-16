@@ -13,13 +13,14 @@ export const EuropeanView=({view})=>{
     }
     const balanceChangeHandler=(event)=>{
         console.log("balanceChangeHandler",event)
-        dispatch(Actions.User.ping())
+
     }
     const onNavigateHandler=(event)=>{
         console.log("onNavigateHandler",event)
     }
     const eventsHandlerCallback=(event)=>{
         console.log("eventsHandlerCallback",event)
+        dispatch(Actions.User.ping())
     }
     const [params]=useState({
         "server":"https://sport.staging.planetaxbet.com/",
