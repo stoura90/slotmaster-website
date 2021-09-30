@@ -14,7 +14,7 @@ export const SportMobileView=()=>{
         dispatch(Actions.User.ping())
     }
     const [params]=useState({
-        "server":"https://sport.staging.planetaxbet.com/",
+        "server":window.location.hostname==="www.planetaxbet.com"?"https://sport.planetaxbet.com/":"https://sport.staging.planetaxbet.com/",
         "containerId":"application-container",
         "token":"-",
         "defaultLanguage":"en",
