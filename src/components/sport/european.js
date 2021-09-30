@@ -23,7 +23,7 @@ export const EuropeanView=({view})=>{
         dispatch(Actions.User.ping())
     }
     const [params]=useState({
-        "server":window.location.hostname==="www.planetaxbet.com"?"https://sport.planetaxbet.com/":"https://sport.staging.planetaxbet.com/",
+        "server":["www.planetaxbet.com","planetaxbet.com"].indexOf(window.location.hostname)>-1?"https://sport.planetaxbet.com/":"https://sport.staging.planetaxbet.com/",
         "token":"_",
         "currentPage":view,
         "language":"en",
