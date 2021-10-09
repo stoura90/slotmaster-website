@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useNavigation} from "../../core/hooks/useNavigation";
-import {Balance, Footer, Header} from "../../components";
+import {Balance, Footer, Header, Information} from "../../components";
 
 import "../../assets/styles/_select2.scss"
 const AccountScreen = () =>{
@@ -17,6 +17,8 @@ const AccountScreen = () =>{
                 <div className="container">
                     <div className="row">
                         <Balance/>
+
+                        <Information/>
                     </div>
                 </div>
             </main>

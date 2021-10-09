@@ -11,7 +11,8 @@ import SlotCard from "./slots/slotsCard";
 import Swp from "./swp/swp";
 import Loader from "./loader/loader"
 import Balance from "./balance/balance";
-import Sport from "./sport/index"
+import Sport from "./sport/index";
+import Information from "./account/information/information";
 export {
     Header,
     Footer,
@@ -26,5 +27,6 @@ export {
     Swp,
     Loader,
     Balance,
-    Sport
+    Sport,
+    Information
 }
