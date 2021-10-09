@@ -68,6 +68,7 @@ const Information = () => {
                                                 name="phone"
                                                 id="phone"
                                                 className="for-confirm"
+                                                value=""
                                             />
                                             <label htmlFor="phone">Phone</label>
                                             <button
@@ -82,12 +83,12 @@ const Information = () => {
 
                                     </div>
                                     <div className="col-12 col-md-6">
-                                        <div className="input-label-border active">
+                                        <div className="input-label-border ">
                                             <input
                                                 type="email"
                                                 name="email"
                                                 id="email"
-                                                value="test@test.com"
+                                                value=""
                                                 className="for-confirm"
                                             />
                                             <label htmlFor="email">Email</label>
@@ -96,38 +97,27 @@ const Information = () => {
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="input-label-border">
-                                            <input type="text" name="name" id="name"/>
+                                            <input value="" type="text" name="name" id="name"/>
                                             <label htmlFor="name">Name</label>
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="input-label-border">
-                                            <input type="text" name="surname" id="surname"/>
+                                            <input value="" type="text" name="surname" id="surname"/>
                                             <label htmlFor="surname">Surname</label>
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="input-label-border">
-                                            <input
-                                                type="text"
-                                                name="birthday"
-                                                id="birthday"
-                                                placeholder="DD.MM.YYYY"
-                                            />
+                                            <input type="text" name="birthday" id="birthday" value="" placeholder="DD.MM.YYYY"/>
                                             <label htmlFor="birthday">Date of birth</label>
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="select-label-border">
-                                            <select
-                                                className="select2"
-                                                placeholder="Country"
-                                                id="account"
-                                            >
+                                            <select className="select2" placeholder="Country" id="account">
                                                 <option value=""></option>
-                                                <option value="1">
-                                                    British Virgin Islands
-                                                </option>
+                                                <option value="1">British Virgin Islands</option>
                                                 <option value="2">Brunei</option>
                                                 <option value="3">Bulgaria</option>
                                                 <option value="4">Burkina Faso</option>
@@ -138,11 +128,7 @@ const Information = () => {
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="select-label-border">
-                                            <select
-                                                className="select2"
-                                                placeholder="Currency"
-                                                id="account"
-                                            >
+                                            <select className="select2" placeholder="Currency" id="account">
                                                 <option value=""></option>
                                                 <option value="1">USD</option>
                                                 <option value="2">EUR</option>
@@ -154,7 +140,7 @@ const Information = () => {
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="input-label-border">
-                                            <input type="text" name="city" id="city"/>
+                                            <input value="" type="text" name="city" id="city"/>
                                             <label htmlFor="city">City</label>
                                         </div>
                                     </div>
@@ -172,35 +158,19 @@ const Information = () => {
                                     </div>
                                     <div className="col-12 order-2 order-md-1">
                                         <div className="select-label-border">
-                                            <select
-                                                className="select2"
-                                                placeholder="Secret question"
-                                                id="account"
-                                            >
+                                            <select className="select2" placeholder="Secret question" id="account">
                                                 <option value=""></option>
-                                                <option value="1">
-                                                    What is your mother's maiden name?
-                                                </option>
-                                                <option value="2">
-                                                    What was your first pet?
-                                                </option>
-                                                <option value="3">
-                                                    What was the model of your first car?
-                                                </option>
-                                                <option value="4">
-                                                    In what city were you born?
-                                                </option>
+                                                <option value="1">What is your mother's maiden name?</option>
+                                                <option value="2">What was your first pet?</option>
+                                                <option value="3">What was the model of your first car?</option>
+                                                <option value="4">In what city were you born?</option>
                                             </select>
                                             <label htmlFor="select">Secret question</label>
                                         </div>
                                     </div>
                                     <div className="col-12 order-3 order-md-2">
                                         <div className="input-label-border">
-                                            <input
-                                                type="text"
-                                                name="secret-answer"
-                                                id="secretAnswer"
-                                            />
+                                            <input type="text" name="secret-answer" id="secretAnswer"/>
                                             <label htmlFor="secretAnswer">Secret answer</label>
                                         </div>
                                     </div>

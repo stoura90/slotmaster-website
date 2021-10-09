@@ -86,6 +86,15 @@ input.for-confirm {
         font-size: 12px;
       }
     }
+    &:not([value=""]){
+      background: #181e2e;
+      & + label {
+        color: $text-label;
+        top: 9px;
+        transform: unset;
+        font-size: 12px;
+      }
+    }
     &:active {
       background: #181e2e;
       & + label {

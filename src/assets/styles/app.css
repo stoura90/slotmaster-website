@@ -19266,6 +19266,15 @@ input.for-confirm {
   transform: unset;
   font-size: 12px;
 }
+.input-label-border input:not([value=""]) {
+  background: #181e2e;
+}
+.input-label-border input:not([value=""]) + label {
+  color: #8594c1;
+  top: 9px;
+  transform: unset;
+  font-size: 12px;
+}
 .input-label-border input:active {
   background: #181e2e;
 }
