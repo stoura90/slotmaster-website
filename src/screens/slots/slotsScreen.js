@@ -4,6 +4,7 @@ import { Footer, Header,SlotCard, Swp} from "../../components";
 import "../../assets/styles/_select2.scss"
 import {Actions} from "../../core";
 import _ from "lodash"
+import {useParams} from "react-router-dom";
 
 const SlotsScreen = () =>{
     const [show,setShow]=useState(20);
@@ -15,6 +16,7 @@ const SlotsScreen = () =>{
 
     useEffect(()=>{
         loadProvider();
+
     },[])
 
     useEffect(()=>{

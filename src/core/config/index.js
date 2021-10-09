@@ -10,7 +10,7 @@ export const Config ={
       SPORT_TOKEN:"/ws/v1/api/secured/sport/get/url"
    },
    Slot:{
-      PLAY:"/ss/v1/api/secured/gis?gameId={gameId}&lang=ru",
+      PLAY:"/ss/v1/api/secured/url?id={gameId}&lang=ru",
       //LIST:"/ss/v1/api/slot/providers",
       LIST:"/ss/v1/api/slot/categories",
       LIST_BY_PROVIDER:"/ss/v1/api/slot/providers/{slotProviderId}",

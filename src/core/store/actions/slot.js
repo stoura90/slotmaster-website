@@ -2,7 +2,7 @@ import {Config} from "../../config";
 import Request from "../../http/http";
 import Http from "../../http/http2";
 const play =(slot)=>{
-    return (new Http()).get(Config.Slot.PLAY.replace("{gameId}",slot.gameId))
+    return (new Http()).get(Config.Slot.PLAY.replace("{gameId}",slot.id))
 }
 const list =  () => {
     return (new Http()).permitAll().setLoader("zura-loader").get(Config.Slot.LIST);
