@@ -1,8 +1,20 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss';
 
 
 const Information = () => {
+    const {infoData, setInfoData} = useState({
+        name:'',
+        email:'',
+        phone:'',
+        Surname:'',
+        dob:'',
+        currency:'',
+        city:'',
+        country:'',
+        question:''
+    });
+
     return (
         <div className="tab-content" id="accountTabContent">
             <div
