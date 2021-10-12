@@ -63,10 +63,10 @@ const Footer =()=>{
                                 <a href="#">Affiliates</a>
                             </li>
                             <li>
-                                <a href="./terms.html">Terms and conditions</a>
+                                <a href="./terms">Terms and conditions</a>
                             </li>
                             <li>
-                                <a href="./contact.html">Contact Us</a>
+                                <a href="#">Contact Us</a>
                             </li>
                         </ul>
                     </div>
