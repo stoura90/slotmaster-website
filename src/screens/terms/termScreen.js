@@ -35,12 +35,12 @@ const TermScreen = () =>{
                             <a href="#" className="page-link">Affiliates</a>
                         </div>
                         <div className="col-auto col-md-3 col-lg-3 col-xl-2">
-                            <a href="./terms.html" className="page-link active"
+                            <a href="./terms" className="page-link active"
                             >Terms and conditions</a
                             >
                         </div>
                         <div className="col-auto col-md-3 col-lg-3 col-xl-2">
-                            <a href="./contact.html" className="page-link">Contact Us</a>
+                            <a href="#" className="page-link">Contact Us</a>
                         </div>
                         <div className="col-auto col-md-3 col-lg-3 col-xl-2">
                             <a href="#" className="page-link">Privacy Policy</a>
