@@ -7,7 +7,6 @@ const AccountScreen = () =>{
     const nav  = useNavigation();
     useEffect(()=>{
         console.log(nav)
-
     },[nav]);
     return (
         <>
