@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { sl2} from '../../assets/img/images';
-import { Footer, Header,SlotCard, Swp} from "../../components";
+import {Footer, Header, ShowMore, SlotCard, Swp} from "../../components";
 import "../../assets/styles/_select2.scss"
 import {Actions} from "../../core";
 import _ from "lodash"
@@ -8,28 +8,24 @@ import {useParams} from "react-router-dom";
 
 const SlotsScreen = () =>{
     const [show,setShow]=useState(20);
+    const [page,setPage]=useState(1)
     const [providers,setProviders]=useState([])
     const [filters,setFilters]=useState([])
     const [list,setList]=useState([])
     const [selectedProvider,setSelectedProvider]=useState(null)
-
-
     useEffect(()=>{
         loadProvider();
 
     },[])
-
     useEffect(()=>{
         if(selectedProvider){
             loadSlots(selectedProvider.id)
         }
     },[selectedProvider])
-
     const homeClick = () => {
         setSelectedProvider(null);
         loadProvider();
     }
-
     const loadProvider = () => {
         Actions.Slot.list().then(response=> {
             console.log("slot response ", response)
@@ -44,10 +40,13 @@ const SlotsScreen = () =>{
     const loadSlots = (id) => {
         Actions.Slot.listByProvider(id).then(response=>setList(response.status?response.data.data:[]))
     }
-
     const getFilteredSlots = (id) => {
         setSelectedProvider({...selectedProvider,name: null});
         Actions.Slot.listByFilter(id).then(response=>setList(response.status?response.data.data:[]))
+    }
+
+    const getSlotList=()=> {
+        return _.filter(list,(v,k)=>k<=page*20);
     }
 
     return (
@@ -68,7 +67,6 @@ const SlotsScreen = () =>{
 
             <main>
                 <div className="container">
-
                     <div className="row">
                         {/*<div className="col-12 d-flex align-items-center main-filter slot">
                             <div className="search">
@@ -96,14 +94,14 @@ const SlotsScreen = () =>{
                                 <img src={filter} alt="Filter"/>
                             </div>
                         </div>*/}
-
-
-
                         <div className="col-12 section-head">
                             <div className="sl_nav">
                                 <div className="sl_item sl_home" onClick={()=> homeClick()}/>
                                 {
-                                    _.map(providers,provider=><div className="sl_item" key={provider.id} onClick={()=>setSelectedProvider(provider)}>{provider.name}</div>)
+                                    _.map(providers,provider=><div className="sl_item" key={provider.id} onClick={()=>{
+                                        setSelectedProvider(provider);
+                                        setPage(1)
+                                    }}>{provider.name}</div>)
                                 }
                             </div>
                             <div className="sl_filter">
@@ -114,11 +112,9 @@ const SlotsScreen = () =>{
                                 </ul>
                             </div>
                         </div>
-
                         <div className="col-12 d-flex align-items-center section-head">
 
                         </div>
-
                         {
                             selectedProvider?.name &&
                             <div className="col-12 d-flex align-items-center section-head">
@@ -127,32 +123,20 @@ const SlotsScreen = () =>{
                                 </a>
                             </div>
                         }
-
-
                         <div className="col-12">
                             <div className="row casino-list">
-                                <SlotCard  data={list} />
+                                <SlotCard  data={getSlotList()} />
                             </div>
                         </div>
-
                         {
-                            show !== list.length&&<div className="col-12">
-                                <div className="show-more">
-                                    <div className="show-info">You’ve viewed {show} of {list.length} games</div>
-                                    <div className="show-more-btn" onClick={()=>setShow(list.length)}>show more</div>
-                                </div>
+                            <div className="col-12">
+                                <ShowMore page={page} count={20} length={list.length} setPage={setPage}/>
                             </div>
                         }
-
-
                     </div>
-
-
                 </div>
             </main>
-
             <Footer/>
-
         </>
     )
 }

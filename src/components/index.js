@@ -13,6 +13,7 @@ import Loader from "./loader/loader"
 import Balance from "./balance/balance";
 import Sport from "./sport/index";
 import Information from "./account/information/information";
+import ShowMore from "./showMore/ShowMore";
 export {
     Header,
     Footer,
@@ -28,5 +29,6 @@ export {
     Loader,
     Balance,
     Sport,
-    Information
+    Information,
+    ShowMore
 }
