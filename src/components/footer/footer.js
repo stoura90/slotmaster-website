@@ -6,7 +6,7 @@ import {discord} from "../../assets/img/icons/icons";
 
 const Footer =()=>{
     return(
-        <footer>
+        <footer className="footer">
             <div className="container">
                 <div className="row gx-0 align-items-center">
                     <div className="col-12 d-md-none">

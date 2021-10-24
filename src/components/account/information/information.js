@@ -3,11 +3,11 @@ import './style.scss';
 
 
 const Information = () => {
-    const {infoData, setInfoData} = useState({
+    const [infoData, setInfoData] = useState({
         name:'',
         email:'',
         phone:'',
-        Surname:'',
+        surname:'',
         dob:'',
         currency:'',
         city:'',
@@ -25,11 +25,7 @@ const Information = () => {
             >
                 <div className="account-tab-inner">
                     <div className="tab-headline">Personal Data</div>
-                    <ul
-                        className="mb-sub-tabs nav nav-tabs d-md-none"
-                        id="myTab"
-                        role="tablist"
-                    >
+                    <ul className="mb-sub-tabs nav nav-tabs d-md-none" id="myTab" role="tablist">
                         <li role="presentation">
                             <button
                                 className="item active"
@@ -80,7 +76,8 @@ const Information = () => {
                                                 name="phone"
                                                 id="phone"
                                                 className="for-confirm"
-                                                value=""
+                                                value={infoData.phone}
+                                                onChange={e => setInfoData({...infoData,phone:e.target.value})}
                                             />
                                             <label htmlFor="phone">Phone</label>
                                             <button
@@ -100,8 +97,9 @@ const Information = () => {
                                                 type="email"
                                                 name="email"
                                                 id="email"
-                                                value=""
                                                 className="for-confirm"
+                                                value={infoData.email}
+                                                onChange={e => setInfoData({...infoData,email:e.target.value})}
                                             />
                                             <label htmlFor="email">Email</label>
                                             <span className="confirmed">Confirmed</span>
@@ -109,19 +107,19 @@ const Information = () => {
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="input-label-border">
-                                            <input value="" type="text" name="name" id="name"/>
+                                            <input onChange={e => setInfoData({...infoData,name:e.target.value})} value={infoData.name} type="text" name="name" id="name"/>
                                             <label htmlFor="name">Name</label>
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="input-label-border">
-                                            <input value="" type="text" name="surname" id="surname"/>
+                                            <input onChange={e => setInfoData({...infoData,surname:e.target.value})} value={infoData.surname} type="text" name="surname" id="surname"/>
                                             <label htmlFor="surname">Surname</label>
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="input-label-border">
-                                            <input type="text" name="birthday" id="birthday" value="" placeholder="DD.MM.YYYY"/>
+                                            <input onChange={e => setInfoData({...infoData,dob:e.target.value})} value={infoData.dob} type="text" name="birthday" id="birthday" placeholder="DD.MM.YYYY"/>
                                             <label htmlFor="birthday">Date of birth</label>
                                         </div>
                                     </div>
@@ -152,7 +150,7 @@ const Information = () => {
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="input-label-border">
-                                            <input value="" type="text" name="city" id="city"/>
+                                            <input onChange={e => setInfoData({...infoData,city:e.target.value})} value={infoData.city} type="text" name="city" id="city"/>
                                             <label htmlFor="city">City</label>
                                         </div>
                                     </div>

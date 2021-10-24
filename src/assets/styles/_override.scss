@@ -76,3 +76,23 @@
   background-repeat: no-repeat !important;
   background-position: center !important;
 }
+
+
+
+// main top match widget
+
+#top-matches-container {
+  margin-top: 10px;
+  .tm_header_arrows {
+    position: relative;
+    i {
+      &:after {
+        display: none;
+      }
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      all:unset;
+    }
+  }
+}
