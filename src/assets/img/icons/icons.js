@@ -31,7 +31,7 @@ import sliderArrowPrev from "./slider-arrow-prev.svg";
 import time from "./time.svg";
 import viewOff from "./view-off.svg";
 import viewOn from "./view-on.svg";
-
+import loader from "./loader.gif"
 
 export {
 restriction18,
@@ -67,4 +67,5 @@ sliderArrowPrev,
 time,
 viewOff,
 viewOn,
+loader
 }

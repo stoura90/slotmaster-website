@@ -121,7 +121,7 @@ const Header = ({page}) =>{
                                 <Link  className={`nav-link ${page==='live'? 'active':''}`} to={`/${lang}/live`}>Live</Link>
                             </li>
                             <li className="nav-item">
-                                <Link  className={`nav-link ${page==='virtuals'? 'active':''}`} to={'/'}>Virtuals</Link>
+                                <Link to={`/${lang}/virtuals`}  className={`nav-link ${page==='virtuals'? 'active':''}`} >Virtuals</Link>
                             </li>
                             <li className="nav-item">
                                 <Link to={`/${lang}/casino`}  className={`nav-link ${page==='casino'? 'active':''}`}>Casino</Link>
