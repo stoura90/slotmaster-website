@@ -20151,6 +20151,26 @@ input.for-confirm {
     margin-left: 32px;
   }
 }
+.navbar .navbar-head .authorization-interface .user-information {
+  margin-right: 20px;
+  color: #fff;
+}
+.navbar .navbar-head .authorization-interface .user-information [data-user] {
+  text-transform: uppercase;
+  color: #939db9;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 14px;
+  font-family: unset !important;
+}
+.navbar .navbar-head .authorization-interface .user-information [data-pin] {
+  font-size: 20px;
+  color: #e6e9f1;
+  text-align: right;
+  font-family: "Proxima Regular", Helvetica;
+  font-weight: 600;
+  line-height: 23px;
+}
 .navbar .navbar-collapse {
   width: 100%;
   background-color: rgba(29, 36, 52, 0.6);

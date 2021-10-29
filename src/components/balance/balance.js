@@ -51,8 +51,8 @@ const Balance = () =>{
 
             <div className="col-12 d-flex justify-content-between">
                 <div className="d-flex flex-column flex-md-row align-items-md-center">
-                    <span className="user-fullname">Nick Tamarashvili</span>
-                    <span className="user-id">(938433748)</span>
+                    <span className="user-fullname">{User.data.firstName} {User.data.lastName}</span>
+                    <span className="user-id">({User.data.id})</span>
                 </div>
                 <a href="#" className="user-logout d-flex align-items-center">
                     <svg

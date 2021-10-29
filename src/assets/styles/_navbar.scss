@@ -99,6 +99,27 @@
                     margin-left: 32px;
                 }
             }
+
+            .user-information {
+                margin-right: 20px;
+                color:#fff;
+                [data-user] {
+                    text-transform: uppercase;
+                    color: #939db9;
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 14px;
+                    font-family: unset !Important;
+                }
+                [data-pin] {
+                    font-size: 20px;
+                    color: #e6e9f1;
+                    text-align: right;
+                    font-family: "Proxima Regular", Helvetica;
+                    font-weight: 600;
+                    line-height: 23px;
+                }
+            }
         }
     }
 

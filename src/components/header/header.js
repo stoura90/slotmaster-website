@@ -30,6 +30,10 @@ const Header = ({page}) =>{
                             >
                                 {
                                     User.isLogged? <>
+                                            <div className="user-information">
+                                                <div data-user>{User.data.firstName} {User.data.lastName}</div>
+                                                <div data-pin>id: {User.data.id}</div>
+                                            </div>
                                             <div className="navbar-balance d-flex flex-column">
                                                 <span className="currency">{User.data.accounts.main.currency.iso3}</span>
                                                 <span className="current-balance">{(User.data.accounts.main.amount/100).toFixed(2)}</span>
