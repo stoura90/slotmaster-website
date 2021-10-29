@@ -7,6 +7,7 @@ const slots = React.lazy(() => import(("./screens/slots/slotsScreen")));
 const promo = React.lazy(() => import(("./screens/promo/promoScreen")));
 const terms = React.lazy(() => import(("./screens/terms/termScreen")));
 const casino = React.lazy(() => import(("./screens/casino/casinoScreen")));
+const virtuals = React.lazy(() => import(("./screens/virtuals/virtualsScreen")));
 const deposit = React.lazy(() => import(("./screens/deposit/depositScreen")));
 const account = React.lazy(() => import(("./screens/account/accountScreen")));
 const sport = React.lazy(() => import(("./screens/sport/sportScreen")));
@@ -22,6 +23,7 @@ export const guestRoutes = [
     { path: '/:lang/main/:params', name: 'Home', exact:true, component: main, page:"main" },
     { path: '/:lang/contact', name: 'Home', exact:false, component: contact , page:"contact"},
     { path: '/:lang/slots', name: 'Slots', exact:false, component: slots, page:"slots" },
+    { path: '/:lang/virtuals', name: 'Slots', exact:false, component: virtuals, page:"virtuals" },
     { path: '/:lang/promo', name: 'Promo', exact:false, component: promo , page:"promo"},
     { path: '/:lang/terms', name: 'Terms', exact:false, component: terms , page:"terms"},
     { path: '/:lang/casino', name: 'Casino', exact:false, component: casino, page:"casino" },
@@ -38,6 +40,7 @@ export const userRoutes = [
     { path: '/:lang/main/:params', name: 'Home', exact:true, component: main , page:"main"},
     { path: '/:lang/contact', name: 'Home', exact:false, component: contact, page:"main" },
     { path: '/:lang/slots', name: 'Slots', exact:false, component: slots, page:"slots" },
+    { path: '/:lang/virtuals', name: 'Slots', exact:false, component: virtuals, page:"virtuals" },
     { path: '/:lang/promo', name: 'Promo', exact:false, component: promo, page:"promo" },
     { path: '/:lang/terms', name: 'Terms', exact:false, component: terms , page:"terms"},
     { path: '/:lang/casino', name: 'Casino', exact:false, component: casino, page:"casino" },

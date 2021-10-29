@@ -6,7 +6,7 @@ import {Actions} from "../../core";
 import _ from "lodash"
 import {useParams} from "react-router-dom";
 
-const SlotsScreen = () =>{
+const VirtualsScreen = () =>{
     const [show,setShow]=useState(20);
     const [page,setPage]=useState(1)
     const [providers,setProviders]=useState([])
@@ -27,7 +27,7 @@ const SlotsScreen = () =>{
         loadProvider();
     }
     const loadProvider = () => {
-        Actions.Slot.list({webPageId:1}).then(response=> {
+        Actions.Slot.list({webPageId:3}).then(response=> {
             console.log("slot response ", response)
 
             if(response.status){
@@ -38,12 +38,12 @@ const SlotsScreen = () =>{
         }).catch(reason => console.log(reason))
     }
     const loadSlots = (id) => {
-        Actions.Slot.listByProvider(id,"1").then(response=>setList(response.status?response.data.data:[]))
+        Actions.Slot.listByProvider(id,"3").then(response=>setList(response.status?response.data.data:[]))
     }
     const getFilteredSlots = (id) => {
         setSelectedProvider({...selectedProvider,name: null});
         setPage(1)
-        Actions.Slot.listByFilter(id,"1").then(response=>setList(response.status?response.data.data:[]))
+        Actions.Slot.listByFilter(id,"3").then(response=>setList(response.status?response.data.data:[]))
     }
 
     const getSlotList=()=> {
@@ -52,7 +52,7 @@ const SlotsScreen = () =>{
 
     return (
         <>
-            <Header page={"slots"}/>
+            <Header page={"virtuals"}/>
 
             <div className="container slider">
                 <Swp count={3}  data={[
@@ -142,4 +142,4 @@ const SlotsScreen = () =>{
     )
 }
 
-export default SlotsScreen
+export default VirtualsScreen
