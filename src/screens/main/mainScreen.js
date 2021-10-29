@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation} from "../../core/hooks/useNavigation";
-import { ajax, bayern,inter,liver,manCity,manUn,milan,sl2, slotSardCover} from '../../assets/img/images';
+import { ajax, bayern,inter,liver,manCity,manUn,milan,sl2,w1,w2, slotSardCover} from '../../assets/img/images';
 import {Carousel, Header, Swp, Footer, Sport} from "../../components";
 import {useSLot} from "../../core/hooks/useSLot";
 import {SLOTS_DATA} from "../../data/slots";
@@ -23,10 +23,10 @@ const MainScreen = () =>{
         <>
             <Header page={"main"}/>
 
-            <div className="container slider">
+            <div className=" slider">
                 <Swp count={3}  data={[
-                    {id:1, icon:sl2 },
-                    {id:2, icon:sl2 },
+                    {id:1, icon:w1 },
+                    {id:2, icon:w2 },
                     {id:3, icon:sl2 },
                     {id:4, icon:sl2 },
                     {id:5, icon:sl2 },
@@ -35,9 +35,9 @@ const MainScreen = () =>{
                 ]}/>
             </div>
 
-            <main>
+            <main className="widget_cont">
                 <div className="container" ref={ref}>
-                    <div className="row">
+                    <div className="row for_widget">
                         <div className="col-12">
                             <Sport.TopMatchesWidget lang={lang}/>
                            {/* <div className="row">

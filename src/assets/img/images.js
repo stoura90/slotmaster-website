@@ -46,6 +46,8 @@ import tonys from './tonys.png';
 import ukFlag from './uk-flag.png';
 import webmoney from './webmoney.png';
 import webmoneySmall from './webmoney-small.png';
+import w1 from './w1.jpg';
+import w2 from './w2.jpg';
 
 export  {
     ajax,
@@ -95,7 +97,9 @@ export  {
     tonys,
     ukFlag,
     webmoney,
-    webmoneySmall
+    webmoneySmall,
+    w1,
+    w2
 }
 
 
