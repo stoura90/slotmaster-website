@@ -79,9 +79,9 @@ const Request = {
               }
             }).catch(reason => {
                 if(this.enableEvents) {
-                    eventEmitter.emit("httpError",{type:"http",severity: 'error', summary: 'Http Error', detail: `error  ${reason.response.status}`, sticky: false,life:2000})
+                    eventEmitter.emit("httpError",{type:"http",severity: 'error', summary: 'Http Error', detail: `error  ${reason?.response?.status}`, sticky: false,life:2000})
                 }
-                resolve({ status:false,data: JSON.parse(reason.response.data.error) })
+                resolve({ status:false,data: JSON.parse(reason?.response?.data?.error || "{}") })
             })
           }catch (e) {
               console.log(e.message)

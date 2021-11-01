@@ -63,7 +63,10 @@ const SignUp =() =>{
         }
         if(error.length>0){
             setErrors([...error])
-            alert("Passwords do not match")
+            if(error.length===2 && error[0]==="password" && error[1]==="password2"){
+                alert("Passwords do not match")
+            }
+
         }else{
             localStorage.removeItem("GRD_access_token")
             Actions.User.signUp(signUpForm).then(response=>{

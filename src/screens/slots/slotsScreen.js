@@ -47,7 +47,7 @@ const SlotsScreen = () =>{
     }
 
     const getSlotList=()=> {
-        return _.filter(list,(v,k)=>k<=page*20);
+        return _.filter(list,(v,k)=>k<page*20);
     }
 
     return (
