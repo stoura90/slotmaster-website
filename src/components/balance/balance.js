@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {logoM, sl2} from "../../assets/img/images";
 import {Swp} from "../index";
 import {useUser} from "../../core/hooks/useUser";
@@ -42,6 +42,7 @@ import {Link, useParams} from "react-router-dom";
 const Balance = () =>{
     const {User,signOut} = useUser();
     const {lang} = useParams();
+    const [showBalance,setShowBalance] = useState(false)
     console.log('lang',lang)
     useEffect(()=>{
         console.log(User)
@@ -78,14 +79,11 @@ const Balance = () =>{
                     </svg>
                     <span onClick={()=>{
                         signOut(()=>{
-                            console.log("callback")
                             try {
                                 localStorage.clear()
                             }finally {
                                 window.location.href="/"
                             }
-
-
                         });
 
                     }}>Log Out</span>
@@ -98,11 +96,11 @@ const Balance = () =>{
                     <div className="d-flex align-items-center justify-content-between px-1 px-lg-0">
                         <div className="d-flex d-lg-none flex-column balance-item mob">
                             <span>Balance</span>
-                            <div className="sum">100000.00 <span>USD</span></div>
+                            <div className={`sum ${showBalance?'':'blur-text'}`}>100000.00 <span className={`${showBalance?'':'blur-text'}`}>USD</span></div>
                         </div>
                         <div className="d-flex align-items-center">
-                            <button className="btn-for-icon">
-                                <img src={viewOn} alt=""/>
+                            <button className="btn-for-icon" onClick={()=>setShowBalance(!showBalance)}>
+                                <img src={showBalance? viewOn:viewOff} alt=""/>
                             </button>
                             <button className="btn-for-icon reload-balance">
                                 <img src={reload} alt=""/>
@@ -114,19 +112,19 @@ const Balance = () =>{
                         <div className="col-12 col-lg-4 d-none d-lg-flex">
                             <div className="d-flex flex-column balance-item">
                                 <span>Balance</span>
-                                <div className="sum">100000.00 <span>USD</span></div>
+                                <div  className={`sum ${showBalance?'':'blur-text'}`}>100000.00 <span className={`${showBalance?'':'blur-text'}`}>USD</span></div>
                             </div>
                         </div>
                         <div className="col-6 col-lg-4">
                             <div className="d-flex flex-column balance-item">
                                 <span>Pending Bets</span>
-                                <div className="sum">0.00 <span>USD</span></div>
+                                <div  className={`sum ${showBalance?'':'blur-text'}`}>0.00 <span className={`${showBalance?'':'blur-text'}`}>USD</span></div>
                             </div>
                         </div>
                         <div className="col-6 col-lg-4">
                             <div className="d-flex flex-column balance-item">
                                 <span className="text-nowrap">Pending Withdrawals</span>
-                                <div className="sum">100000.00 <span>USD</span></div>
+                                <div  className={`sum ${showBalance?'':'blur-text'}`}>100000.00 <span className={`${showBalance?'':'blur-text'}`}>USD</span></div>
                             </div>
                         </div>
                     </div>

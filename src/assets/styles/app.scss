@@ -80,7 +80,10 @@ a {
         text-decoration: none;
     }
 }
-
+.blur-text{
+    color: transparent !important;
+    text-shadow: 0 0 16px rgba(0, 0, 0, 2.5) !important
+}
 .container {
     padding-left: 15px;
     padding-right: 15px;
