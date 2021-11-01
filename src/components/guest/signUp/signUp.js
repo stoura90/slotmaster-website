@@ -39,12 +39,12 @@ const SignUp =() =>{
         password:"",
         password2:""
     })
-
+    const [terms,setTerms]=useState(false)
+    const [termsError,setTermsError]=useState(false);
     const [passType, setPassType] = useState({
         pass1:'password',
         pass2:'password'
     });
-
     const togglePassType=(pass)=>{
         if(pass === 'pass1'){
             setPassType(passType.pass1 === 'text'?{...passType,pass1:'password'}:{...passType,pass1:'text'})
@@ -61,7 +61,8 @@ const SignUp =() =>{
         if(signUpForm.password.trim().length<6 || signUpForm.password !== signUpForm.password2){
             error=[...error,"password","password2"]
         }
-        if(error.length>0){
+        if(error.length>0 || !terms){
+            setTermsError(terms? false:true)
             setErrors([...error])
             if(error.length===2 && error[0]==="password" && error[1]==="password2"){
                 alert("Passwords do not match")
@@ -69,7 +70,6 @@ const SignUp =() =>{
 
         }else{
             localStorage.removeItem("GRD_access_token")
-
             Actions.User.signUp(signUpForm).then(response=>{
                 if(response.status){
                     document.getElementById("close-sign-up").click();
@@ -201,6 +201,18 @@ const SignUp =() =>{
                                     <label htmlFor="confirmPassword">Repeat Password</label>
                                     <div className={`toggle-password ${passType.pass2==='text'?'active':'hide'}`} onClick={()=>{togglePassType('pass2')}}/>
                                 </div>
+                            </div>
+                            <div className="col-12">
+                                <label htmlFor="terms-and-conditions" className={`terms ${termsError?'error-text':''}`}>
+
+                                    <input type="checkbox" id={'terms-and-conditions'} checked={terms} onChange={(_) =>{
+                                        setTerms(!terms)
+                                        if(!terms){
+                                            setTermsError(false)
+                                        }
+                                    } }/>&nbsp;
+                                    By clicking sign up, you accept our <span style={{textDecoration:'underline'}}>Terms & Conditions</span> and that you are over 18 years old.
+                                </label>
                             </div>
                             <div className="col-12">
                                 <button type="submit" className="btn-primary">Sign Up</button>

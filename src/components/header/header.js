@@ -31,7 +31,7 @@ const Header = ({page}) =>{
                                 {
                                     User.isLogged? <>
                                             <div className="user-information">
-                                                <div data-user>{User.data.firstName} {User.data.lastName}</div>
+                                                <div data-user>{User.data.username}</div>
                                                 <div data-pin>id: {User.data.id}</div>
                                             </div>
                                             <div className="navbar-balance d-flex flex-column">
@@ -41,7 +41,7 @@ const Header = ({page}) =>{
 
                                             <Link  to={`/${lang}/account`} className="account-link"><img src={account} alt=""/></Link>
                                             <Link  to={`/${lang}/deposit`} className="deposit-link">deposit</Link>
-                                        <button
+                                        {/*<button
                                             className="navbar-toggler"
                                             type="button"
                                             data-bs-toggle="collapse"
@@ -51,7 +51,7 @@ const Header = ({page}) =>{
                                             aria-label="Toggle navigation"
                                         >
                                             <span className="navbar-toggler-icon"/>
-                                        </button>
+                                        </button>*/}
 
                                         {/*<div className="btn-primary text-capitalize">
                                             {User.data.firstName}

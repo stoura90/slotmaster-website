@@ -19,7 +19,7 @@
             padding: 0;
             margin: 0;
         }
-        
+
         .authorization-interface {
             .navbar-balance {
                 & > * {
@@ -103,6 +103,7 @@
             .user-information {
                 margin-right: 20px;
                 color:#fff;
+
                 [data-user] {
                     text-transform: uppercase;
                     color: #939db9;
@@ -126,7 +127,7 @@
     .navbar-collapse {
         width: 100%;
         background-color: rgba($navbar-bg, 0.6);
-        
+
         .navbar-nav {
             display: flex;
             align-items: center;
@@ -199,7 +200,7 @@
                             @media(min-width: $md) {
                                 height: 4px;
                                 border-radius: 4px 4px 0px 0px;
-                            } 
+                            }
                         }
                         &.home {
                             fill: $text-light;
