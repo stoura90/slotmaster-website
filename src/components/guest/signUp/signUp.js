@@ -69,6 +69,7 @@ const SignUp =() =>{
 
         }else{
             localStorage.removeItem("GRD_access_token")
+
             Actions.User.signUp(signUpForm).then(response=>{
                 if(response.status){
                     document.getElementById("close-sign-up").click();

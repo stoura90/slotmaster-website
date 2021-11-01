@@ -73,7 +73,7 @@ const signUp = async (data) => {
             type: 'error',
             details: "invalid credentials"
         })
-        alert("დაფიქსირდა შეცდომა")
+        alert("An error occurred while registering")
     }
     return response;
 }
