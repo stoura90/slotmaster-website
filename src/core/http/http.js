@@ -78,10 +78,11 @@ const Request = {
                   resolve({status:false,data:response.data})
               }
             }).catch(reason => {
+
                 if(this.enableEvents) {
                     eventEmitter.emit("httpError",{type:"http",severity: 'error', summary: 'Http Error', detail: `error  ${reason?.response?.status}`, sticky: false,life:2000})
                 }
-                resolve({ status:false})
+                resolve({ status:false, data:reason?.response?.data?.error})
             })
           }catch (e) {
               console.log(e.message)
@@ -127,7 +128,8 @@ const Request = {
 
                 }
 
-                resolve({ status:false })
+                resolve({ status:false, data:reason?.response?.data?.error})
+
             })
         }).finally(()=>{
             if(this.data.loader){

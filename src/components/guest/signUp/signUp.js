@@ -27,7 +27,7 @@ const CountryList=[
 ]
 
 const SignUp =() =>{
-
+    const [signUpError,setSignUpError]=useState("")
     const [signUpForm,setSignUpForm]=useState({
         mail:"",
         firstName:"",
@@ -37,7 +37,8 @@ const SignUp =() =>{
         countryCode:"VGB",
         currencyCode:840,
         password:"",
-        password2:""
+        password2:"",
+        username:""
     })
     const [terms,setTerms]=useState(false)
     const [termsError,setTermsError]=useState(false);
@@ -52,11 +53,11 @@ const SignUp =() =>{
             setPassType(passType.pass2 === 'text'?{...passType,pass2:'password'}:{...passType,pass2:'text'})
         }
 
-        console.log(pass)
     }
 
     const [errors,setErrors]=useState([])
     const onSignUp=()=>{
+        setSignUpError("")
         let error = _.chain(signUpForm).map((v,k)=>{ return  {key:k,value:v}}).filter(v=>!v.value).map(v=>v.key).value();
         if(signUpForm.password.trim().length<6 || signUpForm.password !== signUpForm.password2){
             error=[...error,"password","password2"]
@@ -75,7 +76,10 @@ const SignUp =() =>{
                     document.getElementById("close-sign-up").click();
                     document.getElementById("signIn-btn").click();
                     alert("Registration completed successfully")
+                }else{
+                    setSignUpError(response.data)
                 }
+
             })
         }
 
@@ -123,6 +127,15 @@ const SignUp =() =>{
                                 </div>
                             </div>
                             <div className="col-12 col-md-6">
+                                <div className={`input-label ${error("username")}`}>
+                                    <input type="text" name="surname" id="username"
+                                           value={signUpForm.username}
+                                           onChange={event => setSignUpForm({...signUpForm,username:event.target.value})}
+                                    />
+                                    <label htmlFor="surname">Username</label>
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-6">
                                 <div className={`input-label ${error("mail")}`}>
                                     <input type="email" name="email" id="email"
                                            value={signUpForm.mail}
@@ -151,8 +164,19 @@ const SignUp =() =>{
                                     <label htmlFor="phone">Phone</label>
                                 </div>
                             </div>
-                            <div className="col-12 col-md-6">
-                                <div className="select-label" >
+                            <div className="col-12 col-md-6" style={{display:"flex"}}>
+                                <div className="select-label" style={{width:"150px" }}>
+                                    <select className="select2" placeholder="Currency"
+                                            value={signUpForm.currencyCode}
+                                            onChange={event => setSignUpForm({...signUpForm,currencyCode:event.target.value})}
+                                    >
+                                        {
+                                            _.map(CurrencyList, (v,k)=><option key={k} value={v.id}>{v.name}</option>)
+                                        }
+                                    </select>
+                                    <label htmlFor="select">Currency</label>
+                                </div>
+                                <div className="select-label" style={{width:"100%",marginLeft:'10px'}}>
                                     <select className="select2" placeholder="Country"
                                             value={signUpForm.countryCode}
                                             onChange={event => setSignUpForm({...signUpForm,countryCode:event.target.value})}
@@ -164,19 +188,7 @@ const SignUp =() =>{
                                     <label htmlFor="select">Country</label>
                                 </div>
                             </div>
-                            <div className="col-12 col-md-6">
-                                <div className="select-label">
-                                    <select className="select2" placeholder="Currency"
-                                            value={signUpForm.currencyCode}
-                                            onChange={event => setSignUpForm({...signUpForm,currencyCode:event.target.value})}
-                                    >
-                                        {
-                                            _.map(CurrencyList, (v,k)=><option key={k} value={v.id}>{v.name}</option>)
-                                        }
-                                    </select>
-                                    <label htmlFor="select">Currency</label>
-                                </div>
-                            </div>
+
                             <div className="col-12 col-md-6">
                                 <div className={`input-label ${error("password")}`}>
                                     <input type={passType.pass1}
@@ -214,6 +226,7 @@ const SignUp =() =>{
                                     By clicking sign up, you accept our <span style={{textDecoration:'underline'}}>Terms & Conditions</span> and that you are over 18 years old.
                                 </label>
                             </div>
+                            <div className={"error-text"}>{signUpError}</div>
                             <div className="col-12">
                                 <button type="submit" className="btn-primary">Sign Up</button>
                             </div>

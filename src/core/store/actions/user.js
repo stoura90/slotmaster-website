@@ -73,7 +73,8 @@ const signUp = async (data) => {
             type: 'error',
             details: "invalid credentials"
         })
-        alert("An error occurred while registering")
+
+        alert(`An error occurred while registering`)
     }
     return response;
 }
