@@ -3,6 +3,8 @@ import '../footer/footer.scss';
 import {FooterCarousel} from "../index";
 import {betsoft, evolutionGaming, netent} from "../../assets/img/images";
 import {discord} from "../../assets/img/icons/icons";
+import {Link} from "react-router-dom";
+import {i18n} from "../../core";
 
 const Footer =()=>{
     return(
@@ -66,7 +68,7 @@ const Footer =()=>{
                                 <a href="./terms">Terms and conditions</a>
                             </li>
                             <li>
-                                <a href="#">Contact Us</a>
+                                <Link to={`/${i18n.language}/contact`}>Contact Us</Link>
                             </li>
                         </ul>
                     </div>
