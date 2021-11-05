@@ -112,19 +112,19 @@ const Balance = () =>{
                         <div className="col-12 col-lg-4 d-none d-lg-flex">
                             <div className="d-flex flex-column balance-item">
                                 <span>Balance</span>
-                                <div  className={`sum ${showBalance?'':'blur-text'}`}>100000.00 <span className={`${showBalance?'':'blur-text'}`}>USD</span></div>
+                                <div  className={`sum ${showBalance?'':'blur-text'}`}>${showBalance?"100000.00 ":"0000000"}<span className={`${showBalance?'':'blur-text'}`}>USD</span></div>
                             </div>
                         </div>
                         <div className="col-6 col-lg-4">
                             <div className="d-flex flex-column balance-item">
                                 <span>Pending Bets</span>
-                                <div  className={`sum ${showBalance?'':'blur-text'}`}>0.00 <span className={`${showBalance?'':'blur-text'}`}>USD</span></div>
+                                <div  className={`sum ${showBalance?'':'blur-text'}`}>${showBalance?"0.00 ":"0000000"} <span className={`${showBalance?'':'blur-text'}`}>USD</span></div>
                             </div>
                         </div>
                         <div className="col-6 col-lg-4">
                             <div className="d-flex flex-column balance-item">
                                 <span className="text-nowrap">Pending Withdrawals</span>
-                                <div  className={`sum ${showBalance?'':'blur-text'}`}>100000.00 <span className={`${showBalance?'':'blur-text'}`}>USD</span></div>
+                                <div  className={`sum ${showBalance?'':'blur-text'}`}>${showBalance?"100000.00 ":"0000000"} <span className={`${showBalance?'':'blur-text'}`}>USD</span></div>
                             </div>
                         </div>
                     </div>

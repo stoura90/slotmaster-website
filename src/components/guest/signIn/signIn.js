@@ -2,7 +2,7 @@ import React, {useRef, useState} from "react";
 import {close} from "../../../assets/img/icons/icons";
 import {Actions} from "../../../core";
 import {useDispatch} from "react-redux";
-
+import "./signin.scss"
 
 const SignIn =() =>{
     const dispatch = useDispatch();
@@ -75,6 +75,10 @@ const SignIn =() =>{
                                     classList.remove('active');
                                 }
                             }}/>
+
+                        </div>
+                        <div className="input-label" >
+                            <p className={"forgot-password"}>Forgot password?</p>
                         </div>
                         {
                             error && <div style={{color:'#ff7e7e'}}>{error}</div>
@@ -82,6 +86,9 @@ const SignIn =() =>{
 
                         <button type="submit" className="btn-primary" >Log In</button>
                     </form>
+                    <p style={{fontSize:"0.75rem", color:"white", textAlign:"center", marginTop:"10px"}}>Don't have an account? <span className={"forgot-password"} onClick={()=>{
+                        document.getElementById("signUp-btn").click()
+                    }}>Sign Up</span></p>
                 </div>
             </div>
         </div>
