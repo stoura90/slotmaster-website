@@ -22732,4 +22732,10 @@ a:hover {
   all: unset;
 }
 
+@media only screen and (max-width: 768px) {
+  .deposit-link {
+    margin-left: 20px;
+  }
+}
+
 /*# sourceMappingURL=app.css.map */
