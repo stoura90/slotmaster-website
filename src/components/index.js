@@ -1,6 +1,7 @@
 import Header from './header/header';
 import Footer from "./footer/footer";
 import MainNavigator from './navigator/MainNavigator';
+import ContentNavigator from './navigator/ContentNavigator';
 import  Guest from './guest/guest';
 import Modal from "./modal/modal";
 import Button from './button/button'
@@ -14,6 +15,7 @@ import Balance from "./balance/balance";
 import Sport from "./sport/index";
 import Information from "./account/information/information";
 import ShowMore from "./showMore/ShowMore";
+
 export {
     Header,
     Footer,
@@ -30,5 +32,6 @@ export {
     Balance,
     Sport,
     Information,
-    ShowMore
+    ShowMore,
+    ContentNavigator
 }
