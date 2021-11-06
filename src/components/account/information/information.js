@@ -9,10 +9,11 @@ const Information = () => {
         phone:'',
         surname:'',
         dob:'',
-        currency:'',
+        currency: {id:0, value:'empty'},
         city:'',
-        country:'',
-        question:''
+        answer:'',
+        country: {id:0, value:'empty'},
+        question: {id:0, value:'empty'}
     });
 
     return (
@@ -125,25 +126,29 @@ const Information = () => {
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="select-label-border">
-                                            <select className="select2" placeholder="Country" id="account">
-                                                <option value=""></option>
-                                                <option value="1">British Virgin Islands</option>
-                                                <option value="2">Brunei</option>
-                                                <option value="3">Bulgaria</option>
-                                                <option value="4">Burkina Faso</option>
-                                                <option value="5">Burundi</option>
+                                            <select onChange={e => {
+                                                setInfoData({...infoData,country:JSON.parse(e.target.value)})
+                                            }} selValue={infoData.country.value} className="select2" placeholder="Country" id="account">
+                                                <option value={JSON.stringify({id:0, value:'empty'})}/>
+                                                <option value={JSON.stringify({id:1, value:'British Virgin Islands'})}>British Virgin Islands</option>
+                                                <option value={JSON.stringify({id:2, value:'Brunei'})}>Brunei</option>
+                                                <option value={JSON.stringify({id:3, value:'Bulgaria'})}>Bulgaria</option>
+                                                <option value={JSON.stringify({id:4, value:'Burkina Faso'})}>Burkina Faso</option>
+                                                <option value={JSON.stringify({id:5, value:'Burundi'})}>Burundi</option>
                                             </select>
                                             <label htmlFor="select">Country</label>
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <div className="select-label-border">
-                                            <select className="select2" placeholder="Currency" id="account">
-                                                <option value=""></option>
-                                                <option value="1">USD</option>
-                                                <option value="2">EUR</option>
-                                                <option value="3">GEL</option>
-                                                <option value="4">RUB</option>
+                                            <select onChange={e => {
+                                                setInfoData({...infoData,currency:JSON.parse(e.target.value)})
+                                            }} selValue={infoData.currency.value} className="select2" placeholder="Currency" id="account">
+                                                <option value={JSON.stringify({id:0, value:'empty'})}/>
+                                                <option value={JSON.stringify({id:1, value:'USD'})}>USD</option>
+                                                <option value={JSON.stringify({id:2, value:'EUR'})}>EUR</option>
+                                                <option value={JSON.stringify({id:3, value:'GEL'})}>GEL</option>
+                                                <option value={JSON.stringify({id:4, value:'RUB'})}>RUB</option>
                                             </select>
                                             <label htmlFor="select">Currency</label>
                                         </div>
@@ -168,19 +173,21 @@ const Information = () => {
                                     </div>
                                     <div className="col-12 order-2 order-md-1">
                                         <div className="select-label-border">
-                                            <select className="select2" placeholder="Secret question" id="account">
-                                                <option value=""></option>
-                                                <option value="1">What is your mother's maiden name?</option>
-                                                <option value="2">What was your first pet?</option>
-                                                <option value="3">What was the model of your first car?</option>
-                                                <option value="4">In what city were you born?</option>
+                                            <select onChange={e => {
+                                                setInfoData({...infoData,question:JSON.parse(e.target.value)})
+                                            }} selValue={infoData.question.value} className="select2" placeholder="Secret question" id="account">
+                                                <option value={JSON.stringify({id:0, value:'empty'})}/>
+                                                <option value={JSON.stringify({id:1, value:'What is your mother\'s maiden name?'})}>What is your mother's maiden name?</option>
+                                                <option value={JSON.stringify({id:2, value:'What was your first pet?'})}>What was your first pet?</option>
+                                                <option value={JSON.stringify({id:3, value:'What was the model of your first car?'})}>What was the model of your first car?</option>
+                                                <option value={JSON.stringify({id:4, value:'In what city were you born?'})}>In what city were you born?</option>
                                             </select>
                                             <label htmlFor="select">Secret question</label>
                                         </div>
                                     </div>
                                     <div className="col-12 order-3 order-md-2">
                                         <div className="input-label-border">
-                                            <input type="text" name="secret-answer" id="secretAnswer"/>
+                                            <input onChange={e => setInfoData({...infoData,answer:e.target.value})} value={infoData.answer} type="text" name="secret-answer" id="secretAnswer"/>
                                             <label htmlFor="secretAnswer">Secret answer</label>
                                         </div>
                                     </div>
