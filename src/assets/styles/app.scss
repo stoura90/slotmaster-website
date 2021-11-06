@@ -271,7 +271,23 @@ a {
     }
 }
 
-
+.select-label-border {
+    position: relative;
+    label {
+        position: absolute;
+        top: 50%;
+        left: 16px;
+        transform: translateY(-50%);
+        font-family: "Proxima Regular", Helvetica;
+        color: #4d5a7d;
+    }
+    select:not([selvalue="empty"]) + label {
+        color: #8594c1;
+        top: 9px;
+        transform: unset;
+        font-size: 12px;
+    }
+}
 
 // override all styles
 @import './override';
