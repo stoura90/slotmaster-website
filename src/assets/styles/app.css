@@ -20151,6 +20151,26 @@ input.for-confirm {
     margin-left: 32px;
   }
 }
+.navbar .navbar-head .authorization-interface .user-information {
+  margin-right: 20px;
+  color: #fff;
+}
+.navbar .navbar-head .authorization-interface .user-information [data-user] {
+  text-transform: uppercase;
+  color: #939db9;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 14px;
+  font-family: unset !important;
+}
+.navbar .navbar-head .authorization-interface .user-information [data-pin] {
+  font-size: 20px;
+  color: #e6e9f1;
+  text-align: right;
+  font-family: "Proxima Regular", Helvetica;
+  font-weight: 600;
+  line-height: 23px;
+}
 .navbar .navbar-collapse {
   width: 100%;
   background-color: rgba(29, 36, 52, 0.6);
@@ -21879,7 +21899,7 @@ button:active, .btn-primary:active {
 @media (min-width: 768px) {
   .account .user-logout svg {
     fill: #8f9ec8;
-    width: 17.245;
+    width: 17.245px;
     height: 14px;
     margin-right: 9px;
   }
@@ -22478,6 +22498,11 @@ a:hover {
   text-decoration: none;
 }
 
+.blur-text {
+  color: transparent !important;
+  text-shadow: 0 0 16px black !important;
+}
+
 .container {
   padding-left: 15px;
   padding-right: 15px;
@@ -22652,6 +22677,24 @@ a:hover {
 }
 .sl_filter ul li:hover i {
   color: #a2a9b3;
+}
+
+.select-label-border {
+  position: relative;
+}
+.select-label-border label {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  font-family: "Proxima Regular", Helvetica;
+  color: #4d5a7d;
+}
+.select-label-border select:not([selvalue=empty]) + label {
+  color: #8594c1;
+  top: 9px;
+  transform: unset;
+  font-size: 12px;
 }
 
 .swiper-slide a {
