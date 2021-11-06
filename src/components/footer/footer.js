@@ -65,7 +65,7 @@ const Footer =()=>{
                                 <a href="#">Affiliates</a>
                             </li>
                             <li>
-                                <a href="./terms">Terms and conditions</a>
+                                <Link to={`/${i18n.language}/terms`}>Terms and conditions</Link>
                             </li>
                             <li>
                                 <Link to={`/${i18n.language}/contact`}>Contact Us</Link>
