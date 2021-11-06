@@ -194,7 +194,18 @@
       }
 
     }
+
+    p[title]:empty {
+      min-height: 10px;
+      background: #32333b;
+      display: inline-block;
+      width: 70%;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+
   }
+
 }
 
 

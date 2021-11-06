@@ -22841,6 +22841,14 @@ a:hover {
   bottom: 100%;
   color: var(--sport-digi-tp-odd-color);
 }
+#top-matches-container .tm_match_content p[title]:empty {
+  min-height: 10px;
+  background: #32333b;
+  display: inline-block;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
 
 .navbar .navbar-head .navbar-brand {
   height: 50px !important;
