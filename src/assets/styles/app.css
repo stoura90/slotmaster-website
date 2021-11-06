@@ -22750,10 +22750,123 @@ a:hover {
   all: unset;
 }
 
+.slider .swiper-button-prev,
+.slider .swiper-button-next {
+  opacity: 0.3;
+}
+.slider .swiper-button-prev:hover,
+.slider .swiper-button-next:hover {
+  opacity: 1;
+}
+.slider .swiper-pagination-bullets {
+  bottom: 8vw;
+  z-index: 999;
+}
+
 @media only screen and (max-width: 768px) {
   .deposit-link {
     margin-left: 20px;
   }
+}
+.slider .swiper-container {
+  position: relative;
+}
+.slider .swiper-container:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 170px;
+  background: #151b29;
+  z-index: 99;
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#151b29+0,151b29+100&0+0,1+94 */
+  background: -moz-linear-gradient(top, rgba(21, 27, 41, 0) 0%, #151b29 85%, #151b29 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(21, 27, 41, 0) 0%, #151b29 85%, #151b29 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(21, 27, 41, 0) 0%, #151b29 85%, #151b29 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#00151b29", endColorstr="#151b29",GradientType=0 );
+  /* IE6-9 */
+}
+
+.widget_cont {
+  position: relative;
+  z-index: 9;
+}
+
+.for_widget {
+  background: #00000073;
+  border-radius: 10px;
+  margin-top: -7vw;
+  padding-bottom: 6px;
+}
+
+#top-matches-container .gTWNOX {
+  background-color: #1b1c25 !important;
+}
+#top-matches-container .gTWNOX.jwJHTV {
+  background-color: transparent !important;
+}
+#top-matches-container .gTWNOX.jwJHTV button {
+  background-color: #1b1c25 !important;
+}
+#top-matches-container .gbLoAb {
+  background: #1f202c !important;
+  border-bottom: 1px solid #32333b !important;
+}
+#top-matches-container .ifyqcM {
+  padding: 14px 16px !important;
+}
+#top-matches-container .cQSaWH {
+  width: 60px;
+  height: 60px;
+}
+#top-matches-container .tm_match_content {
+  padding: 16px 12px 16px;
+}
+#top-matches-container .tm_match_content .tm_match_odd {
+  position: relative;
+  height: 30px;
+}
+#top-matches-container .tm_match_content .tm_match_odd span {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+#top-matches-container .tm_match_content .tm_match_odd span:first-child {
+  position: absolute;
+  bottom: 100%;
+  color: var(--sport-digi-tp-odd-color);
+}
+
+.navbar .navbar-head .navbar-brand {
+  height: 50px !important;
+}
+
+.navbar .navbar-head {
+  padding: 10px 0 10px !important;
+}
+
+.authorization-interface #signUp-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.navbar .navbar-collapse .navbar-nav .nav-item .nav-link {
+  padding: 10px 0;
+  font-size: 16px;
+}
+
+.navbar .navbar-head {
+  background-color: #1f202c;
+}
+
+.navbar .navbar-collapse {
+  background-color: #1b1c25;
 }
 
 /*# sourceMappingURL=app.css.map */

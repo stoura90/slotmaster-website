@@ -48,6 +48,7 @@ import webmoney from './webmoney.png';
 import webmoneySmall from './webmoney-small.png';
 import w1 from './w1.jpg';
 import w2 from './w2.jpg';
+import prg from './prg.jpg';
 
 export  {
     ajax,
@@ -99,7 +100,8 @@ export  {
     webmoney,
     webmoneySmall,
     w1,
-    w2
+    w2,
+    prg
 }
 
 

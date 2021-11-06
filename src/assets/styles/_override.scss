@@ -96,6 +96,22 @@
     }
   }
 }
+
+.slider {
+  .swiper-button-prev,
+  .swiper-button-next {
+    opacity: .3;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .swiper-pagination-bullets {
+    bottom: 8vw;
+    z-index: 999;
+  }
+}
+//.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal > .swiper-pagination-bullets
+
 @media only screen and (max-width: 768px) {
   .deposit-link{
     margin-left:20px
@@ -103,3 +119,107 @@
 }
 
 
+// redizine
+
+.slider {
+  .swiper-container {
+    position: relative;
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 170px;
+      background: #151b29;
+      //background: linear-gradient(0deg, #151b29 19%, rgba(9, 9, 121, 0) 100%, #00d4ff 100%);
+      z-index: 99;
+      /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#151b29+0,151b29+100&0+0,1+94 */
+      background: -moz-linear-gradient(top,  rgba(21,27,41,0) 0%, rgba(21,27,41,1) 85%, rgba(21,27,41,1) 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top,  rgba(21,27,41,0) 0%,rgba(21,27,41,1) 85%,rgba(21,27,41,1) 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom,  rgba(21,27,41,0) 0%,rgba(21,27,41,1) 85%,rgba(21,27,41,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00151b29', endColorstr='#151b29',GradientType=0 ); /* IE6-9 */
+
+    }
+  }
+}
+.widget_cont {
+  position: relative;
+  z-index: 9;
+}
+.for_widget {
+  //background: #000000cc;
+  background: #00000073;
+  border-radius: 10px;
+  margin-top: -7vw;
+  padding-bottom: 6px;
+}
+#top-matches-container {
+  .gTWNOX {
+    background-color: #1b1c25 !important;
+    &.jwJHTV {
+      background-color: transparent !important;
+      button {
+        background-color: #1b1c25 !important;
+      }
+    }
+  }
+  .gbLoAb {
+    background: #1f202c !important;
+    border-bottom: 1px solid rgb(50 51 59) !important;
+  }
+  .ifyqcM {
+    padding: 14px 16px !important;
+  }
+  .cQSaWH {
+    width: 60px;
+    height: 60px;
+  }
+
+  .tm_match_content {
+    padding: 16px 12px 16px;
+    .tm_match_odd {
+      position: relative;
+      height: 30px;
+      span {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+      }
+      span:first-child {
+        position: absolute;
+        bottom: 100%;
+        color: var(--sport-digi-tp-odd-color);
+      }
+
+    }
+  }
+}
+
+
+.navbar .navbar-head .navbar-brand {
+  height: 50px !important;
+}
+.navbar .navbar-head {
+  padding: 10px 0 10px !important;
+}
+.authorization-interface {
+  #signUp-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+  }
+}
+.navbar .navbar-collapse .navbar-nav .nav-item .nav-link {
+  padding: 10px 0;
+  font-size: 16px;
+}
+
+.navbar .navbar-head {
+  background-color: #1f202c;
+}
+.navbar .navbar-collapse {
+  background-color: rgb(27 28 37);
+}
+// redizain

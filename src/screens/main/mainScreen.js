@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation} from "../../core/hooks/useNavigation";
-import { ajax, bayern,inter,liver,manCity,manUn,milan,sl2,w1,w2, slotSardCover} from '../../assets/img/images';
+import { ajax, bayern,inter,liver,manCity,manUn,milan,sl2,w1,w2,prg, slotSardCover} from '../../assets/img/images';
 import {Carousel, Header, Swp, Footer, Sport} from "../../components";
 import {useSLot} from "../../core/hooks/useSLot";
 import {SLOTS_DATA} from "../../data/slots";
@@ -25,7 +25,7 @@ const MainScreen = () =>{
 
             <div className=" slider">
                 <Swp count={3}  data={[
-                    {id:1, icon:w1 },
+                    {id:1, icon:prg },
                     {id:2, icon:w2 },
                     {id:3, icon:sl2 },
                     {id:4, icon:sl2 },

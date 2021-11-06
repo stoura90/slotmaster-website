@@ -3,7 +3,7 @@ import {logoM, sl2} from "../../assets/img/images";
 import {useUser} from "../../core/hooks/useUser";
 import {
     account,
-    logo,
+    logo, logo2,
 } from '../../assets/img/icons/icons';
 import {Link, useParams} from "react-router-dom";
 import PropTypes from 'prop-types';
@@ -20,7 +20,7 @@ const Header = ({page}) =>{
                     <div className="container">
                         <div className="d-flex justify-content-between">
                             <Link className="navbar-brand d-none d-lg-flex" to="/">
-                                <img src={logo} alt=""/>
+                                <img src={logo2} alt=""/>
                             </Link>
                             <Link className="navbar-brand w-auto h-auto d-lg-none" to="/">
                                 <img src={logoM} alt=""/>

@@ -13,6 +13,7 @@ import filter from "./filter.svg";
 import hArrows from "./h-arrows.svg";
 import home from "./home.svg";
 import logo from "./logo.svg";
+import logo2 from "./logo2.svg";
 import logout from "./logout.svg";
 import multiArrow from "./multi-arrow.svg";
 import netnet from "./netnet.svg";
@@ -49,6 +50,7 @@ filter,
 hArrows,
 home,
 logo,
+logo2,
 logout,
 multiArrow,
 netnet,
