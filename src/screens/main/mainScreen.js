@@ -1,24 +1,39 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {useNavigation} from "../../core/hooks/useNavigation";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import { ajax, bayern,inter,liver,manCity,manUn,milan,sl2,w1,w2,prg, slotSardCover} from '../../assets/img/images';
 import {Carousel, Header, Swp, Footer, Sport} from "../../components";
 import {useSLot} from "../../core/hooks/useSLot";
-import {SLOTS_DATA} from "../../data/slots";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import {Actions} from "../../core";
 
 
 const MainScreen = () =>{
-    const nav  = useNavigation();
     const {lang}=useParams();
     const {play}=useSLot()
     const ref=useRef();
-    const [containerWidth,setContainerWidth]=useState(window.innerWidth)
-    useEffect(()=>{
-        if(ref){
-            setContainerWidth(ref.current.clientWidth)
-        }
+    const [resize,setResize]=useState(window.innerWidth)
+    const [mainPageSlotList,setMainPageSlotList]=useState([])
+    const [mainPageCasinoList,setMainPageCasinoList]=useState([])
 
-    },[nav]);
+    const getList = (pageId) =>{
+        return Actions.Slot.listByPage({webPageId:pageId})
+    }
+
+    useEffect(()=>{
+        getList(4).then(response=>{
+           setMainPageSlotList(response.status? response.data.data:[])
+        })
+        getList(5).then(response=>{
+            setMainPageCasinoList(response.status? response.data.data:[])
+        })
+        window.addEventListener("resize",()=>{
+            setResize(window.innerWidth)
+        })
+        return ()=>{
+            window.removeEventListener("resize",()=>{
+                setResize(window.innerWidth)
+            })
+        }
+    },[])
     return (
         <>
             <Header page={"main"}/>
@@ -188,27 +203,27 @@ const MainScreen = () =>{
                     <div className="row">
                         <div className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
                             <div className="section-heading">slots</div>
-                            <a href="#">View all</a>
+                            <Link to={`/${lang}/slots`}>View all</Link>
                         </div>
-                        <div className="col-12 main-slots-area" data-count={Math.round(containerWidth/300)}>
+                        <div className="col-12 main-slots-area" data-count={Math.round(resize/300)}>
                             <Carousel
                                 id={"font-slot"}
-                                count={Math.round(containerWidth/300)}
+                                counter={Math.round(resize/300)}
                                 onClick={(e)=>play(e)}
-                                data={SLOTS_DATA.splice(0,10)}/>
+                                data={mainPageSlotList}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
                             <div className="section-heading">casino</div>
-                            <a href="#">View all</a>
+                            <Link to={`/${lang}/casino`}>View all</Link>
                         </div>
-                        <div className="col-12 main-casino-area" data-count={Math.round(containerWidth/300)}>
+                        <div className="col-12 main-casino-area" data-count={Math.round(resize/300)}>
                             <Carousel
                                 id={"font-games"}
-                                count={Math.round(containerWidth/300)}
+                                counter={Math.round(resize/300)}
                                 onClick={e=>console.log(e)}
-                                data={[{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover},{id:1,icon:slotSardCover}]}/>
+                                data={mainPageCasinoList}/>
                         </div>
                     </div>
                 </div>

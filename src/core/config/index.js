@@ -13,6 +13,7 @@ export const Config ={
       PLAY:"/ss/v1/api/secured/url?id={gameId}&lang=ru",
       //LIST:"/ss/v1/api/slot/providers",
       LIST:"/ss/v1/api/page/{webPageId}/slot/categories",
+      SLOT_LIST:"/ss/v1/api/page/{webPageId}/slots",
       LIST_BY_PROVIDER:"/ss/v1/api/page/{webPageId}/slot/providers/{slotProviderId}",
       LIST_BY_FILTER:'/ss/v1/api/page/{webPageId}/slot/filter/{filterId}/games'
    }

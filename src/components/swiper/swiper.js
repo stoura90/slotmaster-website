@@ -12,15 +12,17 @@ import {useLoader} from "../../core/hooks/useLoader";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 
-const  Carousel = (props) =>{
-    const [data,setData]= useState(props.data)
+const  Carousel = ({data,counter,onClick}) =>{
+    const [slotList,setSlotList]= useState([])
     const {loader}=useLoader()
-    const [count,setCount] = useState(props.count || 5)
+    const [count,setCount] = useState( Math.round(window.innerWidth / 300))
     useEffect(()=> {
-       setCount(props.count)
-    },[props.count])
+        setSlotList(data)
+    },[data])
 
-
+    useEffect(()=> {
+        setCount(counter)
+    },[counter])
 
     return (
         <Swiper
@@ -32,16 +34,20 @@ const  Carousel = (props) =>{
             onSlideChange={() => console.log('slide change')}
         >
             {
-                _.map(data, (v,index)=>{
+                _.map(slotList, (v,index)=>{
                     return  (
                         <SwiperSlide key={index}>
                             <div className="slot-card">
                                 {loader===v.id && <Loader/>}
-                                <span  className="slot-card-hover">
-                                    <div className="slot-card-cover" style={{backgroundImage:`url(${v.icon})`}}/>
+                                <span  className="slot-card-hover animated-background">
+                                    <div className="slot-card-cover" style={{backgroundImage:`url(${v.imageUrl})`}}/>
                                     <img src={v.icon} alt="" style={{visibility:"hidden"}} />
-                                    <img src={play} alt="" className="play-btn" onClick={()=> props.onClick(v,"")}/>
+                                    <img src={play} alt="" className="play-btn" onClick={()=> onClick(v,"")}/>
                                 </span>
+                                <div className="info">
+                                    <div className="name">{v.name}</div>
+                                    <div className="like"><i/><span>{v?.options?.likes}</span></div>
+                                </div>
                             </div>
                         </SwiperSlide>
                     )
