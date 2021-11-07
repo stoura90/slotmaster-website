@@ -7,7 +7,7 @@ import {
     promo4,
     promo5,
     promoCardCover,
-    sl2
+    sl2, w2
 } from '../../assets/img/images';
 import { Footer,  Header, Swp} from "../../components";
 import PromoCard from "../../components/promo/promoCard";
@@ -23,11 +23,9 @@ const PromoScreen = () =>{
         <>
             <Header page={"promo"}/>
 
-            <div className="container slider">
+            <div className="slider">
                 <Swp count={3}  data={[
-                    {id:1, icon:sl2 },
-                    {id:2, icon:sl2 },
-                    {id:3, icon:sl2 },
+                    {id:2, icon:w2 },
                     {id:4, icon:sl2 },
                     {id:5, icon:sl2 },
                     {id:6, icon:sl2 },
@@ -35,8 +33,8 @@ const PromoScreen = () =>{
                 ]}/>
             </div>
 
-            <main>
-                <div className="container">
+            <main className="main">
+                <div className="container wrapper">
 
                     <ul className="d-flex align-items-center flex-wrap promo-tabs list-unstyled">
                         <li className="nav-item" role="presentation">

@@ -233,4 +233,16 @@
 .navbar .navbar-collapse {
   background-color: rgb(27 28 37);
 }
+
+.main {
+  position: relative;
+  z-index: 1;
+
+  .wrapper {
+    margin-top: -7vw;
+  }
+  .section-head, .promo-tabs {
+    margin-top: 0;
+  }
+}
 // redizain

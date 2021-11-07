@@ -22877,4 +22877,15 @@ a:hover {
   background-color: #1b1c25;
 }
 
+.main {
+  position: relative;
+  z-index: 1;
+}
+.main .wrapper {
+  margin-top: -7vw;
+}
+.main .section-head, .main .promo-tabs {
+  margin-top: 0;
+}
+
 /*# sourceMappingURL=app.css.map */

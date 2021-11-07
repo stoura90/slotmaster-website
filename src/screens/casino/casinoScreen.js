@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { sl2} from '../../assets/img/images';
+import {sl2, w2} from '../../assets/img/images';
 import {Footer, Header, ShowMore, SlotCard, Swp} from "../../components";
 import "../../assets/styles/_select2.scss"
 import {Actions} from "../../core";
@@ -54,9 +54,9 @@ const CasinoScreen = () =>{
         <>
             <Header page={"casino"}/>
 
-            <div className="container slider">
+            <div className="slider">
                 <Swp count={3}  data={[
-                    {id:1, icon:sl2 },
+                    {id:2, icon:w2 },
                     {id:2, icon:sl2 },
                     {id:3, icon:sl2 },
                     {id:4, icon:sl2 },
@@ -66,8 +66,8 @@ const CasinoScreen = () =>{
                 ]}/>
             </div>
 
-            <main>
-                <div className="container">
+            <main className="main">
+                <div className="container wrapper">
                     <div className="row">
                         {/*<div className="col-12 d-flex align-items-center main-filter slot">
                             <div className="search">
