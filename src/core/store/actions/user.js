@@ -61,6 +61,7 @@ const ping = () =>async (dispatch)=>{
 
 }
 
+
 const signUp = async (data) => {
     const response = await Request.post(Config.User.SIGN_UP, query_string(data), {
         headers: {

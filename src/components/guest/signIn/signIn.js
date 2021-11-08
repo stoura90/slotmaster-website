@@ -3,6 +3,7 @@ import {close} from "../../../assets/img/icons/icons";
 import {Actions} from "../../../core";
 import {useDispatch} from "react-redux";
 import "./signin.scss"
+import {useParams} from "react-router-dom";
 
 const SignIn =() =>{
     const dispatch = useDispatch();
@@ -14,10 +15,15 @@ const SignIn =() =>{
     const [error,setError] = useState(null);
 
     const signIn=async () => {
+
         setError(null)
         const response = await dispatch(Actions.User.signIn(loginForm))
 
         if (response.status) {
+            if(window.location.href.indexOf("playSlot")>-1){
+                window.location.reload()
+                return
+            }
             document.getElementById("close-sign-in").click();
         }else{
             setError(response?.data?.error_description)

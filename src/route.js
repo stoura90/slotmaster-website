@@ -19,6 +19,7 @@ const privacy = React.lazy(() => import(("./screens/privacy/privacyScreen")));
 const self_exclusion_policy = React.lazy(() => import(("./screens/self_exclusion_policy/sepScreen")));
 const privacy_policy = React.lazy(() => import(("./screens/privacy_policy/privacyPolicy")));
 const responsible_gaming = React.lazy(() => import(("./screens/responsible_gaming/responsibleGaming")));
+const playSlot = React.lazy(() => import(("./screens/playSlot/PlaySlot")));
 
 
 
@@ -41,6 +42,7 @@ export const guestRoutes = [
     { path: '/:lang/self_exclusion_policy', name: 'self_exclusion_policy', exact:false, component:self_exclusion_policy, page:"self_exclusion_policy"},
     { path: '/:lang/privacy_policy', name: 'privacy_policy', exact:false, component:privacy_policy, page:"privacy_policy"},
     { path: '/:lang/responsible_gaming', name: 'responsible_gaming', exact:false, component:responsible_gaming, page:"responsible_gaming"},
+    { path: '/:lang/playSlot', name: 'playSlot', exact:false, component:playSlot, page:"playSlot"},
 
 
 ];
@@ -68,6 +70,7 @@ export const userRoutes = [
     { path: '/:lang/self_exclusion_policy', name: 'self_exclusion_policy', exact:false, component:self_exclusion_policy, page:"self_exclusion_policy"},
     { path: '/:lang/privacy_policy', name: 'privacy_policy', exact:false, component:privacy_policy, page:"privacy_policy"},
     { path: '/:lang/responsible_gaming', name: 'responsible_gaming', exact:false, component:responsible_gaming, page:"responsible_gaming"},
+    { path: '/:lang/playSlot', name: 'playSlot', exact:false, component:playSlot, page:"playSlot"},
 ];
 
 
