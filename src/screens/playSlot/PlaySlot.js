@@ -34,10 +34,11 @@ const PlaySlot= () => {
                 id="signIn-btn" style={{display:"none"}}>log in
         </button>
 
-        <div className="modal-backdrop fade "/>
+
         {
-            User.isLogged? <iframe src={navigation.get("uri")} frameBorder="0" width={"100%"} height={"100%"}/>:""
+            User.isLogged? <iframe src={navigation.get("uri")} frameBorder="0" width={"100%"} height={"100%"}/>:<div className="modal-backdrop fade "/>
         }
+
     </div>
 }
 
