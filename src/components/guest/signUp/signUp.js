@@ -3,6 +3,7 @@ import {close} from "../../../assets/img/icons/icons";
 import _ from 'lodash'
 import {Actions} from "../../../core";
 import "./signUp.scss"
+import {useParams} from "react-router-dom";
 const MobilePrefixList=[
     {id:1,prefix: "+1"},
     {id:673,prefix: "+673"},
@@ -110,7 +111,7 @@ const SignUp =() =>{
                         <div className="row">
                             <div className="col-12 col-md-6">
                                 <div className={`input-label ${error("firstName")}`}>
-                                    <input type="text" name="name" id="name"
+                                    <input type="text" name="firstName" id="name"
                                            value={signUpForm.firstName}
                                            onChange={event => setSignUpForm({...signUpForm,firstName:event.target.value})}
                                     />
@@ -119,7 +120,7 @@ const SignUp =() =>{
                             </div>
                             <div className="col-12 col-md-6">
                                 <div className={`input-label ${error("lastName")}`}>
-                                    <input type="text" name="surname" id="surname"
+                                    <input type="text" name="lastName" id="surname"
                                            value={signUpForm.lastName}
                                            onChange={event => setSignUpForm({...signUpForm,lastName:event.target.value})}
                                     />
@@ -128,7 +129,7 @@ const SignUp =() =>{
                             </div>
                             <div className="col-12 col-md-6">
                                 <div className={`input-label ${error("username")}`}>
-                                    <input type="text" name="surname" id="username"
+                                    <input type="text" name="username" id="username"
                                            value={signUpForm.username}
                                            onChange={event => setSignUpForm({...signUpForm,username:event.target.value})}
                                     />
@@ -223,7 +224,7 @@ const SignUp =() =>{
                                             setTermsError(false)
                                         }
                                     } }/>&nbsp;
-                                    By clicking sign up, you accept our <span style={{textDecoration:'underline'}}>Terms & Conditions</span> and that you are over 18 years old.
+                                    By clicking sign up, you accept our <span style={{textDecoration:'underline'}}><a href="/ka/terms">Terms & Conditions</a></span> and that you are over 18 years old.
                                 </label>
                             </div>
                             <div className={"error-text"}>{signUpError}</div>

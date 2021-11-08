@@ -55,7 +55,15 @@ const Balance = () =>{
                     <span className="user-fullname">{User.data.firstName} {User.data.lastName}</span>
                     <span className="user-id">({User.data.id})</span>
                 </div>
-                <a href="#" className="user-logout d-flex align-items-center">
+                <a className="user-logout d-flex align-items-center" onClick={()=>{
+                    signOut(()=>{
+                        try {
+                            localStorage.clear()
+                        }finally {
+                            window.location.href="/"
+                        }
+                    });
+                }}>
                     <svg
                         id="noun_Log_Out_639972"
                         data-name="noun_Log Out_639972"
@@ -77,16 +85,7 @@ const Balance = () =>{
                             transform="translate(0.012 -46.924)"
                         />
                     </svg>
-                    <span onClick={()=>{
-                        signOut(()=>{
-                            try {
-                                localStorage.clear()
-                            }finally {
-                                window.location.href="/"
-                            }
-                        });
-
-                    }}>Log Out</span>
+                    <span>Log Out</span>
                 </a>
             </div>
             <div className="col-12">

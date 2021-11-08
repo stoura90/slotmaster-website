@@ -26,7 +26,8 @@ const SignIn =() =>{
             }
             document.getElementById("close-sign-in").click();
         }else{
-            setError(response?.data?.error_description)
+            //setError(response?.data?.error_description)
+            setError('specified username or password is incorrect')
         }
     }
 
