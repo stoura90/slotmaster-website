@@ -209,7 +209,6 @@ const MainScreen = () =>{
                             <Carousel
                                 id={"font-slot"}
                                 counter={Math.round(resize/300)}
-                                onClick={(e)=>play(e)}
                                 data={mainPageSlotList}/>
                         </div>
                     </div>
@@ -222,7 +221,6 @@ const MainScreen = () =>{
                             <Carousel
                                 id={"font-games"}
                                 counter={Math.round(resize/300)}
-                                onClick={e=>console.log(e)}
                                 data={mainPageCasinoList}/>
                         </div>
                     </div>

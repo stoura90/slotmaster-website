@@ -8,14 +8,13 @@ export function useSLot() {
     const User = useUser();
     const {setLoader} = useLoader()
     const play=(slot)=>{
- 
+
         if(!User.User.isLogged){
             document.getElementById("signIn-btn").click();
             return;
         }
         setLoader(slot.gameId)
         Actions.Slot.play(slot).then(response=>{
-            console.log(response)
             if(response.status && response.data.data.result===0){
                 if(response.data.data.type ==="HTML"){
                    // window.open("https://www.w3schools.com", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");

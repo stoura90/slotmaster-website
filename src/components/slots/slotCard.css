@@ -1,5 +1,8 @@
 .animated-background {
-  background-image: url("../../assets/img/icons/loader.gif");
+  background-image: url("../../assets/img/ajax-loader3.gif");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /*# sourceMappingURL=slotCard.css.map */

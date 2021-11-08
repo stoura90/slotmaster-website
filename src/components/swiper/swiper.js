@@ -4,18 +4,20 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import {slotSardCover} from "../../assets/img/images";
-import {play} from "../../assets/img/icons/icons";
+import {play as PlayBtn} from "../../assets/img/icons/icons";
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import {Loader} from "../index";
 import {useLoader} from "../../core/hooks/useLoader";
+import {useSLot} from "../../core/hooks/useSLot";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 
-const  Carousel = ({data,counter,onClick}) =>{
+const  Carousel = ({data,counter}) =>{
     const [slotList,setSlotList]= useState([])
     const {loader}=useLoader()
     const [count,setCount] = useState( Math.round(window.innerWidth / 300))
+    const {play}= useSLot()
     useEffect(()=> {
         setSlotList(data)
     },[data])
@@ -38,11 +40,11 @@ const  Carousel = ({data,counter,onClick}) =>{
                     return  (
                         <SwiperSlide key={index}>
                             <div className="slot-card">
-                                {loader===v.id && <Loader/>}
+                                {loader===v.gameId && <Loader/>}
                                 <span  className="slot-card-hover animated-background">
                                     <div className="slot-card-cover" style={{backgroundImage:`url(${v.imageUrl})`}}/>
                                     <img src={v.icon} alt="" style={{visibility:"hidden"}} />
-                                    <img src={play} alt="" className="play-btn" onClick={()=> onClick(v,"")}/>
+                                    <img src={PlayBtn} alt="" className="play-btn" onClick={()=> play(v)}/>
                                 </span>
                                 <div className="info">
                                     <div className="name">{v.name}</div>
