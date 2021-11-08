@@ -27,22 +27,22 @@ const ContentNavigator = ({page,lang})=>{
                     <Link to={`/${lang}/contact`} className={`page-link  ${page==='contact'?'active':''}` }>Contact Us</Link>
                 </div>
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
-                    <a href="#" className="page-link">Privacy Policy</a>
+                    <Link to={`/${lang}/privacy_policy`} className={`page-link  ${page==='privacy_policy'?'active':''}` }>Privacy Policy</Link>
                 </div>
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
-                    <a href="#" className="page-link">KYC Policy</a>
+                    <Link to={`/${lang}/kyc`} className={`page-link  ${page==='kyc'?'active':''}` }>KYC Policy</Link>
                 </div>
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
-                    <a href="#" className="page-link">AML Policy</a>
+                    <Link to={`/${lang}/aml`} className={`page-link  ${page==='aml'?'active':''}` }>AML Policy</Link>
                 </div>
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
-                    <a href="#" className="page-link">Responsible Gaming</a>
+                    <Link to={`/${lang}/responsible_gaming`} className={`page-link  ${page==='responsible_gaming'?'active':''}` }>Responsible Gaming</Link>
                 </div>
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
                     <a href="#" className="page-link">Underage Policy</a>
                 </div>
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
-                    <a href="#" className="page-link">Self Exclusion Policy</a>
+                    <Link to={`/${lang}/self_exclusion_policy`} className={`page-link  ${page==='self_exclusion_policy'?'active':''}` }>Self Exclusion Policy</Link>
                 </div>
             </div>
 

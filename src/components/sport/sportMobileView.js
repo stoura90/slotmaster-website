@@ -52,5 +52,7 @@ export const SportMobileView=()=>{
             loadFrame(params)
         }
     },[])
-    return <div id="application-container"/>
+    return <div id="application-container">
+        <div className="widget_loader"/>
+    </div>
 }

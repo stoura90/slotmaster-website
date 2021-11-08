@@ -45,5 +45,7 @@ export const TopMatchesWidget=({lang})=>{
             loadFrame(params)
         }
     },[])
-    return <div id="top-matches-container"/>
+    return <div id="top-matches-container">
+        <div className="widget_loader"/>
+    </div>
 }

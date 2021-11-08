@@ -74,12 +74,13 @@ const Footer =()=>{
                     </div>
                     <div className="col-12 col-lg-3">
                         <ul className="footer-menu">
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">KYC Policy</a></li>
-                            <li><a href="#">AML Policy</a></li>
-                            <li className="d-none d-md-flex"><a href="#">Responsible Gaming Policy</a></li>
+                            <li><Link to={`/${i18n.language}/privacy`}>Privacy Policy</Link></li>
+                            <li><Link to={`/${i18n.language}/kyc`}>KYC Policy</Link></li>
+                            <li><Link to={`/${i18n.language}/aml`}>AML Policy</Link></li>
+                            <li className="d-none d-md-flex"><Link to={`/${i18n.language}/responsible_gaming`}>Self Exclusion Policy</Link></li>
                             <li className="d-md-none"><a href="#">Responsible Gaming</a></li>
-                            <li><a href="#">Self Exclusion Policy</a></li>
+                            <li><Link to={`/${i18n.language}/self_exclusion_policy`}>Self Exclusion Policy</Link></li>
+
                             <li><a href="#">Underage Gaming Policy</a></li>
                         </ul>
                     </div>
