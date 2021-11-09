@@ -72,6 +72,7 @@ const Header = ({page}) =>{
                                             data-bs-toggle="modal"
                                             data-bs-target="#LoginModal"
                                             id={"signIn-btn"}
+
                                         >
                                             log in
                                         </button>

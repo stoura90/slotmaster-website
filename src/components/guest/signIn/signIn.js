@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {close} from "../../../assets/img/icons/icons";
 import {Actions} from "../../../core";
 import {useDispatch} from "react-redux";
@@ -6,13 +6,30 @@ import "./signin.scss"
 import {useParams} from "react-router-dom";
 
 const SignIn =() =>{
+
     const dispatch = useDispatch();
+    const signInRef = useRef({current:null})
     const [loginForm,setLoginForm]=useState({
         username:'',
         password:''
     })
-
     const [error,setError] = useState(null);
+
+    useEffect(()=>{
+        setTimeout(()=>{
+            if(document.getElementById("signIn-btn")){
+                document.getElementById("signIn-btn").addEventListener("click",()=>{
+                    setError(null)
+                })
+            }
+        },1000)
+
+        return  () =>{
+            if(document.getElementById("signIn-btn")){
+                document.getElementById("signIn-btn").removeEventListener("click",()=>{})
+            }
+        }
+    },[])
 
     const signIn=async () => {
 
@@ -27,13 +44,14 @@ const SignIn =() =>{
             document.getElementById("close-sign-in").click();
         }else{
             //setError(response?.data?.error_description)
-            setError('specified username or password is incorrect')
+            setError('specified username or password is incorrect');
         }
     }
 
 
     return (
         <div
+            ref={signInRef}
             className="modal fade"
             id="LoginModal"
             tabIndex="-1"
@@ -88,7 +106,7 @@ const SignIn =() =>{
                             <p className={"forgot-password"}>Forgot password?</p>
                         </div>
                         {
-                            error && <div style={{color:'#ff7e7e'}}>{error}</div>
+                            error && <div className="login_error" style={{color:'#ff7e7e'}}>{error}</div>
                         }
 
                         <button type="submit" className="btn-primary" >Log In</button>
