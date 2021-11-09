@@ -40,7 +40,7 @@ const MainScreen = () =>{
 
             <div className=" slider">
                 <Swp count={3}  data={[
-                    {id:1, icon:prg },
+                    //{id:1, icon:prg },
                     {id:2, icon:w2 },
                     {id:3, icon:sl2 },
                     {id:4, icon:sl2 },
