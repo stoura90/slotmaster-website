@@ -30,11 +30,11 @@ const ContentNavigator = ({page,lang})=>{
                     <Link to={`/${lang}/privacy_policy`} className={`page-link  ${page==='privacy_policy'?'active':''}` }>Privacy Policy</Link>
                 </div>
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
-                    <Link to={`/${lang}/kyc`} className={`page-link  ${page==='kyc'?'active':''}` }>KYC Policy</Link>
+                    <Link to={`/${lang}/kyc_aml`} className={`page-link  ${page==='kyc_aml'?'active':''}` }>KYC/AML Policy</Link>
                 </div>
-                <div className="col-auto col-md-3 col-lg-3 col-xl-2">
+                {/*<div className="col-auto col-md-3 col-lg-3 col-xl-2">
                     <Link to={`/${lang}/aml`} className={`page-link  ${page==='aml'?'active':''}` }>AML Policy</Link>
-                </div>
+                </div>*/}
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
                     <Link to={`/${lang}/responsible_gaming`} className={`page-link  ${page==='responsible_gaming'?'active':''}` }>Responsible Gaming</Link>
                 </div>

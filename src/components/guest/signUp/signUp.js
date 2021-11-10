@@ -67,7 +67,8 @@ const SignUp =() =>{
             setTermsError(terms? false:true)
             setErrors([...error])
             if(error.length===2 && error[0]==="password" && error[1]==="password2"){
-                alert("Passwords do not match")
+                //alert("Passwords do not match")
+                alert("Password should contain at least 6 symbols")
             }
 
         }else{

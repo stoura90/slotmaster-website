@@ -3,15 +3,15 @@ import React, {useEffect} from 'react';
 import {ContentNavigator, Footer, Header, Swp} from "../../components";
 
 
-const kycScreen = () =>{
+const kycAmlScreen = () =>{
 
     return (
         <>
-            <Header page={"kyc"}/>
+            <Header page={"kyc_aml"}/>
 
             <main className="page">
                 <div className="container">
-                    <ContentNavigator page="kyc" lang="ka"/>
+                    <ContentNavigator page="kyc_aml" lang="ka"/>
                     <div className="page-wrapper">
                         <div className="row">
                             <div className="col-12">
@@ -339,4 +339,4 @@ const kycScreen = () =>{
     )
 }
 
-export default kycScreen
+export default kycAmlScreen
