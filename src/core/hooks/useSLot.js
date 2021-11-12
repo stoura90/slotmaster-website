@@ -20,8 +20,6 @@ export function useSLot() {
                 if(response.data.data.type ==="HTML"){
                    // window.open("https://www.w3schools.com", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
                     let win = window.open(`/${i18n.language}/playSlot`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
-
-                   console.log(response.data.data.url)
                     win.document.write(response.data.data.url.concat(`
                         <style>
                          html,body {

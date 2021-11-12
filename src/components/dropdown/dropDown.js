@@ -2,13 +2,17 @@ import React, {useEffect, useState} from "react";
 import "./dropdown.scss"
 import {checked, multiArrow} from "../../assets/img/icons/icons"
 import _ from 'lodash'
-export const CustomDropdown=({data,label,style})=>{
+export const CustomDropdown=({data,label,style ,onSelect,})=>{
     const [open,setOpen]=useState(false)
-    const [providers,setProviders]=useState(data)
-
+    const [providers,setProviders]=useState([])
+    useEffect(()=>{
+        setProviders(data)
+    },[data])
+    useEffect(()=>{
+        onSelect(_.filter(providers,v=>v?.checked))
+    },[providers])
     const renderSelected=()=> {
         const count = _.chain(providers).filter(p=>p.checked).value().length
-
         return count>0?count:"All";
     }
 
@@ -29,14 +33,13 @@ export const CustomDropdown=({data,label,style})=>{
                 <div>
                     <ul>
                         {
+
                             _.map(providers,(p,index)=>{
                                 return  <li key={index} onClick={()=>{
                                     setProviders({
                                         ...providers,[index]:{...p,checked:!p.checked}
                                     })
-                                    console.log({
-                                        ...providers,[index]:{...p,checked:!p.checked}
-                                    })
+
                                 }}>
                                     <div className={`checkbox${p.checked?' checked':""}`}>{p.name}</div>
                                 </li>
