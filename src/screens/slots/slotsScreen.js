@@ -1,5 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {sl2, w2} from '../../assets/img/images';
+import {filter} from '../../assets/img/icons/icons';
 import {Footer, Header, ShowMore, SlotCard, Swp} from "../../components";
 import "../../assets/styles/_select2.scss"
 import {Actions} from "../../core";
@@ -13,6 +14,7 @@ const SlotsScreen = () =>{
     const [filters,setFilters]=useState([])
     const [searchText, setSearchText] = useState("")
     const [list,setList]=useState([])
+    const [showMobileFilter,setShowMobileFilter] = useState(false)
     const [selectedProvider,setSelectedProvider]=useState(null)
     useEffect(()=>{
         loadProvider();
@@ -105,14 +107,17 @@ const SlotsScreen = () =>{
                                 <span className="btn-search"></span>
                             </div>
                             <div className="select-label d-none d-lg-flex me-0">
-                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelected} />
+                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelected} isOpen={false}/>
                             </div>
                             <div className="filter-button d-lg-none" data-bs-toggle="modal"
-                                 data-bs-target="#FilterModal">
-                                <img src={""} alt="Filter"/>
+                                 data-bs-target="#FilterModal" onClick={()=>setShowMobileFilter(!showMobileFilter)} >
+                                <img src={filter} alt="Filter"/>
                             </div>
                         </div>
 
+                        <div className={"custom-filter-mobile d-lg-none"}>
+                            <CustomDropdown label={"Provider"} ope data={providers} onSelect={setSelected} isOpen={showMobileFilter} />
+                        </div>
                         {/*<div className="col-12 section-head">
                             <div className="sl_nav">
                                 <div className="sl_item sl_home" onClick={()=> homeClick()}/>

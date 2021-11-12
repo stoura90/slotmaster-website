@@ -121,3 +121,28 @@
     }
   }
 }
+.custom-filter-mobile {
+    .slot-search-input{
+      display: none;
+    }
+  .slot-custom-search {
+    height: 0;
+    background-color: transparent;
+    .search-input-content {
+      top:0;
+      width: 100%;
+
+      @media (max-width:450px) {
+        .prov_list {
+          ul {
+            li {
+              width: 100%;
+              flex: unset;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

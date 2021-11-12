@@ -276,4 +276,55 @@
     margin-top: 0;
   }
 }
+
+.main-slots-area {
+  .swiper-button-prev {
+    //position: absolute;
+    //top: 50%;
+    //transform: translateY(-50%);
+    //width: 40px;
+    //height: 50px;
+    //background: #1f2c49;
+    //opacity: 0.9;
+    //z-index: 9;
+    //cursor: pointer;
+    //transition: all 0.15s linear;
+    //padding: 17px 14px 18px 16px;
+    //right: -20px;
+  }
+  .swiper-button-next {
+    //display: none;
+  }
+}
+
+// slots filter
+.slot-custom-search {
+  .search-input-content {
+    display: flex;
+    flex-direction: column;
+    .prov_list {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 10px;
+
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+      &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0px 1px 5px 0px rgb(77 90 125);
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #8f9ec8;
+      }
+    }
+    .clear-button {
+      &:hover {
+        background: #26304a;
+        cursor: pointer;
+      }
+    }
+  }
+
+}
+
 // redizain

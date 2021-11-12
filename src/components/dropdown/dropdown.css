@@ -111,4 +111,22 @@
   background-position: center;
 }
 
+.custom-filter-mobile .slot-search-input {
+  display: none;
+}
+.custom-filter-mobile .slot-custom-search {
+  height: 0;
+  background-color: transparent;
+}
+.custom-filter-mobile .slot-custom-search .search-input-content {
+  top: 0;
+  width: 100%;
+}
+@media (max-width: 450px) {
+  .custom-filter-mobile .slot-custom-search .search-input-content .prov_list ul li {
+    width: 100%;
+    flex: unset;
+  }
+}
+
 /*# sourceMappingURL=dropdown.css.map */

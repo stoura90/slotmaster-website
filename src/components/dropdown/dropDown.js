@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import "./dropdown.scss"
 import {checked, multiArrow} from "../../assets/img/icons/icons"
 import _ from 'lodash'
-export const CustomDropdown=({data,label,style ,onSelect,})=>{
-    const [open,setOpen]=useState(false)
+export const CustomDropdown=({data,label,style ,onSelect,isOpen})=>{
+    const [open,setOpen]=useState(isOpen)
     const [providers,setProviders]=useState([])
     useEffect(()=>{
         setProviders(data)
@@ -11,6 +11,10 @@ export const CustomDropdown=({data,label,style ,onSelect,})=>{
     useEffect(()=>{
         onSelect(_.filter(providers,v=>v?.checked))
     },[providers])
+
+    useEffect(()=>{
+        setOpen(isOpen)
+    },[isOpen])
     const renderSelected=()=> {
         const count = _.chain(providers).filter(p=>p.checked).value().length
         return count>0?count:"All";
@@ -30,7 +34,7 @@ export const CustomDropdown=({data,label,style ,onSelect,})=>{
         </div>
         {
             open && <div className={"search-input-content"} style={{...style}}>
-                <div>
+                <div className="prov_list">
                     <ul>
                         {
 
