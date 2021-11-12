@@ -163,6 +163,9 @@
       flex: 1;
       font-size: 12px;
       font-weight: 500;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
     .like {
       position: relative;

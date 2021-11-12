@@ -5,6 +5,7 @@ import "../../assets/styles/_select2.scss"
 import {Actions} from "../../core";
 import _ from "lodash"
 import {useParams} from "react-router-dom";
+import {CustomDropdown} from "../../components/dropdown/dropDown";
 
 const SlotsScreen = () =>{
     const [show,setShow]=useState(20);
@@ -69,7 +70,7 @@ const SlotsScreen = () =>{
             <main className="main">
                 <div className="container wrapper">
                     <div className="row">
-                        {/*<div className="col-12 d-flex align-items-center main-filter slot">
+                        <div className="col-12 d-flex align-items-center main-filter slot">
                             <div className="search">
                                 <input
                                     type="text"
@@ -92,9 +93,10 @@ const SlotsScreen = () =>{
                             </div>
                             <div className="filter-button d-lg-none" data-bs-toggle="modal"
                                  data-bs-target="#FilterModal">
-                                <img src={filter} alt="Filter"/>
+                                <img src={""} alt="Filter"/>
                             </div>
-                        </div>*/}
+                        </div>
+
                         <div className="col-12 section-head">
                             <div className="sl_nav">
                                 <div className="sl_item sl_home" onClick={()=> homeClick()}/>
