@@ -47,8 +47,9 @@ const Swp = (props) =>{
                     _.map(data, (v,index)=>{
                         return  (
                             <SwiperSlide key={index}>
-                                <a href="#" target="_blank">
-                                    <img src={v.icon} alt="Bitcoin" />
+                                <a href="#" target="_blank" style={{background: '#ccc' }}>
+                                    <div className="sl_img" style={{background: `url(${v.icon})`}} />
+                                    {/*<img src={v.icon} alt="Bitcoin" />*/}
                                 </a>
                             </SwiperSlide>
                         )
