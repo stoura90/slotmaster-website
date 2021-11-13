@@ -595,6 +595,42 @@
     border-radius: 6px;
     background-position: center top !important;
     background-size: cover !important;
+    position: relative;
+    .sl-card-hover {
+      display: none;
+      position: absolute;
+      left: 0;
+      top:0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+
+    }
+    &:hover {
+      cursor: pointer;
+      &:after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        content: "";
+        background-color: rgba(19,27,38,.9);
+        animation: fadeIn .15s linear;
+      }
+      .sl-card-hover {
+        display: block;
+        .play-btn {
+          position: absolute;
+          top:50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+          z-index: 5;
+        }
+      }
+    }
+
+
   }
   .info {
     display: flex;
