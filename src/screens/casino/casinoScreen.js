@@ -5,6 +5,8 @@ import "../../assets/styles/_select2.scss"
 import {Actions} from "../../core";
 import _ from "lodash"
 import {useParams} from "react-router-dom";
+import {CustomDropdown} from "../../components/dropdown/dropDown";
+import {filter} from "../../assets/img/icons/icons";
 
 const CasinoScreen = () =>{
     const [show,setShow]=useState(20);
@@ -13,6 +15,10 @@ const CasinoScreen = () =>{
     const [filters,setFilters]=useState([])
     const [list,setList]=useState([])
     const [selectedProvider,setSelectedProvider]=useState(null)
+    const [searchText, setSearchText] = useState("")
+    const [selected,setSelected] = useState([])
+    const [showMobileFilter,setShowMobileFilter] = useState(false)
+
     useEffect(()=>{
         loadProvider();
 
@@ -69,33 +75,39 @@ const CasinoScreen = () =>{
             <main className="main">
                 <div className="container wrapper">
                     <div className="row">
-                        {/*<div className="col-12 d-flex align-items-center main-filter slot">
+
+                        <div className="col-12 d-flex align-items-center main-filter slot">
                             <div className="search">
                                 <input
                                     type="text"
                                     name="search"
                                     className="search"
                                     placeholder="Search"
+                                    value={searchText}
+                                    onChange={e=>setSearchText(e.target.value)}
                                 />
                                 <span className="btn-search"></span>
                             </div>
+
                             <div className="select-label d-none d-lg-flex me-0">
-                                <CustomDropdown label={"Provider"} data={[
-                                    { id:1, name:"Evolution Gaming",checked:false},
-                                    { id:2, name:"Pragmatic Play LC",checked:false},
-                                    { id:3, name:"Pragmatic Play LC",checked:false},
-                                    { id:4, name:"Evoplay Entertai...",checked:false},
-                                    { id:5, name:"BetGames TV",checked:false},
-                                    { id:6, name:"Authentic",checked:false},
-                                    { id:7, name:"Playtech",checked:false},
-                                ]}/>
+                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelected} isOpen={false}/>
                             </div>
+
+                            <div className="select-label d-none d-lg-flex me-0">
+                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelected} isOpen={false}/>
+                            </div>
+
                             <div className="filter-button d-lg-none" data-bs-toggle="modal"
-                                 data-bs-target="#FilterModal">
+                                 data-bs-target="#FilterModal" onClick={()=>setShowMobileFilter(!showMobileFilter)} >
                                 <img src={filter} alt="Filter"/>
                             </div>
-                        </div>*/}
-                        <div className="col-12 section-head">
+                        </div>
+
+                        <div className={"custom-filter-mobile d-lg-none"}>
+                            <CustomDropdown label={"Provider"} ope data={providers} onSelect={setSelected} isOpen={showMobileFilter} />
+                        </div>
+
+                        {/*<div className="col-12 section-head">
                             <div className="sl_nav">
                                 <div className="sl_item sl_home" onClick={()=> homeClick()}/>
                                 {
@@ -112,7 +124,7 @@ const CasinoScreen = () =>{
                                     }
                                 </ul>
                             </div>
-                        </div>
+                        </div>*/}
                         <div className="col-12 d-flex align-items-center section-head">
 
                         </div>

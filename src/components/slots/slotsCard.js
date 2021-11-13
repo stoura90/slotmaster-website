@@ -21,7 +21,7 @@ const SlotCard =({data})=> {
                             </div>
                             <div className="info">
                                 <div className="name">{v.name}</div>
-                                <div className="like"><i/><span>{v?.options?.likes}</span></div>
+                                {/*<div className="like"><i/><span>{v?.options?.likes}</span></div>*/}
                             </div>
                         </div>
                     </div>

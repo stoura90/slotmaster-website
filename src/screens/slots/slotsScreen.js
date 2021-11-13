@@ -15,7 +15,7 @@ const SlotsScreen = () =>{
     const [searchText, setSearchText] = useState("")
     const [list,setList]=useState([])
     const [showMobileFilter,setShowMobileFilter] = useState(false)
-    const [selectedProvider,setSelectedProvider]=useState(null)
+    const [selectedProvider,setSelectedProvider]=useState({name:'All Providers'})
     useEffect(()=>{
         loadProvider();
         loadSlotList()
@@ -44,14 +44,14 @@ const SlotsScreen = () =>{
 
 
     const homeClick = () => {
-        setSelectedProvider(null);
+        setSelectedProvider({name:'All Providers'});
         loadProvider();
     }
     const loadProvider = () => {
         Actions.Slot.list({webPageId:1}).then(response=> {
-            if(response.status){
-                setSelectedProvider(response.data.data.providers[0]);
-            }
+            //if(response.status){
+            //    setSelectedProvider(response.data.data.providers[0]);
+            //}
             setProviders(response.status?response.data.data.providers:[]);
             setFilters(response.status?response.data.data.filterGroups:[]);
         }).catch(reason => console.log(reason))
