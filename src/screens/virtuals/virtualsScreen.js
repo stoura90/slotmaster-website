@@ -92,7 +92,7 @@ const VirtualsScreen = () =>{
                 ]}/>
             </div>
 
-            <main className="main">
+            <main className="main" style={{minHeight:'300px'}}>
                 <div className="container wrapper">
                     <div className="row">
 
@@ -109,7 +109,7 @@ const VirtualsScreen = () =>{
                                 <span className="btn-search"></span>
                             </div>
 
-                            <div className="select-label d-none d-lg-flex me-0">
+                            <div className="select-label d-none d-lg-flex me-0" style={{paddingRight:'10px'}}>
                                 <CustomDropdown label={"Filters"} data={filters} onSelect={setSelectedFilters} isOpen={false}/>
                             </div>
 
