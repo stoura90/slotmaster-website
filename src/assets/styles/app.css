@@ -19614,8 +19614,9 @@ input.for-confirm {
 }
 .slot-card .slot-card-hover {
   width: 100%;
-  height: 13vw;
-  max-height: 180px;
+  max-width: 175px;
+  height: 35vw;
+  max-height: 230px;
   position: relative;
   background-size: cover !important;
   border-radius: 4px;

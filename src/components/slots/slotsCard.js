@@ -11,7 +11,7 @@ const SlotCard =({data})=> {
 
     return (_.map(data, (v,index)=>{
                 return  (
-                    <div className="col-4 col-lg-2" key={index}>
+                    <div className="col-4 col-lg-3 col-xl-2" key={index}>
                         <div className="slot-card">
                             {loader===v.gameId && <Loader/>}
                             <div className="slot-card-hover animated-background" style={{backgroundImage:`url(${v.imageUrl})`}} onClick={()=>play(v)}>
