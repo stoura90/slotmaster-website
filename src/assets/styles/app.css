@@ -20112,6 +20112,65 @@ input.for-confirm {
   color: #e6e9f1;
 }
 
+.main-card-list-item {
+  width: 100%;
+  padding: 0;
+}
+.main-card-list-item .sl-card {
+  padding-bottom: 120%;
+  border-radius: 6px;
+  background-position: center top !important;
+  background-size: cover !important;
+  position: relative;
+}
+.main-card-list-item .sl-card .sl-card-hover {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.main-card-list-item .sl-card:hover {
+  cursor: pointer;
+}
+.main-card-list-item .sl-card:hover:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  background-color: rgba(19, 27, 38, 0.9);
+  animation: fadeIn 0.15s linear;
+}
+.main-card-list-item .sl-card:hover .sl-card-hover {
+  display: block;
+}
+.main-card-list-item .sl-card:hover .sl-card-hover .play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+.main-card-list-item .info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 3px 0px 0px 0px;
+}
+.main-card-list-item .info .name {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #e6e9f1;
+}
+
 @media (min-width: 160px) {
   .card-list-item {
     width: 100%;
@@ -23053,6 +23112,70 @@ a:hover {
 }
 .main .section-head, .main .promo-tabs {
   margin-top: 0;
+}
+
+.main-slots-area,
+.main-casino-area {
+  position: relative;
+}
+.main-slots-area .sl-prev-button,
+.main-slots-area .sl-next-button,
+.main-casino-area .sl-prev-button,
+.main-casino-area .sl-next-button {
+  display: none;
+  position: absolute;
+  top: calc(50% - 10px);
+  transform: translateY(-50%);
+  width: 40px;
+  height: 50px;
+  background: #1f2c49;
+  opacity: 0.9;
+  z-index: 9;
+  cursor: pointer;
+  transition: all 0.15s linear;
+  padding: 17px 14px 18px 16px;
+}
+.main-slots-area .sl-prev-button:after,
+.main-slots-area .sl-next-button:after,
+.main-casino-area .sl-prev-button:after,
+.main-casino-area .sl-next-button:after {
+  content: "";
+}
+.main-slots-area .sl-prev-button.swiper-button-disabled:after,
+.main-slots-area .sl-next-button.swiper-button-disabled:after,
+.main-casino-area .sl-prev-button.swiper-button-disabled:after,
+.main-casino-area .sl-next-button.swiper-button-disabled:after {
+  opacity: 0.4;
+}
+.main-slots-area:hover .sl-prev-button,
+.main-slots-area:hover .sl-next-button,
+.main-casino-area:hover .sl-prev-button,
+.main-casino-area:hover .sl-next-button {
+  display: block;
+}
+.main-slots-area .sl-prev-button,
+.main-casino-area .sl-prev-button {
+  left: -20px;
+}
+.main-slots-area .sl-prev-button:after,
+.main-casino-area .sl-prev-button:after {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAPCAMAAADqIa48AAAAflBMVEUAAAD////////////V1f/b2//u7u7h8PDj7Pbk7e3n5+/m5vPo6PTj6e7l6fDm6PHm6PHn6fLm6vLm6PLm6fHn6PHm6fHn6vHn6vHm6fDn6fHl6fLm6fDn6fLm6fDm6vHm6fHm6fHm6fHm6fHm6fLm6fDm6fHm6fHm6fHm6fGvGZFFAAAAKXRSTlMAAQIFBgcPERscICktLkVvcXOFho6Soqeorby9wdHS1trc3uDj5Ojp8r0sV0EAAABbSURBVHjaYoACfkAJ84BEQRQDUfTbGNu++9/gVF6ndKJePeEUQe90TWH+mu4VNE/To4biZvpMkJxNvw3Co+kwQO6gaaCpbi/yq4XyJitXvmYwvuVTDJ3Byl/+O6awCELnBpZyAAAAAElFTkSuQmCC);
+  background-repeat: no-repeat;
+  width: 10px;
+  height: 15px;
+  display: block;
+}
+.main-slots-area .sl-next-button,
+.main-casino-area .sl-next-button {
+  right: -20px;
+}
+.main-slots-area .sl-next-button:after,
+.main-casino-area .sl-next-button:after {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAPCAMAAADqIa48AAAAdVBMVEUAAAD////////////j4//q6urm5vLq6vTm5u/j6vHm5vPm6/Dl6fDm6PHm6PHn6fLm6vLm6PLm6fHn6PHm6fLm6vDm6fDm6fDm6fDm6fHl6fHm6fHm6vHm6fHn6fHm6fHm6fHm6fHm6fHm6fHm6fHm6fHm6fEP00MlAAAAJnRSTlMAAQIECQwUGB8kKTJFb3FzhYaOkpqbra6vtsfN1trb3N7g5+jp8ncQkhYAAABYSURBVAjXVY5FDsBADMTKzMxc//+JVZXtoXOyRpEzWnLFmsoKhSEY7NBawu4IgyNs9zB5wmYFRyis53BHytPAJm32tWb93b6Gxf97/QU6+TZDqTbEZ6qED3X0B5je34eqAAAAAElFTkSuQmCC);
+  background-repeat: no-repeat;
+  width: 10px;
+  height: 15px;
+  display: block;
 }
 
 .slot-custom-search .search-input-content {

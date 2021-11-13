@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import {slotSardCover} from "../../assets/img/images";
-import {play as PlayBtn} from "../../assets/img/icons/icons";
+import {play as PlayIcon, play as PlayBtn} from "../../assets/img/icons/icons";
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import {Loader} from "../index";
@@ -28,41 +28,56 @@ const  Carousel = ({data,counter}) =>{
 
     return (
         <Swiper
-            spaceBetween={20}
-            slidesPerView={count}
-            navigation
+
+            spaceBetween={12}
+            //slidesPerView={count}
+            navigation={{
+                nextEl:".sl-next-button",
+                prevEl:".sl-prev-button"
+            }}
             scrollbar={{ draggable: true }}
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log('slide change')}
-            /*breakpoints={{
-                // when window width is >= 640px
-                1000: {
-                    width: 1000,
+
+            breakpoints={{
+                1200: {
+                    slidesPerView: 6,
+                },
+                992: {
                     slidesPerView: 5,
                 },
-                // when window width is >= 768px
                 768: {
-                    width: 768,
+                    slidesPerView: 4,
+                },
+                576: {
+                    slidesPerView: 3,
+                },
+                400: {
+                    slidesPerView: 3,
+                },
+                200: {
                     slidesPerView: 2,
                 },
-            }}*/
+                160: {
+                    slidesPerView: 1,
+                }
+            }}
         >
             {
                 _.map(slotList, (v,index)=>{
                     return  (
                         <SwiperSlide key={index}>
-
-                            <div className="slot-card">
-                                {loader===v.gameId && <Loader/>}
-                                <span  className="slot-card-hover animated-background">
-                                    {/*<img  src={v.imageUrl} alt="" style={{visibility:"hidden",opacity:'0', width:'100%',display:'block'}} />*/}
-                                    <div className="slot-card-cover" style={{backgroundImage:`url(${v.imageUrl})`}}/>
-                                    <img src={v.icon} alt="" style={{visibility:"hidden"}} />
-                                    <img src={PlayBtn} alt="" className="play-btn" onClick={()=> play(v)}/>
-                                </span>
+                            <div className="main-card-list-item" key={index} >
+                                {/*{loader===v.gameId && <Loader/>}*/}
+                                <div className="sl-card" style={{backgroundImage:`url(${v.imageUrl})`}} >
+                                    <div className="sl-card-hover" onClick={()=>play(v)}>
+                                        <div className="slot-card-cover "/>
+                                        <img src={v.imageUrl} alt="" style={{visibility:"hidden"}} />
+                                        <img src={PlayIcon} alt="" className="play-btn" />
+                                    </div>
+                                </div>
                                 <div className="info">
                                     <div className="name">{v.name}</div>
-                                    {/*<div className="like"><i/><span>{v?.options?.likes}</span></div>*/}
                                 </div>
                             </div>
                         </SwiperSlide>

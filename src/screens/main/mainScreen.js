@@ -206,6 +206,8 @@ const MainScreen = () =>{
                             <Link to={`/${lang}/slots`}>View all</Link>
                         </div>
                         <div className="col-12 main-slots-area" data-count={Math.round(resize/300)}>
+                            <div className="sl-prev-button"/>
+                            <div className="sl-next-button"/>
                             <Carousel
                                 id={"font-slot"}
                                 counter={Math.round(resize/300)}
@@ -218,6 +220,8 @@ const MainScreen = () =>{
                             <Link to={`/${lang}/casino`}>View all</Link>
                         </div>
                         <div className="col-12 main-casino-area" data-count={Math.round(resize/300)}>
+                            <div className="sl-prev-button"/>
+                            <div className="sl-next-button"/>
                             <Carousel
                                 id={"font-games"}
                                 counter={Math.round(resize/300)}
