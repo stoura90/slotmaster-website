@@ -65,11 +65,7 @@ const SlotsScreen = () =>{
     // const loadSlots = (id) => {
     //     Actions.Slot.listByProvider(id,"1").then(response=>setList(response.status?response.data.data:[]))
     // }
-    const getFilteredSlots = (id) => {
-        setSelectedProvider({...selectedProvider,name: null});
-        setPage(1)
-        Actions.Slot.listByFilter(id,"1").then(response=>setList(response.status?response.data.data:[]))
-    }
+
 
     const getSlotList=()=> {
         return _.filter(filteredSlotList,(v,k)=>k<page*20);

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {sl2, w2} from '../../assets/img/images';
 import {Footer, Header, ShowMore, SlotCard, Swp} from "../../components";
 import "../../assets/styles/_select2.scss"
@@ -9,33 +9,35 @@ import {CustomDropdown} from "../../components/dropdown/dropDown";
 import {filter} from "../../assets/img/icons/icons";
 
 const CasinoScreen = () =>{
-    const [show,setShow]=useState(20);
     const [page,setPage]=useState(1)
     const [providers,setProviders]=useState([])
     const [filters,setFilters]=useState([])
     const [list,setList]=useState([])
-    const [selectedProvider,setSelectedProvider]=useState(null)
+    const [selectedProvider,setSelectedProvider]=useState([])
+    const [selectedFilters,setSelectedFilters] = useState([])
+
     const [searchText, setSearchText] = useState("")
     const [selected,setSelected] = useState([])
     const [showMobileFilter,setShowMobileFilter] = useState(false)
 
     useEffect(()=>{
-        loadProvider();
-
+        loadSlotList()
+        loadProvider()
     },[])
     useEffect(()=>{
-        if(selectedProvider){
-            loadSlots(selectedProvider.id)
+        if(selectedProvider.length>0 || selectedFilters.length>0){
+
+            setPage(_.size(filteredSlotList)/20 + 1)
+        }else{
+            setPage(1)
         }
-    },[selectedProvider])
+    },[selectedProvider,selectedFilters,searchText])
     const homeClick = () => {
         setSelectedProvider(null);
         loadProvider();
     }
     const loadProvider = () => {
         Actions.Slot.list({webPageId:2}).then(response=> {
-            console.log("slot response ", response)
-
             if(response.status){
                 setSelectedProvider(response.data.data.providers[0]);
             }
@@ -43,18 +45,36 @@ const CasinoScreen = () =>{
             setFilters(response.status?response.data.data.filterGroups:[]);
         }).catch(reason => console.log(reason))
     }
-    const loadSlots = (id) => {
-        Actions.Slot.listByProvider(id,"2").then(response=>setList(response.status?response.data.data:[]))
+
+    const loadSlotList =()=>{
+        Actions.Slot.listByPage({webPageId:2}).then((response)=>{
+            setList(response.status?response.data.data:[])
+        })
     }
-    const getFilteredSlots = (id) => {
-        setSelectedProvider({...selectedProvider,name: null});
-        setPage(1)
-        Actions.Slot.listByFilter(id,"2").then(response=>setList(response.status?response.data.data:[]))
-    }
+    const filteredSlotList = useMemo(()=>{
+        let filtered =list;
+        if(searchText.trim().length>0){
+            filtered =  _.filter(filtered,v=>v.name.toLowerCase().indexOf(searchText.toLowerCase())>-1)
+        }
+        if(_.size(selectedProvider)>0){
+
+            filtered = _.filter(filtered, slot=>{
+                return  _.intersection([slot.slotProviderId], _.map(selectedProvider,v=>v.id)).length>0
+            })
+        }
+        if(_.size(selectedFilters)>0){
+            filtered = _.filter(filtered, slot=>{
+                return  _.intersection(_.map(slot.filterGroups,v=>v.id), _.map(selectedFilters,v=>v.id)).length>0
+            })
+        }
+
+        return filtered;
+    },[list,selectedProvider,selectedFilters,searchText])
 
     const getSlotList=()=> {
-        return _.filter(list,(v,k)=>k<page*20);
+        return _.filter(filteredSlotList,(v,k)=>k<page*20);
     }
+
 
     return (
         <>
@@ -90,11 +110,11 @@ const CasinoScreen = () =>{
                             </div>
 
                             <div className="select-label d-none d-lg-flex me-0">
-                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelected} isOpen={false}/>
+                                <CustomDropdown label={"Filters"} data={filters} onSelect={setSelectedFilters} isOpen={false}/>
                             </div>
 
                             <div className="select-label d-none d-lg-flex me-0">
-                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelected} isOpen={false}/>
+                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelectedProvider} isOpen={false}/>
                             </div>
 
                             <div className="filter-button d-lg-none" data-bs-toggle="modal"
@@ -143,7 +163,7 @@ const CasinoScreen = () =>{
                         </div>
                         {
                             <div className="col-12">
-                                <ShowMore page={page} count={20} length={list.length} setPage={setPage}/>
+                                <ShowMore page={page} count={20} length={filteredSlotList.length} setPage={setPage}/>
                             </div>
                         }
                     </div>
