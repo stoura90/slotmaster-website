@@ -1,35 +1,43 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {sl2, w2} from '../../assets/img/images';
 import {Footer, Header, ShowMore, SlotCard, Swp} from "../../components";
 import "../../assets/styles/_select2.scss"
 import {Actions} from "../../core";
 import _ from "lodash"
 import {useParams} from "react-router-dom";
+import {CustomDropdown} from "../../components/dropdown/dropDown";
+import {filter} from "../../assets/img/icons/icons";
 
 const VirtualsScreen = () =>{
-    const [show,setShow]=useState(20);
     const [page,setPage]=useState(1)
     const [providers,setProviders]=useState([])
     const [filters,setFilters]=useState([])
     const [list,setList]=useState([])
-    const [selectedProvider,setSelectedProvider]=useState(null)
-    useEffect(()=>{
-        loadProvider();
+    const [selectedProvider,setSelectedProvider]=useState([])
+    const [selectedFilters,setSelectedFilters] = useState([])
 
+    const [searchText, setSearchText] = useState("")
+    const [selected,setSelected] = useState([])
+    const [showMobileFilter,setShowMobileFilter] = useState(false)
+
+    useEffect(()=>{
+        loadSlotList()
+        loadProvider()
     },[])
     useEffect(()=>{
-        if(selectedProvider){
-            loadSlots(selectedProvider.id)
+        if(selectedProvider.length>0 || selectedFilters.length>0){
+
+            setPage(_.size(filteredSlotList)/20 + 1)
+        }else{
+            setPage(1)
         }
-    },[selectedProvider])
+    },[selectedProvider,selectedFilters,searchText])
     const homeClick = () => {
         setSelectedProvider(null);
         loadProvider();
     }
     const loadProvider = () => {
         Actions.Slot.list({webPageId:3}).then(response=> {
-            console.log("slot response ", response)
-
             if(response.status){
                 setSelectedProvider(response.data.data.providers[0]);
             }
@@ -37,18 +45,36 @@ const VirtualsScreen = () =>{
             setFilters(response.status?response.data.data.filterGroups:[]);
         }).catch(reason => console.log(reason))
     }
-    const loadSlots = (id) => {
-        Actions.Slot.listByProvider(id,"3").then(response=>setList(response.status?response.data.data:[]))
+
+    const loadSlotList =()=>{
+        Actions.Slot.listByPage({webPageId:3}).then((response)=>{
+            setList(response.status?response.data.data:[])
+        })
     }
-    const getFilteredSlots = (id) => {
-        setSelectedProvider({...selectedProvider,name: null});
-        setPage(1)
-        Actions.Slot.listByFilter(id,"3").then(response=>setList(response.status?response.data.data:[]))
-    }
+    const filteredSlotList = useMemo(()=>{
+        let filtered =list;
+        if(searchText.trim().length>0){
+            filtered =  _.filter(filtered,v=>v.name.toLowerCase().indexOf(searchText.toLowerCase())>-1)
+        }
+        if(_.size(selectedProvider)>0){
+
+            filtered = _.filter(filtered, slot=>{
+                return  _.intersection([slot.slotProviderId], _.map(selectedProvider,v=>v.id)).length>0
+            })
+        }
+        if(_.size(selectedFilters)>0){
+            filtered = _.filter(filtered, slot=>{
+                return  _.intersection(_.map(slot.filterGroups,v=>v.id), _.map(selectedFilters,v=>v.id)).length>0
+            })
+        }
+
+        return filtered;
+    },[list,selectedProvider,selectedFilters,searchText])
 
     const getSlotList=()=> {
-        return _.filter(list,(v,k)=>k<page*20);
+        return _.filter(filteredSlotList,(v,k)=>k<page*20);
     }
+
 
     return (
         <>
@@ -69,33 +95,39 @@ const VirtualsScreen = () =>{
             <main className="main">
                 <div className="container wrapper">
                     <div className="row">
-                        {/*<div className="col-12 d-flex align-items-center main-filter slot">
+
+                        <div className="col-12 d-flex align-items-center main-filter slot">
                             <div className="search">
                                 <input
                                     type="text"
                                     name="search"
                                     className="search"
                                     placeholder="Search"
+                                    value={searchText}
+                                    onChange={e=>setSearchText(e.target.value)}
                                 />
                                 <span className="btn-search"></span>
                             </div>
+
                             <div className="select-label d-none d-lg-flex me-0">
-                                <CustomDropdown label={"Provider"} data={[
-                                    { id:1, name:"Evolution Gaming",checked:false},
-                                    { id:2, name:"Pragmatic Play LC",checked:false},
-                                    { id:3, name:"Pragmatic Play LC",checked:false},
-                                    { id:4, name:"Evoplay Entertai...",checked:false},
-                                    { id:5, name:"BetGames TV",checked:false},
-                                    { id:6, name:"Authentic",checked:false},
-                                    { id:7, name:"Playtech",checked:false},
-                                ]}/>
+                                <CustomDropdown label={"Filters"} data={filters} onSelect={setSelectedFilters} isOpen={false}/>
                             </div>
+
+                            <div className="select-label d-none d-lg-flex me-0">
+                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelectedProvider} isOpen={false}/>
+                            </div>
+
                             <div className="filter-button d-lg-none" data-bs-toggle="modal"
-                                 data-bs-target="#FilterModal">
+                                 data-bs-target="#FilterModal" onClick={()=>setShowMobileFilter(!showMobileFilter)} >
                                 <img src={filter} alt="Filter"/>
                             </div>
-                        </div>*/}
-                        <div className="col-12 section-head">
+                        </div>
+
+                        <div className={"custom-filter-mobile d-lg-none"}>
+                            <CustomDropdown label={"Provider"} ope data={providers} onSelect={setSelected} isOpen={showMobileFilter} />
+                        </div>
+
+                        {/*<div className="col-12 section-head">
                             <div className="sl_nav">
                                 <div className="sl_item sl_home" onClick={()=> homeClick()}/>
                                 {
@@ -112,7 +144,7 @@ const VirtualsScreen = () =>{
                                     }
                                 </ul>
                             </div>
-                        </div>
+                        </div>*/}
                         <div className="col-12 d-flex align-items-center section-head">
 
                         </div>
@@ -131,7 +163,7 @@ const VirtualsScreen = () =>{
                         </div>
                         {
                             <div className="col-12">
-                                <ShowMore page={page} count={20} length={list.length} setPage={setPage}/>
+                                <ShowMore page={page} count={20} length={filteredSlotList.length} setPage={setPage}/>
                             </div>
                         }
                     </div>
