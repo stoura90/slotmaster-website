@@ -70,7 +70,7 @@ const Information = () => {
                     })
                 },2000)
 
-
+                console.log(response)
 
                 if(response.status){
                     setStatus({

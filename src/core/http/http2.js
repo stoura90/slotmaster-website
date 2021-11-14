@@ -202,7 +202,7 @@ class Http {
                         }
                     }
                 } else {
-                    reject({
+                    resolve({
                         status: false,
                         reason: reason
                     })
