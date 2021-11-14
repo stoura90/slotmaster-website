@@ -14,6 +14,8 @@ const SlotsScreen = () =>{
     const [filters,setFilters]=useState([])
     const [searchText, setSearchText] = useState("")
     const [list,setList]=useState([])
+    const [providerFilter,setProviderFilter]=useState(false);
+
     const [showMobileFilter,setShowMobileFilter] = useState(false)
     const [selectedProvider,setSelectedProvider]=useState({name:'All Providers'})
     useEffect(()=>{
@@ -103,8 +105,9 @@ const SlotsScreen = () =>{
                                 <span className="btn-search"></span>
                             </div>
                             <div className="select-label d-none d-lg-flex me-0">
-                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelected} isOpen={false}/>
-                            </div>
+                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelected} open={providerFilter} setOpen={()=>{
+                                    setProviderFilter(!providerFilter)
+                                }} />                             </div>
                             <div className="filter-button d-lg-none" data-bs-toggle="modal"
                                  data-bs-target="#FilterModal" onClick={()=>setShowMobileFilter(!showMobileFilter)} >
                                 <img src={filter} alt="Filter"/>
@@ -112,8 +115,9 @@ const SlotsScreen = () =>{
                         </div>
 
                         <div className={"custom-filter-mobile d-lg-none"}>
-                            <CustomDropdown label={"Provider"} ope data={providers} onSelect={setSelected} isOpen={showMobileFilter} />
-                        </div>
+                            <CustomDropdown label={"Provider"} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
+                                setProviderFilter(!providerFilter)
+                            }} />                         </div>
                         {/*<div className="col-12 section-head">
                             <div className="sl_nav">
                                 <div className="sl_item sl_home" onClick={()=> homeClick()}/>

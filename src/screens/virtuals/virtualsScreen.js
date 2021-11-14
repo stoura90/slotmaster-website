@@ -15,7 +15,8 @@ const VirtualsScreen = () =>{
     const [list,setList]=useState([])
     const [selectedProvider,setSelectedProvider]=useState([])
     const [selectedFilters,setSelectedFilters] = useState([])
-
+    const [providerFilter,setProviderFilter]=useState(false);
+    const [filtersFilter,setFiltersFilter]=useState(false);
     const [searchText, setSearchText] = useState("")
     const [selected,setSelected] = useState([])
     const [showMobileFilter,setShowMobileFilter] = useState(false)
@@ -110,11 +111,17 @@ const VirtualsScreen = () =>{
                             </div>
 
                             <div className="select-label d-none d-lg-flex me-0" style={{paddingRight:'10px'}}>
-                                <CustomDropdown label={"Filters"} data={filters} onSelect={setSelectedFilters} isOpen={false}/>
+                                <CustomDropdown label={"Filters"} data={filters} onSelect={setSelectedFilters} open={filtersFilter}  setOpen={()=>{
+                                    setFiltersFilter(!filtersFilter)
+                                    setProviderFilter(false)
+                                }}/>
                             </div>
 
                             <div className="select-label d-none d-lg-flex me-0">
-                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelectedProvider} isOpen={false}/>
+                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
+                                    setFiltersFilter(false)
+                                    setProviderFilter(!providerFilter)
+                                }}/>
                             </div>
 
                             <div className="filter-button d-lg-none" data-bs-toggle="modal"
@@ -124,7 +131,10 @@ const VirtualsScreen = () =>{
                         </div>
 
                         <div className={"custom-filter-mobile d-lg-none"}>
-                            <CustomDropdown label={"Provider"} ope data={providers} onSelect={setSelected} isOpen={showMobileFilter} />
+                            <CustomDropdown label={"Provider"} ope data={providers} onSelect={setSelected}  open={providerFilter} setOpen={()=>{
+                                setFiltersFilter(false)
+                                setProviderFilter(!providerFilter)
+                            }} />
                         </div>
 
                         {/*<div className="col-12 section-head">
