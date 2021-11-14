@@ -211,7 +211,12 @@ const MainScreen = () =>{
                             <Carousel
                                 id={"font-slot"}
                                 counter={Math.round(resize/300)}
-                                data={mainPageSlotList}/>
+                                data={mainPageSlotList}
+                                navigation={{
+                                    nextEl:".sl-next-button",
+                                    prevEl:".sl-prev-button"
+                                }}
+                            />
                         </div>
                     </div>
                     <div className="row">
@@ -220,12 +225,18 @@ const MainScreen = () =>{
                             <Link to={`/${lang}/casino`}>View all</Link>
                         </div>
                         <div className="col-12 main-casino-area" data-count={Math.round(resize/300)}>
-                            <div className="sl-prev-button"/>
-                            <div className="sl-next-button"/>
+                            <div className="sl-prev-casino-button"/>
+                            <div className="sl-next-casino-button"/>
                             <Carousel
                                 id={"font-games"}
                                 counter={Math.round(resize/300)}
-                                data={mainPageCasinoList}/>
+                                data={mainPageCasinoList}
+                                navigation={{
+                                    nextEl:".sl-next-casino-button",
+                                    prevEl:".sl-prev-casino-button"
+                                }}
+                            />
+
                         </div>
                     </div>
                 </div>

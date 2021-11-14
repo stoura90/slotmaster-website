@@ -281,6 +281,8 @@ body {
 {
   position: relative;
   //.swiper-container {overflow: visible}
+  .sl-prev-casino-button,
+  .sl-next-casino-button,
   .sl-prev-button,
   .sl-next-button {
     display: none;
@@ -304,12 +306,15 @@ body {
 
   &:hover{
     .sl-prev-button,
-    .sl-next-button {
+    .sl-next-button,
+    .sl-prev-casino-button,
+    .sl-next-casino-button,{
       display: block;
     }
   }
 
-  .sl-prev-button {
+  .sl-prev-button,
+  .sl-prev-casino-button {
     left: -20px;
     &:after {
       background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAPCAMAAADqIa48AAAAflBMVEUAAAD////////////V1f/b2//u7u7h8PDj7Pbk7e3n5+/m5vPo6PTj6e7l6fDm6PHm6PHn6fLm6vLm6PLm6fHn6PHm6fHn6vHn6vHm6fDn6fHl6fLm6fDn6fLm6fDm6vHm6fHm6fHm6fHm6fHm6fLm6fDm6fHm6fHm6fHm6fGvGZFFAAAAKXRSTlMAAQIFBgcPERscICktLkVvcXOFho6Soqeorby9wdHS1trc3uDj5Ojp8r0sV0EAAABbSURBVHjaYoACfkAJ84BEQRQDUfTbGNu++9/gVF6ndKJePeEUQe90TWH+mu4VNE/To4biZvpMkJxNvw3Co+kwQO6gaaCpbi/yq4XyJitXvmYwvuVTDJ3Byl/+O6awCELnBpZyAAAAAElFTkSuQmCC);
@@ -319,7 +324,8 @@ body {
       display: block;
     }
   }
-  .sl-next-button {
+  .sl-next-button,
+  .sl-next-casino-button {
     right: -20px;
     &:after {
       background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAPCAMAAADqIa48AAAAdVBMVEUAAAD////////////j4//q6urm5vLq6vTm5u/j6vHm5vPm6/Dl6fDm6PHm6PHn6fLm6vLm6PLm6fHn6PHm6fLm6vDm6fDm6fDm6fDm6fHl6fHm6fHm6vHm6fHn6fHm6fHm6fHm6fHm6fHm6fHm6fHm6fHm6fEP00MlAAAAJnRSTlMAAQIECQwUGB8kKTJFb3FzhYaOkpqbra6vtsfN1trb3N7g5+jp8ncQkhYAAABYSURBVAjXVY5FDsBADMTKzMxc//+JVZXtoXOyRpEzWnLFmsoKhSEY7NBawu4IgyNs9zB5wmYFRyis53BHytPAJm32tWb93b6Gxf97/QU6+TZDqTbEZ6qED3X0B5je34eqAAAAAElFTkSuQmCC);

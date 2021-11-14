@@ -13,7 +13,7 @@ import {useSLot} from "../../core/hooks/useSLot";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 
-const  Carousel = ({data,counter}) =>{
+const  Carousel = ({data,counter,navigation}) =>{
     const [slotList,setSlotList]= useState([])
     const {loader}=useLoader()
     const [count,setCount] = useState( Math.round(window.innerWidth / 300))
@@ -31,10 +31,7 @@ const  Carousel = ({data,counter}) =>{
 
             spaceBetween={12}
             //slidesPerView={count}
-            navigation={{
-                nextEl:".sl-next-button",
-                prevEl:".sl-prev-button"
-            }}
+            navigation={navigation}
             scrollbar={{ draggable: true }}
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log('slide change')}
