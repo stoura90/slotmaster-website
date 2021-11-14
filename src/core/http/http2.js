@@ -119,7 +119,8 @@ class Http {
                         this.dispatchLoader(this.loader,false)
                     }
                 })
-            }).then(response=>{
+            })
+                .then(response=>{
                 resolve(response);
             }).catch(reason => {
                 if(reason.reason.status){
@@ -131,41 +132,55 @@ class Http {
         })
    }
     post(url,data,header=null){
-        return new Promise((resolve, reject) => {
-            return new Promise((resolve,reject ) => {
-                if(this.loader){
-                    this.dispatchLoader(this.loader,true)
-                }
-                let customHeader;
-                if(localStorage.getItem("GRD_access_token")){
-                    customHeader =((header) ? {
-                        headers:{...header, Authorization: `Bearer `+localStorage.getItem("GRD_access_token")},
-                    }:{
-                        headers:{
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            Authorization: `Bearer `+localStorage.getItem("GRD_access_token")
-                        }
+        return new Promise((resolve,reject ) => {
+            if(this.loader){
+                this.dispatchLoader(this.loader,true)
+            }
+            let customHeader;
+            if(localStorage.getItem("GRD_access_token")){
+                customHeader =((header) ? {
+                    headers:{...header, Authorization: `Bearer `+localStorage.getItem("GRD_access_token")},
+                }:{
+                    headers:{
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        Authorization: `Bearer `+localStorage.getItem("GRD_access_token")
+                    }
+                })
+            }else{
+                customHeader=header
+            }
+            request.post(url,data,customHeader).then(response=>{
+                if(response.status===200){
+                    resolve({
+                        status:true,
+                        data:response.data
                     })
                 }else{
-                    customHeader=header
+                    reject({
+                        status:false,
+                        reason:response
+                    })
                 }
-                request.post(url,data,customHeader).then(response=>{
-                    if(response.status===200){
-                        resolve({
-                            status:true,
-                            data:response.data
-                        })
-                    }else{
-                        reject({
-                            status:false,
-                            reason:response
-                        })
-                    }
-                }).catch( async reason => {
-                    if (this.try ===1 && localStorage.getItem("GRD_refresh_token") && reason.message === "Request failed with status code 401") {
-                        this.try+=1;
-                        const response = await this.refreshToken()
-                        if (response) {
+            }).catch( async reason => {
+                if (this.try ===1 && localStorage.getItem("GRD_refresh_token") && reason.message === "Request failed with status code 401") {
+                    this.try+=1;
+                    const response = await this.refreshToken()
+                    if (response) {
+                        this.post(url,data, customHeader).then(response=>{
+                            if(response.status===200){
+                                resolve({
+                                    status:true,
+                                    data:response.data
+                                })
+                            }else {
+                                reject({
+                                    status: false,
+                                    reason: response
+                                })
+                            }})
+                    } else {
+                        if(!this.auth){
+                            delete customHeader.headers.Authorization;
                             this.post(url,data, customHeader).then(response=>{
                                 if(response.status===200){
                                     resolve({
@@ -178,40 +193,24 @@ class Http {
                                         reason: response
                                     })
                                 }})
-                        } else {
-                            if(!this.auth){
-                                delete customHeader.headers.Authorization;
-                                this.post(url,data, customHeader).then(response=>{
-                                    if(response.status===200){
-                                        resolve({
-                                            status:true,
-                                            data:response.data
-                                        })
-                                    }else {
-                                        reject({
-                                            status: false,
-                                            reason: response
-                                        })
-                                    }})
-                            }else{
-                                eventEmitter.emit("httpError",{type:"signIn"})
-                                reject({
-                                    status: false,
-                                    reason: reason
-                                })
-                            }
+                        }else{
+                            eventEmitter.emit("httpError",{type:"signIn"})
+                            reject({
+                                status: false,
+                                reason: reason
+                            })
                         }
-                    } else {
-                        reject({
-                            status: false,
-                            reason: reason
-                        })
                     }
-                }).finally(()=>{
-                    if(this.loader){
-                        this.dispatchLoader(this.loader,false)
-                    }
-                })
+                } else {
+                    reject({
+                        status: false,
+                        reason: reason
+                    })
+                }
+            }).finally(()=>{
+                if(this.loader){
+                    this.dispatchLoader(this.loader,false)
+                }
             })
         })
 

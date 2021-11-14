@@ -31,7 +31,10 @@ const Information = () => {
         country:"",
         question: ""
     });
-
+    const [status,setStatus]=useState({
+        status:"",
+        msg:""
+    })
     useEffect(()=>{
         getInfo()
 
@@ -54,10 +57,35 @@ const Information = () => {
     const onUpdate = ()=>{
         let error = _.chain(infoData).map((v,k)=>{ return  {key:k,value:v}}).filter(v=>!v.value).map(v=>v.key).value();
 
+
         if(error.length>0){
             setErrors([...error])
         }else{
-            Actions.User.updateInfo({data:infoData})
+            Actions.User.updateInfo({data:infoData}).then(response=>{
+                setTimeout(()=>{
+                    setStatus({
+                        ...status,
+                        status:'',
+                        msg:''
+                    })
+                },2000)
+
+
+
+                if(response.status){
+                    setStatus({
+                        ...status,
+                        status:'success',
+                        msg:'The information was successfully updated'
+                    })
+                }else {
+                    setStatus({
+                        ...status,
+                        status:"error",
+                        msg:"An error occurred while updating the information"
+                    })
+                }
+            })
         }
 
     }
@@ -266,6 +294,7 @@ const Information = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div style={{color:`${status.status ==="success"? 'green':'red'}`}}>{status.msg}</div>
                             <button type="submit" className="btn-primary">Save</button>
                         </form>
 
