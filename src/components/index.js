@@ -15,7 +15,7 @@ import Balance from "./balance/balance";
 import Sport from "./sport/index";
 import Information from "./account/information/information";
 import ShowMore from "./showMore/ShowMore";
-
+import Verification from "./verification"
 export {
     Header,
     Footer,
@@ -33,5 +33,6 @@ export {
     Sport,
     Information,
     ShowMore,
-    ContentNavigator
+    ContentNavigator,
+    Verification
 }

@@ -26,7 +26,9 @@ const  App=()=> {
             case 'signOut': signOut();break;
             case 'signIn': signOut(()=>{
                 setTimeout(()=>{
-                    document.getElementById("signIn-btn").click();
+                    if(document.getElementById("signIn-btn")){
+                        document.getElementById("signIn-btn").click();
+                    }
                 },200)
 
 

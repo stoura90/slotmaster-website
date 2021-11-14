@@ -61,6 +61,9 @@ const ping = () =>async (dispatch)=>{
 
 }
 
+const info = ()=>{
+    return (new Http()).get(Config.User.INFO)
+}
 
 const signUp = async (data) => {
     const response = await Request.post(Config.User.SIGN_UP, query_string(data), {
@@ -80,8 +83,25 @@ const signUp = async (data) => {
     return response;
 }
 
+const updateInfo = ({data})=>{
+    let formData = new FormData();
+
+    formData.append("firstName",data.firstName)
+    formData.append("lastName",data.lastName)
+    formData.append("dob",data.dob)
+    formData.append("mobile",data.mobile)
+    formData.append("username",data.username)
+    formData.append("email",data.email)
+    formData.append("countryCode",data?.country?.iso3)
+    formData.append("currencyCode",data?.currency?.iso)
+
+    return (new Http()).post(Config.User.UPDATE_INFO,formData)
+}
 export default {
   signIn,
   signOut,
-  ping, signUp
+  ping,
+  signUp,
+  info,
+  updateInfo
 }

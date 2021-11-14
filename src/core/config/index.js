@@ -3,7 +3,9 @@ export const Config ={
       SIGN_OUT:"/api/?app=logout",
       SIGN_IN: "/v1/api/login",
       SIGN_UP:"/us/v1/api/reg",
-      PING: "/us/v1/api/secured/ping"
+      PING: "/us/v1/api/secured/ping",
+      INFO:"/us/v1/api/secured/personal/info",
+      UPDATE_INFO:"/us/v1/api/secured/personal/info/update"
    },
    Config:{
       REFRESH_TOKEN:"/v1/api/refresh_token",

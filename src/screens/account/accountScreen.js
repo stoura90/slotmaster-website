@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigation} from "../../core/hooks/useNavigation";
 import {Balance, Footer, Header, Information} from "../../components";
 
@@ -6,8 +6,9 @@ import "../../assets/styles/_select2.scss"
 const AccountScreen = () =>{
     const nav  = useNavigation();
     useEffect(()=>{
-        console.log(nav)
     },[nav]);
+
+
     return (
         <>
             <Header page={'account'}/>
