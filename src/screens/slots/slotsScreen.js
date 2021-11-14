@@ -87,7 +87,7 @@ const SlotsScreen = () =>{
                 ]}/>
             </div>
 
-            <main className="main">
+            <main className="main" style={{minHeight:'300px'}}>
                 <div className="container wrapper">
                     <div className="row">
                         <div className="col-12 d-flex align-items-center main-filter slot">
