@@ -125,16 +125,16 @@ const VirtualsScreen = () =>{
                             </div>
 
                             <div className="filter-button d-lg-none" data-bs-toggle="modal"
-                                 data-bs-target="#FilterModal" onClick={()=>setShowMobileFilter(!showMobileFilter)} >
+                                 data-bs-target="#FilterModal" onClick={()=>setProviderFilter(!providerFilter)} >
                                 <img src={filter} alt="Filter"/>
                             </div>
                         </div>
 
                         <div className={"custom-filter-mobile d-lg-none"}>
-                            <CustomDropdown label={"Provider"} ope data={providers} onSelect={setSelected}  open={providerFilter} setOpen={()=>{
+                            <CustomDropdown label={"Provider"} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
                                 setFiltersFilter(false)
                                 setProviderFilter(!providerFilter)
-                            }} />
+                            }}/>
                         </div>
 
                         {/*<div className="col-12 section-head">

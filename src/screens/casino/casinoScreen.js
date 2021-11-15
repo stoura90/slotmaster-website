@@ -130,9 +130,9 @@ const CasinoScreen = () =>{
                         </div>
 
                         <div className={"custom-filter-mobile d-lg-none"}>
-                            <CustomDropdown label={"Filters"} data={filters} onSelect={setSelectedFilters} open={filtersFilter}  setOpen={()=>{
-                                setFiltersFilter(!filtersFilter)
-                                setProviderFilter(false)
+                            <CustomDropdown label={"Provider"} data={providers} onSelect={setSelectedProvider} open={showMobileFilter} setOpen={()=>{
+                                setFiltersFilter(false)
+                                setShowMobileFilter(!showMobileFilter)
                             }}/>
                         </div>
 
