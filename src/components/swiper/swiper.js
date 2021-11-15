@@ -53,7 +53,7 @@ const  Carousel = ({data,counter,navigation}) =>{
                     slidesPerView: 3,
                 },
                 200: {
-                    slidesPerView: 2,
+                    slidesPerView: 3,
                 },
                 160: {
                     slidesPerView: 1,
