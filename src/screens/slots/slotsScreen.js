@@ -15,6 +15,8 @@ const SlotsScreen = () =>{
     const [searchText, setSearchText] = useState("")
     const [list,setList]=useState([])
     const [providerFilter,setProviderFilter]=useState(false);
+    const [filtersFilter,setFiltersFilter]=useState(false);
+    const [selectedFilters,setSelectedFilters] = useState([])
 
     const [showMobileFilter,setShowMobileFilter] = useState(false)
     const [selectedProvider,setSelectedProvider]=useState({name:'All Providers'})
@@ -23,26 +25,34 @@ const SlotsScreen = () =>{
         loadSlotList()
     },[])
     useEffect(()=>{
-        if(selected.length>0){
+        if(selectedProvider.length>0 || selectedFilters.length>0){
+
             setPage(_.size(filteredSlotList)/20 + 1)
         }else{
             setPage(1)
         }
-    },[selected,searchText])
+    },[selectedProvider,selectedFilters,searchText])
 
     const filteredSlotList = useMemo(()=>{
-
+        let filtered =list;
         if(searchText.trim().length>0){
-            return _.filter(list,v=>v.name.toLowerCase().indexOf(searchText.toLowerCase())>-1)
+            filtered =  _.filter(filtered,v=>v.name.toLowerCase().indexOf(searchText.toLowerCase())>-1)
         }
-        if(_.size(selected)>0){
-            return _.filter(list, slot=>{
-                return  _.intersection([slot.slotProviderId], _.map(selected,v=>v.id)).length>0
+        if(_.size(selectedProvider)>0){
+
+            filtered = _.filter(filtered, slot=>{
+                return  _.intersection([slot.slotProviderId], _.map(selectedProvider,v=>v.id)).length>0
+            })
+        }
+        if(_.size(selectedFilters)>0){
+            filtered = _.filter(filtered, slot=>{
+                return  _.intersection(_.map(slot.filterGroups,v=>v.id), _.map(selectedFilters,v=>v.id)).length>0
             })
         }
 
-        return list;
-    },[list,selected,searchText])
+        return filtered;
+    },[list,selectedProvider,selectedFilters,searchText])
+
 
 
     const homeClick = () => {
@@ -104,10 +114,19 @@ const SlotsScreen = () =>{
                                 />
                                 <span className="btn-search"></span>
                             </div>
+                            <div className="select-label d-none d-lg-flex me-0" style={{paddingRight:'10px'}}>
+                                <CustomDropdown label={"Filters"} data={filters} onSelect={setSelectedFilters} open={filtersFilter}  setOpen={()=>{
+                                    setFiltersFilter(!filtersFilter)
+                                    setProviderFilter(false)
+                                }}/>
+                            </div>
+
                             <div className="select-label d-none d-lg-flex me-0">
-                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelected} open={providerFilter} setOpen={()=>{
+                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
+                                    setFiltersFilter(false)
                                     setProviderFilter(!providerFilter)
-                                }} />                             </div>
+                                }}/>
+                            </div>
                             <div className="filter-button d-lg-none" data-bs-toggle="modal"
                                  data-bs-target="#FilterModal" onClick={()=>setShowMobileFilter(!showMobileFilter)} >
                                 <img src={filter} alt="Filter"/>
@@ -115,7 +134,7 @@ const SlotsScreen = () =>{
                         </div>
 
                         <div className={"custom-filter-mobile d-lg-none"}>
-                            <CustomDropdown label={"Provider"} data={providers} onSelect={setSelected} open={showMobileFilter} setOpen={()=>{
+                            <CustomDropdown label={"Provider"}  filters={filters} setFilters={setSelectedFilters} showFilter={true} data={providers} onSelect={setSelected} open={showMobileFilter} setOpen={()=>{
                                 setShowMobileFilter(!showMobileFilter)
                             }} />
                         </div>

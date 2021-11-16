@@ -121,7 +121,8 @@ const CasinoScreen = () =>{
                                 <CustomDropdown label={"Provider"} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
                                     setFiltersFilter(false)
                                     setProviderFilter(!providerFilter)
-                                }}/>                            </div>
+                                }}/>
+                            </div>
 
                             <div className="filter-button d-lg-none" data-bs-toggle="modal"
                                  data-bs-target="#FilterModal" onClick={()=>setShowMobileFilter(!showMobileFilter)} >
@@ -130,7 +131,7 @@ const CasinoScreen = () =>{
                         </div>
 
                         <div className={"custom-filter-mobile d-lg-none"}>
-                            <CustomDropdown label={"Provider"} data={providers} onSelect={setSelectedProvider} open={showMobileFilter} setOpen={()=>{
+                            <CustomDropdown showFilter={true}  filters={filters} setFilters={setSelectedFilters} label={"Provider"} data={providers} onSelect={setSelectedProvider} open={showMobileFilter} setOpen={()=>{
                                 setFiltersFilter(false)
                                 setShowMobileFilter(!showMobileFilter)
                             }}/>
