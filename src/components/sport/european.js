@@ -11,6 +11,10 @@ export const EuropeanView=({view})=>{
     const SportLogin=(event)=>{
         document.getElementById("signIn-btn").click()
     }
+
+    const SportRegister=(event)=>{
+        document.getElementById("signUp-btn").click()
+    }
     const balanceChangeHandler=(event)=>{
         console.log("balanceChangeHandler",event)
 
@@ -30,6 +34,7 @@ export const EuropeanView=({view})=>{
         "timeZone":4,
         "oddsFormat":0,
         "login": SportLogin,
+        "registration": SportRegister,
         "sportsBookView":"europeanView",
         "fixedHeight":true,
         "clearSiteStyles":false,
