@@ -94,6 +94,11 @@ export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,sh
                     setProviders({..._.map(providers,p=>{
                             return{...p,checked:false}
                         })})
+                    if(showFilter){
+                        setFilter({..._.map(filter,p=>{
+                            return{...p,checked:false}
+                        })})
+                    }
                     setOpen(false)
                 }}>
                     Clear
