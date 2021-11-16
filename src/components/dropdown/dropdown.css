@@ -162,6 +162,10 @@
   max-height: 50%;
   flex: auto;
 }
+.custom-filter-mobile .slot-custom-search .search-input-content .clear-button {
+  height: auto;
+  padding: 10px 0;
+}
 @media (max-width: 450px) {
   .custom-filter-mobile .slot-custom-search .search-input-content .prov_list ul li {
     width: 100%;
