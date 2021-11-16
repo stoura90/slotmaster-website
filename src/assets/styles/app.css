@@ -20178,7 +20178,7 @@ input.for-confirm {
 }
 @media (min-width: 200px) {
   .card-list-item {
-    width: calc(100% / 2);
+    width: calc(100% / 3);
   }
 }
 @media (min-width: 400px) {
@@ -22897,7 +22897,7 @@ a:hover {
   font-size: 12px;
 }
 
-body {
+html, body {
   overflow-x: hidden;
 }
 

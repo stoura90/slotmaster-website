@@ -3,8 +3,8 @@ import _ from 'lodash'
 import {play as PlayIcon} from "../../assets/img/icons/icons";
 import {useSLot} from "../../core/hooks/useSLot";
 import {useLoader} from "../../core/hooks/useLoader";
-import {Loader} from "../index";
 import './slotCard.scss'
+import Loader from "../loader/loader";
 const SlotCard =({data})=> {
     const {loader}=useLoader()
     const {play}= useSLot()
@@ -12,7 +12,7 @@ const SlotCard =({data})=> {
     return (_.map(data, (v,index)=>{
                 return  (
                     <div className="card-list-item" key={index} >
-                        {/*{loader===v.gameId && <Loader/>}*/}
+                        {loader===v.gameId && <Loader/>}
                         <div className="sl-card" style={{backgroundImage:`url(${v.imageUrl})`}} >
                             <div className="sl-card-hover" onClick={()=>play(v)}>
                                 <div className="slot-card-cover "/>

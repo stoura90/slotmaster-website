@@ -117,7 +117,8 @@ const SlotsScreen = () =>{
                         <div className={"custom-filter-mobile d-lg-none"}>
                             <CustomDropdown label={"Provider"} data={providers} onSelect={setSelected} open={showMobileFilter} setOpen={()=>{
                                 setShowMobileFilter(!showMobileFilter)
-                            }} />                         </div>
+                            }} />
+                        </div>
                         {/*<div className="col-12 section-head">
                             <div className="sl_nav">
                                 <div className="sl_item sl_home" onClick={()=> homeClick()}/>
