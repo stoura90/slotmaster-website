@@ -17,6 +17,12 @@ const curencies =[
     { id:"981",value:"Lari"},
     { id:"643",value:"Russian Ruble"},
 ]
+const questions = [
+    { id:1,value:"What is your mother\'s maiden name?"},
+    { id:2,value:"What was your first pet?"},
+    { id:3,value:"What was the model of your first car?"},
+    { id:4,value:"In what city were you born?"},
+]
 
 const Information = () => {
     const [infoData, setInfoData] = useState({
@@ -29,7 +35,7 @@ const Information = () => {
         city:'',
         answer:'',
         country:"",
-        question: ""
+        question: {id:0, value:'empty'}
     });
     const [status,setStatus]=useState({
         status:"",
@@ -223,7 +229,7 @@ const Information = () => {
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
-                                            <div className={`input-label-border ${error("country")}`}>
+                                            <div className={`select-label-border ${error("country")}`}>
                                                 <select onChange={e => {
                                                     setInfoData({...infoData,country:e.target.value})
                                                 }} value={infoData?.country?.iso3} className="select2" placeholder="Country" id="account">
@@ -236,7 +242,7 @@ const Information = () => {
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
-                                            <div className={`input-label-border ${error("currency")}`}>
+                                            <div className={`select-label-border ${error("currency")}`}>
                                                 <select onChange={e => {
                                                     setInfoData({...infoData,currency:e.target.value})
                                                 }} value={infoData.currency.iso} className="select2" placeholder="Currency" id="account">
@@ -264,13 +270,13 @@ const Information = () => {
                                         <div className="col-12 order-2 order-md-1">
                                             <div className="select-label-border">
                                                 <select onChange={e => {
-                                                    setInfoData({...infoData,question:JSON.parse(e.target.value)})
-                                                }} value={infoData?.question?.value} className="select2" placeholder="Secret question" id="account">
-                                                    <option value={JSON.stringify({id:0, value:'empty'})}/>
-                                                    <option value={JSON.stringify({id:1, value:'What is your mother\'s maiden name?'})}>What is your mother's maiden name?</option>
-                                                    <option value={JSON.stringify({id:2, value:'What was your first pet?'})}>What was your first pet?</option>
-                                                    <option value={JSON.stringify({id:3, value:'What was the model of your first car?'})}>What was the model of your first car?</option>
-                                                    <option value={JSON.stringify({id:4, value:'In what city were you born?'})}>In what city were you born?</option>
+                                                    setInfoData({...infoData,question:e.target.value})
+                                                }} selValue={infoData.question} value={infoData?.question} className="select2" placeholder="Secret question" id="account">
+                                                    <option value={""}>Choose Question </option>
+                                                    {
+                                                        _.map(questions, (v,k)=> <option value={v.id} key={k}>{v.value}</option>)
+                                                    }
+
                                                 </select>
                                                 <label htmlFor="select">Secret question</label>
                                             </div>
