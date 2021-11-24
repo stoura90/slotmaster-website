@@ -299,6 +299,7 @@
     cursor: pointer;
     transition: all 0.15s linear;
     padding: 17px 14px 18px 16px;
+    border-radius: 4px;
     &:after {    content: '';}
 
     &.swiper-button-disabled {
