@@ -59,6 +59,10 @@
     -webkit-font-smoothing: antialiased;
 }
 
+html,body {
+    overflow-x: hidden;
+}
+
 body {
     padding: 0;
     margin: 0;

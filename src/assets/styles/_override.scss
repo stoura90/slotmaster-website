@@ -1,6 +1,4 @@
-html,body {
-  overflow-x: hidden;
-}
+
 .swiper-slide {
   a {
     display: block;
@@ -164,7 +162,7 @@ html,body {
   //background: #000000cc;
   background: #00000073;
   border-radius: 10px;
-  margin-top: -7vw;
+  margin-top: -5vw;
   padding-bottom: 6px;
   min-height: 288px;
   //background-image: url("../../assets/img/loader_sp_orange.gif");
@@ -184,24 +182,28 @@ html,body {
     min-height: 285px;
   }
 }
+
 #top-matches-container {
-  .gTWNOX {
+  .tm_header_heading, .tm_header_sports_wrapper, .tm_match {
     background-color: #1b1c25 !important;
-    &.jwJHTV {
+  }
+  .tm_header_wrapper {
+    div:last-child {
       background-color: transparent !important;
       button {
         background-color: #1b1c25 !important;
       }
     }
   }
-  .gbLoAb {
+
+  .tm_match_header {
     background: #1f202c !important;
     border-bottom: 1px solid rgb(50 51 59) !important;
   }
-  .ifyqcM {
+  .tm_match_content {
     padding: 14px 16px !important;
   }
-  .cQSaWH {
+  .tm_match_logo {
     width: 60px;
     height: 60px;
   }
