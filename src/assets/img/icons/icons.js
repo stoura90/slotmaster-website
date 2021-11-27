@@ -33,6 +33,10 @@ import time from "./time.svg";
 import viewOff from "./view-off.svg";
 import viewOn from "./view-on.svg";
 import loader from "./loader.gif"
+import wazdan from "./wazdan.png"
+import gr from "./gr.png"
+import kiron from "./kiron.png"
+import pragmatic from "./pragmatic.png"
 
 export {
 restriction18,
@@ -69,5 +73,9 @@ sliderArrowPrev,
 time,
 viewOff,
 viewOn,
-loader
+loader,
+    wazdan,
+    gr,
+    kiron,
+    pragmatic
 }

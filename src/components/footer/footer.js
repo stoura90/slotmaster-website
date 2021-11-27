@@ -2,7 +2,7 @@ import React from 'react';
 import '../footer/footer.scss';
 import {FooterCarousel} from "../index";
 import {betsoft, evolutionGaming, netent} from "../../assets/img/images";
-import {discord} from "../../assets/img/icons/icons";
+import {discord, gr, kiron, pragmatic, wazdan} from "../../assets/img/icons/icons";
 import {Link} from "react-router-dom";
 import {i18n} from "../../core";
 
@@ -86,16 +86,15 @@ const Footer =()=>{
                             <div className={"position-relative  logo-list ft-carousel-1"}>
                                 <FooterCarousel count={3} data={[
                                     {id:1,icon:evolutionGaming},
-                                    {id:1,icon:netent},
-                                    {id:1,icon:betsoft},
-                                    {id:1,icon:betsoft},
+                                    {id:1,icon:wazdan},
+                                    {id:1,icon:gr},
+
                                 ]}/>
                             </div>
                             <div className={"position-relative  logo-list ft-carousel-2 last"}>
                                 <FooterCarousel count={3} data={[
-                                    {id:1,icon:evolutionGaming},
-                                    {id:1,icon:netent},
-                                    {id:1,icon:betsoft},
+                                    {id:1,icon:kiron},
+                                    {id:1,icon:pragmatic},
                                     {id:1,icon:betsoft},
                                 ]}/>
                             </div>
