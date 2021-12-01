@@ -111,9 +111,7 @@ const Footer =()=>{
                                 <span>+18</span>
                             </div>
                             <div className="footer-copyright d-flex align-items-center">
-                                Copyright © 2021 www.planetaxbet.com is operated by Group
-                                Enterprises N.V., a company registered and established under the
-                                laws of Curaçao. Nexus Group Enterprises N.V. is licensed
+                                Copyright © 2021  www.planetaxbet.com is operated by Winfinity N.V. that is licensed by the Government of Curacao and operates under the Master License of Gaming Services Provider, N.V. #365/JAZ as an Information Service Provider. Winfinity N.V.’s registration number is 156346 and its registered address is Abraham de Veerstraat 9, Curaçao.
                             </div>
                         </div>
                     </div>
