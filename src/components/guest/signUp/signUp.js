@@ -31,12 +31,12 @@ const SignUp =() =>{
     const [signUpError,setSignUpError]=useState("")
     const [signUpForm,setSignUpForm]=useState({
         mail:"",
-        firstName:"",
-        lastName:"",
+        //firstName:"",
+        //lastName:"",
         mobilePrefix:1,
         mobile:"",
         countryCode:"VGB",
-        currencyCode:840,
+        //currencyCode:840,
         password:"",
         password2:"",
         username:""
@@ -59,7 +59,31 @@ const SignUp =() =>{
     const [errors,setErrors]=useState([])
     const onSignUp=()=>{
         setSignUpError("")
-        let error = _.chain(signUpForm).map((v,k)=>{ return  {key:k,value:v}}).filter(v=>!v.value).map(v=>v.key).value();
+        let error = _.chain(signUpForm)
+            .map((v,k)=>{
+                return  {key:k,value:v}
+            })
+            .filter(v=>{
+                if(v.key === 'mobile' || v.key === 'mail'){
+                    if(v.key === 'mobile' && primaryContact.phone){
+                        return v
+                    }
+                    if(v.key === 'mail' && primaryContact.email){
+                        return v
+                    }
+                    if(!primaryContact.phone && !primaryContact.email){
+                        return v
+                    }
+                } else{return v}
+                console.log(v)
+            })
+            .filter(
+                v=>!v.value
+            )
+            .map(v=>v.key).value();
+
+        //console.log(error)
+
         if(signUpForm.password.trim().length<6 || signUpForm.password !== signUpForm.password2){
             error=[...error,"password","password2"]
         }
@@ -70,7 +94,6 @@ const SignUp =() =>{
                 //alert("Passwords do not match")
                 alert("Password should contain at least 6 symbols")
             }
-
         }else{
             localStorage.removeItem("GRD_access_token")
             Actions.User.signUp(signUpForm).then(response=>{
@@ -89,6 +112,30 @@ const SignUp =() =>{
     const error=(key)=>{
         return errors.indexOf(key)>-1?"error":""
     }
+    const [primaryContact, setPrimaryContact] = useState({
+        phone:true,
+        email:false
+    });
+    const removeError=()=>{
+
+        //let ar = errors;
+        //if(!primaryContact.email && ar.indexOf('mail') !== -1){
+        //    let i = ar.indexOf('mail');
+        //    ar.splice(i, 1);
+        //    setErrors(ar)
+        //}
+
+        console.log(primaryContact)
+
+        //if(!primaryContact.phone && ar.indexOf('mobile') !== -1){
+        //    let i = ar.indexOf('mobile');
+        //    ar.splice(i, 1);
+        //    setErrors(ar)
+        //}
+
+    }
+
+
 
     return (
         <div className="modal fade"
@@ -110,7 +157,7 @@ const SignUp =() =>{
                         onSignUp();
                     }} className="signUp-form">
                         <div className="row">
-                            <div className="col-12 col-md-6">
+                            {/*<div className="col-12 col-md-6">
                                 <div className={`input-label ${error("firstName")}`}>
                                     <input type="text" name="firstName" id="name"
                                            value={signUpForm.firstName}
@@ -127,7 +174,7 @@ const SignUp =() =>{
                                     />
                                     <label htmlFor="surname">Surname</label>
                                 </div>
-                            </div>
+                            </div>*/}
                             <div className="col-12 col-md-6">
                                 <div className={`input-label ${error("username")}`}>
                                     <input type="text" name="username" id="username"
@@ -138,47 +185,8 @@ const SignUp =() =>{
                                 </div>
                             </div>
                             <div className="col-12 col-md-6">
-                                <div className={`input-label ${error("mail")}`}>
-                                    <input type="email" name="email" id="email"
-                                           value={signUpForm.mail}
-                                           onChange={event => setSignUpForm({...signUpForm,mail:event.target.value})}
-                                    />
-                                    <label htmlFor="email">Email</label>
-                                </div>
-                            </div>
-                            <div className="col-12 col-md-6" style={{display:"flex"}}>
-                                <div className="input-label" style={{width:"150px"}}>
-                                    <select className="select2" placeholder="Code"
-                                            value={signUpForm.mobilePrefix}
-                                            onChange={event => setSignUpForm({...signUpForm,mobilePrefix:event.target.value})}
-                                    >
-                                        {
-                                            _.map(MobilePrefixList, (v,k)=><option key={k} value={v.id}>{v.prefix}</option>)
-                                        }
-                                    </select>
-                                    <label htmlFor="phone">Prefix</label>
-                                </div>
-                                <div className={`input-label ${error("mobile")}`} style={{width:"100%",marginLeft:'10px'}}>
-                                    <input type="number" name="phone" id="phone"
-                                           value={signUpForm.mobile}
-                                           onChange={event => setSignUpForm({...signUpForm,mobile:event.target.value})}
-                                    />
-                                    <label htmlFor="phone">Phone</label>
-                                </div>
-                            </div>
-                            <div className="col-12 col-md-6" style={{display:"flex"}}>
-                                <div className="select-label" style={{width:"150px" }}>
-                                    <select className="select2" placeholder="Currency"
-                                            value={signUpForm.currencyCode}
-                                            onChange={event => setSignUpForm({...signUpForm,currencyCode:event.target.value})}
-                                    >
-                                        {
-                                            _.map(CurrencyList, (v,k)=><option key={k} value={v.id}>{v.name}</option>)
-                                        }
-                                    </select>
-                                    <label htmlFor="select">Currency</label>
-                                </div>
-                                <div className="select-label" style={{width:"100%",marginLeft:'10px'}}>
+
+                                <div className="select-label" style={{width:"100%"}}>
                                     <select className="select2" placeholder="Country"
                                             value={signUpForm.countryCode}
                                             onChange={event => setSignUpForm({...signUpForm,countryCode:event.target.value})}
@@ -189,6 +197,69 @@ const SignUp =() =>{
                                     </select>
                                     <label htmlFor="select">Country</label>
                                 </div>
+
+                            </div>
+                            <div className="col-12 col-md-6" >
+                                <label htmlFor="phone-primary">
+                                    <input type="checkbox" id={'phone-primary'} checked={primaryContact.phone} onChange={e =>{
+                                        setPrimaryContact({...primaryContact,phone:e.target.checked});
+                                        console.log(primaryContact) //removeError()
+                                    } }/>&nbsp; Phone Verification
+                                </label>
+                                <div style={{display:"flex"}} className={`${primaryContact.phone?'':'disable-phone'}`}>
+                                    <div className="input-label" style={{width:"150px"}}>
+                                        <select className="select2" placeholder="Code"
+                                                value={signUpForm.mobilePrefix}
+                                                onChange={event => setSignUpForm({...signUpForm,mobilePrefix:event.target.value})}
+                                        >
+                                            {
+                                                _.map(MobilePrefixList, (v,k)=><option key={k} value={v.id}>{v.prefix}</option>)
+                                            }
+                                        </select>
+                                        <label htmlFor="phone">Prefix</label>
+                                    </div>
+
+                                    <div className={`input-label ${error("mobile")}`} style={{width:"100%",marginLeft:'10px'}}>
+                                        <input type="number" name="phone" id="phone"
+                                               value={signUpForm.mobile}
+                                               onChange={event => setSignUpForm({...signUpForm,mobile:event.target.value})}
+                                        />
+                                        <label htmlFor="phone">Phone</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div className="col-12 col-md-6" >
+                                {/*<div className="select-label" style={{width:"150px" }}>
+                                    <select className="select2" placeholder="Currency"
+                                            value={signUpForm.currencyCode}
+                                            onChange={event => setSignUpForm({...signUpForm,currencyCode:event.target.value})}
+                                    >
+                                        {
+                                            _.map(CurrencyList, (v,k)=><option key={k} value={v.id}>{v.name}</option>)
+                                        }
+                                    </select>
+                                    <label htmlFor="select">Currency</label>
+                                </div>*/}
+                                <label htmlFor="email-primary">
+                                    <input type="checkbox" id={'email-primary'} checked={primaryContact.email} onChange={e =>{
+                                        setPrimaryContact({...primaryContact,email:e.target.checked});
+
+                                        //removeError()
+                                        console.log(primaryContact)
+
+                                    } }/>&nbsp; Email Verification
+                                </label>
+                                <div style={{display:"flex"}} className={`${primaryContact.email?'':'disable-email'}`}>
+                                    <div className={`input-label ${error("mail")}`} style={{width:"100%"}}>
+                                        <input type="email" name="email" id="email"
+                                               value={signUpForm.mail}
+                                               onChange={event => setSignUpForm({...signUpForm,mail:event.target.value})}
+                                        />
+                                        <label htmlFor="email">Email</label>
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div className="col-12 col-md-6">
