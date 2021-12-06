@@ -1,5 +1,6 @@
 import {close} from "../../assets/img/icons/icons"
 import {useEffect, useState} from "react";
+import {MobileVerificationModal} from "./MobileVerificationModal";
 
 window.reSendInterval=null;
 export const EmailVerificationModal = ({email})=>{
@@ -71,4 +72,8 @@ export const EmailVerificationModal = ({email})=>{
             </div>
         </div>
     </div>
+}
+
+MobileVerificationModal.defaultValues = {
+    email:''
 }

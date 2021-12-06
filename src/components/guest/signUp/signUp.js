@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {close} from "../../../assets/img/icons/icons";
 import _ from 'lodash'
 import {Actions} from "../../../core";
 import "./signUp.scss"
 import {useParams} from "react-router-dom";
+import Verification from "../../verification";
 const MobilePrefixList=[
     {id:1,prefix: "+1"},
     {id:673,prefix: "+673"},
@@ -43,9 +44,14 @@ const SignUp =() =>{
     })
     const [terms,setTerms]=useState(false)
     const [termsError,setTermsError]=useState(false);
+    const [confirmed,setConfirmed]=useState(false);
     const [passType, setPassType] = useState({
         pass1:'password',
         pass2:'password'
+    });
+    const [primaryContact, setPrimaryContact] = useState({
+        phone:true,
+        email:false
     });
     const togglePassType=(pass)=>{
         if(pass === 'pass1'){
@@ -57,6 +63,16 @@ const SignUp =() =>{
     }
 
     const [errors,setErrors]=useState([])
+
+    useEffect(()=>{
+        if(!primaryContact.email ){
+            setErrors([...errors.filter(v=>v!=='mail')])
+        }
+        if(!primaryContact.phone ){
+            setErrors([...errors.filter(v=>v!=='mobile')])
+        }
+    },[primaryContact])
+
     const onSignUp=()=>{
         setSignUpError("")
         let error = _.chain(signUpForm)
@@ -95,44 +111,38 @@ const SignUp =() =>{
                 alert("Password should contain at least 6 symbols")
             }
         }else{
-            localStorage.removeItem("GRD_access_token")
-            Actions.User.signUp(signUpForm).then(response=>{
-                if(response.status){
-                    document.getElementById("close-sign-up").click();
-                    document.getElementById("signIn-btn").click();
-                    alert("Registration completed successfully")
-                }else{
-                    setSignUpError(response.data)
-                }
 
-            })
+            if(!confirmed){
+                if(!primaryContact.phone && !primaryContact.email){
+                    alert('Chose Verification Method');
+                }else{
+                    if(primaryContact.phone){
+                        document.getElementById('btn-confirm-phone').click();
+                        return
+                    }
+                    if(primaryContact.email){
+                        document.getElementById('btn-confirm-email').click();
+                    }
+                }
+            }else{
+                localStorage.removeItem("GRD_access_token")
+                Actions.User.signUp(signUpForm).then(response=>{
+                    if(response.status){
+                        document.getElementById("close-sign-up").click();
+                        document.getElementById("signIn-btn").click();
+                        alert("Registration completed successfully")
+                    }else{
+                        setSignUpError(response.data)
+                    }
+                })
+            }
+
+
         }
 
     }
     const error=(key)=>{
         return errors.indexOf(key)>-1?"error":""
-    }
-    const [primaryContact, setPrimaryContact] = useState({
-        phone:true,
-        email:false
-    });
-    const removeError=()=>{
-
-        //let ar = errors;
-        //if(!primaryContact.email && ar.indexOf('mail') !== -1){
-        //    let i = ar.indexOf('mail');
-        //    ar.splice(i, 1);
-        //    setErrors(ar)
-        //}
-
-        console.log(primaryContact)
-
-        //if(!primaryContact.phone && ar.indexOf('mobile') !== -1){
-        //    let i = ar.indexOf('mobile');
-        //    ar.splice(i, 1);
-        //    setErrors(ar)
-        //}
-
     }
 
 
@@ -201,9 +211,8 @@ const SignUp =() =>{
                             </div>
                             <div className="col-12 col-md-6" >
                                 <label htmlFor="phone-primary">
-                                    <input type="checkbox" id={'phone-primary'} checked={primaryContact.phone} onChange={e =>{
-                                        setPrimaryContact({...primaryContact,phone:e.target.checked});
-                                        console.log(primaryContact) //removeError()
+                                    <input type="checkbox" id={'phone-primary'} value={primaryContact.phone} checked={primaryContact.phone} onChange={e =>{
+                                        setPrimaryContact({...primaryContact,phone:!(e.target.value === "true")});
                                     } }/>&nbsp; Phone Verification
                                 </label>
                                 <div style={{display:"flex"}} className={`${primaryContact.phone?'':'disable-phone'}`}>
@@ -242,12 +251,8 @@ const SignUp =() =>{
                                     <label htmlFor="select">Currency</label>
                                 </div>*/}
                                 <label htmlFor="email-primary">
-                                    <input type="checkbox" id={'email-primary'} checked={primaryContact.email} onChange={e =>{
-                                        setPrimaryContact({...primaryContact,email:e.target.checked});
-
-                                        //removeError()
-                                        console.log(primaryContact)
-
+                                    <input type="checkbox" id={'email-primary'} value={primaryContact.email} checked={primaryContact.email} onChange={e =>{
+                                        setPrimaryContact({...primaryContact,email:!(e.target.value === "true")});
                                     } }/>&nbsp; Email Verification
                                 </label>
                                 <div style={{display:"flex"}} className={`${primaryContact.email?'':'disable-email'}`}>
@@ -305,8 +310,32 @@ const SignUp =() =>{
                             </div>
                         </div>
                     </form>
+                    <button
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#confirmEmail"
+                        className="btn-confirm"
+                        id="btn-confirm-email"
+                        style={{display:'none'}}
+                    >
+                        Confirm
+                    </button>
+                    <button
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#confirmPhone"
+                        className="btn-confirm"
+                        id="btn-confirm-phone"
+                        style={{display:'none'}}
+                    >
+                        Confirm
+                    </button>
                 </div>
             </div>
+
+            <Verification.MobileVerificationModal prefix={'+'+signUpForm.mobilePrefix} number={signUpForm.mobile}/>
+            <Verification.EmailVerificationModal email={signUpForm.mail}/>
+
         </div>
     )
 }

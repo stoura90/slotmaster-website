@@ -2,15 +2,15 @@ import {close} from "../../assets/img/icons/icons"
 import {useEffect, useState} from "react";
 
 window.reSendInterval=null;
-export const MobileVerificationModal = ({number})=>{
+export const MobileVerificationModal = ({number,prefix})=>{
     const [phone,setPhone]=useState("")
     const [error,setError]=useState("")
     let [reSend,setReSend]=useState(-1)
     const  [code,setCode]=useState("")
     useEffect(()=> {
-        if(number){
+        if(number && number.length > 7){
             let length = number.toString().length;
-            setPhone("+995" +(new Array(length-2)).join("*").concat(number.substring(length-3,2)))
+            setPhone(prefix+' '+(new Array(length-2)).join("*").concat(number.substring(length-3,2)))
         }
     },[number])
 
@@ -76,4 +76,9 @@ export const MobileVerificationModal = ({number})=>{
             </div>
         </div>
     </div>
+}
+
+MobileVerificationModal.defaultValues = {
+    number:'',
+    prefix:'+995'
 }
