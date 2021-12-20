@@ -4,9 +4,10 @@ import {FooterCarousel} from "../index";
 import {betsoft, evolutionGaming, netent} from "../../assets/img/images";
 import {discord, gr, kiron, pragmatic, wazdan} from "../../assets/img/icons/icons";
 import {Link} from "react-router-dom";
-import {i18n} from "../../core";
+import {i18n, useTranslation} from "../../core";
 
 const Footer =()=>{
+    const {t} = useTranslation()
     return(
         <footer className="footer">
             <div className="container">
@@ -53,32 +54,32 @@ const Footer =()=>{
                     <div className="col-12 col-lg-3">
                         <ul className="footer-menu">
                             <li>
-                                <a href="#">About Us</a>
+                                <a href="#">{t("About Us")}</a>
                             </li>
                             <li>
-                                <a href="#">Blog</a>
+                                <a href="#">{t("Blog")}</a>
                             </li>
                             <li>
-                                <a href="#">Promotions</a>
+                                <a href="#">{t('Promotions')}</a>
                             </li>
                             <li>
-                                <a href="#">Affiliates</a>
+                                <a href="#">{t('Affiliates')}</a>
                             </li>
                             <li>
-                                <Link to={`/${i18n.language}/terms`}>Terms and conditions</Link>
+                                <Link to={`/${i18n.language}/terms`}>{t("Terms and conditions")}</Link>
                             </li>
                             <li>
-                                <Link to={`/${i18n.language}/contact`}>Contact Us</Link>
+                                <Link to={`/${i18n.language}/contact`}>{t("Contact Us")}</Link>
                             </li>
                         </ul>
                     </div>
                     <div className="col-12 col-lg-3">
                         <ul className="footer-menu">
-                            <li><Link to={`/${i18n.language}/privacy`}>Privacy Policy</Link></li>
-                            <li><Link to={`/${i18n.language}/kyc_aml`}>KYC/AML Policy</Link></li>
-                            <li className="d-none d-md-flex"><Link to={`/${i18n.language}/responsible_gaming`}>Responsible Gaming</Link></li>
-                            <li><Link to={`/${i18n.language}/self_exclusion_policy`}>Self Exclusion Policy</Link></li>
-                            <li><a href="#">Underage Gaming Policy</a></li>
+                            <li><Link to={`/${i18n.language}/privacy`}>{t("Privacy Policy")}</Link></li>
+                            <li><Link to={`/${i18n.language}/kyc_aml`}>{t("KYC/AML Policy")}</Link></li>
+                            <li className="d-none d-md-flex"><Link to={`/${i18n.language}/responsible_gaming`}>{t("Responsible Gaming")}</Link></li>
+                            <li><Link to={`/${i18n.language}/self_exclusion_policy`}>{t("Self Exclusion Policy")}</Link></li>
+                            <li><a href="#">{t("Underage Gaming Policy")}</a></li>
                         </ul>
                     </div>
                     <div className="col-12 col-lg-6">

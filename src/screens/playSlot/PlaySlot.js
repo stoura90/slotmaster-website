@@ -6,6 +6,7 @@ import {Guest} from "../../components";
 import {useNavigation} from "../../core/hooks/useNavigation";
 
 const PlaySlot= () => {
+    const {t} = useTranslation()
     const dispatch = useDispatch();
     const {User} = useUser()
     const navigation  = useNavigation()
@@ -31,7 +32,7 @@ const PlaySlot= () => {
     return <div style={{width:'100%', height:'100%'}}>
         <Guest/>
         <button className="btn-text text-capitalize" data-bs-toggle="modal" data-bs-target="#LoginModal"
-                id="signIn-btn" style={{display:"none"}}>log in
+                id="signIn-btn" style={{display:"none"}}>{t("Log In")}
         </button>
 
 

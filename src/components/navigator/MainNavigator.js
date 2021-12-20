@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {BrowserRouter as Router, BrowserRouter, Redirect, Route} from "react-router-dom";
 import {guestRoutes,userRoutes} from "../../route";
 import {createBrowserHistory} from "history";

@@ -17,8 +17,10 @@ import {
 import {Balance, Footer, Header} from "../../components";
 
 import "../../assets/styles/_select2.scss"
+import {useTranslation} from "../../core";
 const DepositScreen = () =>{
     const nav  = useNavigation();
+    const {t} = useTranslation()
     useEffect(()=>{
         console.log(nav)
 
@@ -37,7 +39,7 @@ const DepositScreen = () =>{
                                 <div className="col-12">
                                     <a href="/finances.html" className="d-flex align-items-center back">
                                         <img src={arrowLeftBack} alt=""/>
-                                        <div className="tab-headline">Deposit</div>
+                                        <div className="tab-headline">{t('Deposit')}</div>
                                     </a>
                                 </div>
                                 <div className="col-12">
@@ -76,7 +78,7 @@ const DepositScreen = () =>{
                                                     data-bs-target="#depositModal"
                                                     className="btn-dep"
                                                 >
-                                                    Deposit
+                                                    {t("Deposit")}
                                                 </button>
                                             </div>
                                         </div>
@@ -114,7 +116,7 @@ const DepositScreen = () =>{
                                                     data-bs-target="#depositModal"
                                                     className="btn-dep"
                                                 >
-                                                    Deposit
+                                                    {t('Deposit')}
                                                 </button>
                                             </div>
                                         </div>
@@ -152,7 +154,7 @@ const DepositScreen = () =>{
                                                     data-bs-target="#depositModal"
                                                     className="btn-dep"
                                                 >
-                                                    Deposit
+                                                    {t("Deposit")}
                                                 </button>
                                             </div>
                                         </div>
@@ -190,7 +192,7 @@ const DepositScreen = () =>{
                                                     data-bs-target="#depositModal"
                                                     className="btn-dep"
                                                 >
-                                                    Deposit
+                                                    {t("Deposit")}
                                                 </button>
                                             </div>
                                         </div>
@@ -228,7 +230,7 @@ const DepositScreen = () =>{
                                                     data-bs-target="#depositModal"
                                                     className="btn-dep"
                                                 >
-                                                    Deposit
+                                                    {t('Deposit')}
                                                 </button>
                                             </div>
                                         </div>
@@ -266,7 +268,7 @@ const DepositScreen = () =>{
                                                     data-bs-target="#depositModal"
                                                     className="btn-dep"
                                                 >
-                                                    Deposit
+                                                    {t("Deposit")}
                                                 </button>
                                             </div>
                                         </div>
@@ -304,7 +306,7 @@ const DepositScreen = () =>{
                                                     data-bs-target="#depositModal"
                                                     className="btn-dep"
                                                 >
-                                                    Deposit
+                                                    {t("Deposit")}
                                                 </button>
                                             </div>
                                         </div>
@@ -342,7 +344,7 @@ const DepositScreen = () =>{
                                                     data-bs-target="#depositModal"
                                                     className="btn-dep"
                                                 >
-                                                    Deposit
+                                                    {t("Deposit")}
                                                 </button>
                                             </div>
                                         </div>
@@ -380,7 +382,7 @@ const DepositScreen = () =>{
                                                     data-bs-target="#depositModal"
                                                     className="btn-dep"
                                                 >
-                                                    Deposit
+                                                    {t("Deposit")}
                                                 </button>
                                             </div>
                                         </div>
@@ -418,7 +420,7 @@ const DepositScreen = () =>{
                                                     data-bs-target="#depositModal"
                                                     className="btn-dep"
                                                 >
-                                                    Deposit
+                                                    {t("Deposit")}
                                                 </button>
                                             </div>
                                         </div>
@@ -456,7 +458,7 @@ const DepositScreen = () =>{
                                                     data-bs-target="#depositModal"
                                                     className="btn-dep"
                                                 >
-                                                    Deposit
+                                                    {t("Deposit")}
                                                 </button>
                                             </div>
                                         </div>
@@ -494,7 +496,7 @@ const DepositScreen = () =>{
                                                     data-bs-target="#depositModal"
                                                     className="btn-dep"
                                                 >
-                                                    Deposit
+                                                    {t("Deposit")}
                                                 </button>
                                             </div>
                                         </div>

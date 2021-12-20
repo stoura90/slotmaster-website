@@ -11,7 +11,9 @@ import {
 
 import {Balance, Footer, Header} from "../../components";
 import "../../assets/styles/_select2.scss"
+import {useTranslation} from "../../core";
 const TransactionScreen = () =>{
+    const {t} = useTranslation()
     const nav  = useNavigation();
     useEffect(()=>{
         console.log(nav)
@@ -31,7 +33,7 @@ const TransactionScreen = () =>{
                                 <div className="col-12">
                                     <button className="d-flex align-items-center back bg-transparent">
                                         <img src="img/icons/arrow-left-back.svg" alt=""/>
-                                        <div className="tab-headline">Transaction History</div>
+                                        <div className="tab-headline">{t("Transaction History")}</div>
                                     </button>
                                 </div>
                                 <div className="col-12">
@@ -44,7 +46,7 @@ const TransactionScreen = () =>{
                                                     className="date-filter"
                                                     id="date"
                                                 />
-                                                <label htmlFor="date">Date: <span>All</span></label>
+                                                <label htmlFor="date">Date: <span>{t("All")}</span></label>
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-4 d-none d-md-block">
@@ -81,9 +83,9 @@ const TransactionScreen = () =>{
                                                     type="type"
                                                 >
                                                     <option value=""></option>
-                                                    <option value="deposit">Deposit</option>
-                                                    <option value="withdraw">Withdrawal</option>
-                                                    <option disabled>clear</option>
+                                                    <option value="deposit">{t("Deposit")}</option>
+                                                    <option value="withdraw">{t("Withdrawal")}</option>
+                                                    <option disabled>{t("clear")}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -93,22 +95,22 @@ const TransactionScreen = () =>{
 
                                     <div className="row mx-0 table-head">
                                         <div className="col">
-                                            <div className="table-th">Date</div>
+                                            <div className="table-th">{t('Date')}</div>
                                         </div>
                                         <div className="col">
-                                            <div className="table-th">Time</div>
+                                            <div className="table-th">{t("Time")}</div>
                                         </div>
                                         <div className="col ps-0">
-                                            <div className="table-th">Vendor</div>
+                                            <div className="table-th">{t("Vendor")}</div>
                                         </div>
                                         <div className="col">
-                                            <div className="table-th">Amount</div>
+                                            <div className="table-th">{t("Amount")}</div>
                                         </div>
                                         <div className="col">
-                                            <div className="table-th">Type</div>
+                                            <div className="table-th">{t("Type")}</div>
                                         </div>
                                         <div className="col">
-                                            <div className="table-th">Status</div>
+                                            <div className="table-th">{t("Status")}</div>
                                         </div>
                                     </div>
 
@@ -128,10 +130,10 @@ const TransactionScreen = () =>{
                                             <div className="table-td">100000.00 USD</div>
                                         </div>
                                         <div className="col">
-                                            <div className="table-td">+ Deposit</div>
+                                            <div className="table-td">+ {t('Deposit')}</div>
                                         </div>
                                         <div className="col">
-                                            <div className="table-td success">Successful</div>
+                                            <div className="table-td success">{t("Successful")}</div>
                                         </div>
                                     </div>
                                     <div className="row mx-0 table-tbody align-items-center">
@@ -150,10 +152,10 @@ const TransactionScreen = () =>{
                                             <div className="table-td">110.10 USD</div>
                                         </div>
                                         <div className="col">
-                                            <div className="table-td">- Withdrawal</div>
+                                            <div className="table-td">- {t("Withdrawal")}</div>
                                         </div>
                                         <div className="col">
-                                            <div className="table-td canceled">Canceled</div>
+                                            <div className="table-td canceled">{t("Canceled")}</div>
                                         </div>
                                     </div>
                                     <div className="row mx-0 table-tbody align-items-center">
@@ -172,10 +174,10 @@ const TransactionScreen = () =>{
                                             <div className="table-td">52.00 USD</div>
                                         </div>
                                         <div className="col">
-                                            <div className="table-td">- Withdrawal</div>
+                                            <div className="table-td">- {t("Withdrawal")}</div>
                                         </div>
                                         <div className="col">
-                                            <div className="table-td canceled">Canceled</div>
+                                            <div className="table-td canceled">{t("Canceled")}</div>
                                         </div>
                                     </div>
                                     <div className="row mx-0 table-tbody align-items-center">
@@ -342,8 +344,8 @@ const TransactionScreen = () =>{
                                             data-bs-toggle="modal"
                                             data-bs-target="#filterModal"
                                         >
-                                            <div className="name">Filter:</div>
-                                            <div className="status">None</div>
+                                            <div className="name">{t('Filter')}:</div>
+                                            <div className="status">{t("None")}</div>
                                             <img src="img/icons/h-arrows.svg" alt=""/>
                                         </div>
                                     </div>
@@ -437,7 +439,7 @@ const TransactionScreen = () =>{
                                         <div className="show-info">
                                             You’ve viewed 20 of 911 Transaction
                                         </div>
-                                        <div className="show-more-btn">show more</div>
+                                        <div className="show-more-btn">{t("show more")}</div>
                                     </div>
                                 </div>
                             </div>

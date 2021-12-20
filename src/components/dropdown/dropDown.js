@@ -3,10 +3,11 @@ import "./dropdown.scss"
 import {close, multiArrow} from "../../assets/img/icons/icons"
 import _ from 'lodash'
 import PropTypes from "prop-types";
+import {useTranslation} from "../../core";
 export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,showFilter,filters,setFilters})=>{
     const [providers,setProviders]=useState([])
     const [filter,setFilter]=useState([])
-
+    const {t} = useTranslation()
     useEffect(()=>{
         if(setFilter && open){
             document.body.style.overflowY="hidden"
@@ -43,7 +44,7 @@ export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,sh
                         <img src={close} alt=""/>
                     </div>
                 </div>
-                <div style={{paddingLeft:"20px",color:"white",marginTop:"50px"}}><h5>Categories</h5></div>
+                <div style={{paddingLeft:"20px",color:"white",marginTop:"50px"}}><h5>{t("Categories")}</h5></div>
                 <div className="prov_list">
                     <ul>
 
@@ -63,7 +64,7 @@ export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,sh
 
                     </ul>
                 </div>
-                <div style={{paddingLeft:"20px",color:"white"}}><h5>Providers</h5></div>
+                <div style={{paddingLeft:"20px",color:"white"}}><h5>{t("Providers")}</h5></div>
 
                 <div className="prov_list">
                     <ul>

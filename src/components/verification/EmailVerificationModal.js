@@ -1,9 +1,11 @@
 import {close} from "../../assets/img/icons/icons"
 import {useEffect, useState} from "react";
 import {MobileVerificationModal} from "./MobileVerificationModal";
+import {useTranslation} from "../../core";
 
 window.reSendInterval=null;
 export const EmailVerificationModal = ({email})=>{
+    const {t} = useTranslation()
     const [error,setError]=useState("")
     let [reSend,setReSend]=useState(-1)
     const  [code,setCode]=useState("")
@@ -38,7 +40,7 @@ export const EmailVerificationModal = ({email})=>{
                     <button className="close" data-bs-dismiss="modal">
                         <img src={close} alt="Close modal"/>
                     </button>
-                    <div className="modal-title">Email Verification</div>
+                    <div className="modal-title">{t("Email Verification")}</div>
                 </div>
                 <form onSubmit={e=>{
                     e.preventDefault();
@@ -49,24 +51,23 @@ export const EmailVerificationModal = ({email})=>{
 
                 }} className="confirm-form">
                     <p className="confirm-text">
-                        A 6-digit SMS code was sent to:
+                        {t("A 6-digit SMS code was sent to")}:
                         <br/>
-                        <span className="phone-num">{email}</span><br/> Please enter the
-                        code in the field below to confirm:
+                        <span className="phone-num">{email}</span><br/> {t("Please enter the code in the field below to confirm")}:
                     </p>
                     <div className="input-label-border">
                         <input type="number" name="code" id="code" value={code} onChange={e=>setCode(e.target.value)} className="for-confirm"/>
-                        <label htmlFor="code">SMS Code</label>
+                        <label htmlFor="code">{t("SMS Code")}</label>
                         {
                             reSend!==-1? <span className="timeout">{reSend}</span>: <button type="button" className="btn-confirm" onClick={()=>{
                                 setCode("")
                                 setReSend(10)
-                            }}>Send</button>
+                            }}>{t("Send")}</button>
                         }
                     </div>
-                    <p style={{color:"red"}}>{error}</p>
+                    <p style={{color:"red"}}>{t(error)}</p>
                     <button type="submit" className="btn-dep justify-content-center px-0">
-                        Confirm
+                        {t("Confirm")}
                     </button>
                 </form>
             </div>

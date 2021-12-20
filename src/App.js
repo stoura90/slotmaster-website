@@ -20,7 +20,6 @@ const  App=()=> {
         }
 
     },[])
-
     const errorHandler=(event)=>{
         switch (event.type){
             case 'signOut': signOut();break;

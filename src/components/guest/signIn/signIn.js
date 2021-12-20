@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
 import {close} from "../../../assets/img/icons/icons";
-import {Actions} from "../../../core";
+import {Actions, useTranslation} from "../../../core";
 import {useDispatch} from "react-redux";
 import "./signin.scss"
 import {useParams} from "react-router-dom";
 
 const SignIn =() =>{
-
+    const {t} = useTranslation()
     const dispatch = useDispatch();
     const signInRef = useRef({current:null})
     const [loginForm,setLoginForm]=useState({
@@ -44,7 +44,7 @@ const SignIn =() =>{
             document.getElementById("close-sign-in").click();
         }else{
             //setError(response?.data?.error_description)
-            setError('specified username or password is incorrect');
+            setError(t('specified username or password is incorrect'));
         }
     }
 
@@ -64,14 +64,14 @@ const SignIn =() =>{
                         <button className="close" id={"close-sign-in"} data-bs-dismiss="modal">
                             <img src={close} alt="Close modal"/>
                         </button>
-                        <div className="modal-title">Log In</div>
+                        <div className="modal-title">{t("Log In")}</div>
                     </div>
                     <form onSubmit={(event)=>{
                         event.preventDefault();
                         if(loginForm.username && loginForm.password){
                             signIn()
                         }else{
-                            alert("Please fill in all the fields")
+                            alert(t("Please fill in all the fields"))
                         }
                     }} className="form">
 
@@ -79,13 +79,13 @@ const SignIn =() =>{
                             <input type="text" name="email" id="email"
                                    value={loginForm.username} onChange={event => setLoginForm({...loginForm,username:event.target.value})}
                             />
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="email">{t("Email")}</label>
                         </div>
                         <div className="input-label" >
                             <input type="password" name="password" id="signIn_password"
                                    value={loginForm.password} onChange={event => setLoginForm({...loginForm,password:event.target.value})}
                             />
-                            <label htmlFor="password">Password</label>
+                            <label htmlFor="password">{t("Password")}</label>
                             <div className="toggle-password hide"  onClick={e => {
                                 let classList = e.target.classList;
                                 let contain = classList.contains('hide');
@@ -103,17 +103,17 @@ const SignIn =() =>{
 
                         </div>
                         <div className="input-label" >
-                            <p className={"forgot-password"}>Forgot password?</p>
+                            <p className={"forgot-password"}>{t("Forgot password")}?</p>
                         </div>
                         {
                             error && <div className="login_error" style={{color:'#ff7e7e'}}>{error}</div>
                         }
 
-                        <button type="submit" className="btn-primary" >Log In</button>
+                        <button type="submit" className="btn-primary" >{t("Log In")}</button>
                     </form>
-                    <p style={{fontSize:"0.75rem", color:"white", textAlign:"center", marginTop:"10px"}}>Don't have an account? <span className={"forgot-password"} onClick={()=>{
+                    <p style={{fontSize:"0.75rem", color:"white", textAlign:"center", marginTop:"10px"}}>{t("Don't have an account?")} <span className={"forgot-password"} onClick={()=>{
                         document.getElementById("signUp-btn").click()
-                    }}>Sign Up</span></p>
+                    }}>{t("Sign Up")}</span></p>
                 </div>
             </div>
         </div>

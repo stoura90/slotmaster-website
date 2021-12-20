@@ -2,13 +2,14 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {sl2, w2} from '../../assets/img/images';
 import {Footer, Header, ShowMore, SlotCard, Swp} from "../../components";
 import "../../assets/styles/_select2.scss"
-import {Actions} from "../../core";
+import {Actions, useTranslation} from "../../core";
 import _ from "lodash"
 import {useParams} from "react-router-dom";
 import {CustomDropdown} from "../../components/dropdown/dropDown";
 import {filter} from "../../assets/img/icons/icons";
 
 const VirtualsScreen = () =>{
+    const  {t} = useTranslation()
     const [page,setPage]=useState(1)
     const [providers,setProviders]=useState([])
     const [filters,setFilters]=useState([])
@@ -103,7 +104,7 @@ const VirtualsScreen = () =>{
                                     type="text"
                                     name="search"
                                     className="search"
-                                    placeholder="Search"
+                                    placeholder={t("Search")}
                                     value={searchText}
                                     onChange={e=>setSearchText(e.target.value)}
                                 />

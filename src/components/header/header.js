@@ -7,7 +7,9 @@ import {
 } from '../../assets/img/icons/icons';
 import {Link, useParams} from "react-router-dom";
 import PropTypes from 'prop-types';
+import {useTranslation} from "../../core";
 const Header = ({page}) =>{
+    const {t} = useTranslation()
     const {User} = useUser();
     const {lang} = useParams();
     useEffect(()=>{
@@ -40,7 +42,7 @@ const Header = ({page}) =>{
                                             </div>
 
                                             <Link  to={`/${lang}/account`} className="account-link"><img src={account} alt=""/></Link>
-                                            <Link  to={`/${lang}/deposit`} className="deposit-link">deposit</Link>
+                                            <Link  to={`/${lang}/deposit`} className="deposit-link">{t("deposit")}</Link>
                                         {/*<button
                                             className="navbar-toggler"
                                             type="button"
@@ -74,7 +76,7 @@ const Header = ({page}) =>{
                                             id={"signIn-btn"}
 
                                         >
-                                            log in
+                                            {t('Log In')}
                                         </button>
                                         <button
                                             className="btn-primary text-capitalize"
@@ -82,7 +84,7 @@ const Header = ({page}) =>{
                                             data-bs-target="#SignupModal"
                                             id={"signUp-btn"}
                                         >
-                                            Sing up
+                                            {t("Sing Up")}
                                         </button>
                                     </>
                                 }
@@ -120,22 +122,22 @@ const Header = ({page}) =>{
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={`/${lang}/sport`} className={`nav-link ${page==='sport'? 'active':''}`}>Sport</Link>
+                                <Link to={`/${lang}/sport`} className={`nav-link ${page==='sport'? 'active':''}`}>{t("Sport")}</Link>
                             </li>
                             <li className="nav-item">
-                                <Link  className={`nav-link ${page==='live'? 'active':''}`} to={`/${lang}/live`}>Live</Link>
+                                <Link  className={`nav-link ${page==='live'? 'active':''}`} to={`/${lang}/live`}>{t("Live")}</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={`/${lang}/virtuals`}  className={`nav-link ${page==='virtuals'? 'active':''}`} >Virtuals</Link>
+                                <Link to={`/${lang}/virtuals`}  className={`nav-link ${page==='virtuals'? 'active':''}`} >{t("Virtuals")}</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={`/${lang}/casino`}  className={`nav-link ${page==='casino'? 'active':''}`}>Casino</Link>
+                                <Link to={`/${lang}/casino`}  className={`nav-link ${page==='casino'? 'active':''}`}>{t("Casino")}</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={`/${lang}/slots`}  className={`nav-link ${page==='slots'? 'active':''}`}>Slot</Link>
+                                <Link to={`/${lang}/slots`}  className={`nav-link ${page==='slots'? 'active':''}`}>{t("Slot")}</Link>
                             </li>
                             <li className="nav-item">
-                                <Link  to={`/${lang}/promo`}  className={`nav-link ${page==='promo'? 'active':''}`}>Promo</Link>
+                                <Link  to={`/${lang}/promo`}  className={`nav-link ${page==='promo'? 'active':''}`}>{t("Promo")}</Link>
                             </li>
                         </ul>
                     </div>

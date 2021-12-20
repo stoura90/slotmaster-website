@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {close} from "../../../assets/img/icons/icons";
 import _ from 'lodash'
-import {Actions} from "../../../core";
+import {Actions, useTranslation} from "../../../core";
 import "./signUp.scss"
 import {useParams} from "react-router-dom";
 import Verification from "../../verification";
@@ -29,6 +29,7 @@ const CountryList=[
 ]
 
 const SignUp =() =>{
+    const {t} = useTranslation()
     const [signUpError,setSignUpError]=useState("")
     const [signUpForm,setSignUpForm]=useState({
         mail:"",
@@ -160,7 +161,7 @@ const SignUp =() =>{
                         <button className="close"  id={"close-sign-up"} data-bs-dismiss="modal">
                             <img src={close} alt="Close modal"/>
                         </button>
-                        <div className="modal-title">Sign Up</div>
+                        <div className="modal-title">{t("Sign Up")}</div>
                     </div>
                     <form onSubmit={(event)=>{
                         event.preventDefault();
@@ -191,7 +192,7 @@ const SignUp =() =>{
                                            value={signUpForm.username}
                                            onChange={event => setSignUpForm({...signUpForm,username:event.target.value})}
                                     />
-                                    <label htmlFor="surname">Username</label>
+                                    <label htmlFor="surname">{t("Username")}</label>
                                 </div>
                             </div>
                             <div className="col-12 col-md-6">
@@ -205,7 +206,7 @@ const SignUp =() =>{
                                             _.map(CountryList, (v,k)=><option key={k} value={v.id}>{v.name}</option>)
                                         }
                                     </select>
-                                    <label htmlFor="select">Country</label>
+                                    <label htmlFor="select">{t("Country")}</label>
                                 </div>
 
                             </div>
@@ -213,7 +214,7 @@ const SignUp =() =>{
                                 <label htmlFor="phone-primary">
                                     <input type="checkbox" id={'phone-primary'} value={primaryContact.phone} checked={primaryContact.phone} onChange={e =>{
                                         setPrimaryContact({...primaryContact,phone:!(e.target.value === "true")});
-                                    } }/>&nbsp; Phone Verification
+                                    } }/>&nbsp; {t("Phone Verification")}
                                 </label>
                                 <div style={{display:"flex"}} className={`${primaryContact.phone?'':'disable-phone'}`}>
                                     <div className="input-label" style={{width:"150px"}}>
@@ -225,7 +226,7 @@ const SignUp =() =>{
                                                 _.map(MobilePrefixList, (v,k)=><option key={k} value={v.id}>{v.prefix}</option>)
                                             }
                                         </select>
-                                        <label htmlFor="phone">Prefix</label>
+                                        <label htmlFor="phone">{t("Prefix")}</label>
                                     </div>
 
                                     <div className={`input-label ${error("mobile")}`} style={{width:"100%",marginLeft:'10px'}}>
@@ -233,7 +234,7 @@ const SignUp =() =>{
                                                value={signUpForm.mobile}
                                                onChange={event => setSignUpForm({...signUpForm,mobile:event.target.value})}
                                         />
-                                        <label htmlFor="phone">Phone</label>
+                                        <label htmlFor="phone">{t("Phone")}</label>
                                     </div>
                                 </div>
 
@@ -253,7 +254,7 @@ const SignUp =() =>{
                                 <label htmlFor="email-primary">
                                     <input type="checkbox" id={'email-primary'} value={primaryContact.email} checked={primaryContact.email} onChange={e =>{
                                         setPrimaryContact({...primaryContact,email:!(e.target.value === "true")});
-                                    } }/>&nbsp; Email Verification
+                                    } }/>&nbsp; {t("Email Verification")}
                                 </label>
                                 <div style={{display:"flex"}} className={`${primaryContact.email?'':'disable-email'}`}>
                                     <div className={`input-label ${error("mail")}`} style={{width:"100%"}}>
@@ -261,7 +262,7 @@ const SignUp =() =>{
                                                value={signUpForm.mail}
                                                onChange={event => setSignUpForm({...signUpForm,mail:event.target.value})}
                                         />
-                                        <label htmlFor="email">Email</label>
+                                        <label htmlFor="email">{t("Email")}</label>
                                     </div>
                                 </div>
 
@@ -275,7 +276,7 @@ const SignUp =() =>{
                                            value={signUpForm.password}
                                            onChange={event => setSignUpForm({...signUpForm,password:event.target.value})}
                                     />
-                                    <label htmlFor="password">Password</label>
+                                    <label htmlFor="password">{t("Password")}</label>
                                     <div className={`toggle-password ${passType.pass1==='text'?'active':'hide'}`} onClick={()=>{togglePassType('pass1')}}/>
                                 </div>
                             </div>
@@ -288,7 +289,7 @@ const SignUp =() =>{
                                         value={signUpForm.password2}
                                         onChange={event => setSignUpForm({...signUpForm,password2:event.target.value})}
                                     />
-                                    <label htmlFor="confirmPassword">Repeat Password</label>
+                                    <label htmlFor="confirmPassword">{t("Repeat Password")}</label>
                                     <div className={`toggle-password ${passType.pass2==='text'?'active':'hide'}`} onClick={()=>{togglePassType('pass2')}}/>
                                 </div>
                             </div>
@@ -301,12 +302,12 @@ const SignUp =() =>{
                                             setTermsError(false)
                                         }
                                     } }/>&nbsp;
-                                    By clicking sign up, you accept our <span style={{textDecoration:'underline'}}><a href="/ka/terms">Terms & Conditions</a></span> and that you are over 18 years old.
+                                    {t("By clicking sign up, you accept our")} <span style={{textDecoration:'underline'}}><a href="/ka/terms">{t("Terms & Conditions")}</a></span> {t("and that you are over 18 years old")}
                                 </label>
                             </div>
-                            <div className={"error-text"}>{signUpError}</div>
+                            <div className={"error-text"}>{t(signUpError)}</div>
                             <div className="col-12">
-                                <button type="submit" className="btn-primary">Sign Up</button>
+                                <button type="submit" className="btn-primary">{t("Sign Up")}</button>
                             </div>
                         </div>
                     </form>
@@ -318,7 +319,7 @@ const SignUp =() =>{
                         id="btn-confirm-email"
                         style={{display:'none'}}
                     >
-                        Confirm
+                        {t("Confirm")}
                     </button>
                     <button
                         type="button"
@@ -328,11 +329,10 @@ const SignUp =() =>{
                         id="btn-confirm-phone"
                         style={{display:'none'}}
                     >
-                        Confirm
+                        {t("Confirm")}
                     </button>
                 </div>
             </div>
-
             <Verification.MobileVerificationModal prefix={'+'+signUpForm.mobilePrefix} number={signUpForm.mobile}/>
             <Verification.EmailVerificationModal email={signUpForm.mail}/>
 

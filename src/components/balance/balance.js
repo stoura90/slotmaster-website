@@ -38,8 +38,10 @@ import {
     viewOn,
 } from '../../assets/img/icons/icons';
 import {Link, useParams} from "react-router-dom";
+import {useTranslation} from "../../core";
 
 const Balance = () =>{
+    const {t} = useTranslation()
     const {User,signOut} = useUser();
     const {lang} = useParams();
     const [showBalance,setShowBalance] = useState(false)
@@ -85,7 +87,7 @@ const Balance = () =>{
                             transform="translate(0.012 -46.924)"
                         />
                     </svg>
-                    <span>Log Out</span>
+                    <span>{t("Log Out")}</span>
                 </a>
             </div>
             <div className="col-12">
@@ -94,8 +96,8 @@ const Balance = () =>{
                 >
                     <div className="d-flex align-items-center justify-content-between px-1 px-lg-0">
                         <div className="d-flex d-lg-none flex-column balance-item mob">
-                            <span>Balance</span>
-                            <div className={`sum ${showBalance?'':'blur-text'}`}>100000.00 <span className={`${showBalance?'':'blur-text'}`}>USD</span></div>
+                            <span>{t("Balance")}</span>
+                            <div className={`sum ${showBalance?'':'blur-text'}`}>100000.00 <span className={`${showBalance?'':'blur-text'}`}>{t("USD")}</span></div>
                         </div>
                         <div className="d-flex align-items-center">
                             <button className="btn-for-icon" onClick={()=>setShowBalance(!showBalance)}>
@@ -110,24 +112,24 @@ const Balance = () =>{
                     <div className="row mx-0 w-100 balance-info">
                         <div className="col-12 col-lg-4 d-none d-lg-flex">
                             <div className="d-flex flex-column balance-item">
-                                <span>Balance</span>
-                                <div  className={`sum ${showBalance?'':'blur-text'}`}>${showBalance?"100000.00 ":"0000000"}<span className={`${showBalance?'':'blur-text'}`}>USD</span></div>
+                                <span>{t("Balance")}</span>
+                                <div  className={`sum ${showBalance?'':'blur-text'}`}>${showBalance?"100000.00 ":"0000000"}<span className={`${showBalance?'':'blur-text'}`}>{t("USD")}</span></div>
                             </div>
                         </div>
                         <div className="col-6 col-lg-4">
                             <div className="d-flex flex-column balance-item">
-                                <span>Pending Bets</span>
-                                <div  className={`sum ${showBalance?'':'blur-text'}`}>${showBalance?"0.00 ":"0000000"} <span className={`${showBalance?'':'blur-text'}`}>USD</span></div>
+                                <span>{t("Pending Bets")}</span>
+                                <div  className={`sum ${showBalance?'':'blur-text'}`}>${showBalance?"0.00 ":"0000000"} <span className={`${showBalance?'':'blur-text'}`}>{t("USD")}</span></div>
                             </div>
                         </div>
                         <div className="col-6 col-lg-4">
                             <div className="d-flex flex-column balance-item">
-                                <span className="text-nowrap">Pending Withdrawals</span>
-                                <div  className={`sum ${showBalance?'':'blur-text'}`}>${showBalance?"100000.00 ":"0000000"} <span className={`${showBalance?'':'blur-text'}`}>USD</span></div>
+                                <span className="text-nowrap">{t("Pending Withdrawals")}</span>
+                                <div  className={`sum ${showBalance?'':'blur-text'}`}>${showBalance?"100000.00 ":"0000000"} <span className={`${showBalance?'':'blur-text'}`}>{t("USD")}</span></div>
                             </div>
                         </div>
                     </div>
-                    <button className="btn-dep">Make a Deposit</button>
+                    <button className="btn-dep">{t("Make a Deposit")}</button>
                 </div>
             </div>
             <div className="col-12">
@@ -139,7 +141,7 @@ const Balance = () =>{
                             href="/personal.html"
                             className="d-flex align-items-center justify-content-between nav-link"
                         >
-                            <span>Personal Data</span>
+                            <span>{t("Personal Data")}</span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="16"
@@ -158,7 +160,7 @@ const Balance = () =>{
                             href="/confirmation.html"
                             className="d-flex align-items-center justify-content-between nav-link"
                         >
-                            <span>Account Confirmation</span>
+                            <span>{t("Account Confirmation")}</span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="16"

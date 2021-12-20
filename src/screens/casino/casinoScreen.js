@@ -103,11 +103,11 @@ const CasinoScreen = () =>{
                                     type="text"
                                     name="search"
                                     className="search"
-                                    placeholder="Search"
+                                    placeholder={t("Search")}
                                     value={searchText}
                                     onChange={e=>setSearchText(e.target.value)}
                                 />
-                                <span className="btn-search"></span>
+                                <span className="btn-search"/>
                             </div>
 
                             <div className="select-label d-none d-lg-flex me-0" style={{paddingRight:'10px'}}>

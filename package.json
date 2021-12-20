@@ -1,6 +1,7 @@
 {
   "name": "slotmaster",
   "version": "0.1.0",
+  "license": "",
   "private": true,
   "dependencies": {
     "@microblink/blinkid-in-browser-sdk": "^5.10.0",

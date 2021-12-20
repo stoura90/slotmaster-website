@@ -11,14 +11,12 @@ import {
 } from '../../assets/img/images';
 import { Footer,  Header, Swp} from "../../components";
 import PromoCard from "../../components/promo/promoCard";
+import {useTranslation} from "../../core";
 
 
 const PromoScreen = () =>{
-    const nav  = useNavigation();
-    useEffect(()=>{
-        console.log(nav)
+    const {t} = useTranslation()
 
-    },[nav]);
     return (
         <>
             <Header page={"promo"}/>
@@ -38,21 +36,21 @@ const PromoScreen = () =>{
 
                     <ul className="d-flex align-items-center flex-wrap promo-tabs list-unstyled">
                         <li className="nav-item" role="presentation">
-                            <a href="#" className="nav-link active"> All </a>
+                            <a href="#" className="nav-link active"> {t("All")} </a>
                         </li>
                         <li className="nav-item" role="presentation">
-                            <a href="#" className="nav-link"> Casino </a>
+                            <a href="#" className="nav-link"> {t("Casino")} </a>
                         </li>
                         <li className="nav-item" role="presentation">
-                            <a href="#" className="nav-link"> Sports </a>
+                            <a href="#" className="nav-link"> {t("Sports")} </a>
                         </li>
                         <li className="nav-item" role="presentation">
-                            <a href="#" className="nav-link"> Shop </a>
+                            <a href="#" className="nav-link"> {t("Shop")} </a>
                         </li>
                     </ul>
                     <div className="col-12 d-flex align-items-center section-head">
                         <a href="#">
-                            <div className="section-heading">all Provider</div>
+                            <div className="section-heading">{t("all Provider")}</div>
                         </a>
                     </div>
 

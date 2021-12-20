@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './style.scss';
-import {Actions} from "../../../core";
+import {Actions, useTranslation} from "../../../core";
 import _ from "lodash";
 import {Verification} from "../../index";
 
@@ -25,6 +25,7 @@ const questions = [
 ]
 
 const Information = () => {
+    const {t} = useTranslation()
     const [infoData, setInfoData] = useState({
         firstName:'',
         email:'',
@@ -82,13 +83,13 @@ const Information = () => {
                     setStatus({
                         ...status,
                         status:'success',
-                        msg:'The information was successfully updated'
+                        msg:t('The information was successfully updated')
                     })
                 }else {
                     setStatus({
                         ...status,
                         status:"error",
-                        msg:"An error occurred while updating the information"
+                        msg:t("An error occurred while updating the information")
                     })
                 }
             })
@@ -105,7 +106,7 @@ const Information = () => {
                     aria-labelledby="personal-tab"
                 >
                     <div className="account-tab-inner">
-                        <div className="tab-headline">Personal Data</div>
+                        <div className="tab-headline">{t("Personal Data")}</div>
                         <ul className="mb-sub-tabs nav nav-tabs d-md-none" id="myTab" role="tablist">
                             <li role="presentation">
                                 <button
@@ -118,7 +119,7 @@ const Information = () => {
                                     aria-controls="information"
                                     aria-selected="true"
                                 >
-                                    Information
+                                    {t("Information")}
                                 </button>
                             </li>
                             <li role="presentation">
@@ -132,7 +133,7 @@ const Information = () => {
                                     aria-controls="security"
                                     aria-selected="false"
                                 >
-                                    Security
+                                    {t("Security")}
                                 </button>
                             </li>
                         </ul>
@@ -153,7 +154,7 @@ const Information = () => {
                                 >
                                     <div className="row personal-row">
                                         <div className="col-12 d-none d-md-flex">
-                                            <div className="form-title">Information</div>
+                                            <div className="form-title">{t("Information")}</div>
                                         </div>
                                         <div className="col-12 col-md-6">
                                             <div className={`input-label-border ${error("mobile")}`}  >
@@ -165,16 +166,16 @@ const Information = () => {
                                                     value={infoData.mobile}
                                                     onChange={e => setInfoData({...infoData,mobile:e.target.value})}
                                                 />
-                                                <label htmlFor="phone">Phone</label>
+                                                <label htmlFor="phone">{t("Phone")}</label>
                                                 {
-                                                    infoData?.additions?.is_mobile_verified?<span className="confirmed">Confirmed</span>:
+                                                    infoData?.additions?.is_mobile_verified?<span className="confirmed">{t("Confirmed")}</span>:
                                                         <button
                                                             type="button"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#confirmPhone"
                                                             className="btn-confirm"
                                                         >
-                                                            Confirm
+                                                            {t("Confirm")}
                                                         </button>
                                                 }
                                             </div>
@@ -199,7 +200,7 @@ const Information = () => {
                                                             data-bs-target="#confirmEmail"
                                                             className="btn-confirm"
                                                         >
-                                                            Confirm
+                                                            {t("Confirm")}
                                                         </button>
                                                 }
                                             </div>
@@ -207,25 +208,25 @@ const Information = () => {
                                         <div className="col-12 col-md-6">
                                             <div  className={`input-label-border ${error("firstName")}`}>
                                                 <input onChange={e => setInfoData({...infoData,firstName:e.target.value})} value={infoData.firstName} type="text" name="name" id="name"/>
-                                                <label htmlFor="name">Name</label>
+                                                <label htmlFor="name">{t("Name")}</label>
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
                                             <div className={`input-label-border ${error("lastName")}`}>
                                                 <input onChange={e => setInfoData({...infoData,lastName:e.target.value})} value={infoData.lastName} type="text" name="surname" id="surname"/>
-                                                <label htmlFor="surname">Surname</label>
+                                                <label htmlFor="surname">{t("Surname")}</label>
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
                                             <div className={`input-label-border ${error("dob")}`}>
                                                 <input onChange={e => setInfoData({...infoData,dob:e.target.value})} value={infoData.dob} type="date" name="dob" id="dob"/>
-                                                <label htmlFor="dob">Date of birth</label>
+                                                <label htmlFor="dob">{t("Date of birth")}</label>
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
                                             <div className={`input-label-border ${error("username")}`}>
                                                 <input onChange={e => setInfoData({...infoData,username:e.target.value})} value={infoData.username} type="text" name="username" id="username" placeholder="username"/>
-                                                <label htmlFor="username">Username</label>
+                                                <label htmlFor="username">{t("Username")}</label>
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
@@ -233,12 +234,12 @@ const Information = () => {
                                                 <select onChange={e => {
                                                     setInfoData({...infoData,country:e.target.value})
                                                 }} value={infoData?.country?.iso3} className="select2" placeholder="Country" id="account">
-                                                    <option value={""}>Choose Country </option>
+                                                    <option value={""}>{t("Choose Country")} </option>
                                                     {
                                                         _.map(countries,  (v,k)=> <option key={k} value={v.id}> {v.value}</option>)
                                                     }
                                                 </select>
-                                                <label htmlFor="select">Country</label>
+                                                <label htmlFor="select">{t("Country")}</label>
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
@@ -246,12 +247,12 @@ const Information = () => {
                                                 <select onChange={e => {
                                                     setInfoData({...infoData,currency:e.target.value})
                                                 }} value={infoData.currency.iso} className="select2" placeholder="Currency" id="account">
-                                                    <option value={""}>Choose Currency </option>
+                                                    <option value={""}>{t("Choose Currency")} </option>
                                                     {
                                                         _.map(curencies,(v,k)=><option key={k} value={v.id}>{v.value}</option>)
                                                     }
                                                 </select>
-                                                <label htmlFor="select">Currency</label>
+                                                <label htmlFor="select">{t("Currency")}</label>
                                             </div>
                                         </div>
 
@@ -265,26 +266,26 @@ const Information = () => {
                                 >
                                     <div className="row personal-row">
                                         <div className="col-12 d-none d-md-flex">
-                                            <div className="form-title">Security</div>
+                                            <div className="form-title">{t("Security")}</div>
                                         </div>
                                         <div className="col-12 order-2 order-md-1">
                                             <div className="select-label-border">
                                                 <select onChange={e => {
                                                     setInfoData({...infoData,question:e.target.value})
-                                                }} selValue={infoData.question} value={infoData?.question} className="select2" placeholder="Secret question" id="account">
+                                                }} selValue={infoData.question} value={infoData?.question} className="select2" placeholder={t("Secret question")} id="account">
                                                     <option value={""}>Choose Question </option>
                                                     {
                                                         _.map(questions, (v,k)=> <option value={v.id} key={k}>{v.value}</option>)
                                                     }
 
                                                 </select>
-                                                <label htmlFor="select">Secret question</label>
+                                                <label htmlFor="select">{t("Secret question")}</label>
                                             </div>
                                         </div>
                                         <div className="col-12 order-3 order-md-2">
                                             <div className="input-label-border">
                                                 <input onChange={e => setInfoData({...infoData,answer:e.target.value})} value={infoData.answer} type="text" name="secret-answer" id="secretAnswer"/>
-                                                <label htmlFor="secretAnswer">Secret answer</label>
+                                                <label htmlFor="secretAnswer">{t("Secret answer")}</label>
                                             </div>
                                         </div>
                                         <div className="col-12 order-1 order-md-3">
@@ -294,14 +295,14 @@ const Information = () => {
                                                 data-bs-target="#passwordModal"
                                                 type="button"
                                             >
-                                                Change Password
+                                                {t("Change Password")}
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div style={{color:`${status.status ==="success"? 'green':'red'}`}}>{status.msg}</div>
-                            <button type="submit" className="btn-primary">Save</button>
+                            <button type="submit" className="btn-primary">{t("Save")}</button>
                         </form>
 
 

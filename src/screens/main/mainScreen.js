@@ -1,14 +1,13 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import { ajax, bayern,inter,liver,manCity,manUn,milan,sl2,w1,w2,prg, slotSardCover} from '../../assets/img/images';
+import React, { useEffect, useRef, useState} from 'react';
+import { sl2,w2} from '../../assets/img/images';
 import {Carousel, Header, Swp, Footer, Sport} from "../../components";
-import {useSLot} from "../../core/hooks/useSLot";
 import {Link, useParams} from "react-router-dom";
-import {Actions} from "../../core";
+import {Actions, useTranslation} from "../../core";
 
 
 const MainScreen = () =>{
+    const {t} = useTranslation()
     const {lang}=useParams();
-    const {play}=useSLot()
     const ref=useRef();
     const [resize,setResize]=useState(window.innerWidth)
     const [mainPageSlotList,setMainPageSlotList]=useState([])
@@ -202,8 +201,8 @@ const MainScreen = () =>{
                     </div>
                     <div className="row">
                         <div className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
-                            <div className="section-heading">slots</div>
-                            <Link to={`/${lang}/slots`}>View all</Link>
+                            <div className="section-heading">{t('slots')}</div>
+                            <Link to={`/${lang}/slots`}>{t("View all")}</Link>
                         </div>
                         <div className="col-12 main-slots-area" data-count={Math.round(resize/300)}>
                             <div className="sl-prev-button"/>
@@ -221,8 +220,8 @@ const MainScreen = () =>{
                     </div>
                     <div className="row">
                         <div className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
-                            <div className="section-heading">casino</div>
-                            <Link to={`/${lang}/casino`}>View all</Link>
+                            <div className="section-heading">{t("casino")}</div>
+                            <Link to={`/${lang}/casino`}>{t("View all")}</Link>
                         </div>
                         <div className="col-12 main-casino-area" data-count={Math.round(resize/300)}>
                             <div className="sl-prev-casino-button"/>
