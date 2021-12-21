@@ -20412,6 +20412,7 @@ input.for-confirm {
   }
 }
 .navbar .navbar-collapse .navbar-nav .nav-item .nav-link {
+  white-space: nowrap;
   position: relative;
   height: 100%;
   padding: 20px 0;
