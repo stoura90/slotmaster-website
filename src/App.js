@@ -1,6 +1,6 @@
 import {Suspense, useEffect, useLayoutEffect, useState} from 'react'
 
-import {Actions, Provider} from "./core";
+import {Actions, Provider, useTranslation} from "./core";
 import {Footer, Guest, Header, MainNavigator, Modal} from "./components";
 import EventEmitter from "./core/utils/eventEmitter";
 import {useDispatch} from "react-redux";
@@ -8,10 +8,22 @@ import {useUser} from "./core/hooks/useUser";
 
 const eventEmitter = new EventEmitter();
 const  App=()=> {
+    const {t,i18n}  = useTranslation()
     const dispatch = useDispatch();
     const {signOut} = useUser()
     const [loaded,setLoaded]=useState(false)
     useEffect( () => {
+        if(window.location.pathname.includes("/en")){
+            if(i18n.language!=="en"){
+                i18n.changeLanguage("en")
+            }
+        }else{
+            if(i18n.language!=="ru"){
+                i18n.changeLanguage("ru")
+            }
+        }
+
+
         ping()
         eventEmitter.on("httpError", errorHandler)
 

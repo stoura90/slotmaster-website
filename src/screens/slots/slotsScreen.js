@@ -116,14 +116,14 @@ const SlotsScreen = () =>{
                                 <span className="btn-search"></span>
                             </div>
                             <div className="select-label d-none d-lg-flex me-0" style={{paddingRight:'10px'}}>
-                                <CustomDropdown label={"Filters"} data={filters} onSelect={setSelectedFilters} open={filtersFilter}  setOpen={()=>{
+                                <CustomDropdown label={t("Filters")} data={filters} onSelect={setSelectedFilters} open={filtersFilter}  setOpen={()=>{
                                     setFiltersFilter(!filtersFilter)
                                     setProviderFilter(false)
                                 }}/>
                             </div>
 
                             <div className="select-label d-none d-lg-flex me-0">
-                                <CustomDropdown label={"Provider"} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
+                                <CustomDropdown label={t("Provider")} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
                                     setFiltersFilter(false)
                                     setProviderFilter(!providerFilter)
                                 }}/>
@@ -135,7 +135,7 @@ const SlotsScreen = () =>{
                         </div>
 
                         <div className={"custom-filter-mobile d-lg-none"}>
-                            <CustomDropdown label={"Provider"}  filters={filters} setFilters={setSelectedFilters} showFilter={true} data={providers} onSelect={setSelected} open={showMobileFilter} setOpen={()=>{
+                            <CustomDropdown label={t("Provider")}  filters={filters} setFilters={setSelectedFilters} showFilter={true} data={providers} onSelect={setSelected} open={showMobileFilter} setOpen={()=>{
                                 setShowMobileFilter(!showMobileFilter)
                             }} />
                         </div>

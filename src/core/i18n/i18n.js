@@ -5,8 +5,9 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import { useTranslation ,withTranslation} from 'react-i18next';
 //language files
 
-//ka
-import main_ka from "./locales/ka/main.json";
+//en
+import main_en from "./locales/en/main.json";
+import main_ru from "./locales/ru/main.json";
 
 
 
@@ -15,15 +16,18 @@ i18n
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-        fallbackLng: 'ka',
-        lng: 'ka',
+        fallbackLng: 'ru',
+        lng: localStorage.getItem("i18nextLng")||'ru',
         debug: true,
         interpolation: {
             escapeValue: false,
         },
         resources: {
-            ka: {
-                main: main_ka,
+            ru: {
+                main: main_ru,
+            },
+            en: {
+                main: main_en,
             }
         },
         ns: ["main"],

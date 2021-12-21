@@ -24,7 +24,7 @@ const MainNavigator = ()=>{
                             render={props => (
                                 <route.component {...props} />
                             )} />
-                    ) : <Redirect to={'/ka'}/>;
+                    ) : <Redirect to={'/ru'}/>;
                 })}
             </BrowserRouter>
 

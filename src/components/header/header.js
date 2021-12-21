@@ -8,6 +8,7 @@ import {
 import {Link, useParams} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {useTranslation} from "../../core";
+import ChangeLagunge from "../languages/ChangeLagunge";
 const Header = ({page}) =>{
     const {t} = useTranslation()
     const {User} = useUser();
@@ -88,7 +89,7 @@ const Header = ({page}) =>{
                                         </button>
                                     </>
                                 }
-
+                                <ChangeLagunge/>
                             </div>
                         </div>
                     </div>

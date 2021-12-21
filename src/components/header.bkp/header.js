@@ -59,11 +59,11 @@ const Header =()=>{
                                                     <div className="qr_auth_button">&nbsp;</div>
                                                 </div>
                                                 <div className="zl2-auth">
-                                                    <div className="lang" data-lang="ka">
+                                                    <div className="lang" data-lang="en">
                                                         <div className="current_lang">&nbsp;</div>
                                                         <div className="lang_box">
                                                             <div className="lang_list">
-                                                                <div className="flag_item" data-lang="ka" onClick={()=>this.change_lang('ka')}>&nbsp;</div>
+                                                                <div className="flag_item" data-lang="en" onClick={()=>this.change_lang('en')}>&nbsp;</div>
                                                                 <div className="flag_item" data-lang="ru" onClick={()=>this.change_lang('ru')}>&nbsp;</div>
                                                                 <div className="flag_item" data-lang="en" onClick={()=>this.change_lang('en')}>&nbsp;</div>
                                                             </div>
@@ -134,11 +134,11 @@ const Header =()=>{
                                                     </div>
                                                 </div>*/}
                                                 {/*<div className="zl2-ubox">
-                                                    <div className="lang" data-lang="ka">
+                                                    <div className="lang" data-lang="en">
                                                         <div className="current_lang">&nbsp;</div>
                                                         <div className="lang_box">
                                                             <div className="lang_list">
-                                                                <div className="flag_item" data-lang="ka" onClick={()=>this.change_lang('ka')}>&nbsp;</div>
+                                                                <div className="flag_item" data-lang="en" onClick={()=>this.change_lang('en')}>&nbsp;</div>
                                                                 <div className="flag_item" data-lang="ru" onClick={()=>this.change_lang('ru')}>&nbsp;</div>
                                                                 <div className="flag_item" data-lang="en" onClick={()=>this.change_lang('en')}>&nbsp;</div>
                                                             </div>
