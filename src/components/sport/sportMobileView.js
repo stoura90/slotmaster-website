@@ -1,10 +1,14 @@
 import React, {useEffect, useLayoutEffect, useMemo, useState} from "react";
 import {useUser} from "../../core/hooks/useUser";
-import {Actions} from "../../core";
+import {Actions, useTranslation} from "../../core";
 import _ from 'lodash'
 import {useDispatch} from "react-redux";
+import {useParams} from "react-router-dom";
 export const SportMobileView=()=>{
+    const {i18n} = useTranslation()
     const {User} = useUser();
+    const {lang} = useParams()
+
     const dispatch = useDispatch();
     const SportLogin=(event)=>{
         document.getElementById("signIn-btn").click()
@@ -17,7 +21,7 @@ export const SportMobileView=()=>{
         "server":["www.planetaxbet.com","planetaxbet.com"].indexOf(window.location.hostname)>-1?"https://sport.planetaxbet.com/":"https://sport.staging.planetaxbet.com/",
         "containerId":"application-container",
         "token":"-",
-        "defaultLanguage":"en",
+        "defaultLanguage":lang,
         "timeZone":4,
         "hasRouterDisabled":false,
         "loginTrigger": SportLogin,
@@ -50,6 +54,12 @@ export const SportMobileView=()=>{
             })
         }else{
             loadFrame(params)
+        }
+        i18n.on('languageChanged', function(lng) {
+            window.location.reload()
+        })
+        return () =>{
+            i18n.off("languageChanged")
         }
     },[])
     return <div id="application-container">

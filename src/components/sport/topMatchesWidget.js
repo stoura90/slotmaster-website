@@ -10,7 +10,7 @@ export const TopMatchesWidget=({lang})=>{
     const [params]=useState({
         "server":["www.planetaxbet.com","planetaxbet.com"].indexOf(window.location.hostname)>-1?"https://sport.planetaxbet.com/":"https://sport.staging.planetaxbet.com/",
         "target":"#top-matches-container",
-        "defaultLanguage": "en"
+        "defaultLanguage":lang
     })
     const getToken=()=>{
         return  Actions.Sport.token()

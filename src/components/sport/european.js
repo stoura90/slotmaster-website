@@ -1,17 +1,19 @@
 import React, {useEffect, useLayoutEffect, useMemo, useState} from "react";
 import {useUser} from "../../core/hooks/useUser";
-import {Actions} from "../../core";
+import {Actions, useTranslation} from "../../core";
 import _ from 'lodash'
 import Listeners from "../../utils/listeners";
 import {useDispatch} from "react-redux";
+import {useParams} from "react-router-dom";
 export const EuropeanView=({view})=>{
+    const {i18n} = useTranslation()
     const {User} = useUser();
+    const {lang} = useParams()
     const dispatch=useDispatch()
-    const [token,setToken]=useState("-")
+    const [token,setToken]=useState("_")
     const SportLogin=(event)=>{
         document.getElementById("signIn-btn").click()
     }
-
     const SportRegister=(event)=>{
         document.getElementById("signUp-btn").click()
     }
@@ -26,11 +28,11 @@ export const EuropeanView=({view})=>{
         console.log("eventsHandlerCallback",event)
         dispatch(Actions.User.ping())
     }
-    const [params]=useState({
+    const [params,setParams]=useState({
         "server":["www.planetaxbet.com","planetaxbet.com"].indexOf(window.location.hostname)>-1?"https://sport.planetaxbet.com/":"https://sport.staging.planetaxbet.com/",
         "token":"_",
         "currentPage":view,
-        "language":"en",
+        "language":lang,
         "timeZone":4,
         "oddsFormat":0,
         "login": SportLogin,
@@ -43,6 +45,27 @@ export const EuropeanView=({view})=>{
         "eventsHandler":eventsHandlerCallback
 
     })
+    useEffect( () => {
+        if (User.isLogged) {
+            response.then(res=>{
+                if(res.status){
+                    setToken(res.data.data.token)
+                    loadFrame({...params,token:res.data.data.token})
+                }
+            })
+        }else{
+            loadFrame(params)
+        }
+        i18n.on('languageChanged', function(lng) {
+            window.location.reload()
+        })
+        return () =>{
+            i18n.off("languageChanged")
+        }
+    },[])
+
+
+
     const getToken=()=>{
         return  Actions.Sport.token()
     }
@@ -53,32 +76,8 @@ export const EuropeanView=({view})=>{
             return [k, v]
         }))
     }
-    useLayoutEffect( () => {
-        if (User.isLogged) {
-            response.then(res=>{
-                if(res.status){
-                    setToken(res.data.data.token)
-                    loadFrame({...params,token:res.data.data.token})
-                }else {
-                   loadFrame(params)
-                }
-            })
-        }else{
-            loadFrame(params)
-        }
-       /* listeners.onWindowResizeListener((window)=>{
-            if(Timeout.timeout){
-                Timeout.clear()
-            }
-            Timeout.set(()=>{
-                loadFrame({...params,token:token})
-            },200)
-        })*/
-       /* return ()=>{
-            listeners.onRemoveWindowResizeListener(e=>{
-                console.log("removeListener")
-            })
-        }*/
-    },[])
+
+
+
     return <div id="sport_div_iframe"/>
 }

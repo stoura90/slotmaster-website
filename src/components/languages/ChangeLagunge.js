@@ -4,10 +4,9 @@ import {useParams} from "react-router-dom";
 import "./changeLagunge.scss"
  const ChangeLagunge = () =>{
     const {i18n} = useTranslation()
-    const params = useParams()
 
     return  <div className={"changeLagunge"}>
-        <select name="ChangeLanguage"  id="" value={i18n.language} onChange={e=>{
+        <select name="ChangeLanguage" id="" value={i18n.language} onChange={e=>{
             window.history.pushState(null,null,window.location.pathname.replace(i18n.language,e.target.value))
             i18n.changeLanguage(e.target.value)
         }}>
