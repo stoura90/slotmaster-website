@@ -13,15 +13,9 @@ const  App=()=> {
     const {signOut} = useUser()
     const [loaded,setLoaded]=useState(false)
     useEffect( () => {
-        if(window.location.pathname.includes("/en")){
-            if(i18n.language!=="en"){
-                i18n.changeLanguage("en")
-            }
-        }else{
-            if(i18n.language!=="ru"){
-                i18n.changeLanguage("ru")
-            }
-        }
+
+        checkLanguage()
+
 
 
         ping()
@@ -30,8 +24,25 @@ const  App=()=> {
         return () => {
             eventEmitter.removeListener("httpError")
         }
-
     },[])
+
+    const checkLanguage = ()=>{
+        if(window.location.pathname.includes("/en") || window.location.pathname.includes("/ru")){
+            if(window.location.pathname.includes("/en")){
+                if(i18n.language!=="en"){
+                    i18n.changeLanguage("en")
+                }
+            }else{
+                if(i18n.language!=="ru"){
+                    i18n.changeLanguage("ru")
+                }
+            }
+        }else{
+            window.location.href="/ru"
+        }
+
+
+    }
     const errorHandler=(event)=>{
         switch (event.type){
             case 'signOut': signOut();break;

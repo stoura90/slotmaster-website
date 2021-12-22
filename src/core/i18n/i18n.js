@@ -17,8 +17,11 @@ i18n
     .use(initReactI18next)
     .init({
         fallbackLng: 'ru',
+        whitelist: ['ru', 'en'],
+        preload: ['ru', 'en'],
         lng: localStorage.getItem("i18nextLng")||'ru',
         debug: true,
+
         interpolation: {
             escapeValue: false,
         },
