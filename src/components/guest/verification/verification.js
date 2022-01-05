@@ -153,7 +153,12 @@ const UserVerification =() =>{
                         <button className="close"  id={"close-sign-up"} data-bs-dismiss="modal">
                             <img src={close} alt="Close modal"/>
                         </button>
-                        <div className="modal-title">{t("User Verification")}</div>
+                        <div className="modal-title">
+                            {
+                                step !== 1 && <div className="back-step" onClick={()=>setStep(step-1)}> {'< '}{t("Back")}</div>
+                            }
+                            {t("User Verification")}
+                        </div>
                     </div>
                     {
                         step === 1 &&
@@ -168,7 +173,7 @@ const UserVerification =() =>{
                                                value={signUpForm.firstName}
                                                onChange={event => setSignUpForm({...signUpForm,firstName:event.target.value})}
                                         />
-                                        <label htmlFor="name">Name</label>
+                                        <label htmlFor="name">{t("Name")}</label>
                                     </div>
                                 </div>
                                 <div className="col-12 col-md-6">
@@ -177,7 +182,7 @@ const UserVerification =() =>{
                                                value={signUpForm.lastName}
                                                onChange={event => setSignUpForm({...signUpForm,lastName:event.target.value})}
                                         />
-                                        <label htmlFor="surname">Surname</label>
+                                        <label htmlFor="surname">{t("Surname")}</label>
                                     </div>
                                 </div>
 
@@ -262,7 +267,7 @@ const UserVerification =() =>{
                     }
                     {
                         step === 2 &&
-                        <div className="row step2">
+                        <div className="row step2" style={{marginTop:'20px'}}>
 
                             <div className="col-12 col-md-6">
                                 <div className="select-label" style={{width:"100%"}}>
@@ -303,7 +308,7 @@ const UserVerification =() =>{
                             <div className="col-12 col-md-6">
                                 <div className="pass-template">
                                     <p>Upload a photo of the first spread or passport/ID card front side.</p>
-                                    <div className="upload-box">
+                                    <div className="status-box upload">
                                         <span>Upload Document</span>
                                     </div>
                                 </div>
@@ -326,7 +331,10 @@ const UserVerification =() =>{
                                     <button>Upload Again</button>
                                 </div>
                             </div>
-
+                            <div className={"error-text"}>{t(signUpError)}</div>
+                            <div className="col-12">
+                                <button type="submit" style={{width:'100%'}} className="btn-primary">{t("Confirm And Continue")}</button>
+                            </div>
                         </div>
                     }
 

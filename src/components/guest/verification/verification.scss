@@ -11,6 +11,22 @@
 .row [class*=col-] {
   margin-bottom: 16px;
 }
+
+.back-step {
+  display: inline-block;
+  margin: 0;
+  margin-right: 20px;
+  background-color: #444c66;
+  padding: 2px 18px;
+  border-radius: 4px;
+  font-size: 17px;
+  &:hover {
+    cursor: pointer;
+    background-color: #ffbc00;
+    color: #000;
+  }
+}
+
 .pass-template {
   width: 100%;
   min-height: 140px;
@@ -18,28 +34,33 @@
   border: 2px solid #3a445a;
   border-radius: 6px;
   display: flex;
+  height: 270px;
   flex-direction: column;
-  p {flex: 1; color: #cccccc;padding: 20px}
-  .upload-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #cccccc;
-    min-height: 130px;
-    margin: 20px;
-    border: 2px dashed #3a445a;
-    border-radius: 6px;
-    &:hover {
-      cursor: pointer;
-      background-color: #212940;
-    }
-  }
+  p {flex: 1; color: #cccccc;padding: 20px;padding-bottom: 0}
+
+
   .status-box {
     min-height: 86px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #cccccc;
+    &.upload {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #cccccc;
+      min-height: 130px;
+      margin: 20px;
+      margin-top: 0;
+      border: 2px dashed #3a445a;
+      border-radius: 6px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: #212940;
+      }
+    }
     &.wrong {color: #c13e3e;}
     &.success {color: #34a230;}
   }
@@ -55,6 +76,7 @@
       background-color: #545f81;
     }
   }
+
   /*&:hover {
     cursor: pointer;
     border-radius: 4px;
