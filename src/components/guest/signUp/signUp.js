@@ -3,7 +3,6 @@ import {close} from "../../../assets/img/icons/icons";
 import _ from 'lodash'
 import {Actions, useTranslation} from "../../../core";
 import "./signUp.scss"
-import {useParams} from "react-router-dom";
 import Verification from "../../verification";
 const MobilePrefixList=[
     {id:1,prefix: "+1"},
@@ -12,14 +11,12 @@ const MobilePrefixList=[
     {id:226,prefix: "+226"},
     {id:257,prefix: "+257"}
 ]
-
 const CurrencyList=[
     {id:840,name: "USD"},
     {id:978,name: "EUR"},
     {id:981,name: "GEL"},
     {id:643,name: "RUB"}
 ]
-
 const CountryList=[
     {id:"VGB",name: "British Virgin Islands"},
     {id:"BRN",name: "Brunei Darussalam"},
@@ -27,10 +24,10 @@ const CountryList=[
     {id:"BFA",name: "Burkina Faso"},
     {id:"BDI",name: "Burundi"},
 ]
-
 const SignUp =() =>{
     const {t} = useTranslation()
     const [signUpError,setSignUpError]=useState("")
+    const [otpDialog,setOtpDialog]=useState(null)
     const [signUpForm,setSignUpForm]=useState({
         mail:"",
         //firstName:"",
@@ -54,17 +51,8 @@ const SignUp =() =>{
         phone:true,
         email:false
     });
-    const togglePassType=(pass)=>{
-        if(pass === 'pass1'){
-            setPassType(passType.pass1 === 'text'?{...passType,pass1:'password'}:{...passType,pass1:'text'})
-        }else{
-            setPassType(passType.pass2 === 'text'?{...passType,pass2:'password'}:{...passType,pass2:'text'})
-        }
-
-    }
-
+    const [otpError,setOtpError]=useState("");
     const [errors,setErrors]=useState([])
-
     useEffect(()=>{
         if(!primaryContact.email ){
             setErrors([...errors.filter(v=>v!=='mail')])
@@ -73,80 +61,116 @@ const SignUp =() =>{
             setErrors([...errors.filter(v=>v!=='mobile')])
         }
     },[primaryContact])
-
-    const onSignUp=()=>{
-        setSignUpError("")
-        let error = _.chain(signUpForm)
-            .map((v,k)=>{
-                return  {key:k,value:v}
-            })
-            .filter(v=>{
-                if(v.key === 'mobile' || v.key === 'mail'){
-                    if(v.key === 'mobile' && primaryContact.phone){
-                        return v
-                    }
-                    if(v.key === 'mail' && primaryContact.email){
-                        return v
-                    }
-                    if(!primaryContact.phone && !primaryContact.email){
-                        return v
-                    }
-                } else{return v}
-                console.log(v)
-            })
-            .filter(
-                v=>!v.value
-            )
-            .map(v=>v.key).value();
-
-        //console.log(error)
-
-        if(signUpForm.password.trim().length<6 || signUpForm.password !== signUpForm.password2){
-            error=[...error,"password","password2"]
+    useEffect(()=>{
+        if(otpDialog){
+            document.getElementById(otpDialog==="mail"?"btn-confirm-email":"btn-confirm-phone").click();
         }
-        if(error.length>0 || !terms){
-            setTermsError(terms? false:true)
-            setErrors([...error])
-            if(error.length===2 && error[0]==="password" && error[1]==="password2"){
-                //alert("Passwords do not match")
-                alert("Password should contain at least 6 symbols")
-            }
+    },[otpDialog])
+    const onSignUp=(signUpForm)=>{
+
+         window.grecaptcha.execute('6LcsE_IdAAAAAElaP_6dOnfzTJD2irfkvp1wzIeS', {action: 'register'}).then(async(token)=> {
+             console.log(token)
+             setSignUpError("")
+             let error = _.chain(signUpForm)
+                 .map((v,k)=>{
+                     return  {key:k,value:v}
+                 })
+                 .filter(v=>{
+                     if(v.key === 'mobile' || v.key === 'mail'){
+                         if(v.key === 'mobile' && primaryContact.phone){
+                             return v
+                         }
+                         if(v.key === 'mail' && primaryContact.email){
+                             return v
+                         }
+                         if(!primaryContact.phone && !primaryContact.email){
+                             return v
+                         }
+                     } else{return v}
+                 })
+                 .filter(
+                     v=>!v.value
+                 )
+                 .map(v=>v.key).value();
+
+             //console.log(error)
+
+             if(signUpForm.password.trim().length<6 || signUpForm.password !== signUpForm.password2){
+                 error=[...error,"password","password2"]
+             }
+             if(error.length>0 || !terms){
+                 setTermsError(!terms)
+                 setErrors([...error])
+                 if(error.length===2 && error[0]==="password" && error[1]==="password2"){
+                     //alert("Passwords do not match")
+                     alert(t("Password should contain at least 6 symbols"))
+                 }
+             }else{
+                 if(!confirmed){
+                     if(!primaryContact.phone && !primaryContact.email){
+                         alert('Chose Verification Method');return;
+                     }
+                 }
+                 localStorage.removeItem("GRD_access_token")
+                 Actions.User.signUp({...signUpForm,token:token}).then(response=>{
+                     if(response.status){
+                         document.getElementById("close-sign-up").click();
+                         document.getElementById("signIn-btn").click();
+                         alert("Registration completed successfully")
+                     }else{
+
+                         if(response?.reason?.response?.data?.data){
+                             let key = _.keys(response?.reason?.response?.data?.data)[0];
+                             let val = response?.reason?.response?.data?.data[key];
+                             console.log(key,val)
+                             if(key==="otp"){
+                                 if(['mail',"mobile"].indexOf(val)>-1){
+                                     setOtpDialog(val)
+                                 }else{
+                                     setOtpError(val)
+                                 }
+                             }else{
+                                 if(errors.indexOf(key)===-1){
+                                     setErrors([...errors,key])
+                                 }
+                             }
+
+                         }
+                         setSignUpError(response.data)
+                     }
+                 }).catch(reason => console.log(reason))
+                 /*if(!confirmed){
+                     if(!primaryContact.phone && !primaryContact.email){
+                         alert('Chose Verification Method');
+                     }else{
+                         if(primaryContact.phone){
+                             document.getElementById('btn-confirm-phone').click();
+                             return
+                         }
+                         if(primaryContact.email){
+                             document.getElementById('btn-confirm-email').click();
+                         }
+                     }
+                 }else{
+
+                 }*/
+
+
+             }
+         }).catch(ex=>console.log(ex))
+
+    }
+    const togglePassType=(pass)=>{
+        if(pass === 'pass1'){
+            setPassType(passType.pass1 === 'text'?{...passType,pass1:'password'}:{...passType,pass1:'text'})
         }else{
-
-            if(!confirmed){
-                if(!primaryContact.phone && !primaryContact.email){
-                    alert('Chose Verification Method');
-                }else{
-                    if(primaryContact.phone){
-                        document.getElementById('btn-confirm-phone').click();
-                        return
-                    }
-                    if(primaryContact.email){
-                        document.getElementById('btn-confirm-email').click();
-                    }
-                }
-            }else{
-                localStorage.removeItem("GRD_access_token")
-                Actions.User.signUp(signUpForm).then(response=>{
-                    if(response.status){
-                        document.getElementById("close-sign-up").click();
-                        document.getElementById("signIn-btn").click();
-                        alert("Registration completed successfully")
-                    }else{
-                        setSignUpError(response.data)
-                    }
-                })
-            }
-
-
+            setPassType(passType.pass2 === 'text'?{...passType,pass2:'password'}:{...passType,pass2:'text'})
         }
 
     }
     const error=(key)=>{
         return errors.indexOf(key)>-1?"error":""
     }
-
-
 
     return (
         <div className="modal fade"
@@ -165,9 +189,9 @@ const SignUp =() =>{
                     </div>
                     <form onSubmit={(event)=>{
                         event.preventDefault();
-                        onSignUp();
+                        onSignUp(signUpForm);
                     }} className="signUp-form">
-                        <div className="row">
+                        <div className="row"s>
                             {/*<div className="col-12 col-md-6">
                                 <div className={`input-label ${error("firstName")}`}>
                                     <input type="text" name="firstName" id="name"
@@ -333,8 +357,8 @@ const SignUp =() =>{
                     </button>
                 </div>
             </div>
-            <Verification.MobileVerificationModal prefix={'+'+signUpForm.mobilePrefix} number={signUpForm.mobile}/>
-            <Verification.EmailVerificationModal email={signUpForm.mail}/>
+            <Verification.MobileVerificationModal prefix={'+'+signUpForm.mobilePrefix} number={signUpForm.mobile} err={otpError} onSubmit={code=>onSignUp({...signUpForm,otp:code}) }/>
+            <Verification.EmailVerificationModal email={signUpForm.mail} err={otpError} onSubmit={code=>onSignUp({...signUpForm,otp:code}) }/>
 
         </div>
     )

@@ -1,21 +1,41 @@
 import {close} from "../../assets/img/icons/icons"
 import {useEffect, useState} from "react";
-import {useTranslation} from "../../core";
+import {Actions, useTranslation} from "../../core";
+import PropTypes from "prop-types";
+import {EmailVerificationModal} from "./EmailVerificationModal";
 
 window.reSendInterval=null;
-export const MobileVerificationModal = ({number,prefix})=>{
+export const MobileVerificationModal = ({number,prefix,onSubmit,err})=>{
     const {t} = useTranslation()
     const [phone,setPhone]=useState("")
     const [error,setError]=useState("")
     let [reSend,setReSend]=useState(-1)
     const  [code,setCode]=useState("")
     useEffect(()=> {
+        console.log(number,prefix)
         if(number && number.length > 7){
             let length = number.toString().length;
             setPhone(prefix+' '+(new Array(length-2)).join("*").concat(number.substring(length-3,2)))
         }
-    },[number])
 
+    },[number,prefix])
+    useEffect(()=>{
+        setError(err)
+    },[err])
+
+
+    const onResend =()=>{
+
+        Actions.User.resendOtp({type:"mobile",prefix:parseInt(prefix),value:number})
+            .then(response=>{
+                if(response.status){
+                    setCode("")
+                    setReSend(response.data.remaining)
+                }else {
+                    setError('error')
+                }
+            }).catch(reason => setError(reason))
+    }
     useEffect(()=>{
 
         if(reSend===-1){
@@ -49,11 +69,14 @@ export const MobileVerificationModal = ({number,prefix})=>{
                 </div>
                 <form onSubmit={e=>{
                     e.preventDefault();
-                    setError("Incorrect sms code")
-                    setTimeout(()=>{
-                        setError("")
-                    },2000)
-
+                    if(!code){
+                        setError("Incorrect sms code");
+                        setTimeout(()=>{
+                            setError("")
+                        },2000)
+                    }else{
+                        onSubmit(code)
+                    }
                 }} className="confirm-form">
                     <p className="confirm-text">
                         {t("A 6-digit SMS code was sent to")}:
@@ -63,10 +86,7 @@ export const MobileVerificationModal = ({number,prefix})=>{
                         <input type="number" name="code" id="code" value={code} onChange={e=>setCode(e.target.value)} className="for-confirm"/>
                         <label htmlFor="code">{t("SMS Code")}</label>
                         {
-                            reSend!==-1? <span className="timeout">{reSend}</span>: <button type="button" className="btn-confirm" onClick={()=>{
-                                setCode("")
-                                setReSend(10)
-                            }}>{t("Send")}</button>
+                            reSend!==-1? <span className="timeout">{reSend}</span>: <button type="button" className="btn-confirm" onClick={()=>onResend()}>{t("Send")}</button>
                         }
                     </div>
                     <p style={{color:"red"}}>{error}</p>
@@ -81,5 +101,7 @@ export const MobileVerificationModal = ({number,prefix})=>{
 
 MobileVerificationModal.defaultValues = {
     number:'',
-    prefix:'+995'
+    prefix:'+995',
+    err:PropTypes.string,
+    onSubmit:PropTypes.func
 }

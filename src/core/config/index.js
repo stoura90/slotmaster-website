@@ -2,10 +2,11 @@ export const Config ={
    User:{
       SIGN_OUT:"/api/?app=logout",
       SIGN_IN: "/v1/api/login",
-      SIGN_UP:"/us/v1/api/reg",
+      SIGN_UP:"/us/v2/api/reg",
       PING: "/us/v1/api/secured/ping",
       INFO:"/us/v1/api/secured/personal/info",
-      UPDATE_INFO:"/us/v1/api/secured/personal/info/update"
+      UPDATE_INFO:"/us/v1/api/secured/personal/info/update",
+      OTP:"/us/v2/api/reg/otp/get?type={type}&prefix={prefix}&value={value}"
    },
    Config:{
       REFRESH_TOKEN:"/v1/api/refresh_token",

@@ -53,7 +53,7 @@ const Request = {
         if(this.data.loader){
             this.dispatchLoader(this.data.loaderData.event,true);
         }
-        return new Promise((resolve, ) => {
+        return new Promise((resolve,_ ) => {
             let customHeader;
             if(localStorage.getItem("GRD_access_token")){
                  customHeader =((header) ? {
@@ -82,7 +82,7 @@ const Request = {
                 if(this.enableEvents) {
                     eventEmitter.emit("httpError",{type:"http",severity: 'error', summary: 'Http Error', detail: `error  ${reason?.response?.status}`, sticky: false,life:2000})
                 }
-                resolve({ status:false, data:reason?.response?.data?.error})
+                resolve({ status:false, data:reason?.response?.data?.error,reason:reason})
             })
           }catch (e) {
               console.log(e.message)
@@ -128,7 +128,7 @@ const Request = {
 
                 }
 
-                resolve({ status:false, data:reason?.response?.data?.error})
+                resolve({ status:false, data:reason?.response?.data?.error,reason:reason})
 
             })
         }).finally(()=>{

@@ -1,4 +1,4 @@
-import {Config} from "../../index";
+import {Actions, Config} from "../../index";
 import {PING, SIGN_IN} from "../actionTypes";
 import Request from "../../http/http";
 import Http from "../../http/http2";
@@ -32,7 +32,6 @@ const signIn = (data) =>async (dispatch)=>{
     }
  return response;
 }
-
 const signOut = () => async (dispatch)=>{
   console.log("sign out")
   const response = await Request.get(Config.User.SIGN_OUT);
@@ -46,7 +45,6 @@ const signOut = () => async (dispatch)=>{
     console.log("error")
   }
 }
-
 const ping = () =>async (dispatch)=>{
     return new Promise((resolve => {
         (new Http()).get(Config.User.PING).then(response=>{
@@ -60,11 +58,9 @@ const ping = () =>async (dispatch)=>{
     }))
 
 }
-
 const info = ()=>{
     return (new Http()).get(Config.User.INFO)
 }
-
 const signUp = async (data) => {
     const response = await Request.post(Config.User.SIGN_UP, query_string(data), {
         headers: {
@@ -78,11 +74,10 @@ const signUp = async (data) => {
             details: "invalid credentials"
         })
 
-        alert(`An error occurred while registering`)
+       // alert(`An error occurred while registering`)
     }
     return response;
 }
-
 const updateInfo = async ({data}) => {
     let formData = new FormData();
 
@@ -97,11 +92,17 @@ const updateInfo = async ({data}) => {
 
     return await (new Http()).post(Config.User.UPDATE_INFO, formData)
 }
+
+const  resendOtp = ({type,prefix,value}) =>{
+    //{type}&prefix={prefix}&value={value}
+    return new Http().get(Config.User.OTP.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value))
+}
 export default {
   signIn,
   signOut,
   ping,
   signUp,
   info,
-  updateInfo
+  updateInfo,
+    resendOtp
 }
