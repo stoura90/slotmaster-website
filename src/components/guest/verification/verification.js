@@ -301,7 +301,7 @@ const UserVerification =() =>{
                             <div className="col-12 col-md-6">
                                 <div className={`input-label ${error("dob")}`}>
                                     <input onChange={e => signUpForm({...signUpForm,dob:e.target.value})} value={signUpForm.dob} type="date" name="dob" id="dob"/>
-                                    <label htmlFor="dob">{t("Date of birth")}</label>
+                                    <label htmlFor="dob">{t("Document Expire Date")}</label>
                                 </div>
                             </div>
 

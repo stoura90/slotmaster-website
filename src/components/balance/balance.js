@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {logoM, sl2} from "../../assets/img/images";
-import {Swp} from "../index";
+import {Guest, Swp} from "../index";
 import {useUser} from "../../core/hooks/useUser";
 import {
     restriction18,
@@ -49,6 +49,10 @@ const Balance = () =>{
     useEffect(()=>{
         console.log(User)
     },[])
+
+    const showVerificationModal = () => {
+        document.getElementById('btn-confirm-verification').click();
+    }
     return (
         <>
 
@@ -157,8 +161,9 @@ const Balance = () =>{
                     </li>
                     <li className="col nav-item" role="presentation">
                         <a
-                            href="/confirmation.html"
+                            /*href="/confirmation.html"*/
                             className="d-flex align-items-center justify-content-between nav-link"
+                            onClick={()=> showVerificationModal()}
                         >
                             <span>{t("Account Confirmation")}</span>
                             <svg
@@ -176,6 +181,19 @@ const Balance = () =>{
                     </li>
                 </ul>
             </div>
+
+            <Guest/>
+
+            <button
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#VerificationModal"
+                className="btn-confirm"
+                id="btn-confirm-verification"
+                style={{display:'none'}}
+            >
+                {t("Confirm")}
+            </button>
         </>
     )
 }
