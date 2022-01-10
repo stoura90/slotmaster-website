@@ -17,8 +17,8 @@ import "./changeLagunge.scss"
             <div className="active-lang">&nbsp;</div>
             <div className="lang-wrapper">
                 <div className="items">
-                    <div className="item" data-lang="ru" onClick={()=>changeLang('ru')}/>
-                    <div className="item" data-lang="en" onClick={()=>changeLang('en')}/>
+                    <div className="item" data-lang="ru" onClick={()=>changeLang('ru')}>RUS</div>
+                    <div className="item" data-lang="en" onClick={()=>changeLang('en')}>ENG</div>
                 </div>
             </div>
         </div>
