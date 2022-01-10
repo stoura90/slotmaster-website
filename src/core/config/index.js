@@ -4,7 +4,8 @@ export const Config ={
       SIGN_IN: "/v1/api/login",
       SIGN_UP:"/us/v2/api/reg",
       PING: "/us/v1/api/secured/ping",
-      INFO:"/us/v1/api/secured/personal/info",
+      //INFO:"/us/v1/api/secured/personal/info",
+      INFO:"/us/v2/api/secured/personal/info",
       UPDATE_INFO:"/us/v1/api/secured/personal/info/update",
       OTP:"/us/v2/api/reg/otp/get?type={type}&prefix={prefix}&value={value}"
    },
@@ -19,5 +20,11 @@ export const Config ={
       SLOT_LIST:"/ss/v1/api/page/{webPageId}/slots",
       LIST_BY_PROVIDER:"/ss/v1/api/page/{webPageId}/slot/providers/{slotProviderId}",
       LIST_BY_FILTER:'/ss/v1/api/page/{webPageId}/slot/filter/{filterId}/games'
+   },
+   OTP:{
+      SOURCES:"/us/v2/api/secured/personal/info/otp/sources"
    }
 }
+
+
+

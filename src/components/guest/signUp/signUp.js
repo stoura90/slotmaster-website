@@ -108,7 +108,7 @@ const SignUp =() =>{
              }else{
                  if(!confirmed){
                      if(!primaryContact.phone && !primaryContact.email){
-                         alert('Chose Verification Method');return;
+                         alert('Chose Finances Method');return;
                      }
                  }
                  localStorage.removeItem("GRD_access_token")
@@ -141,7 +141,7 @@ const SignUp =() =>{
                  }).catch(reason => console.log(reason))
                  /*if(!confirmed){
                      if(!primaryContact.phone && !primaryContact.email){
-                         alert('Chose Verification Method');
+                         alert('Chose Finances Method');
                      }else{
                          if(primaryContact.phone){
                              document.getElementById('btn-confirm-phone').click();
@@ -238,7 +238,7 @@ const SignUp =() =>{
                                 <label htmlFor="phone-primary">
                                     <input type="checkbox" id={'phone-primary'} value={primaryContact.phone} checked={primaryContact.phone} onChange={e =>{
                                         setPrimaryContact({...primaryContact,phone:!(e.target.value === "true")});
-                                    } }/>&nbsp; {t("Phone Verification")}
+                                    } }/>&nbsp; {t("Phone Finances")}
                                 </label>
                                 <div style={{display:"flex"}} className={`${primaryContact.phone?'':'disable-phone'}`}>
                                     <div className="input-label" style={{width:"150px"}}>
@@ -278,7 +278,7 @@ const SignUp =() =>{
                                 <label htmlFor="email-primary">
                                     <input type="checkbox" id={'email-primary'} value={primaryContact.email} checked={primaryContact.email} onChange={e =>{
                                         setPrimaryContact({...primaryContact,email:!(e.target.value === "true")});
-                                    } }/>&nbsp; {t("Email Verification")}
+                                    } }/>&nbsp; {t("Email Finances")}
                                 </label>
                                 <div style={{display:"flex"}} className={`${primaryContact.email?'':'disable-email'}`}>
                                     <div className={`input-label ${error("mail")}`} style={{width:"100%"}}>
@@ -357,9 +357,9 @@ const SignUp =() =>{
                     </button>
                 </div>
             </div>
-            <Verification.MobileVerificationModal prefix={'+'+signUpForm.mobilePrefix} number={signUpForm.mobile} err={otpError} onSubmit={code=>onSignUp({...signUpForm,otp:code}) }/>
+           {/* <Verification.MobileVerificationModal prefix={'+'+signUpForm.mobilePrefix} number={signUpForm.mobile} err={otpError} onSubmit={code=>onSignUp({...signUpForm,otp:code}) }/>
             <Verification.EmailVerificationModal email={signUpForm.mail} err={otpError} onSubmit={code=>onSignUp({...signUpForm,otp:code}) }/>
-
+*/}
         </div>
     )
 }

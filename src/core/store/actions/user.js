@@ -93,9 +93,13 @@ const updateInfo = async ({data}) => {
     return await (new Http()).post(Config.User.UPDATE_INFO, formData)
 }
 
-const  resendOtp = ({type,prefix,value}) =>{
+const  resendOtp = ({send,type,prefix,value}) =>{
     //{type}&prefix={prefix}&value={value}
-    return new Http().get(Config.User.OTP.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value))
+    return new Http().get(send.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value))
+}
+const  verifyOtp = ({verify,type,prefix,value,otp}) =>{
+    //{type}&prefix={prefix}&value={value}
+    return new Http().get(verify.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value).replace('{otp}',otp))
 }
 export default {
   signIn,
@@ -104,5 +108,6 @@ export default {
   signUp,
   info,
   updateInfo,
-    resendOtp
+    resendOtp,
+    verifyOtp
 }

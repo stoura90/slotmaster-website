@@ -1,0 +1,69 @@
+<div className="row step2" style={{marginTop:'20px'}}>
+
+    <div className="col-12 col-md-6">
+        <div className="select-label" style={{width:"100%"}}>
+            <select className="select2" placeholder="passportType" value={signUpForm.passportType} onChange={event => setSignUpForm({...signUpForm,passportType:event.target.value})}>
+                {
+                    _.map(passportType, (v,k)=><option key={k} value={v.id}>{v.name}</option>)
+                }
+            </select>
+            <label htmlFor="select">{t("Document Type")}</label>
+        </div>
+    </div>
+
+    <div className="col-12 col-md-6">
+        <div className="select-label" style={{width:"100%"}}>
+            <select className="select2" placeholder="Country" value={signUpForm.countryCode} onChange={event => setSignUpForm({...signUpForm,countryCode:event.target.value})}>
+                {
+                    _.map(CountryList, (v,k)=><option key={k} value={v.id}>{v.name}</option>)
+                }
+            </select>
+            <label htmlFor="select">{t("Country")}</label>
+        </div>
+    </div>
+
+    <div className="col-12 col-md-6">
+        <div className={`input-label-border ${error("docNumber")}`}>
+            <input type="number" name="docNumber" id="docNumber" value={signUpForm.docNumber} onChange={event => setSignUpForm({...signUpForm,docNumber:event.target.value})}/>
+            <label htmlFor="phone">{t("Document Number")}</label>
+        </div>
+    </div>
+
+    <div className="col-12 col-md-6">
+        <div className={`input-label-border ${error("dob")}`}>
+            <input onChange={e => signUpForm({...signUpForm,dob:e.target.value})} value={signUpForm.dob} type="date" name="dob" id="dob"/>
+            <label htmlFor="dob">{t("Document Expire Date")}</label>
+        </div>
+    </div>
+
+    <div className="col-12 col-md-4">
+        <div className="pass-template">
+            <p>Upload a photo of the first spread or passport/ID card front side.</p>
+            <div className="status-box upload">
+                <span>Upload Document</span>
+            </div>
+        </div>
+    </div>
+    <div className="col-12 col-md-4">
+        <div className="pass-template">
+            <p>Upload a photo of the first spread or passport/ID card front side.</p>
+            <div className="status-box wrong">
+                <span>Something Wrong</span>
+            </div>
+            <button>Upload Again</button>
+        </div>
+    </div>
+    <div className="col-12 col-md-4">
+        <div className="pass-template">
+            <p>Upload a photo of the first spread or passport/ID card front side.</p>
+            <div className="status-box success">
+                <span>Uploaded Successfully</span>
+            </div>
+            <button>Upload Again</button>
+        </div>
+    </div>
+    <div className={"error-text"}>{t(signUpError)}</div>
+    <div className="col-12 col-md-3">
+        <button type="submit" style={{width:'100%'}} className="btn-primary">{t("Confirm And Continue")}</button>
+    </div>
+</div>

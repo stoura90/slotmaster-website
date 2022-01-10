@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import {EmailVerificationModal} from "./EmailVerificationModal";
 
 window.reSendInterval=null;
-export const MobileVerificationModal = ({number,prefix,onSubmit,err})=>{
+export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,verify,onClose})=>{
     const {t} = useTranslation()
     const [phone,setPhone]=useState("")
     const [error,setError]=useState("")
@@ -25,8 +25,7 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err})=>{
 
 
     const onResend =()=>{
-
-        Actions.User.resendOtp({type:"mobile",prefix:parseInt(prefix),value:number})
+        Actions.User.resendOtp({send:send.concat("?type={type}&prefix={prefix}&value={value}"),type:"mobile",prefix:parseInt(prefix),value:number})
             .then(response=>{
                 if(response.status){
                     setCode("")
@@ -35,6 +34,28 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err})=>{
                     setError('error')
                 }
             }).catch(reason => setError(reason))
+    }
+    const onVerify =()=>{
+
+        if(code){
+            Actions.User.verifyOtp({verify:verify.concat("?type={type}&prefix={prefix}&value={value}&otp={otp}"),type:"mobile",prefix:prefix,value:number,otp:code})
+                .then(response=>{
+                    if(response.status){
+                        save(true);
+                        setError('')
+                    }else {
+                        setError('error')
+                        save(false)
+                    }
+
+                }).catch(reason => {
+                save(false);
+                setError(reason?.response?.data?.error)
+            })
+        }else{
+            setError("Please check field")
+        }
+
     }
     useEffect(()=>{
 
@@ -52,20 +73,14 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err})=>{
             }
         }
     },[reSend])
-    return <div
-        className="modal fade"
-        id="confirmPhone"
-        tabIndex="-1"
-        aria-labelledby="confirmPhoneLabel"
-        aria-hidden="true"
-    >
+    return <div className="custom-modal" >
         <div className="modal-dialog modal-dialog-centered auth-modal">
             <div className="modal-content">
                 <div className="modal-head mb-0">
-                    <button className="close" data-bs-dismiss="modal">
+                    <button className="close" data-bs-dismiss="modal" onClick={()=>onClose()}>
                         <img src={close} alt="Close modal"/>
                     </button>
-                    <div className="modal-title">{t("Phone Verification")}</div>
+                    <div className="modal-title">{t("Phone Finances")}</div>
                 </div>
                 <form onSubmit={e=>{
                     e.preventDefault();
@@ -75,7 +90,12 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err})=>{
                             setError("")
                         },2000)
                     }else{
-                        onSubmit(code)
+                        if(verify){
+                            onVerify()
+                        }else{
+                            save(code)
+                        }
+
                     }
                 }} className="confirm-form">
                     <p className="confirm-text">
@@ -98,10 +118,19 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err})=>{
         </div>
     </div>
 }
-
+MobileVerificationModal.propTypes = {
+    number:PropTypes.string,
+    prefix:PropTypes.string,
+    err:PropTypes.string,
+    onSubmit:PropTypes.func,
+    send:PropTypes.string,
+    save:PropTypes.string
+}
 MobileVerificationModal.defaultValues = {
     number:'',
     prefix:'+995',
-    err:PropTypes.string,
-    onSubmit:PropTypes.func
+    err:"",
+    onSubmit:(_)=>console.log(_),
+    save:"",
+    send:""
 }

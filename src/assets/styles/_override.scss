@@ -429,3 +429,24 @@ label[for="phone-primary"] {font-size: 15px; color: #8f9ec8;}
 // redizain
 
 
+select{
+  -webkit-appearance:none;
+  padding: 20px 14px 10px !important;
+  background: #181e2e !important;
+  border: 2px solid #1c243a !important;
+  font-family: "Proxima Regular", Helvetica;
+  color: #d6dbeb;
+}
+
+.custom-modal{
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  z-index: 2222;
+  transition: opacity 0.15s linear;
+  background-color: rgb(0 0 0 / 34%);
+  .modal-content{
+    padding: 20px;
+  }
+}

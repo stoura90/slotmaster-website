@@ -5,6 +5,7 @@ import {Footer, Guest, Header, MainNavigator, Modal} from "./components";
 import EventEmitter from "./core/utils/eventEmitter";
 import {useDispatch} from "react-redux";
 import {useUser} from "./core/hooks/useUser";
+import OTP from "./components/verification";
 
 const eventEmitter = new EventEmitter();
 const  App=()=> {
@@ -13,11 +14,7 @@ const  App=()=> {
     const {signOut} = useUser()
     const [loaded,setLoaded]=useState(false)
     useEffect( () => {
-
         checkLanguage()
-
-
-
         ping()
         eventEmitter.on("httpError", errorHandler)
 
@@ -64,6 +61,7 @@ const  App=()=> {
   return loaded && (<>
           <MainNavigator/>
           <Guest/>
+          <OTP/>
         </>
   )
 }

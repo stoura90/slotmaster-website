@@ -15,8 +15,8 @@ import Balance from "./balance/balance";
 import Sport from "./sport/index";
 import Information from "./account/information/information";
 import ShowMore from "./showMore/ShowMore";
-import Verification from "./verification"
-import ChangeLagunge from "./languages/ChangeLagunge"
+import Verification from "./account/verification/verification"
+import Finances from "./account/finances/finances"
 export {
     Header,
     Footer,
@@ -35,5 +35,6 @@ export {
     Information,
     ShowMore,
     ContentNavigator,
-    Verification
+    Verification,
+    Finances
 }

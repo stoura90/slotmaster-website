@@ -5,14 +5,15 @@ import {Theme} from "./Theme";
 import {BottomBar} from "./BottomBar";
 import Modals from "./Modals";
 import {Loader} from "./Loader"
-
+import {OTP} from "./Otp"
 const root = combineReducers({
     User,
     Modals,
     Theme,
     NavBar,
     BottomBar,
-    Loader
+    Loader,
+    OTP
 });
 
 export default root;

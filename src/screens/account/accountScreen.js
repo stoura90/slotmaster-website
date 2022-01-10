@@ -1,13 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigation} from "../../core/hooks/useNavigation";
-import {Balance, Footer, Header, Information} from "../../components";
+import React, {useEffect} from 'react';
+import {Balance, Finances, Footer, Header, Information, Verification} from "../../components";
 
 import "../../assets/styles/_select2.scss"
+import {useParams} from "react-router-dom";
 const AccountScreen = () =>{
-    const nav  = useNavigation();
-    useEffect(()=>{
-    },[nav]);
+    const {route} = useParams()
 
+    const renderView=()=> {
+
+        switch(route){
+            case "verification":return <Verification/>
+            case "finances":return <Finances/>
+            default : return <Information/>
+        }
+    }
 
     return (
         <>
@@ -16,9 +22,10 @@ const AccountScreen = () =>{
             <main className="account">
                 <div className="container">
                     <div className="row">
-                        <Balance/>
-
-                        <Information/>
+                        <Balance route={route}/>
+                        {
+                            renderView()
+                        }
                     </div>
                 </div>
             </main>

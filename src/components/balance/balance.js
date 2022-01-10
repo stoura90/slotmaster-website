@@ -40,16 +40,14 @@ import {
 import {Link, useParams} from "react-router-dom";
 import {useTranslation} from "../../core";
 
-const Balance = () =>{
+const Balance = ({route}) =>{
     const {t} = useTranslation()
     const {User,signOut} = useUser();
     const {lang} = useParams();
     const [showBalance,setShowBalance] = useState(false)
-    console.log('lang',lang)
     useEffect(()=>{
         console.log(User)
     },[])
-
     const showVerificationModal = () => {
         document.getElementById('btn-confirm-verification').click();
     }
@@ -140,60 +138,73 @@ const Balance = () =>{
                 <ul
                     className="row account-tabs d-flex flex-column flex-md-row list-unstyled"
                 >
-                    <li className="col nav-item" role="presentation">
-                        <a
-                            href="/personal.html"
-                            className="d-flex align-items-center justify-content-between nav-link"
-                        >
-                            <span>{t("Personal Data")}</span>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 16 16"
+                    {
+                        (route !=="info" && route !==undefined) && <li className="col nav-item" role="presentation">
+                            <Link
+                                to={`/${lang}/account/info`}
+                                className="d-flex align-items-center justify-content-between nav-link"
                             >
-                                <path
-                                    id="add"
-                                    d="M14.571,6.571H9.714a.286.286,0,0,1-.286-.286V1.429a1.429,1.429,0,0,0-2.857,0V6.286a.286.286,0,0,1-.286.286H1.429a1.429,1.429,0,0,0,0,2.857H6.286a.286.286,0,0,1,.286.286v4.857a1.429,1.429,0,1,0,2.857,0V9.714a.286.286,0,0,1,.286-.286h4.857a1.429,1.429,0,1,0,0-2.857Zm0,0"
-                                />
-                            </svg>
-                        </a>
-                    </li>
-                    <li className="col nav-item" role="presentation">
-                        <a
-                            /*href="/confirmation.html"*/
-                            className="d-flex align-items-center justify-content-between nav-link"
-                            onClick={()=> showVerificationModal()}
-                        >
-                            <span>{t("Account Confirmation")}</span>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 16 16"
+                                <span>{t("Personal Data")}</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 16 16"
+                                >
+                                    <path
+                                        id="add"
+                                        d="M14.571,6.571H9.714a.286.286,0,0,1-.286-.286V1.429a1.429,1.429,0,0,0-2.857,0V6.286a.286.286,0,0,1-.286.286H1.429a1.429,1.429,0,0,0,0,2.857H6.286a.286.286,0,0,1,.286.286v4.857a1.429,1.429,0,1,0,2.857,0V9.714a.286.286,0,0,1,.286-.286h4.857a1.429,1.429,0,1,0,0-2.857Zm0,0"
+                                    />
+                                </svg>
+                            </Link>
+                        </li>
+                    }
+                    {
+                       route !=="verification" &&  <li className="col nav-item" role="presentation">
+                            <Link
+                                to={`/${lang}/account/verification`}
+                                className="d-flex align-items-center justify-content-between nav-link"
                             >
-                                <path
-                                    id="add"
-                                    d="M14.571,6.571H9.714a.286.286,0,0,1-.286-.286V1.429a1.429,1.429,0,0,0-2.857,0V6.286a.286.286,0,0,1-.286.286H1.429a1.429,1.429,0,0,0,0,2.857H6.286a.286.286,0,0,1,.286.286v4.857a1.429,1.429,0,1,0,2.857,0V9.714a.286.286,0,0,1,.286-.286h4.857a1.429,1.429,0,1,0,0-2.857Zm0,0"
-                                />
-                            </svg>
-                        </a>
-                    </li>
+                                <span>{t("Account Confirmation")}</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 16 16"
+                                >
+                                    <path
+                                        id="add"
+                                        d="M14.571,6.571H9.714a.286.286,0,0,1-.286-.286V1.429a1.429,1.429,0,0,0-2.857,0V6.286a.286.286,0,0,1-.286.286H1.429a1.429,1.429,0,0,0,0,2.857H6.286a.286.286,0,0,1,.286.286v4.857a1.429,1.429,0,1,0,2.857,0V9.714a.286.286,0,0,1,.286-.286h4.857a1.429,1.429,0,1,0,0-2.857Zm0,0"
+                                    />
+                                </svg>
+                            </Link>
+                        </li>
+                    }
+                    {
+                        route !=="finances" &&  <li className="col nav-item" role="presentation">
+                            <Link
+                                to={`/${lang}/account/finances`}
+                                /*href="/confirmation.html"*/
+                                className="d-flex align-items-center justify-content-between nav-link"
+                            >
+                                <span>{t("Finances")}</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 16 16"
+                                >
+                                    <path
+                                        id="add"
+                                        d="M14.571,6.571H9.714a.286.286,0,0,1-.286-.286V1.429a1.429,1.429,0,0,0-2.857,0V6.286a.286.286,0,0,1-.286.286H1.429a1.429,1.429,0,0,0,0,2.857H6.286a.286.286,0,0,1,.286.286v4.857a1.429,1.429,0,1,0,2.857,0V9.714a.286.286,0,0,1,.286-.286h4.857a1.429,1.429,0,1,0,0-2.857Zm0,0"
+                                    />
+                                </svg>
+                            </Link>
+                        </li>
+                    }
+
                 </ul>
             </div>
-
-            <Guest/>
-
-            <button
-                type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#VerificationModal"
-                className="btn-confirm"
-                id="btn-confirm-verification"
-                style={{display:'none'}}
-            >
-                {t("Confirm")}
-            </button>
         </>
     )
 }

@@ -55,12 +55,9 @@ const Information = () => {
         })
     }
     const [errors,setErrors]=useState([])
-
     const error=(key)=>{
         return errors.indexOf(key)>-1?"error":""
     }
-
-
     const onUpdate = ()=>{
         let error = _.chain(infoData).map((v,k)=>{ return  {key:k,value:v}}).filter(v=>!v.value).map(v=>v.key).value();
 
@@ -137,7 +134,6 @@ const Information = () => {
                                 </button>
                             </li>
                         </ul>
-
 
                         <form onSubmit={e=>{
                             e.preventDefault()
@@ -304,15 +300,10 @@ const Information = () => {
                             <div style={{color:`${status.status ==="success"? 'green':'red'}`}}>{status.msg}</div>
                             <button type="submit" className="btn-primary">{t("Save")}</button>
                         </form>
-
-
                     </div>
                 </div>
             </div>
-            <Verification.MobileVerificationModal number={infoData.mobile}/>
-            <Verification.EmailVerificationModal email={infoData.email}/>
         </>
-
     )
 }
 

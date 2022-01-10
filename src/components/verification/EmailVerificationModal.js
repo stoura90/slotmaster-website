@@ -1,11 +1,10 @@
 import {close} from "../../assets/img/icons/icons"
 import {useEffect, useState} from "react";
-import {MobileVerificationModal} from "./MobileVerificationModal";
 import {Actions, useTranslation} from "../../core";
 import PropTypes from "prop-types";
 
 window.reSendInterval=null;
-export const EmailVerificationModal = ({email,err,onSubmit})=>{
+export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,verify})=>{
     const {t} = useTranslation()
     const [error,setError]=useState("")
 
@@ -16,9 +15,8 @@ export const EmailVerificationModal = ({email,err,onSubmit})=>{
         setError(err)
     },[err])
     const onResend =()=>{
-        Actions.User.resendOtp({type:"email",prefix:"",value:email})
+        Actions.User.resendOtp({send:send.concat("?type={type}&prefix={prefix}&value={value}"),type:"email",prefix:"",value:email})
             .then(response=>{
-                console.log(response)
                 if(response.status){
                     setCode("")
                     setReSend(response.data.remaining)
@@ -27,6 +25,29 @@ export const EmailVerificationModal = ({email,err,onSubmit})=>{
                 }
 
             }).catch(reason => setError(reason))
+    }
+
+    const onVerify =()=>{
+
+        if(code){
+            Actions.User.verifyOtp({verify:verify.concat("?type={type}&prefix={prefix}&value={value}&otp={otp}"),type:"email",prefix:"",value:email,otp:code})
+                .then(response=>{
+                    if(response.status){
+                        save(true);
+                        setError('')
+                    }else {
+                        setError('error')
+                        save(false)
+                    }
+
+                }).catch(reason => {
+                save(false);
+                setError(reason?.response?.data?.error)
+            })
+        }else{
+            setError("Please check field")
+        }
+
     }
     useEffect(()=>{
 
@@ -45,19 +66,16 @@ export const EmailVerificationModal = ({email,err,onSubmit})=>{
         }
     },[reSend])
     return <div
-        className="modal fade"
-        id="confirmEmail"
-        tabIndex="-1"
-        aria-labelledby="confirmPhoneLabel"
-        aria-hidden="true"
+        className="custom-modal"
     >
+
         <div className="modal-dialog modal-dialog-centered auth-modal">
             <div className="modal-content">
                 <div className="modal-head mb-0">
-                    <button className="close" data-bs-dismiss="modal">
+                    <button className="close" data-bs-dismiss="modal" onClick={()=>onClose()}>
                         <img src={close} alt="Close modal"/>
                     </button>
-                    <div className="modal-title">{t("Email Verification")}</div>
+                    <div className="modal-title">{t("Email Finances")}</div>
                 </div>
                 <form onSubmit={e=>{
                     e.preventDefault();
@@ -68,7 +86,12 @@ export const EmailVerificationModal = ({email,err,onSubmit})=>{
                             setError("")
                         },2000)
                     }else{
-                        onSubmit(code)
+                        if(verify){
+                            onVerify()
+                        }else{
+                            save(code)
+                        }
+
                     }
                 }} className="confirm-form">
                     <p className="confirm-text">
@@ -97,10 +120,16 @@ export const EmailVerificationModal = ({email,err,onSubmit})=>{
 EmailVerificationModal.propTypes = {
     email:PropTypes.string,
     err:PropTypes.string,
-    onSubmit:PropTypes.func
+    onSubmit:PropTypes.func,
+    onClose:PropTypes.func,
+    send:PropTypes.string,
+    save:PropTypes.string
 }
 EmailVerificationModal.defaultValues = {
     email:'',
     err:'',
-    onSubmit:(code)=>console.log(code)
+    onSubmit:(code)=>console.log(code),
+    onClose:(_)=>console.log(_),
+    save:"",
+    send:""
 }
