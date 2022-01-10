@@ -1,0 +1,116 @@
+.error {
+  border-bottom: 1px solid red;
+}
+
+.error-text {
+  color: red !important;
+}
+
+.terms {
+  color: #8f9ec8;
+}
+
+.row [class*=col-] {
+  margin-bottom: 16px;
+}
+
+.back-step {
+  display: inline-block;
+  margin: 0;
+  margin-right: 20px;
+  background-color: #444c66;
+  padding: 2px 18px;
+  border-radius: 4px;
+  font-size: 17px;
+}
+.back-step:hover {
+  cursor: pointer;
+  background-color: #ffbc00;
+  color: #000;
+}
+
+.pass-template {
+  width: 100%;
+  min-height: 140px;
+  position: relative;
+  border: 2px solid #3a445a;
+  border-radius: 6px;
+  display: flex;
+  height: 270px;
+  flex-direction: column;
+  /*&:hover {
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #2b344e;
+  }
+
+  &:before {
+    position: absolute;
+    content:'';
+    width: 50px;
+    height: 6px;
+    background: #575e72;
+    top:50%;
+    left: 50%;
+    border-radius: 3px;
+    transform: translate(-50%,-50%);
+  }
+  &:after {
+    position: absolute;
+    content:'';
+    width: 6px;
+    height: 50px;
+    background: #575e72;
+    top:50%;
+    left: 50%;
+    border-radius: 3px;
+    transform: translate(-50%,-50%);
+  }*/
+}
+.pass-template p {
+  flex: 1;
+  color: #cccccc;
+  padding: 20px;
+  padding-bottom: 0;
+}
+.pass-template .status-box {
+  min-height: 86px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #cccccc;
+}
+.pass-template .status-box.upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #cccccc;
+  min-height: 130px;
+  margin: 20px;
+  margin-top: 0;
+  border: 2px dashed #3a445a;
+  border-radius: 6px;
+}
+.pass-template .status-box.upload:hover {
+  cursor: pointer;
+  background-color: #212940;
+}
+.pass-template .status-box.wrong {
+  color: #c13e3e;
+}
+.pass-template .status-box.success {
+  color: #34a230;
+}
+.pass-template button {
+  border-radius: 6px;
+  margin: 20px;
+  background-color: #444c66;
+  color: #fff;
+  padding: 10px 0;
+}
+.pass-template button:hover {
+  cursor: pointer;
+  background-color: #545f81;
+}
+
+/*# sourceMappingURL=verification.css.map */

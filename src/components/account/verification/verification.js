@@ -414,7 +414,9 @@ const Confirmation = () => {
                                 if(step===1){
                                     nextStep()
                                 }else{
-                                        console.log(infoData,documents)
+                                        console.log({
+                                            ...infoData,...documents
+                                        })
                                 }
                             }}>{t("Confirm And Continue")}</button>
                         </div>
