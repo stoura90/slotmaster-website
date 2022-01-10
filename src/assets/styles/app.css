@@ -23310,4 +23310,8 @@ select {
   padding: 20px;
 }
 
+.step2 .input-label {
+  min-width: 100% !important;
+}
+
 /*# sourceMappingURL=app.css.map */

@@ -35,11 +35,12 @@ const MobilePrefixList=[
 ]
 const Confirmation = () => {
     const {t} = useTranslation();
-    const {otp, PHONE,EMAIL,CLOSE} = useOTP();
+    const {otp, PHONE,EMAIL,CLOSE,ERROR} = useOTP();
     const [infoData, setInfoData] = useState({
         firstName:'',
         email:'',
         phone:'',
+        gender:'',
         dob:"",
         lastName:'',
         username:'',
@@ -92,6 +93,7 @@ const Confirmation = () => {
                     username,
                     currency,
                     dob,
+                    gender,
                     country,
                     mobileConfirmed,
                     emailConfirmed,
@@ -104,6 +106,7 @@ const Confirmation = () => {
                     lastName:lastName,
                     username:username,
                     currency: currency,
+                    gender: gender,
                     dob:dob,
                     country:country,
                     mobileConfirmed:mobileConfirmed,
@@ -117,13 +120,13 @@ const Confirmation = () => {
         return errors.indexOf(key)>-1?"error":""
     }
     const nextStep = ()=>{
+        setErrors([])
         let error = _.chain(infoData).map((v,k)=>{
             if(["mobileConfirmed","emailConfirmed"].includes(k)){
                 return {key:k,value:1}
             }
             return {key:k,value:v}
         }).filter(v=>!v.value).map(v=>v.key).value();
-        console.log(error)
         if(error.length>0){
             setErrors([...error])
         }else{
@@ -131,9 +134,77 @@ const Confirmation = () => {
         }
     }
 
+    const finishStep=()=>{
+        setErrors([])
+        let error = _.chain(documents).map((v,k)=>{
+            return {key:k,value:v}
+        }).filter(v=>!v.value).map(v=>v.key).value();
+
+        if(error.length>0){
+            setErrors([...error])
+        }else{
+
+
+
+            if(otpSource?.type==="email"){
+                EMAIL({
+                    email:infoData.email,
+                    send:"/us/v2/api/secured/personal/info/otp/get",
+                    save:code=>{
+                        if(code){
+                            Actions.User.verification({
+                                ...infoData,...documents,otp:code
+                            }).then(response=>{
+                                if(response.status){
+                                    CLOSE();
+                                }else{
+                                    console.log("catch")
+                                    ERROR({error:t("error")})
+                                }
+                            }).catch(e=>{
+                                console.log("catch")
+                                ERROR({error:t("error")})
+                            })
+                        }
+
+                    }
+                })
+            }else{
+                PHONE({
+                    prefix:infoData.mobilePrefix,
+                    number:infoData.mobile,
+                    send:"/us/v2/api/secured/personal/info/otp/get",
+                    save:code=>{
+                        if(code){
+                            Actions.User.verification({
+                                ...infoData,...documents,otp:code
+                            }).then(response=>{
+                                if(response.status){
+                                    CLOSE();
+                                }else{
+                                    console.log("catch")
+                                    ERROR({error:t("error")})
+                                }
+                            }).catch(e=>{
+                                console.log("catch")
+                                ERROR({error:t("error")})
+                            })
+                        }
+
+                    }
+                })
+            }
+
+
+            console.log(otpSource)
+            console.log()
+        }
+    }
+
+
     return (
         <>
-            <div className="tab-content" id="accountTabContent">
+            <div id="accountTabContent">
                 <div
                     className="tab-pane fade show active"
                     id="personal"
@@ -142,36 +213,6 @@ const Confirmation = () => {
                 >
                     <div className="account-tab-inner">
                         <div className="tab-headline">{t("Account Confirmation")}</div>
-                        <ul className="mb-sub-tabs nav nav-tabs d-md-none" id="myTab" role="tablist">
-                            <li role="presentation">
-                                <button
-                                    className="item active"
-                                    id="information-tab"
-                                    data-bs-toggle="tab"
-                                    data-bs-target="#information"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="information"
-                                    aria-selected="true"
-                                >
-                                    {t("Information")}
-                                </button>
-                            </li>
-                            <li role="presentation">
-                                <button
-                                    className="item"
-                                    id="security-tab"
-                                    data-bs-toggle="tab"
-                                    data-bs-target="#security"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="security"
-                                    aria-selected="false"
-                                >
-                                    {t("Security")}
-                                </button>
-                            </li>
-                        </ul>
 
                         <form onSubmit={e=>{
                             e.preventDefault()
@@ -182,8 +223,6 @@ const Confirmation = () => {
                                     step === 1 ? <div
                                         className="col-12 col-md-12 tab-pane show active"
                                         id="information"
-                                        role="tabpanel"
-                                        aria-labelledby="information-tab"
                                     >
                                         <div className="row personal-row">
                                             <div className="col-12 d-none d-md-flex">
@@ -294,6 +333,19 @@ const Confirmation = () => {
                                                 </div>
                                             </div>
                                             <div className="col-12 col-md-6">
+                                                <div className={`select-label-border ${error("gender")}`}>
+                                                    <select onChange={e => {
+                                                        setInfoData({...infoData,gender:e.target.value})
+                                                    }} value={infoData?.gender} className="select2" placeholder="Sex" id="gender">
+                                                        <option value={""}>{t("Choose Sex")} </option>
+                                                        {
+                                                            _.map([{id:'F',value:"Female"},{id:'M',value:"Male"}],  (v,k)=> <option key={k} value={v.id}> {v.value}</option>)
+                                                        }
+                                                    </select>
+                                                    <label htmlFor="gender">{t("Sex")}</label>
+                                                </div>
+                                            </div>
+                                            <div className="col-12 col-md-6">
                                                 <div className={`input-label-border ${error("dob")}`}>
                                                     <input onChange={e => setInfoData({...infoData,dob:e.target.value})} value={infoData.dob} type="date" name="dob" id="dob"/>
                                                     <label htmlFor="dob">{t("Date of birth")}</label>
@@ -337,18 +389,16 @@ const Confirmation = () => {
                                 }
                                 {
                                     step===2? <div
-                                        className="col-12 col-md-12 tab-pane"
-                                        id="security"
-                                        role="tabpanel"
-                                        aria-labelledby="security-tab"
+                                        className="col-12 col-md-12 "
                                     >
                                         <div className="row personal-row">
                                             <div className="col-12 order-3 order-md-2">
                                                 <div className="row step2" style={{marginTop:'20px'}}>
 
                                                     <div className="col-12 col-md-6">
-                                                        <div className="select-label" style={{width:"100%"}}>
+                                                        <div className={`input-label ${error("passportType")}`} style={{width:"100%"}}>
                                                             <select className="select2" placeholder="passportType" value={documents.passportType} onChange={event => setDocuments({...documents,passportType:event.target.value})}>
+                                                                <option  value={""}>{t("Choose type")}</option>
                                                                 {
                                                                     _.map(passportType, (v,k)=><option key={k} value={v.id}>{v.name}</option>)
                                                                 }
@@ -358,8 +408,9 @@ const Confirmation = () => {
                                                     </div>
 
                                                     <div className="col-12 col-md-6">
-                                                        <div className="select-label" style={{width:"100%"}}>
-                                                            <select className="select2" placeholder="Country" value={documents.countryCode} onChange={event => setDocuments({...documents,countryCode:event.target.value})}>
+                                                        <div className={`input-label ${error("country")}`} style={{width:"100%"}}>
+                                                            <select className="select2" placeholder="Country" value={documents.country} onChange={event => setDocuments({...documents,country:event.target.value})}>
+                                                                <option value={""}>{t("Choose country")}</option>
                                                                 {
                                                                     _.map(countries, (v,k)=><option key={k} value={v.id}>{v.value}</option>)
                                                                 }
@@ -370,18 +421,18 @@ const Confirmation = () => {
 
                                                     <div className="col-12 col-md-6">
                                                         <div className={`input-label-border ${error("docNumber")}`}>
-                                                            <input type="number" name="docNumber" id="docNumber" value={documents.docNumber} onChange={event => setDocuments({...documents,docNumber:event.target.value})}/>
+                                                            <input type="text" name="docNumber" id="docNumber" value={documents.docNumber} onChange={event => setDocuments({...documents,docNumber:event.target.value})}/>
                                                             <label htmlFor="phone">{t("Document Number")}</label>
                                                         </div>
                                                     </div>
 
                                                     <div className="col-12 col-md-6">
-                                                        <div className={`input-label-border ${error("dob")}`}>
-                                                            <input onChange={e => setDocuments({...documents,dob:e.target.value})} value={documents.dob} type="date" name="dob" id="dob"/>
+                                                        <div className={`input-label-border ${error("doc_expire_date")}`}>
+                                                            <input onChange={e => setDocuments({...documents,doc_expire_date:e.target.value})} value={documents.doc_expire_date} type="date" name="dob" id="dob"/>
                                                             <label htmlFor="dob">{t("Document Expire Date")}</label>
                                                         </div>
                                                     </div>
-                                                    <div className="col-12 col-md-6">
+                                                    <div className={`col-12 col-md-6 ${error("front")}`}>
                                                         <UploadDoc
                                                             id={"front"}
                                                             onSelect={e=>setDocuments({...documents,front:e})}
@@ -389,7 +440,7 @@ const Confirmation = () => {
                                                         />
 
                                                     </div>
-                                                    <div className="col-12 col-md-6">
+                                                    <div className={`col-12 col-md-6 ${error("front")}`}>
                                                         <UploadDoc
                                                             id={"back"}
                                                             onSelect={e=>setDocuments({...documents,back:e})}
@@ -414,9 +465,7 @@ const Confirmation = () => {
                                 if(step===1){
                                     nextStep()
                                 }else{
-                                        console.log({
-                                            ...infoData,...documents
-                                        })
+                                    finishStep()
                                 }
                             }}>{t("Confirm And Continue")}</button>
                         </div>

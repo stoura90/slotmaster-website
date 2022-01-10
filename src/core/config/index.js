@@ -7,7 +7,8 @@ export const Config ={
       //INFO:"/us/v1/api/secured/personal/info",
       INFO:"/us/v2/api/secured/personal/info",
       UPDATE_INFO:"/us/v1/api/secured/personal/info/update",
-      OTP:"/us/v2/api/reg/otp/get?type={type}&prefix={prefix}&value={value}"
+      OTP:"/us/v2/api/reg/otp/get?type={type}&prefix={prefix}&value={value}",
+      VERIFICATION:"/us/v2/api/secured/personal/info/verify"
    },
    Config:{
       REFRESH_TOKEN:"/v1/api/refresh_token",

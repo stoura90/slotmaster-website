@@ -1,6 +1,7 @@
 import {Actions, Config} from "../../index";
 import {PING, SIGN_IN} from "../actionTypes";
 import Request from "../../http/http";
+import moment from 'moment'
 import Http from "../../http/http2";
 import {query_string} from "../../utils";
 const signIn = (data) =>async (dispatch)=>{
@@ -92,7 +93,6 @@ const updateInfo = async ({data}) => {
 
     return await (new Http()).post(Config.User.UPDATE_INFO, formData)
 }
-
 const  resendOtp = ({send,type,prefix,value}) =>{
     //{type}&prefix={prefix}&value={value}
     return new Http().get(send.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value))
@@ -100,6 +100,27 @@ const  resendOtp = ({send,type,prefix,value}) =>{
 const  verifyOtp = ({verify,type,prefix,value,otp}) =>{
     //{type}&prefix={prefix}&value={value}
     return new Http().get(verify.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value).replace('{otp}',otp))
+}
+
+const verification=(data)=>{
+   return  (new Http()).post(Config.User.VERIFICATION,{
+       "mail":data?.email,
+       "firstName":data?.firstName,
+       "lastName":data?.lastName,
+       "mobilePrefix":data?.mobilePrefix,
+       "mobile":data?.mobile,
+       "dob":moment(data?.dob).format("YYYY-MM-DD"),
+       "gender":data?.gender,
+       "passportType":data?.passportType,
+       "docNumber":data?.docNumber,
+       "country": data?.country,
+       "doc_expire_date":moment(data?.doc_expire_date).format("YYYY-MM-DD"),
+       "front":data?.front,
+       "back":data?.back,
+       "otp":data.otp
+   },{
+       'Content-Type' : 'text/plain'
+   });
 }
 export default {
   signIn,
@@ -109,5 +130,6 @@ export default {
   info,
   updateInfo,
     resendOtp,
-    verifyOtp
+    verifyOtp,
+    verification
 }
