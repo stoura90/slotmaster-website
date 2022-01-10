@@ -1,18 +1,27 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useTranslation} from "../../core";
 import {useParams} from "react-router-dom";
 import "./changeLagunge.scss"
  const ChangeLagunge = () =>{
-    const {i18n} = useTranslation()
+    const {i18n} = useTranslation();
+    const [activeLang,setActiveLang] = useState('en')
+
+     const changeLang =(lang)=>{
+         window.history.pushState(null,null,window.location.pathname.replace(i18n.language,lang))
+         i18n.changeLanguage(lang);
+         setActiveLang(lang);
+     }
 
     return  <div className={"changeLagunge"}>
-        <select name="ChangeLanguage" id="" value={i18n.language} onChange={e=>{
-            window.history.pushState(null,null,window.location.pathname.replace(i18n.language,e.target.value))
-            i18n.changeLanguage(e.target.value)
-        }}>
-            <option value="ru">RU</option>
-            <option value="en">EN</option>
-        </select>
+        <div className="lang" data-lang={activeLang}>
+            <div className="active-lang">&nbsp;</div>
+            <div className="lang-wrapper">
+                <div className="items">
+                    <div className="item" data-lang="ru" onClick={()=>changeLang('ru')}/>
+                    <div className="item" data-lang="en" onClick={()=>changeLang('en')}/>
+                </div>
+            </div>
+        </div>
     </div>
 }
 export default ChangeLagunge;
