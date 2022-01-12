@@ -23,6 +23,155 @@
 
     <script src="https://www.google.com/recaptcha/api.js?render=6LcsE_IdAAAAAElaP_6dOnfzTJD2irfkvp1wzIeS"></script>
 
+    <style>
+      @keyframes example {
+        from {width: 100%;}
+        to {width: 0px;}
+      }
+
+      .event-wrap {
+        position: absolute;
+        z-index: 999999;
+        top: 10%;
+        right: 5%;
+        min-width: 200px;
+        max-width: 400px;
+
+        display: flex;
+        flex-direction: column;
+        align-content: flex-end;
+        flex-wrap: nowrap;
+        align-items: flex-end;
+      }
+      .event-wrap:empty {display: none;}
+
+      .event-wrap .ev-box {
+        /*display: flex;
+        flex-direction: column;
+        align-items: center;*/
+        border-radius: 5px;
+        margin-bottom: 10px;
+        justify-content: space-between;
+        position: relative;
+      }
+      .event-wrap .ev-box .ev-border {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        animation-name: example;
+        animation-duration: 4s;
+
+        animation-fill-mode: forwards;
+
+      }
+      .event-wrap .ev-box .ev-text {
+        padding: 18px 0px;
+        font-family: "BPGArial", sans-serif;
+        font-size: 14px;
+        line-height: 16px;
+      }
+
+      .event-wrap .ev-box[data-status] {
+        background-color: #1f202c;
+        color: #abb3ca;
+        border-bottom: none;
+        overflow: hidden;
+        padding-right: 35px;
+      }
+      .event-wrap .ev-box[data-status="error"] {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFWUlEQVRoge2YS2xUVRjHJyAuWIquRJeGzLRWM3R6Z+4to5U+7zS6mUB0gw8EW6kF1NZWC1FpayQBpbX1tdCYKBp0obgBMx0wxsROcWq1hIIS5z3TB+4YFxy/77szpXTu9Jx751EXPcmXTjL3fOf3P/d7TS2WtbW21lbBi3m96+MelzOuKj0xj3Iqpsq/w9/5qEf5F40+q8oUfofPxFtliR2yrFttbkv40dp7AHAQwMJgzJjJIRA1EGpyby47eLRJuQsg3o+pSto4+DJDH6oyEvG47ywLfNwjPw4HzxUMnitkFmxnycCZ3b4hqsofFh08V8gonlVU+IjHvhEcf19y+Jt2Gs8sCjzeRpnhyaA4nJnyWm8vWEBZwiZ/OI0UBB9RXU+sGvyiuXaYgg8/Vr0JGlJq9QUoc6ZKbAzrPM95ay1LnvyUJYeOGgZLHOtnyVOfkw9+KMnDhuCxO3KbFMF/xmav/UOW+OBdYXgUnN2X/Pok+NrGy4V0xCPfKywgMx6sfINffLIIsSjivWP8m4dncvaBL94+HDuE4HHIinrkKBfkwB6WisdzYJIfDRmCTyWTLP5SG1+AR4nh0MgVgFOlSBgE6+xsvG0XAeSI+Hg4F35EBz6VYoGOZ8iXUPiptQ6+gBalV8TZn40SO+eqYOPtfBGJ0eM68LMs8MJu5nfZ2JUmSUhApFXp4QoIt7jGRJPxcmMNAYx37Kbb1BOBpnfzuMfvrGCXG2qEkx/YfuAKCLXICVGHJKJBIhAMBT0ROfCzc2xi/3NsDITPNIrDo4VUV4wrIKLKhmd8ehMgYuJgGwHmhZ9fYBe6O7SbNwhPIaS6rnMFQLm6YdSx9iY0ERdebGepuXl9+Fc64Rkbu9TgMOxfEyDfEBFgyjnaDIj4tWtfXgHBVw+yS/XGbz5rUREBYVU2fUDizR5d+EUDEYnBQ6b9QxLzBVxtcpoKocRgHwEuT9icnCARfaYE/NUs8QVALBtO4viRXl14TGqs9TnVaQFEvHXYeIjWO/hJPFW31VAZTbz9OgEtb1ITB9ooYdGoTyxvdgvXWOJ4vyEBv9XZ+WX0l21Vwo0sLzzUeQTHpJ7JlFjqE7oiBoQFANtZrgBoML2hZhcf/ugbuvCB/Xu1JrWkVGb7RGDf0/oi3hnknhdqcTG/bO3mCvDJW6SpR7YK3P6tAgi+cw/B69X5bJ8IPP/UrSIE3wIyjTlt1VwBzGJZd16ujMQ4/WB6ezULHu6i5KWpsvPZzM3nr/PZNzHe/qQmAuAnj7xGvlY6C8Z7dl6uCCMbVwCFkWQbmN6+cre8CN8jcLDvZZpIefC5InbRXrhVroA/4Ht4rl8InsLIUbkZRuU0NI6VRdRrIhBIBD5rV2AUxylWBD7cIsPYXpk+K1XdLSyA3oLTOjLhfpALcxEAcCIVhb+ZExLt5T0XAAYQesIQPK6fJOsdsDElckipbFoLnVmf/T5z/7n2OW07tXpubnosxLT+gWFm9ZqCXyJiFOPVzPxuGr5B+6Xnk2xDBcHj+tLrXQ9V6Rs/JVzp3wSGDd28ZP3O53bfVrAAXON2+0a4jdNYNQIPPcB41cmM4RifSViE/xbPLAr8EhEbsDLhAdBU6KawwRQKjj6wzuN/ONA3hk3Rbl5v+WtsO7A64WE/ghBs8SKz03LDPbgXfWjg1mTBCSu6zlRv2QQHDkNuXKdXDgn3c20Vjrs0B11tduLvV0bjiEq/ZRn8UKLvJh+2w7P30x4tXMjHCSzbZYFfurA74tjhc1r/JhgDltnTb7jDlmLhkOWXrA6A6gZBX8HfSSi/c2DpjMFnaxC/gzDpwqlSeDBbW//z9R/nBs3tN2j6xAAAAABJRU5ErkJggg==");
+        background-position: 10px;
+        background-repeat: no-repeat;
+        background-size: 30px;
+        padding-left: 55px;
+      }
+      .event-wrap .ev-box[data-status="success"] {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAABVlBMVEUAAAAzsn8uuXMqv2oqsncptHMnt28uuXMttHArtnQquHEps3UotXItt3UrtG8qtnMpt3AqtHQot3UttHMstXArtnMptHQrtXEqtnMqt3IptHMrtXIqtXQrtHMrtXEqtnMqt3IqtXMrtnMrtHMqtnMrtXIrtnMqtXIqtXMrtXIqtnMqtXMrtnIrtXIqtXIrtnMqtXMrtXMqtXIqtnMqtnIrtXMqtnMqtXIrtnIrtXMqtXIrtXMrtnIrtXMqtXIqtnMrtnIrtXMrtXIqtnMqtXMqtXIrtnMrtnIrtXMqtXIqtnMqtXIqtnIqtnMrtnIqtXMqtXIqtnMrtnIrtXP////2/Pn0+/j0+/fz+/fw+vXs+PLp+PHb8+fa8ufV8eTN7t7M7t6e3r980qldx5Rcx5Nbx5NOwopLwYhFv4REvoNCvoI/vYA/vIA9vH87vH01uXozuXgrtnPX/+VdAAAAVHRSTlMACgsMHh8gISIjJCUmJykqKzAyMzQ1T1NUVVZXWl1eX2BhY3x+gYKDhIiJi4yOkZSjpqeoqaqsrbCxssfIycrS09TV1tfY2drb3N309fb5+vv8/f6OYp+yAAABkElEQVR42sXUxYLbMACEYS0zMzNDucvMLLvhlCEpt/P+h4LXIFmYU77zP4mZlEPT+Mrm7v7+7ubKeKO5rp+/AONsrk6bt6+5iHGetyrzqgcUEnS1Ut53X0LhvFPWD95A6XpA7CddaLgT8X7oBbTcPr7vuYHBNXcelacwOq9iBquwsBL1bRQW7qI7+BRWHgV9gwMrtNYfzELnM0LT/uAMGp9S7xA4IZ4aaHxIJRLvEajxBuNQ+/ivf/MLgRFvsGTdY9EbbGj7t0yPDW+wY91jxxscWPc49AaHiBRfFzS9P9hh+nwiX1T32Imf9I9XiUSuoOz9k15CfKHqscDeOHah6P0bVw9u8TKRyCblPWrYh49dKPpjcm8GnG/pf0f1GxJT/qDeAedrKvMdErSa+J6A9+UnZB6W+BG4bSnxM7PEfshOYHRUQRhdNzC46iCcfhdaTi+JGabafowIBq41x9NPJLrOoXDSQaQqVykk7lYqiErrMwcx9HEz0amd5W7J8UwtMaobXV7f3tvbWl8erSVl8Bfe8H/YvYeKtQAAAABJRU5ErkJggg==");
+        background-position: 10px;
+        background-repeat: no-repeat;
+        background-size: 30px;
+        padding-left: 55px;
+      }
+      .event-wrap .ev-box[data-status="danger"] {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAFJklEQVR42u1ZA5gjSxh8tm0b2UxyVt4mM8nZi2O6O2fbtm3btm3btu0kUy9/cg/5ZpEsD6nvq/Wmq7rzq+eZEJ48hBBCCEa5zNthFtbXYBWXiDoz6x9msr/zWIiPiIh43qDwNelylHZ16DMGHTu0RMacXE1j5ZtMpqYvPPIGdGZ7Oc/uY/XGncD9y8CGslg/mkMvM+gs9iqPtPg/sxR9V1L4lepNerpBONgPWMe9rFudw2gTN42mMh88sgbCLPZuRqtwnzh1Hrhx0CNc/Gvg3HyO9Nm56jmh3o+keEku8ate5q6egycBUIGdLUi4H/u2YdBbmPqHuaTuETTA55sKVHLdun0HOL9cI554byWHrbBQjYpY8YgFLstDgTtjwSrAdRfYXC1GA8Q5/Tnob3UyK/hIiP8tIuIlSRGHoso2cblVFTg+noTGSVFKII1VnPraZH8l9Xc/nNXSyxxbdh4A7p4HNpSO18DeqQwSnYKF1U9d8UrxjySF32zYdoAKwv7uJDAgNqvLYVTYPUkWn6Vm2hxIFffCpavA9d3/imtUmyFXxH+MLM5wZCbzM3B5MUemXFwNk+3DU2f3LSUkTzC6B46eCahuYHsjr7AHq71BquGYbtpTGNaR+Sr0Xzx9yqdNRay0Rddw3rv/ADi70E9YWqvWwIw+WgNkNm+UA9QneV7y2ZTsd6JJ1KKVmwDnLWBTZT9h5nxaA0uHxhwLy4Y9TKvh9hIpIj5DhohXDZ4UKKq3dYFwdKRGVL5orYFN42IP6ArlBdLY+OV02Yu9lRKB20wvc3X/4RPAndPAeodGUHGmNbB/auwGKMANVqbqLKxV8nabplJfSIq427rbcHixt1OMgsqX0xo4My/utNq+EYekMKdkcvyQbAY8Oz8uU57yrqvXbgJXNscqpk41rYGby+I2cH0pR7a8XJVkNiV5xIezTB4h6qjJCwDVCWyrF6uYlvX9xXtEwb02/uI2vrsvoPVmpiSt+qZNn5MUsTlPybpOp9MFnJ4Vp5Buzf0NZM3NAqrOZDKiOAW0OJCU4yelTQcJWbVhB/DgOrCxQpxCBnfwN5ArIjADxA1jfP9Do2mSiP85k3jToDguVGrQ1Q3CoUHxipjQ3d9AdInADRBrVOEwWtmNXywl3k+KXr+DQRHuYyfPAreO+Y2JsXHuAO5noHSZ4AycmsuQ1sYprXZNlPjfw0t+r5fZgy79x/vGxN1tAhKwaqS/gRqVgzNA7NmS+iS7W6eIPxLR7/BZ2fJXct28dQe4uCbgxbdP9DfQtE7wBm6v4LAUEKqksCUJK1qy3UKLT5mzHHDfB7bUCnhxKlp6+T8DPVvSz4PnjL4PA9rCcwclnlKYURF7I0o39o2JJ6cEvfiiIRxDOnCM7MxxY2nCDKhrOYpzgbTZxYkfsld+OfDdN7Oq5HzT9n3/3q4Fu/ieKRxN6mjngGC5ezL3jp80ugY2pFsd70lWca1Oyz4qCAf7B7eotiOl3J4oEw1rUVrld422Yp8GMGmxXmmyl3KfPX8JuHtWmzYDZMXyvkCm4eb47MSdwoWFHBly0K0eGxDv3SalzZ5DJsOL0zMTvOidFb47oEPT6fvEs29reitxV5zF7c9wu5F2bfOO/fDi2Bj650eC2yfQ2zGe+Zlujj1/5Oo7fBq8cN3ztc2XN6Q6Bw7qSwbcf5gdH8cTA/aedAHbqN1ADBk7+5Fg4w6DQFOgR1u/gJ6whJntDY1Wx0kyQseWylSNNscpT3fa5NF7whNCCCGE8DfUtO70tPF8XwAAAABJRU5ErkJggg==");
+        background-position: 10px;
+        background-repeat: no-repeat;
+        background-size: 30px;
+        padding-left: 55px;
+      }
+
+      .event-wrap .ev-box[data-status="error"] .ev-border {background: red;}
+      .event-wrap .ev-box[data-status="success"] .ev-border {background: #2bb673;}
+      .event-wrap .ev-box[data-status="danger"] .ev-border {background: #ffc861;}
+
+
+      .event-wrap .ev-box .ev-close {
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 6px;
+        color: #ccc;
+        font-weight: bold;
+        line-height: 14px;
+        font-size: 14px;
+      }
+      .event-wrap .ev-box .ev-close:hover {cursor: pointer;color: #ff4a4a}
+
+    </style>
+    <script>
+      let evID = 0;
+      let toolArray = [];
+
+      function pushEvent(message,type){
+        // type [error || success || danger]
+
+        toolArray.push({
+          id : evID,
+          //st: setTimeout(function(){ evClose('st') },4000)
+        })
+
+        let el = document.createElement('div');
+        el.className = 'ev-box';
+        el.classList.add('error'+evID);
+        if (type){
+          el.classList.add(type);
+        }
+        el.setAttribute("data-status", type);
+
+        let text = document.createElement('div');
+        text.className = 'ev-text';
+        text.innerHTML = message; // evID + error;
+
+        let close = document.createElement('div');
+        close.innerHTML ='X';
+        close.className = 'ev-close';
+        close.setAttribute("onclick", "evClose("+evID+")");
+
+        let border = document.createElement('div');
+        border.className = 'ev-border';
+
+        el.append(text, close, border);
+
+        let wrap = document.querySelector('.event-wrap');
+        wrap.append(el);
+
+        evID++;
+      }
+
+      function evClose(id){
+        if (id === 'st'){
+          const el = toolArray.find(x=>x!==undefined);
+          if (el === undefined){return}
+          id = el.id;
+        }
+
+        const ev = document.querySelector('.error'+id);
+        ev.remove();
+        delete toolArray[id];
+      }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

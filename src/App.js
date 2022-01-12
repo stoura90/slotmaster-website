@@ -62,6 +62,7 @@ const  App=()=> {
           <MainNavigator/>
           <Guest/>
           <OTP/>
+          <div className="event-wrap"/>
         </>
   )
 }

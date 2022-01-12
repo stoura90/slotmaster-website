@@ -9,7 +9,7 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
     const [error,setError]=useState("")
 
     let [reSend,setReSend]=useState(-1)
-    const  [code,setCode]=useState("")
+    const [code,setCode]=useState("")
 
     useEffect(()=>{
         setError(err)
