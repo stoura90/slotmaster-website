@@ -133,7 +133,6 @@ const Confirmation = () => {
              setStep(2)
         }
     }
-
     const finishStep=()=>{
         setErrors([])
         let error = _.chain(documents).map((v,k)=>{
@@ -200,8 +199,6 @@ const Confirmation = () => {
             console.log()
         }
     }
-
-
     return (
         <>
             <div id="accountTabContent">
