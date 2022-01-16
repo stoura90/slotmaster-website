@@ -23275,6 +23275,15 @@ label[for=phone-primary] {
   color: #434a5c;
 }
 
+.user_verify_test {
+  background: #1b2232;
+  line-height: 60px;
+  padding: 0 20px;
+  border-radius: 6px;
+  color: #ffbc00;
+  border-bottom: 3px solid #ffbc00;
+}
+
 @media only screen and (max-width: 1000px) {
   .slider .swiper-container:before {
     height: 10vw;

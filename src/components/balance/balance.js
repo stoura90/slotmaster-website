@@ -57,15 +57,13 @@ const Balance = ({route}) =>{
         answer:'',
         country:"",
         hasUserRequestedVerify:null,
-        userVerifyStatus:null,
+        verifyStatus:null,
         question: {id:0, value:'empty'}
     });
     const getInfo = ()=>{
         Actions.User.info().then(response=>{
             if(response.status){
                 setInfoData(response.data.data);
-
-                console.log(response.data.data)
             }
         })
     }
@@ -163,7 +161,7 @@ const Balance = ({route}) =>{
             </div>
 
             {
-                infoData?.hasUserRequestedVerify === true && infoData?.userVerifyStatus !== 0 &&
+                infoData?.hasUserRequestedVerify === true && infoData?.verifyStatus !== 0 &&
                 <div className="col-12">
                     <div className="user_verify_test">Your information has been submitted and Waiting for Review </div>
                 </div>
@@ -197,7 +195,7 @@ const Balance = ({route}) =>{
                     }
                     {
                         // User?.data?.verifyStatus !== 1 &&
-                       route !=="verification" && infoData?.userVerifyStatus !== 0 && infoData?.hasUserRequestedVerify !== true  && <li className="col nav-item" role="presentation">
+                       route !=="verification" && infoData?.verifyStatus !== 0 && infoData?.hasUserRequestedVerify !== true  && <li className="col nav-item" role="presentation">
                             <Link
                                 to={`/${lang}/account/verification`}
                                 className="d-flex align-items-center justify-content-between nav-link"

@@ -12,10 +12,10 @@ const countries =[
     { id:"BDI",value:"Burundi"}
 ]
 const curencies =[
-    { id:"840",value:"US Dollar"},
-    { id:"978",value:"Euro"},
-    { id:"981",value:"Lari"},
-    { id:"643",value:"Russian Ruble"},
+    { id:"USD",value:"US Dollar"},
+    { id:"EUR",value:"Euro"},
+    { id:"GEL",value:"Lari"},
+    { id:"RUB",value:"Russian Ruble"},
 ]
 const questions = [
     { id:1,value:"What is your mother\'s maiden name?"},
@@ -249,7 +249,7 @@ const Information = () => {
                                             <div className={`select-label-border ${error("country")}`}>
                                                 <select onChange={e => {
                                                     setInfoData({...infoData,country:e.target.value})
-                                                }} value={infoData?.country?.iso3} className="select2" placeholder="Country" id="account">
+                                                }} value={infoData?.country} className="select2" placeholder="Country" id="account">
                                                     <option value={""}>{t("Choose Country")} </option>
                                                     {
                                                         _.map(countries,  (v,k)=> <option key={k} value={v.id}> {v.value}</option>)
@@ -262,7 +262,7 @@ const Information = () => {
                                             <div className={`select-label-border ${error("currency")}`}>
                                                 <select onChange={e => {
                                                     setInfoData({...infoData,currency:e.target.value})
-                                                }} value={infoData.currency.iso} className="select2" placeholder="Currency" id="account">
+                                                }} value={infoData.currency} className="select2" placeholder="Currency" id="account">
                                                     <option value={""}>{t("Choose Currency")} </option>
                                                     {
                                                         _.map(curencies,(v,k)=><option key={k} value={v.id}>{v.value}</option>)
