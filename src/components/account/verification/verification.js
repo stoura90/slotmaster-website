@@ -85,6 +85,8 @@ const Confirmation = () => {
         Actions.User.info().then(response=>{
             if(response.status){
 
+                if (response?.data?.data?.userVerifyStatus === 2){setStep(2)}
+
                 const {
                     firstName,
                     email,

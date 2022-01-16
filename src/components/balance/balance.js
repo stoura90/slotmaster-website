@@ -38,16 +38,43 @@ import {
     viewOn,
 } from '../../assets/img/icons/icons';
 import {Link, useParams} from "react-router-dom";
-import {useTranslation} from "../../core";
+import {Actions, useTranslation} from "../../core";
 
 const Balance = ({route}) =>{
     const {t} = useTranslation()
     const {User,signOut} = useUser();
     const {lang} = useParams();
-    const [showBalance,setShowBalance] = useState(false)
+    const [showBalance,setShowBalance] = useState(false);
+
+    const [infoData, setInfoData] = useState({
+        firstName:'',
+        email:'',
+        phone:'',
+        lastName:'',
+        username:'',
+        currency: "",
+        city:'',
+        answer:'',
+        country:"",
+        hasUserRequestedVerify:null,
+        userVerifyStatus:null,
+        question: {id:0, value:'empty'}
+    });
+    const getInfo = ()=>{
+        Actions.User.info().then(response=>{
+            if(response.status){
+                setInfoData(response.data.data);
+
+                console.log(response.data.data)
+            }
+        })
+    }
+
     useEffect(()=>{
-        console.log(User)
+        getInfo()
+        console.log('user',User)
     },[])
+
     const showVerificationModal = () => {
         document.getElementById('btn-confirm-verification').click();
     }
@@ -134,6 +161,15 @@ const Balance = ({route}) =>{
                     <button className="btn-dep">{t("Make a Deposit")}</button>
                 </div>
             </div>
+
+            {
+                infoData?.hasUserRequestedVerify === true && infoData?.userVerifyStatus !== 0 &&
+                <div className="col-12">
+                    <div className="user_verify_test">Your information has been submitted and Waiting for Review </div>
+                </div>
+            }
+
+
             <div className="col-12">
                 <ul
                     className="row account-tabs d-flex flex-column flex-md-row list-unstyled"
@@ -160,7 +196,8 @@ const Balance = ({route}) =>{
                         </li>
                     }
                     {
-                       route !=="verification" &&  <li className="col nav-item" role="presentation">
+                        // User?.data?.verifyStatus !== 1 &&
+                       route !=="verification" && infoData?.userVerifyStatus !== 0 && infoData?.hasUserRequestedVerify !== true  && <li className="col nav-item" role="presentation">
                             <Link
                                 to={`/${lang}/account/verification`}
                                 className="d-flex align-items-center justify-content-between nav-link"

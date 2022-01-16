@@ -1,7 +1,7 @@
 import {Suspense, useEffect, useLayoutEffect, useState} from 'react'
 
 import {Actions, Provider, useTranslation} from "./core";
-import {Footer, Guest, Header, MainNavigator, Modal} from "./components";
+import {Button, Footer, Guest, Header, MainNavigator, Modal} from "./components";
 import EventEmitter from "./core/utils/eventEmitter";
 import {useDispatch} from "react-redux";
 import {useUser} from "./core/hooks/useUser";
@@ -11,8 +11,10 @@ const eventEmitter = new EventEmitter();
 const  App=()=> {
     const {t,i18n}  = useTranslation()
     const dispatch = useDispatch();
-    const {signOut} = useUser()
+    const {User,signOut} = useUser();
     const [loaded,setLoaded]=useState(false)
+    //const [modal, setModal]=useState(true);
+
     useEffect( () => {
         checkLanguage()
         ping()
@@ -63,6 +65,16 @@ const  App=()=> {
           <Guest/>
           <OTP/>
           <div className="event-wrap"/>
+          {/*{
+              User?.data?.verifyStatus === 1 && modal === true &&
+              <Modal closeButton={true}
+                     onClose={()=>setModal(false)}
+                     title={"Verification Modal"}
+                     footer={<Button className={"danger"} title={"დახურვა"} onCLick={()=>setModal(false)}/>}
+              >
+                  <div>verif modal</div>
+              </Modal>
+          }*/}
         </>
   )
 }

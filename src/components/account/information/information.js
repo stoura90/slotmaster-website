@@ -30,12 +30,15 @@ const Information = () => {
         firstName:'',
         email:'',
         phone:'',
+        gender:'',
         lastName:'',
         username:'',
         currency: "",
         city:'',
         answer:'',
         country:"",
+        hasUserRequestedVerify:null,
+        userVerifyStatus:null,
         question: {id:0, value:'empty'}
     });
     const [status,setStatus]=useState({
@@ -49,7 +52,8 @@ const Information = () => {
     const getInfo = ()=>{
         Actions.User.info().then(response=>{
             if(response.status){
-                setInfoData(response.data.data)
+                setInfoData(response.data.data);
+
                 console.log(response.data.data)
             }
         })
@@ -95,6 +99,7 @@ const Information = () => {
     }
     return (
         <>
+
             <div className="tab-content" id="accountTabContent">
                 <div
                     className="tab-pane fade show active"
@@ -219,6 +224,21 @@ const Information = () => {
                                                 <label htmlFor="dob">{t("Date of birth")}</label>
                                             </div>
                                         </div>
+
+                                        <div className="col-12 col-md-6">
+                                            <div className={`select-label-border ${error("gender")}`}>
+                                                <select onChange={e => {
+                                                    setInfoData({...infoData,country:e.target.value})
+                                                }} value={infoData?.gender} className="select2" placeholder="Sex" id="gender">>
+                                                    <option value={""}>{t("Choose Sex")} </option>
+                                                    {
+                                                        _.map([{id:'F',value:"Female"},{id:'M',value:"Male"}],  (v,k)=> <option key={k} value={v.id}> {v.value}</option>)
+                                                    }
+                                                </select>
+                                                <label htmlFor="gender">{t("Sex")}</label>
+                                            </div>
+                                        </div>
+
                                         <div className="col-12 col-md-6">
                                             <div className={`input-label-border ${error("username")}`}>
                                                 <input onChange={e => setInfoData({...infoData,username:e.target.value})} value={infoData.username} type="text" name="username" id="username" placeholder="username"/>

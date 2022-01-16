@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import {Button} from "../index";
-const Modal = ({children,styles,title,onClickBackDrop,closeButton,onClose})=>{
+const Modal = ({children,styles,title,footer,onClickBackDrop,closeButton,onClose})=>{
     return <>
 
         <div className={"zl2-modal"} style={{...styles}}>
@@ -29,11 +29,9 @@ const Modal = ({children,styles,title,onClickBackDrop,closeButton,onClose})=>{
                 }
             </div>
             <div className={"footer"}>
-               <Button
-                   className={"danger"}
-                    title={"დახურვა"}
-                   onCLick={()=>alert()}
-               />
+                {
+                    footer
+                }
             </div>
         </div>
         <div className={"zl2-modal-backdrop"} onClick={()=>onClickBackDrop()}/>
