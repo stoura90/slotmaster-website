@@ -17,7 +17,9 @@ import Information from "./account/information/information";
 import ShowMore from "./showMore/ShowMore";
 import Verification from "./account/verification/verification"
 import Finances from "./account/finances/finances"
+import PLXModal from "./modal/PLXModal";
 export {
+    PLXModal,
     Header,
     Footer,
     MainNavigator,

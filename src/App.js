@@ -1,7 +1,7 @@
 import {Suspense, useEffect, useLayoutEffect, useState} from 'react'
 
 import {Actions, Provider, useTranslation} from "./core";
-import {Button, Footer, Guest, Header, MainNavigator, Modal} from "./components";
+import {Button, Footer, Guest, Header, MainNavigator, } from "./components";
 import EventEmitter from "./core/utils/eventEmitter";
 import {useDispatch} from "react-redux";
 import {useUser} from "./core/hooks/useUser";

@@ -3,7 +3,6 @@ import './modal.css';
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import {Button} from "../index";
 const Modal = ({children,styles,title,footer,onClickBackDrop,closeButton,onClose})=>{
     return <>
 

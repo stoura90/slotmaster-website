@@ -4,9 +4,11 @@ import {Actions, useTranslation} from "../../../core";
 import {useDispatch} from "react-redux";
 import "./signin.scss"
 import {useParams} from "react-router-dom";
+import EventEmitter from "../../../core/utils/eventEmitter";
 
 const SignIn =() =>{
     const {t} = useTranslation()
+    const eventEmitter= new EventEmitter()
     const dispatch = useDispatch();
     const signInRef = useRef({current:null})
     const [loginForm,setLoginForm]=useState({
@@ -82,6 +84,9 @@ const SignIn =() =>{
                             <label htmlFor="email">{t("Email")}</label>
                         </div>
                         <div className="input-label" >
+                            <p className={"forgot-password"} onClick={()=>eventEmitter.emit("recover","Username")}>{t("Forgot Username")}?</p>
+                        </div>
+                        <div className="input-label" >
                             <input type="password" name="password" id="signIn_password"
                                    value={loginForm.password} onChange={event => setLoginForm({...loginForm,password:event.target.value})}
                             />
@@ -103,7 +108,7 @@ const SignIn =() =>{
 
                         </div>
                         <div className="input-label" >
-                            <p className={"forgot-password"}>{t("Forgot password")}?</p>
+                            <p className={"forgot-password"} onClick={()=>eventEmitter.emit("recover","Password")}>{t("Forgot Password")}?</p>
                         </div>
                         {
                             error && <div className="login_error" style={{color:'#ff7e7e'}}>{error}</div>
