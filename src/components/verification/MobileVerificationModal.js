@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import {EmailVerificationModal} from "./EmailVerificationModal";
 
 window.reSendInterval=null;
-export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,verify,onClose})=>{
+export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,verify,onClose,additionalParams})=>{
     const {t} = useTranslation()
     const [phone,setPhone]=useState("")
     const [error,setError]=useState("")
@@ -13,7 +13,7 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,ve
     const  [code,setCode]=useState("")
     useEffect(()=> {
         console.log(number,prefix)
-        if(number && number.length > 7){
+        if(number && number.length > 3){
             let length = number.toString().length;
             setPhone(prefix+' '+(new Array(length-2)).join("*").concat(number.substring(length-3,2)))
         }
@@ -25,7 +25,7 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,ve
 
 
     const onResend =()=>{
-        Actions.User.resendOtp({send:send.concat("?type={type}&prefix={prefix}&value={value}"),type:"mobile",prefix:parseInt(prefix),value:number})
+        Actions.User.resendOtp({send:send.concat("?type={type}&prefix={prefix}&value={value}"),type:"mobile",prefix:parseInt(prefix),value:number,additionalParams:additionalParams})
             .then(response=>{
                 if(response.status){
                     setCode("")
@@ -33,12 +33,15 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,ve
                 }else {
                     setError('error')
                 }
-            }).catch(reason => setError(reason))
+            }).catch(reason => {
+                console.log('reason',reason?.response?.data)
+            setError(reason?.response?.data?.error)
+        })
     }
     const onVerify =()=>{
 
         if(code){
-            Actions.User.verifyOtp({verify:verify.concat("?type={type}&prefix={prefix}&value={value}&otp={otp}"),type:"mobile",prefix:prefix,value:number,otp:code})
+            Actions.User.verifyOtp({verify:verify.concat("?type={type}&prefix={prefix}&value={value}&otp={otp}"),type:"mobile",prefix:prefix,value:number,otp:code,additionalParams:additionalParams})
                 .then(response=>{
                     if(response.status){
                         save(true);
@@ -124,7 +127,8 @@ MobileVerificationModal.propTypes = {
     err:PropTypes.string,
     onSubmit:PropTypes.func,
     send:PropTypes.string,
-    save:PropTypes.string
+    save:PropTypes.string,
+    additionalParams:PropTypes.object
 }
 MobileVerificationModal.defaultValues = {
     number:'',
@@ -132,5 +136,6 @@ MobileVerificationModal.defaultValues = {
     err:"",
     onSubmit:(_)=>console.log(_),
     save:"",
-    send:""
+    send:"",
+    additionalParams:{}
 }

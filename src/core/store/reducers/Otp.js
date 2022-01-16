@@ -6,8 +6,8 @@ const INITIAL_STATE={
     error:null,
     prefix:null,
     send:null,
-    save:null
-
+    save:null,
+    additionalParams:{}
 }
 
 export const  OTP = (state=INITIAL_STATE, action)=>{

@@ -4,21 +4,22 @@ import {OTP_CLOSE, OTP_EMAIL, OTP_ERROR, OTP_PHONE} from "../store/actionTypes";
 export function useOTP() {
     const dispatch = useDispatch();
     const otp = useSelector(state => state.OTP);
-    const PHONE= ({prefix,number,send,save,verify=null})=>{
+    const PHONE= ({prefix,number,send,save,additionalParams,verify=null})=>{
         dispatch({
             type:OTP_PHONE,
             payload:{
                 type:"phone",
-                value:prefix,
+                value:number,
                 error:'',
-                prefix:number,
+                prefix:prefix,
                 send:send,
                 save:save,
-                verify:verify
+                verify:verify,
+                additionalParams:additionalParams
             }
         })
     }
-    const EMAIL = ({email,send,save,verify=null}) => {
+    const EMAIL = ({email,send,save,additionalParams,verify=null}) => {
         dispatch({
             type:OTP_EMAIL,
             payload:{
@@ -28,7 +29,8 @@ export function useOTP() {
                 prefix:null,
                 send:send,
                 save:save,
-                verify:verify
+                verify:verify,
+                additionalParams:additionalParams
             }
         })
     }

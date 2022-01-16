@@ -4,6 +4,7 @@ import Request from "../../http/http";
 import moment from 'moment'
 import Http from "../../http/http2";
 import {query_string} from "../../utils";
+import _ from "lodash";
 const signIn = (data) =>async (dispatch)=>{
     const response = await Request.post(Config.User.SIGN_IN,query_string({
         "username":data.username,
@@ -93,14 +94,28 @@ const updateInfo = async ({data}) => {
 
     return await (new Http()).post(Config.User.UPDATE_INFO, formData)
 }
-const  resendOtp = ({send,type,prefix,value}) =>{
+const  resendOtp = ({send,type,prefix,value,additionalParams={}}) =>{
     //{type}&prefix={prefix}&value={value}
-    return new Http().get(send.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value))
+    return new Http().get(send.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value).concat('&',_.map(additionalParams,(v, k)=>{
+        return k.concat('=',v)
+    }).join('&')))
 }
-const  verifyOtp = ({verify,type,prefix,value,otp}) =>{
+const  verifyOtp = ({verify,type,prefix,value,otp,additionalParams={}}) =>{
     //{type}&prefix={prefix}&value={value}
-    return new Http().get(verify.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value).replace('{otp}',otp))
+    return new Http().get(verify.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value).replace('{otp}',otp).concat('&',_.map(additionalParams,(v, k)=>{
+        return k.concat('=',v)
+    }).join('&')))
 }
+
+const  recoverUserName = ({channel,prefix,data,token}) =>{
+    //{type}&prefix={prefix}&value={value}
+    return new Http().permitAll().post(Config.Guest.RECOVER.USERNAME.replace("{channel}",channel).replace("{prefix}",prefix).replace("{data}",data).replace('{token}',token))
+}
+const  recoverPassword = ({channel,prefix,data,token,username,otp}) =>{
+    //{type}&prefix={prefix}&value={value}
+    return new Http().permitAll().post(Config.Guest.RECOVER.PASSWORD.replace("{channel}",channel).replace("{prefix}",prefix).replace("{data}",data).replace('{token}',token).replace('{username}',username).replace('{otp}',otp))
+}
+
 
 const verification=(data)=>{
    return  (new Http()).post(Config.User.VERIFICATION,{
@@ -131,5 +146,7 @@ export default {
   updateInfo,
     resendOtp,
     verifyOtp,
-    verification
+    verification,
+    recoverUserName,
+    recoverPassword
 }

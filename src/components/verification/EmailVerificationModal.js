@@ -4,7 +4,7 @@ import {Actions, useTranslation} from "../../core";
 import PropTypes from "prop-types";
 
 window.reSendInterval=null;
-export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,verify})=>{
+export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,verify,additionalParams})=>{
     const {t} = useTranslation()
     const [error,setError]=useState("")
 
@@ -15,7 +15,7 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
         setError(err)
     },[err])
     const onResend =()=>{
-        Actions.User.resendOtp({send:send.concat("?type={type}&prefix={prefix}&value={value}"),type:"email",prefix:"",value:email})
+        Actions.User.resendOtp({send:send.concat("?type={type}&prefix={prefix}&value={value}"),type:"email",prefix:"",value:email,additionalParams:additionalParams})
             .then(response=>{
                 if(response.status){
                     setCode("")
@@ -30,7 +30,7 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
     const onVerify =()=>{
 
         if(code){
-            Actions.User.verifyOtp({verify:verify.concat("?type={type}&prefix={prefix}&value={value}&otp={otp}"),type:"email",prefix:"",value:email,otp:code})
+            Actions.User.verifyOtp({verify:verify.concat("?type={type}&prefix={prefix}&value={value}&otp={otp}"),type:"email",prefix:"",value:email,otp:code,additionalParams:additionalParams})
                 .then(response=>{
                     if(response.status){
                         save(true);
@@ -123,7 +123,8 @@ EmailVerificationModal.propTypes = {
     onSubmit:PropTypes.func,
     onClose:PropTypes.func,
     send:PropTypes.string,
-    save:PropTypes.string
+    save:PropTypes.string,
+    additionalParams:PropTypes.object
 }
 EmailVerificationModal.defaultValues = {
     email:'',
@@ -131,5 +132,6 @@ EmailVerificationModal.defaultValues = {
     onSubmit:(code)=>console.log(code),
     onClose:(_)=>console.log(_),
     save:"",
-    send:""
+    send:"",
+    additionalParams:{}
 }

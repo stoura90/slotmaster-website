@@ -9,8 +9,10 @@ import {Link, useParams} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {useTranslation} from "../../core";
 import ChangeLagunge from "../languages/ChangeLagunge";
+import EventEmitter from "../../core/utils/eventEmitter";
 const Header = ({page}) =>{
-    const {t} = useTranslation()
+    const {t} = useTranslation();
+    const eventEmitter = new EventEmitter();
     const {User} = useUser();
     const {lang} = useParams();
     useEffect(()=>{
@@ -72,10 +74,8 @@ const Header = ({page}) =>{
                                     <>
                                         <button
                                             className="btn-text text-capitalize"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#LoginModal"
                                             id={"signIn-btn"}
-
+                                            onClick={()=>eventEmitter.emit('signIn',true)}
                                         >
                                             {t('Log In')}
                                         </button>

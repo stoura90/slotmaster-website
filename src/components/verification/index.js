@@ -12,10 +12,10 @@ const  OTP =()=>{
     }
     return  <>
         {
-            otp.type=== 'email' && <EmailVerificationModal email={otp.value} verify={otp.verify} onSubmit={onSubmit} err={otp.error} onClose={CLOSE} send={otp.send} save={otp.save} />
+            otp.type=== 'email' && <EmailVerificationModal additionalParams={otp.additionalParams} email={otp.value} verify={otp.verify} onSubmit={onSubmit} err={otp.error} onClose={CLOSE} send={otp.send} save={otp.save} />
         }
         {
-            otp.type=== 'phone' && <MobileVerificationModal number={otp.value} verify={otp.verify}  prefix={otp.prefix} onSubmit={onSubmit} err={otp.error} onClose={CLOSE} send={otp.send}  save={otp.save} />
+            otp.type=== 'phone' && <MobileVerificationModal additionalParams={otp.additionalParams} number={otp.value} verify={otp.verify}  prefix={otp.prefix} onSubmit={onSubmit} err={otp.error} onClose={CLOSE} send={otp.send}  save={otp.save} />
         }
     </>
 }

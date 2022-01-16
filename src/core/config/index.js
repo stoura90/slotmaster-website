@@ -24,6 +24,12 @@ export const Config ={
    },
    OTP:{
       SOURCES:"/us/v2/api/secured/personal/info/otp/sources"
+   },
+   Guest:{
+      RECOVER: {
+         USERNAME:"/us/v1/api/personal/recover/username?channel={channel}&token={token}&prefix={prefix}&data={data}",
+         PASSWORD:"/us/v1/api/personal/recover/password?channel={channel}&token={token}&prefix={prefix}&data={data}&username={username}&otp={otp}"
+      }
    }
 }
 

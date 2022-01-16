@@ -1,10 +1,12 @@
 import {PLXModal} from "../../index";
 import {useEffect, useState} from "react";
 import EventEmitter from "../../../core/utils/eventEmitter";
-import {useTranslation} from "../../../core";
+import {Actions, useTranslation} from "../../../core";
 import _ from "lodash";
+import {useOTP} from "../../../core/hooks/useOTP";
 
 const Recover = () =>{
+    const {otp, PHONE,EMAIL,CLOSE,ERROR} = useOTP();
     const MobilePrefixList=[
         {id:1,prefix: "+1"},
         {id:673,prefix: "+673"},
@@ -20,28 +22,96 @@ const Recover = () =>{
         channel:'mobile',
         token:'',
         username:'',
-        prefix:'',
-        data:''
+        prefix:359,
+        data:'',
+        newPassword:false,
+        pass1:'',
+        pass2:''
     })
 
     const [error, setError] = useState(null);
+
+
 
     useEffect(()=>{
         eventEmitter.on("recover",setType)
         return ()=>eventEmitter.removeListener("recover",e=>setType(null))
     },[])
 
+    const sendData =()=>{
+        if (type === 'Username'){
+            window.grecaptcha.execute('6LcsE_IdAAAAAElaP_6dOnfzTJD2irfkvp1wzIeS', {action: 'recoverUsername'}).then(async(token)=> {
+                Actions.User.recoverUserName({...form, token:token}).then(response=>{
+                    console.log(response)
+                    setType(null);
+                    eventEmitter.emit('signIn',false);
+                    window.pushEvent(`username გადმოგზავნილია`,'success');
+                }).catch(reason => window.pushEvent(`დაფიქსირდა შეცდომა`,'error'))
+            });
+        }else{
+            window.grecaptcha.execute('6LcsE_IdAAAAAElaP_6dOnfzTJD2irfkvp1wzIeS', {action: 'recoverPassword'}).then(async(token)=> {
+                //Actions.User.recoverUserName({...form, token:token}).then(response=>{
+                    if (form.channel === 'email'){
+                        EMAIL({
+                            email: form.data,
+                            send: `/us/v1/api/personal/recover/otp/get`,
+                            additionalParams:{
+                                username:form.username,
+                                token:token
+                            },
+                            save: code => {
+                                if (code) {
+                                    recoverPassword(code)
+                                }
+                            }
+                        })
+                    }else{
+                        PHONE({
+                            prefix:form.prefix,
+                            number:form.data,
+                            additionalParams:{
+                                username:form.username,
+                                token:token
+                            },
+                            send:`/us/v1/api/personal/recover/otp/get`,
+                            save:code=>{
+                                if(code){
+                                    recoverPassword(code)
+                                }
+                            }
+                        })
+                    }
+                //}).catch(reason => window.pushEvent(`დაფიქსირდა შეცდომა`,'error'))
+            });
+        }
+    }
+
+
+    const recoverPassword =(code)=>{
+        window.grecaptcha.execute('6LcsE_IdAAAAAElaP_6dOnfzTJD2irfkvp1wzIeS', {action: 'recoverPassword'}).then(async(token)=> {
+            Actions.User.recoverPassword({...form, token:token, otp:code}).then(response=>{
+                setType(null);
+                eventEmitter.emit('signIn',false);
+                CLOSE();
+                window.pushEvent(`დროებითი პაროლი გადმოგზავნილია`,'success');
+            }).catch(reason => window.pushEvent(`დაფიქსირდა შეცდომა`,'error'))
+        });
+    }
+
     return type !==null && (
         <PLXModal
             title={t(`Forgot ${type}`)}
             //onClickBackDrop={e=>setType(null)}
             onClose={e=>setType(null)}
+            contentStyle={{maxWidth:'350px'}}
         >
 
             <form onSubmit={(event)=>{
                 event.preventDefault();
+                sendData()
             }} className="form">
                 <div className="row">
+
 
                     <div className="col-12">
                         <div className={`select-label-border`}>
@@ -54,6 +124,7 @@ const Recover = () =>{
                             <label htmlFor="channel">{t("Type")}</label>
                         </div>
                     </div>
+
                     {
                         form.channel === 'email'?(
                                 <div className="col-12">
@@ -64,7 +135,7 @@ const Recover = () =>{
                                 </div>
                             )
 
-                        :
+                            :
                             (
                                 <div className="col-12">
                                     <div className={`input-label-border`}  >
@@ -100,8 +171,18 @@ const Recover = () =>{
 
                     }
 
-                </div>
+                    {
+                        type === 'Password' && (
+                            <div className="col-12">
+                                <div  className={`input-label-border`}>
+                                    <input onChange={e => setForm({...form,username:e.target.value})} value={form.username} type="text" name="username" id="data-username"/>
+                                    <label htmlFor="data-username">{t("Username")}</label>
+                                </div>
+                            </div>
+                        )
+                    }
 
+                </div>
 
                 {
                     error && <div className="login_error" style={{color:'#ff7e7e'}}>{error}</div>
@@ -109,6 +190,7 @@ const Recover = () =>{
 
                 <button type="submit" className="btn-primary" >{t("Submit")}</button>
             </form>
+
         </PLXModal>
     )
 }

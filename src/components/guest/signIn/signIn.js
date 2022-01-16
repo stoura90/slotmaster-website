@@ -5,32 +5,23 @@ import {useDispatch} from "react-redux";
 import "./signin.scss"
 import {useParams} from "react-router-dom";
 import EventEmitter from "../../../core/utils/eventEmitter";
+import PLXModal from "../../modal/PLXModal";
 
 const SignIn =() =>{
     const {t} = useTranslation()
     const eventEmitter= new EventEmitter()
     const dispatch = useDispatch();
-    const signInRef = useRef({current:null})
+
     const [loginForm,setLoginForm]=useState({
         username:'',
         password:''
     })
     const [error,setError] = useState(null);
+    const [show,setShow] = useState(false);
 
     useEffect(()=>{
-        setTimeout(()=>{
-            if(document.getElementById("signIn-btn")){
-                document.getElementById("signIn-btn").addEventListener("click",()=>{
-                    setError(null)
-                })
-            }
-        },1000)
-
-        return  () =>{
-            if(document.getElementById("signIn-btn")){
-                document.getElementById("signIn-btn").removeEventListener("click",()=>{})
-            }
-        }
+        eventEmitter.on("signIn",setShow);
+        return ()=>{eventEmitter.removeListener("recover",e=>setShow(false))}
     },[])
 
     const signIn=async () => {
@@ -51,77 +42,65 @@ const SignIn =() =>{
     }
 
 
-    return (
-        <div
-            ref={signInRef}
-            className="modal fade"
-            id="LoginModal"
-            tabIndex="-1"
-            aria-labelledby="LoginModalLabel"
-            aria-hidden="true"
-        >
-            <div className="modal-dialog modal-dialog-centered auth-modal">
-                <div className="modal-content">
-                    <div className="modal-head">
-                        <button className="close" id={"close-sign-in"} data-bs-dismiss="modal">
-                            <img src={close} alt="Close modal"/>
-                        </button>
-                        <div className="modal-title">{t("Log In")}</div>
-                    </div>
-                    <form onSubmit={(event)=>{
-                        event.preventDefault();
-                        if(loginForm.username && loginForm.password){
-                            signIn()
-                        }else{
-                            alert(t("Please fill in all the fields"))
-                        }
-                    }} className="form">
+    return  show && (
+        <PLXModal title={t("Log In")} onClose={()=>setShow(false)} contentStyle={{maxWidth:'350px'}}>
+            <form onSubmit={(event)=>{
+                event.preventDefault();
+                if(loginForm.username && loginForm.password){
+                    signIn()
+                }else{
+                    alert(t("Please fill in all the fields"))
+                }
+            }} className="form">
 
-                        <div className="input-label">
-                            <input type="text" name="email" id="email"
-                                   value={loginForm.username} onChange={event => setLoginForm({...loginForm,username:event.target.value})}
-                            />
-                            <label htmlFor="email">{t("Email")}</label>
-                        </div>
-                        <div className="input-label" >
-                            <p className={"forgot-password"} onClick={()=>eventEmitter.emit("recover","Username")}>{t("Forgot Username")}?</p>
-                        </div>
-                        <div className="input-label" >
-                            <input type="password" name="password" id="signIn_password"
-                                   value={loginForm.password} onChange={event => setLoginForm({...loginForm,password:event.target.value})}
-                            />
-                            <label htmlFor="password">{t("Password")}</label>
-                            <div className="toggle-password hide"  onClick={e => {
-                                let classList = e.target.classList;
-                                let contain = classList.contains('hide');
-
-                                document.getElementById('signIn_password').setAttribute('type',contain?'text':'password')
-
-                                if (contain){
-                                    classList.remove('hide');
-                                    classList.add('active');
-                                }else{
-                                    classList.add('hide');
-                                    classList.remove('active');
-                                }
-                            }}/>
-
-                        </div>
-                        <div className="input-label" >
-                            <p className={"forgot-password"} onClick={()=>eventEmitter.emit("recover","Password")}>{t("Forgot Password")}?</p>
-                        </div>
-                        {
-                            error && <div className="login_error" style={{color:'#ff7e7e'}}>{error}</div>
-                        }
-
-                        <button type="submit" className="btn-primary" >{t("Log In")}</button>
-                    </form>
-                    <p style={{fontSize:"0.75rem", color:"white", textAlign:"center", marginTop:"10px"}}>{t("Don't have an account?")} <span className={"forgot-password"} onClick={()=>{
-                        document.getElementById("signUp-btn").click()
-                    }}>{t("Sign Up")}</span></p>
+                <div className="input-label">
+                    <input type="text" name="email" id="email"
+                           value={loginForm.username} onChange={event => setLoginForm({...loginForm,username:event.target.value})}
+                    />
+                    <label htmlFor="email">{t("Email")}</label>
                 </div>
-            </div>
-        </div>
+                <div className="input-label" >
+                    <p className={"forgot-password"} onClick={()=>{
+                        document.getElementById("signIn-btn").click()
+                        eventEmitter.emit("recover","Username")
+                    }}>{t("Forgot Username")}?</p>
+                </div>
+                <div className="input-label" >
+                    <input type="password" name="password" id="signIn_password"
+                           value={loginForm.password} onChange={event => setLoginForm({...loginForm,password:event.target.value})}
+                    />
+                    <label htmlFor="password">{t("Password")}</label>
+                    <div className="toggle-password hide"  onClick={e => {
+                        let classList = e.target.classList;
+                        let contain = classList.contains('hide');
+
+                        document.getElementById('signIn_password').setAttribute('type',contain?'text':'password')
+
+                        if (contain){
+                            classList.remove('hide');
+                            classList.add('active');
+                        }else{
+                            classList.add('hide');
+                            classList.remove('active');
+                        }
+                    }}/>
+
+                </div>
+                <div className="input-label" >
+                    <p className={"forgot-password"} onClick={()=>{
+                        eventEmitter.emit("recover","Password")
+                    }}>{t("Forgot Password")}?</p>
+                </div>
+                {
+                    error && <div className="login_error" style={{color:'#ff7e7e'}}>{error}</div>
+                }
+
+                <button type="submit" className="btn-primary" >{t("Log In")}</button>
+            </form>
+            <p style={{fontSize:"0.75rem", color:"white", textAlign:"center", marginTop:"10px"}}>{t("Don't have an account?")} <span className={"forgot-password"} onClick={()=>{
+                document.getElementById("signUp-btn").click()
+            }}>{t("Sign Up")}</span></p>
+        </PLXModal>
     )
 }
 export default SignIn;
