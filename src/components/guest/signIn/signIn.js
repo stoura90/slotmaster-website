@@ -34,10 +34,12 @@ const SignIn =() =>{
                 window.location.reload()
                 return
             }
-            document.getElementById("close-sign-in").click();
+            setShow(false);
+            //document.getElementById("close-sign-in").click();
         }else{
             //setError(response?.data?.error_description)
-            setError(t('specified username or password is incorrect'));
+            window.top.pushEvent('specified username or password is incorrect','error');
+            //setError(t('specified username or password is incorrect'));
         }
     }
 
@@ -49,7 +51,8 @@ const SignIn =() =>{
                 if(loginForm.username && loginForm.password){
                     signIn()
                 }else{
-                    alert(t("Please fill in all the fields"))
+                    //alert(t("Please fill in all the fields"))
+                    window.top.pushEvent('Please fill in all the fields','error');
                 }
             }} className="form">
 
@@ -60,10 +63,10 @@ const SignIn =() =>{
                     <label htmlFor="email">{t("Email")}</label>
                 </div>
                 <div className="input-label" >
-                    <p className={"forgot-password"} onClick={()=>{
+                    <p className={"forgot-password"}><span onClick={()=>{
                         document.getElementById("signIn-btn").click()
                         eventEmitter.emit("recover","Username")
-                    }}>{t("Forgot Username")}?</p>
+                    }}>{t("Forgot Username")}?</span></p>
                 </div>
                 <div className="input-label" >
                     <input type="password" name="password" id="signIn_password"
@@ -87,9 +90,9 @@ const SignIn =() =>{
 
                 </div>
                 <div className="input-label" >
-                    <p className={"forgot-password"} onClick={()=>{
+                    <p className={"forgot-password"}><span onClick={()=>{
                         eventEmitter.emit("recover","Password")
-                    }}>{t("Forgot Password")}?</p>
+                    }}>{t("Forgot Password")}?</span></p>
                 </div>
                 {
                     error && <div className="login_error" style={{color:'#ff7e7e'}}>{error}</div>
@@ -98,6 +101,7 @@ const SignIn =() =>{
                 <button type="submit" className="btn-primary" >{t("Log In")}</button>
             </form>
             <p style={{fontSize:"0.75rem", color:"white", textAlign:"center", marginTop:"10px"}}>{t("Don't have an account?")} <span className={"forgot-password"} onClick={()=>{
+                setShow(false);
                 document.getElementById("signUp-btn").click()
             }}>{t("Sign Up")}</span></p>
         </PLXModal>

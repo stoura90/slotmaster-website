@@ -455,7 +455,7 @@ select{
 .custom-modal{
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   z-index: 2222;
   transition: opacity 0.15s linear;
@@ -470,3 +470,5 @@ select{
   }
 
 }
+
+.modal-footer:empty {display:none;}

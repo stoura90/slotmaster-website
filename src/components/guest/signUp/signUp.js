@@ -4,6 +4,7 @@ import _ from 'lodash'
 import {Actions, useTranslation} from "../../../core";
 import "./signUp.scss"
 import Verification from "../../verification";
+import {useParams} from "react-router-dom";
 const MobilePrefixList=[
     {id:1,prefix: "+1"},
     {id:673,prefix: "+673"},
@@ -25,7 +26,7 @@ const CountryList=[
     {id:"BDI",name: "Burundi"},
 ]
 const SignUp =() =>{
-    const {t} = useTranslation()
+    const {t,i18n} = useTranslation();
     const [signUpError,setSignUpError]=useState("")
     const [otpDialog,setOtpDialog]=useState(null)
     const [signUpForm,setSignUpForm]=useState({
@@ -103,12 +104,15 @@ const SignUp =() =>{
                  setErrors([...error])
                  if(error.length===2 && error[0]==="password" && error[1]==="password2"){
                      //alert("Passwords do not match")
-                     alert(t("Password should contain at least 6 symbols"))
+                     //alert(t("Password should contain at least 6 symbols"));
+                     window.top.pushEvent('Password should contain at least 6 symbols','error');
                  }
              }else{
                  if(!confirmed){
                      if(!primaryContact.phone && !primaryContact.email){
-                         alert('Chose Finances Method');return;
+                         //alert('Chose Finances Method');
+                         window.top.pushEvent('Chose Finances Method','error');
+                         return;
                      }
                  }
                  localStorage.removeItem("GRD_access_token")
@@ -116,7 +120,8 @@ const SignUp =() =>{
                      if(response.status){
                          document.getElementById("close-sign-up").click();
                          document.getElementById("signIn-btn").click();
-                         alert("Registration completed successfully")
+                         window.top.pushEvent('Registration completed successfully','success');
+                         //alert("Registration completed successfully")
                      }else{
 
                          if(response?.reason?.response?.data?.data){
@@ -326,7 +331,7 @@ const SignUp =() =>{
                                             setTermsError(false)
                                         }
                                     } }/>&nbsp;
-                                    {t("By clicking sign up, you accept our")} <span style={{textDecoration:'underline'}}><a href="/ka/terms">{t("Terms & Conditions")}</a></span> {t("and that you are over 18 years old")}
+                                    {t("By clicking sign up, you accept our")} <span style={{textDecoration:'underline'}}><a href={`/${i18n.language}/terms`}>{t("Terms & Conditions")}</a></span> {t("and that you are over 18 years old")}
                                 </label>
                             </div>
                             <div className={"error-text"}>{t(signUpError)}</div>
