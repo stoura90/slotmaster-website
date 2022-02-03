@@ -5,6 +5,13 @@ import {Actions, useTranslation} from "../../../core";
 import "./signUp.scss"
 import Verification from "../../verification";
 import {useParams} from "react-router-dom";
+import {useOTP} from "../../../core/hooks/useOTP";
+import PLXModal from "../../modal/PLXModal";
+
+import EventEmitter from "../../../core/utils/eventEmitter";
+
+
+
 const MobilePrefixList=[
     {id:1,prefix: "+1"},
     {id:673,prefix: "+673"},
@@ -27,13 +34,14 @@ const CountryList=[
 ]
 const SignUp =() =>{
     const {t,i18n} = useTranslation();
+    const otp = useOTP();
     const [signUpError,setSignUpError]=useState("")
     const [otpDialog,setOtpDialog]=useState(null)
     const [signUpForm,setSignUpForm]=useState({
         mail:"",
         //firstName:"",
         //lastName:"",
-        mobilePrefix:1,
+        mobilePrefix:"1",
         mobile:"",
         countryCode:"VGB",
         //currencyCode:840,
@@ -54,6 +62,15 @@ const SignUp =() =>{
     });
     const [otpError,setOtpError]=useState("");
     const [errors,setErrors]=useState([])
+
+    const [show,setShow] = useState(false);
+    const eventEmitter= new EventEmitter();
+
+    useEffect(()=>{
+        eventEmitter.on("signUp",setShow);
+        //return ()=>{eventEmitter.removeListener("recover",e=>setShow(false))}
+    },[])
+
     useEffect(()=>{
         if(!primaryContact.email ){
             setErrors([...errors.filter(v=>v!=='mail')])
@@ -63,10 +80,56 @@ const SignUp =() =>{
         }
     },[primaryContact])
     useEffect(()=>{
+        console.log('otpDialog',otpDialog)
         if(otpDialog){
-            document.getElementById(otpDialog==="mail"?"btn-confirm-email":"btn-confirm-phone").click();
+            getOtpAndSubmit(otpDialog);
+
+            //otpDialog==="mail"? otp.EMAIL({}):otp.PHONE({})
+            //document.getElementById(otpDialog==="mail"?"btn-confirm-email":"btn-confirm-phone").click();
         }
     },[otpDialog])
+
+    const getOtpAndSubmit=(method)=>{
+        if(otpDialog==="mail"){
+            otp.EMAIL({
+                email:signUpForm.email,
+                send:"/us/v2/api/secured/personal/info/otp/get",
+                save:code=>{
+                    if(code){
+                        Actions.User.verification({
+                            //...infoData,...documents,otp:code
+                        }).then(response=>{
+                            if(response.status){
+                                otp.CLOSE();
+                            }else{
+                                console.log("catch")
+                                otp.ERROR({error:t("error")})
+                            }
+                        }).catch(e=>{
+                            console.log("catch")
+                            otp.ERROR({error:t("error")})
+                        })
+                    }
+
+                }
+            })
+        }
+        else{
+
+            otp.PHONE({
+                prefix:signUpForm.mobilePrefix,
+                number:signUpForm.mobile,
+                send:"/us/v2/api/reg/otp/get",
+                save:code=>{
+                    if(code){
+                        onSignUp({...signUpForm,otp:code});
+                    }
+
+                }
+            })
+        }
+    }
+
     const onSignUp=(signUpForm)=>{
 
          window.grecaptcha.execute('6LcsE_IdAAAAAElaP_6dOnfzTJD2irfkvp1wzIeS', {action: 'register'}).then(async(token)=> {
@@ -118,10 +181,13 @@ const SignUp =() =>{
                  localStorage.removeItem("GRD_access_token")
                  Actions.User.signUp({...signUpForm,token:token}).then(response=>{
                      if(response.status){
-                         document.getElementById("close-sign-up").click();
-                         document.getElementById("signIn-btn").click();
+                         //document.getElementById("close-sign-up").click();
+                         //document.getElementById("signIn-btn").click();
                          window.top.pushEvent('Registration completed successfully','success');
                          //alert("Registration completed successfully")
+                         otp.CLOSE();
+                         eventEmitter.emit('signUp',false);
+                         eventEmitter.emit('signIn',true);
                      }else{
 
                          if(response?.reason?.response?.data?.data){
@@ -130,11 +196,18 @@ const SignUp =() =>{
                              console.log(key,val)
                              if(key==="otp"){
                                  if(['mail',"mobile"].indexOf(val)>-1){
-                                     setOtpDialog(val)
+                                     if(otpDialog !== null){
+                                         getOtpAndSubmit(val)
+                                     }else{
+                                         setOtpDialog(val)
+                                     }
+
                                  }else{
                                      setOtpError(val)
+                                     window.top.pushEvent('Incorect SMS Code Please Check Sending SMS','error');
                                  }
                              }else{
+                                 window.top.pushEvent(key+': '+val,'error');
                                  if(errors.indexOf(key)===-1){
                                      setErrors([...errors,key])
                                  }
@@ -177,27 +250,14 @@ const SignUp =() =>{
         return errors.indexOf(key)>-1?"error":""
     }
 
-    return (
-        <div className="modal fade"
-             id="SignupModal"
-             tabIndex="-1"
-             aria-labelledby="SignupModalLabel"
-             aria-hidden="true"
-        >
-            <div className="modal-dialog modal-dialog-centered auth-modal sign-up">
-                <div className="modal-content">
-                    <div className="modal-head">
-                        <button className="close"  id={"close-sign-up"} data-bs-dismiss="modal">
-                            <img src={close} alt="Close modal"/>
-                        </button>
-                        <div className="modal-title">{t("Sign Up")}</div>
-                    </div>
-                    <form onSubmit={(event)=>{
-                        event.preventDefault();
-                        onSignUp(signUpForm);
-                    }} className="signUp-form">
-                        <div className="row"s>
-                            {/*<div className="col-12 col-md-6">
+    return show && (
+        <PLXModal title={t("Sign Up")} onClose={()=>setShow(false)} dialogStyle={{maxWidth:'700px'}} contentStyle={{width:'700px'}}>
+            <form onSubmit={(event)=>{
+                event.preventDefault();
+                onSignUp(signUpForm);
+            }} className="signUp-form">
+                <div className="row"s>
+                    {/*<div className="col-12 col-md-6">
                                 <div className={`input-label ${error("firstName")}`}>
                                     <input type="text" name="firstName" id="name"
                                            value={signUpForm.firstName}
@@ -215,61 +275,61 @@ const SignUp =() =>{
                                     <label htmlFor="surname">Surname</label>
                                 </div>
                             </div>*/}
-                            <div className="col-12 col-md-6">
-                                <div className={`input-label ${error("username")}`}>
-                                    <input type="text" name="username" id="username"
-                                           value={signUpForm.username}
-                                           onChange={event => setSignUpForm({...signUpForm,username:event.target.value})}
-                                    />
-                                    <label htmlFor="surname">{t("Username")}</label>
-                                </div>
+                    <div className="col-12 col-md-6">
+                        <div className={`input-label ${error("username")}`}>
+                            <input type="text" name="username" id="username"
+                                   value={signUpForm.username}
+                                   onChange={event => setSignUpForm({...signUpForm,username:event.target.value})}
+                            />
+                            <label htmlFor="surname">{t("Username")}</label>
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-6">
+
+                        <div className="select-label" style={{width:"100%"}}>
+                            <select className="select2" placeholder="Country"
+                                    value={signUpForm.countryCode}
+                                    onChange={event => setSignUpForm({...signUpForm,countryCode:event.target.value})}
+                            >
+                                {
+                                    _.map(CountryList, (v,k)=><option key={k} value={v.id}>{v.name}</option>)
+                                }
+                            </select>
+                            <label htmlFor="select">{t("Country")}</label>
+                        </div>
+
+                    </div>
+                    <div className="col-12 col-md-6" >
+                        <label htmlFor="phone-primary">
+                            <input type="checkbox" id={'phone-primary'} value={primaryContact.phone} checked={primaryContact.phone} onChange={e =>{
+                                setPrimaryContact({...primaryContact,phone:!(e.target.value === "true")});
+                            } }/>&nbsp; {t("Phone Finances")}
+                        </label>
+                        <div style={{display:"flex"}} className={`${primaryContact.phone?'':'disable-phone'}`}>
+                            <div className="input-label" style={{width:"150px"}}>
+                                <select className="select2" placeholder="Code"
+                                        value={signUpForm.mobilePrefix}
+                                        onChange={event => setSignUpForm({...signUpForm,mobilePrefix:event.target.value})}
+                                >
+                                    {
+                                        _.map(MobilePrefixList, (v,k)=><option key={k} value={v.id}>{v.prefix}</option>)
+                                    }
+                                </select>
+                                <label htmlFor="phone">{t("Prefix")}</label>
                             </div>
-                            <div className="col-12 col-md-6">
 
-                                <div className="select-label" style={{width:"100%"}}>
-                                    <select className="select2" placeholder="Country"
-                                            value={signUpForm.countryCode}
-                                            onChange={event => setSignUpForm({...signUpForm,countryCode:event.target.value})}
-                                    >
-                                        {
-                                            _.map(CountryList, (v,k)=><option key={k} value={v.id}>{v.name}</option>)
-                                        }
-                                    </select>
-                                    <label htmlFor="select">{t("Country")}</label>
-                                </div>
-
+                            <div className={`input-label ${error("mobile")}`} style={{width:"100%",marginLeft:'10px'}}>
+                                <input type="number" name="phone" id="phone"
+                                       value={signUpForm.mobile}
+                                       onChange={event => setSignUpForm({...signUpForm,mobile:event.target.value})}
+                                />
+                                <label htmlFor="phone">{t("Phone")}</label>
                             </div>
-                            <div className="col-12 col-md-6" >
-                                <label htmlFor="phone-primary">
-                                    <input type="checkbox" id={'phone-primary'} value={primaryContact.phone} checked={primaryContact.phone} onChange={e =>{
-                                        setPrimaryContact({...primaryContact,phone:!(e.target.value === "true")});
-                                    } }/>&nbsp; {t("Phone Finances")}
-                                </label>
-                                <div style={{display:"flex"}} className={`${primaryContact.phone?'':'disable-phone'}`}>
-                                    <div className="input-label" style={{width:"150px"}}>
-                                        <select className="select2" placeholder="Code"
-                                                value={signUpForm.mobilePrefix}
-                                                onChange={event => setSignUpForm({...signUpForm,mobilePrefix:event.target.value})}
-                                        >
-                                            {
-                                                _.map(MobilePrefixList, (v,k)=><option key={k} value={v.id}>{v.prefix}</option>)
-                                            }
-                                        </select>
-                                        <label htmlFor="phone">{t("Prefix")}</label>
-                                    </div>
+                        </div>
 
-                                    <div className={`input-label ${error("mobile")}`} style={{width:"100%",marginLeft:'10px'}}>
-                                        <input type="number" name="phone" id="phone"
-                                               value={signUpForm.mobile}
-                                               onChange={event => setSignUpForm({...signUpForm,mobile:event.target.value})}
-                                        />
-                                        <label htmlFor="phone">{t("Phone")}</label>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div className="col-12 col-md-6" >
-                                {/*<div className="select-label" style={{width:"150px" }}>
+                    </div>
+                    <div className="col-12 col-md-6" >
+                        {/*<div className="select-label" style={{width:"150px" }}>
                                     <select className="select2" placeholder="Currency"
                                             value={signUpForm.currencyCode}
                                             onChange={event => setSignUpForm({...signUpForm,currencyCode:event.target.value})}
@@ -280,92 +340,71 @@ const SignUp =() =>{
                                     </select>
                                     <label htmlFor="select">Currency</label>
                                 </div>*/}
-                                <label htmlFor="email-primary">
-                                    <input type="checkbox" id={'email-primary'} value={primaryContact.email} checked={primaryContact.email} onChange={e =>{
-                                        setPrimaryContact({...primaryContact,email:!(e.target.value === "true")});
-                                    } }/>&nbsp; {t("Email Finances")}
-                                </label>
-                                <div style={{display:"flex"}} className={`${primaryContact.email?'':'disable-email'}`}>
-                                    <div className={`input-label ${error("mail")}`} style={{width:"100%"}}>
-                                        <input type="email" name="email" id="email"
-                                               value={signUpForm.mail}
-                                               onChange={event => setSignUpForm({...signUpForm,mail:event.target.value})}
-                                        />
-                                        <label htmlFor="email">{t("Email")}</label>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div className="col-12 col-md-6">
-                                <div className={`input-label ${error("password")}`}>
-                                    <input type={passType.pass1}
-                                           name="password"
-                                           id="password"
-                                           value={signUpForm.password}
-                                           onChange={event => setSignUpForm({...signUpForm,password:event.target.value})}
-                                    />
-                                    <label htmlFor="password">{t("Password")}</label>
-                                    <div className={`toggle-password ${passType.pass1==='text'?'active':'hide'}`} onClick={()=>{togglePassType('pass1')}}/>
-                                </div>
-                            </div>
-                            <div className="col-12 col-md-6">
-                                <div className={`input-label ${error("password2")}`}>
-                                    <input
-                                        type={passType.pass2}
-                                        name="confirm-password"
-                                        id="confirmPassword"
-                                        value={signUpForm.password2}
-                                        onChange={event => setSignUpForm({...signUpForm,password2:event.target.value})}
-                                    />
-                                    <label htmlFor="confirmPassword">{t("Repeat Password")}</label>
-                                    <div className={`toggle-password ${passType.pass2==='text'?'active':'hide'}`} onClick={()=>{togglePassType('pass2')}}/>
-                                </div>
-                            </div>
-                            <div className="col-12">
-                                <label htmlFor="terms-and-conditions" className={`terms ${termsError?'error-text':''}`}>
-
-                                    <input type="checkbox" id={'terms-and-conditions'} checked={terms} onChange={(_) =>{
-                                        setTerms(!terms)
-                                        if(!terms){
-                                            setTermsError(false)
-                                        }
-                                    } }/>&nbsp;
-                                    {t("By clicking sign up, you accept our")} <span style={{textDecoration:'underline'}}><a href={`/${i18n.language}/terms`}>{t("Terms & Conditions")}</a></span> {t("and that you are over 18 years old")}
-                                </label>
-                            </div>
-                            <div className={"error-text"}>{t(signUpError)}</div>
-                            <div className="col-12">
-                                <button type="submit" className="btn-primary">{t("Sign Up")}</button>
+                        <label htmlFor="email-primary">
+                            <input type="checkbox" id={'email-primary'} value={primaryContact.email} checked={primaryContact.email} onChange={e =>{
+                                setPrimaryContact({...primaryContact,email:!(e.target.value === "true")});
+                            } }/>&nbsp; {t("Email Finances")}
+                        </label>
+                        <div style={{display:"flex"}} className={`${primaryContact.email?'':'disable-email'}`}>
+                            <div className={`input-label ${error("mail")}`} style={{width:"100%"}}>
+                                <input type="email" name="email" id="email"
+                                       value={signUpForm.mail}
+                                       onChange={event => setSignUpForm({...signUpForm,mail:event.target.value})}
+                                />
+                                <label htmlFor="email">{t("Email")}</label>
                             </div>
                         </div>
-                    </form>
-                    <button
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#confirmEmail"
-                        className="btn-confirm"
-                        id="btn-confirm-email"
-                        style={{display:'none'}}
-                    >
-                        {t("Confirm")}
-                    </button>
-                    <button
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#confirmPhone"
-                        className="btn-confirm"
-                        id="btn-confirm-phone"
-                        style={{display:'none'}}
-                    >
-                        {t("Confirm")}
-                    </button>
+
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                        <div className={`input-label ${error("password")}`}>
+                            <input type={passType.pass1}
+                                   name="password"
+                                   id="password"
+                                   value={signUpForm.password}
+                                   onChange={event => setSignUpForm({...signUpForm,password:event.target.value})}
+                            />
+                            <label htmlFor="password">{t("Password")}</label>
+                            <div className={`toggle-password ${passType.pass1==='text'?'active':'hide'}`} onClick={()=>{togglePassType('pass1')}}/>
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-6">
+                        <div className={`input-label ${error("password2")}`}>
+                            <input
+                                type={passType.pass2}
+                                name="confirm-password"
+                                id="confirmPassword"
+                                value={signUpForm.password2}
+                                onChange={event => setSignUpForm({...signUpForm,password2:event.target.value})}
+                            />
+                            <label htmlFor="confirmPassword">{t("Repeat Password")}</label>
+                            <div className={`toggle-password ${passType.pass2==='text'?'active':'hide'}`} onClick={()=>{togglePassType('pass2')}}/>
+                        </div>
+                    </div>
+                    <div className="col-12">
+                        <label htmlFor="terms-and-conditions" className={`terms ${termsError?'error-text':''}`}>
+
+                            <input type="checkbox" id={'terms-and-conditions'} checked={terms} onChange={(_) =>{
+                                setTerms(!terms)
+                                if(!terms){
+                                    setTermsError(false)
+                                }
+                            } }/>&nbsp;
+                            {t("By clicking sign up, you accept our")} <span style={{textDecoration:'underline'}}><a href={`/${i18n.language}/terms`}>{t("Terms & Conditions")}</a></span> {t("and that you are over 18 years old")}
+                        </label>
+                    </div>
+                    <div className={"error-text"}>{t(signUpError)}</div>
+                    <div className="col-12">
+                        <button type="submit" className="btn-primary" style={{width:'100%'}}>{t("Sign Up")}</button>
+                    </div>
                 </div>
-            </div>
-           {/* <Verification.MobileVerificationModal prefix={'+'+signUpForm.mobilePrefix} number={signUpForm.mobile} err={otpError} onSubmit={code=>onSignUp({...signUpForm,otp:code}) }/>
-            <Verification.EmailVerificationModal email={signUpForm.mail} err={otpError} onSubmit={code=>onSignUp({...signUpForm,otp:code}) }/>
-*/}
-        </div>
+            </form>
+        </PLXModal>
     )
+
+
+
+
 }
 export default SignUp;

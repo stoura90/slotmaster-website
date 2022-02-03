@@ -2,6 +2,8 @@ import {close} from "../../assets/img/icons/icons"
 import {useEffect, useState} from "react";
 import {Actions, useTranslation} from "../../core";
 import PropTypes from "prop-types";
+//import EventEmitter from "../../../core/utils/eventEmitter";
+import PLXModal from "../modal/PLXModal";
 
 window.reSendInterval=null;
 export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,verify,additionalParams})=>{
@@ -10,10 +12,18 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
 
     let [reSend,setReSend]=useState(-1)
     const [code,setCode]=useState("")
+    const [show,setShow] = useState(false);
+    //const eventEmitter= new EventEmitter();
 
     useEffect(()=>{
         setError(err)
     },[err])
+
+    useEffect(()=>{
+        //eventEmitter.on("phone",setShow);
+        //return ()=>{eventEmitter.removeListener("recover",e=>setShow(false))}
+    },[])
+
     const onResend =()=>{
         Actions.User.resendOtp({send:send.concat("?type={type}&prefix={prefix}&value={value}"),type:"email",prefix:"",value:email,additionalParams:additionalParams})
             .then(response=>{
@@ -28,7 +38,6 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
     }
 
     const onVerify =()=>{
-
         if(code){
             Actions.User.verifyOtp({verify:verify.concat("?type={type}&prefix={prefix}&value={value}&otp={otp}"),type:"email",prefix:"",value:email,otp:code,additionalParams:additionalParams})
                 .then(response=>{
@@ -39,7 +48,6 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
                         setError('error')
                         save(false)
                     }
-
                 }).catch(reason => {
                 save(false);
                 setError(reason?.response?.data?.error)
@@ -65,57 +73,55 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
             }
         }
     },[reSend])
-    return <div
-        className="custom-modal"
-    >
 
-        <div className="modal-dialog modal-dialog-centered auth-modal">
-            <div className="modal-content">
-                <div className="modal-head mb-0">
-                    <button className="close" data-bs-dismiss="modal" onClick={()=>onClose()}>
-                        <img src={close} alt="Close modal"/>
-                    </button>
-                    <div className="modal-title">{t("Email Finances")}</div>
-                </div>
-                <form onSubmit={e=>{
-                    e.preventDefault();
+    return show && (
+        <PLXModal title={t("Email Finances")} onClose={()=>setShow(false)} contentStyle={{maxWidth:'500px'}}>
+            {/*<div className="modal-head mb-0">
+                <button className="close" data-bs-dismiss="modal" onClick={()=>onClose()}>
+                    <img src={close} alt="Close modal"/>
+                </button>
+                <div className="modal-title">{t("Email Finances")}</div>
+            </div>*/}
+            <form onSubmit={e=>{
+                e.preventDefault();
 
-                    if(!code){
-                        setError("Incorrect sms code");
-                        setTimeout(()=>{
-                            setError("")
-                        },2000)
+                if(!code){
+                    setError("Incorrect sms code");
+                    setTimeout(()=>{
+                        setError("")
+                    },2000)
+                }else{
+                    if(verify){
+                        onVerify()
                     }else{
-                        if(verify){
-                            onVerify()
-                        }else{
-                            save(code)
-                        }
-
+                        save(code)
                     }
-                }} className="confirm-form">
-                    <p className="confirm-text">
-                        {t("A 6-digit SMS code was sent to")}:
-                        <br/>
-                        <span className="phone-num">{email}</span><br/> {t("Please enter the code in the field below to confirm")}:
-                    </p>
-                    <div className={`input-label-border ${error?'error':''}`}>
-                        <input type="number" name="code" id="code" value={code} onChange={e=>setCode(e.target.value)} className="for-confirm"/>
-                        <label htmlFor="code">{t("SMS Code")}</label>
-                        {
-                            reSend!==-1? <span className="timeout">{reSend}</span>: <button type="button" className="btn-confirm" onClick={()=>onResend()}>{t("Send")}</button>
-                        }
-                    </div>
-{/*
+
+                }
+            }} className="confirm-form">
+                <p className="confirm-text">
+                    {t("A 6-digit SMS code was sent to")}:
+                    <br/>
+                    <span className="phone-num">{email}</span><br/> {t("Please enter the code in the field below to confirm")}:
+                </p>
+                <div className={`input-label-border ${error?'error':''}`}>
+                    <input type="number" name="code" id="code" value={code} onChange={e=>setCode(e.target.value)} className="for-confirm"/>
+                    <label htmlFor="code">{t("SMS Code")}</label>
+                    {
+                        reSend!==-1? <span className="timeout">{reSend}</span>: <button type="button" className="btn-confirm" onClick={()=>onResend()}>{t("Send")}</button>
+                    }
+                </div>
+                {/*
                     <p style={{color:"red"}}>{t(error)}</p>
 */}
-                    <button type="submit" className="btn-dep justify-content-center px-0">
-                        {t("Confirm")}
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
+                <button type="submit" className="btn-dep justify-content-center px-0">
+                    {t("Confirm")}
+                </button>
+            </form>
+        </PLXModal>
+    )
+
+
 }
 EmailVerificationModal.propTypes = {
     email:PropTypes.string,

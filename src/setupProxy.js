@@ -4,10 +4,10 @@ module.exports = function(app) {
     app.use(
         '/ss/v1',
         createProxyMiddleware({
-            target: 'https://planetaxbet.com',
+            //target: 'https://planetaxbet.com',
             //target: 'http://127.0.0.1:8072',
             //target: 'http://192.168.30.50:8072',
-            // target: 'http://192.168.10.34:8072',
+            target: 'http://192.168.10.34:8072',
             logLevel:"debug",
             changeOrigin: true,
         })
@@ -15,10 +15,10 @@ module.exports = function(app) {
     app.use(
         '/us/v1',
         createProxyMiddleware({
-            target: 'https://planetaxbet.com',
+            //target: 'https://planetaxbet.com',
             //target: 'http://127.0.0.1:8072',
             //target: 'http://192.168.30.50:8072',
-            //target: 'http://192.168.10.34:8072',
+            target: 'http://192.168.10.34:8072',
             logLevel:"debug",
             changeOrigin: true,
         })
@@ -26,10 +26,10 @@ module.exports = function(app) {
     app.use(
         '/us/v2',
         createProxyMiddleware({
-            target: 'https://planetaxbet.com',
+            //target: 'https://planetaxbet.com',
             //target: 'http://127.0.0.1:8072',
             //target: 'http://192.168.30.50:8072',
-            //target: 'http://192.168.10.34:8072',
+            target: 'http://192.168.10.34:8072',
             logLevel:"debug",
             changeOrigin: true,
         })
@@ -37,10 +37,10 @@ module.exports = function(app) {
     app.use(
         '/ws/v1',
         createProxyMiddleware({
-            target: 'https://planetaxbet.com',
+            //target: 'https://planetaxbet.com',
             //target: 'http://127.0.0.1:8072',
             //target: 'http://192.168.30.50:8072',
-            //target: 'http://192.168.10.34:8072',
+            target: 'http://192.168.10.34:8072',
             logLevel:"debug",
             changeOrigin: true,
         })
@@ -48,10 +48,10 @@ module.exports = function(app) {
     app.use(
         '/v1',
         createProxyMiddleware({
-            target: 'https://planetaxbet.com',
+            //target: 'https://planetaxbet.com',
             //target: 'http://192.168.30.50:8072',
-           //target: 'http://127.0.0.1:8072',
-            //target: 'http://192.168.10.34:8072',
+            //target: 'http://127.0.0.1:8072',
+            target: 'http://192.168.10.34:8072',
             logLevel:"debug",
             changeOrigin: true,
         })

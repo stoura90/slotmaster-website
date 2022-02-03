@@ -35,13 +35,7 @@
 }
 .auth-modal .input-label input:-webkit-autofill,
 .auth-modal .input-label input:-webkit-autofill:hover,
-.auth-modal .input-label input:-webkit-autofill:focus,
-.auth-modal .input-label textarea:-webkit-autofill,
-.auth-modal .input-label textarea:-webkit-autofill:hover,
-.auth-modal .input-label textarea:-webkit-autofill:focus,
-.auth-modal .input-label select:-webkit-autofill,
-.auth-modal .input-label select:-webkit-autofill:hover,
-.auth-modal .input-label select:-webkit-autofill:focus {
+.auth-modal .input-label input:-webkit-autofill:focus {
   background: #181e2e;
 }
 .auth-modal #phone {

@@ -81,8 +81,7 @@ const Header = ({page}) =>{
                                         </button>
                                         <button
                                             className="btn-primary text-capitalize"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#SignupModal"
+                                            onClick={()=>eventEmitter.emit('signUp',true)}
                                             id={"signUp-btn"}
                                         >
                                             {t("Sing Up")}
