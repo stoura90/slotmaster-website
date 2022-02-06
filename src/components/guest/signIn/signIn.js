@@ -1,33 +1,35 @@
 import React, {useEffect, useRef, useState} from "react";
-import {close} from "../../../assets/img/icons/icons";
 import {Actions, useTranslation} from "../../../core";
 import {useDispatch} from "react-redux";
 import "./signin.scss"
-import {useParams} from "react-router-dom";
 import EventEmitter from "../../../core/utils/eventEmitter";
 import PLXModal from "../../modal/PLXModal";
+import {UseEvent} from "../../../core/hooks/useEvent";
+import {SvgDot} from "../../index";
 
 const SignIn =() =>{
     const {t} = useTranslation()
+    const ev = UseEvent()
+    const [signInLoader,setSignInLoader]=useState(false);
     const eventEmitter= new EventEmitter()
     const dispatch = useDispatch();
-
     const [loginForm,setLoginForm]=useState({
         username:'',
         password:''
     })
     const [error,setError] = useState(null);
     const [show,setShow] = useState(false);
-
     useEffect(()=>{
-        eventEmitter.on("signIn",setShow);
-        return ()=>{eventEmitter.removeListener("recover",e=>setShow(false))}
+        const signInFormEvent= ev.subscribe("signIn",setShow)
+        return ()=>{
+            signInFormEvent.unsubscribe()
+        }
     },[])
 
     const signIn=async () => {
 
         setError(null)
-        const response = await dispatch(Actions.User.signIn(loginForm))
+        const response = await dispatch(Actions.User.signIn({data:loginForm,loader:setSignInLoader}))
 
         if (response.status) {
             if(window.location.href.indexOf("playSlot")>-1){
@@ -35,17 +37,13 @@ const SignIn =() =>{
                 return
             }
             setShow(false);
-            //document.getElementById("close-sign-in").click();
         }else{
-            //setError(response?.data?.error_description)
             window.top.pushEvent('specified username or password is incorrect','error');
-            //setError(t('specified username or password is incorrect'));
         }
     }
 
-
     return  show && (
-        <PLXModal title={t("Log In")} onClose={()=>setShow(false)} contentStyle={{maxWidth:'350px'}}>
+        <PLXModal title={t("Log In")} onClose={()=>setShow(false)} contentStyle={{maxWidth:'350px'}} dialogStyle={{maxWidth:'350px'}}>
             <form onSubmit={(event)=>{
                 event.preventDefault();
                 if(loginForm.username && loginForm.password){
@@ -55,7 +53,6 @@ const SignIn =() =>{
                     window.top.pushEvent('Please fill in all the fields','error');
                 }
             }} className="form">
-
                 <div className="input-label">
                     <input type="text" name="email" id="email"
                            value={loginForm.username} onChange={event => setLoginForm({...loginForm,username:event.target.value})}
@@ -98,7 +95,10 @@ const SignIn =() =>{
                     error && <div className="login_error" style={{color:'#ff7e7e'}}>{error}</div>
                 }
 
-                <button type="submit" className="btn-primary" >{t("Log In")}</button>
+                <button type="submit" className="btn-primary" disabled={signInLoader} style={{position:'relative',overflow:'hidden'}}>
+                    {signInLoader && <SvgDot contentStyle={{background:'#ffcb39'}}/>}
+                    {t("Log In")}
+                </button>
             </form>
             <p style={{fontSize:"0.75rem", color:"white", textAlign:"center", marginTop:"10px"}}>{t("Don't have an account?")} <span className={"forgot-password"} onClick={()=>{
                 setShow(false);

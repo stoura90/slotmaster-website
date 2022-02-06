@@ -34,17 +34,18 @@
   border: 2px solid #3a445a;
   border-radius: 6px;
   display: flex;
-  height: 270px;
+  height: 300px;
   flex-direction: column;
-  p {flex: 1; color: #cccccc;padding: 20px;padding-bottom: 0}
+  p {color: #cccccc;padding: 20px;padding-bottom: 0}
 
 
   .status-box {
     min-height: 86px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
     color: #cccccc;
+    flex:1;
     &.upload {
       display: flex;
       justify-content: center;
@@ -55,6 +56,10 @@
       margin-top: 0;
       border: 2px dashed #3a445a;
       border-radius: 6px;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      background-size: contain !important;
+
 
       &:hover {
         cursor: pointer;
@@ -67,10 +72,13 @@
 
   button {
     border-radius: 6px;
-    margin: 20px;
+    padding: 10px 0;
+
     background-color: #444c66;
     color: #fff;
-    padding: 10px 0;
+    margin: 0 20px;
+    margin-bottom: 20px;
+
     &:hover {
       cursor: pointer;
       background-color: #545f81;

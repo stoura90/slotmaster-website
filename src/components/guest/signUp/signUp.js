@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {close} from "../../../assets/img/icons/icons";
 import _ from 'lodash'
 import {Actions, useTranslation} from "../../../core";
 import "./signUp.scss"
-import Verification from "../../verification";
-import {useParams} from "react-router-dom";
+
 import {useOTP} from "../../../core/hooks/useOTP";
 import PLXModal from "../../modal/PLXModal";
 
-import EventEmitter from "../../../core/utils/eventEmitter";
+import {SvgDot} from "../../index";
+import Http from "../../../core/http/http2";
+import {UseEvent} from "../../../core/hooks/useEvent";
 
 
 
@@ -18,12 +18,6 @@ const MobilePrefixList=[
     {id:359,prefix: "+359"},
     {id:226,prefix: "+226"},
     {id:257,prefix: "+257"}
-]
-const CurrencyList=[
-    {id:840,name: "USD"},
-    {id:978,name: "EUR"},
-    {id:981,name: "GEL"},
-    {id:643,name: "RUB"}
 ]
 const CountryList=[
     {id:"VGB",name: "British Virgin Islands"},
@@ -35,6 +29,9 @@ const CountryList=[
 const SignUp =() =>{
     const {t,i18n} = useTranslation();
     const otp = useOTP();
+    const ev = UseEvent();
+
+    const [signUpLoader,setSignUpLoader]=useState(false);
     const [signUpError,setSignUpError]=useState("")
     const [otpDialog,setOtpDialog]=useState(null)
     const [signUpForm,setSignUpForm]=useState({
@@ -60,16 +57,59 @@ const SignUp =() =>{
         phone:true,
         email:false
     });
-    const [otpError,setOtpError]=useState("");
+
     const [errors,setErrors]=useState([])
 
     const [show,setShow] = useState(false);
-    const eventEmitter= new EventEmitter();
 
     useEffect(()=>{
-        eventEmitter.on("signUp",setShow);
+        setSignUpForm({
+            mail:"",
+            //firstName:"",
+            //lastName:"",
+            mobilePrefix:"1",
+            mobile:"",
+            countryCode:"VGB",
+            //currencyCode:840,
+            password:"",
+            password2:"",
+            username:""
+        });
+
+        const signUpFormEvent= ev.subscribe("signUp",setShow)
+        const otpLoader = ev.subscribe('verifyOtp',setSignUpLoader)
+
+        return ()=>{
+            signUpFormEvent.unsubscribe()
+            otpLoader.unsubscribe()
+
+        }
+
+        //eventEmitter.on("signUp",setShow);
+        //Http.subscribeLoader("registration-loader",setLoader);
+        //setLoader(false);
         //return ()=>{eventEmitter.removeListener("recover",e=>setShow(false))}
+        //return ()=>{
+        //    Http.unsubscribeLoader("registration-loader",setLoader)
+        //}
+
     },[])
+    useEffect(()=>{
+        setSignUpForm({
+            mail:"",
+            //firstName:"",
+            //lastName:"",
+            mobilePrefix:"1",
+            mobile:"",
+            countryCode:"VGB",
+            //currencyCode:840,
+            password:"",
+            password2:"",
+            username:""
+        });
+        setTerms(false);
+        setErrors([]);
+    },[show])
 
     useEffect(()=>{
         if(!primaryContact.email ){
@@ -82,58 +122,37 @@ const SignUp =() =>{
     useEffect(()=>{
         console.log('otpDialog',otpDialog)
         if(otpDialog){
-            getOtpAndSubmit(otpDialog);
+            if(otpDialog==="mail"){
+                otp.EMAIL({
+                    email:signUpForm.mail,
+                    send:"/us/v2/api/reg/otp/get",
+                    save:code=>{
+                        if(code){
+                            onSignUp({...signUpForm,otp:code});
+                        }
 
-            //otpDialog==="mail"? otp.EMAIL({}):otp.PHONE({})
-            //document.getElementById(otpDialog==="mail"?"btn-confirm-email":"btn-confirm-phone").click();
+                    }
+                })
+            }
+            else{
+                //eventEmitter.emit('phone',true);
+                otp.PHONE({
+                    prefix:signUpForm.mobilePrefix,
+                    number:signUpForm.mobile,
+                    send:"/us/v2/api/reg/otp/get",
+                    save:code=>{
+                        if(code){
+                            onSignUp({...signUpForm,otp:code});
+                        }
+                    }
+                })
+            }
         }
     },[otpDialog])
-
-    const getOtpAndSubmit=(method)=>{
-        if(otpDialog==="mail"){
-            otp.EMAIL({
-                email:signUpForm.email,
-                send:"/us/v2/api/secured/personal/info/otp/get",
-                save:code=>{
-                    if(code){
-                        Actions.User.verification({
-                            //...infoData,...documents,otp:code
-                        }).then(response=>{
-                            if(response.status){
-                                otp.CLOSE();
-                            }else{
-                                console.log("catch")
-                                otp.ERROR({error:t("error")})
-                            }
-                        }).catch(e=>{
-                            console.log("catch")
-                            otp.ERROR({error:t("error")})
-                        })
-                    }
-
-                }
-            })
-        }
-        else{
-
-            otp.PHONE({
-                prefix:signUpForm.mobilePrefix,
-                number:signUpForm.mobile,
-                send:"/us/v2/api/reg/otp/get",
-                save:code=>{
-                    if(code){
-                        onSignUp({...signUpForm,otp:code});
-                    }
-
-                }
-            })
-        }
-    }
 
     const onSignUp=(signUpForm)=>{
 
          window.grecaptcha.execute('6LcsE_IdAAAAAElaP_6dOnfzTJD2irfkvp1wzIeS', {action: 'register'}).then(async(token)=> {
-             console.log(token)
              setSignUpError("")
              let error = _.chain(signUpForm)
                  .map((v,k)=>{
@@ -170,40 +189,36 @@ const SignUp =() =>{
                      //alert(t("Password should contain at least 6 symbols"));
                      window.top.pushEvent('Password should contain at least 6 symbols','error');
                  }
+
              }else{
                  if(!confirmed){
                      if(!primaryContact.phone && !primaryContact.email){
                          //alert('Chose Finances Method');
                          window.top.pushEvent('Chose Finances Method','error');
+
                          return;
                      }
                  }
                  localStorage.removeItem("GRD_access_token")
-                 Actions.User.signUp({...signUpForm,token:token}).then(response=>{
+                 Actions.User.signUp({data:{...signUpForm,token:token},loader:"verifyOtp"}).then(response=>{
+                     // data:loginForm,loader:setSignInLoader
                      if(response.status){
                          //document.getElementById("close-sign-up").click();
                          //document.getElementById("signIn-btn").click();
                          window.top.pushEvent('Registration completed successfully','success');
                          //alert("Registration completed successfully")
                          otp.CLOSE();
-                         eventEmitter.emit('signUp',false);
-                         eventEmitter.emit('signIn',true);
-                     }else{
+                         ev.emit('signUp',false);
+                         ev.emit('signIn',true);
 
-                         if(response?.reason?.response?.data?.data){
-                             let key = _.keys(response?.reason?.response?.data?.data)[0];
-                             let val = response?.reason?.response?.data?.data[key];
-                             console.log(key,val)
+                     }else{
+                         if(response?.error?.data){
+                             let key = _.keys(response?.error?.data)[0];
+                             let val = response?.error?.data[key];
                              if(key==="otp"){
                                  if(['mail',"mobile"].indexOf(val)>-1){
-                                     if(otpDialog !== null){
-                                         getOtpAndSubmit(val)
-                                     }else{
-                                         setOtpDialog(val)
-                                     }
-
+                                     setOtpDialog(val)
                                  }else{
-                                     setOtpError(val)
                                      window.top.pushEvent('Incorect SMS Code Please Check Sending SMS','error');
                                  }
                              }else{
@@ -214,9 +229,10 @@ const SignUp =() =>{
                              }
 
                          }
-                         setSignUpError(response.data)
+                         //setSignUpError(response?.error?.message);
+
                      }
-                 }).catch(reason => console.log(reason))
+                 }).catch(reason => {console.log(reason)})
                  /*if(!confirmed){
                      if(!primaryContact.phone && !primaryContact.email){
                          alert('Chose Finances Method');
@@ -235,7 +251,7 @@ const SignUp =() =>{
 
 
              }
-         }).catch(ex=>console.log(ex))
+         }).catch(ex=>{ console.log(ex)})
 
     }
     const togglePassType=(pass)=>{
@@ -252,8 +268,9 @@ const SignUp =() =>{
 
     return show && (
         <PLXModal title={t("Sign Up")} onClose={()=>setShow(false)} dialogStyle={{maxWidth:'700px'}} contentStyle={{width:'700px'}}>
-            <form onSubmit={(event)=>{
+            <form style={{marginTop:'20px'}} onSubmit={(event)=>{
                 event.preventDefault();
+
                 onSignUp(signUpForm);
             }} className="signUp-form">
                 <div className="row"s>
@@ -396,7 +413,10 @@ const SignUp =() =>{
                     </div>
                     <div className={"error-text"}>{t(signUpError)}</div>
                     <div className="col-12">
-                        <button type="submit" className="btn-primary" style={{width:'100%'}}>{t("Sign Up")}</button>
+                        <button type="submit" className="btn-primary" style={{width:'100%',position:'relative',overflow:'hidden'}}>
+                            {signUpLoader && <SvgDot contentStyle={{background:'#ffcb39'}}/> }
+                            {t("Sign Up")}
+                        </button>
                     </div>
                 </div>
             </form>

@@ -14,4 +14,18 @@
   z-index: 999;
 }
 
+.svg-loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.svg-loader svg {
+  padding: 10px;
+  fill: #000000;
+  height: 100%;
+  width: 100%;
+}
+
 /*# sourceMappingURL=loader.css.map */

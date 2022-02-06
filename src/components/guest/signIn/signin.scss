@@ -1,11 +1,15 @@
 .forgot-password{
-  color:#ffbc00;
+  color:#6c7eb1;
   font-size: 0.75rem;
 }
 
 .auth-modal {
-  .forgot-password span:hover {cursor: pointer;color: #fba524;}
-  span.forgot-password:hover {cursor: pointer;color: #fba524;}
+  .forgot-password span:hover {cursor: pointer;color: #ffbc00;}
+
+  span.forgot-password {
+    color: #ffbc00;
+    &:hover {cursor: pointer; color: #85ff29}
+  }
 
   p.forgot-password {margin-top: 5px;margin-left: 5px}
 

@@ -3,16 +3,16 @@ import {logoM, sl2} from "../../assets/img/images";
 import {useUser} from "../../core/hooks/useUser";
 import {
     account,
-    logo, logo2,
+    logo2,
 } from '../../assets/img/icons/icons';
 import {Link, useParams} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {useTranslation} from "../../core";
 import ChangeLagunge from "../languages/ChangeLagunge";
-import EventEmitter from "../../core/utils/eventEmitter";
+import {UseEvent} from "../../core/hooks/useEvent";
 const Header = ({page}) =>{
     const {t} = useTranslation();
-    const eventEmitter = new EventEmitter();
+    const ev = UseEvent();
     const {User} = useUser();
     const {lang} = useParams();
     useEffect(()=>{
@@ -75,13 +75,13 @@ const Header = ({page}) =>{
                                         <button
                                             className="btn-text text-capitalize"
                                             id={"signIn-btn"}
-                                            onClick={()=>eventEmitter.emit('signIn',true)}
+                                            onClick={()=>ev.emit('signIn',true)}
                                         >
                                             {t('Log In')}
                                         </button>
                                         <button
                                             className="btn-primary text-capitalize"
-                                            onClick={()=>eventEmitter.emit('signUp',true)}
+                                            onClick={()=>ev.emit('signUp',true)}
                                             id={"signUp-btn"}
                                         >
                                             {t("Sing Up")}

@@ -31,11 +31,12 @@ const UploadDoc = ({id,onSelect,title, progress}) =>{
         reader.readAsDataURL(file);
     }
 
-    return  (<div className="pass-template" style={{backgroundImage:`url(${result?result:'none'})`,backgroundSize:'cover'}}>
-                    <p style={{background:`${result?"rgba(1, 4, 7, 0.33)":'transparent'}`}}>{title}</p>
+    return  (<div className="pass-template" >
+                    <p>{title}</p>
                     <div
                         className="status-box upload" id={"id"}
-                        style={{backgroundColor:`${ result? 'rgba(1, 4, 7, 0.33)':   inArea?"#212940":"#151b29"}`}}
+                        //style={{backgroundColor:`${ result? 'rgba(1, 4, 7, 0.33)':   inArea?"#212940":"#151b29"}`}}
+                        style={{background:`url(${result?result:'none'})`}}
                         onDrop={dropHandler}
                         onDragOver={e=>{
                             e.preventDefault();

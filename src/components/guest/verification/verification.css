@@ -36,7 +36,7 @@
   border: 2px solid #3a445a;
   border-radius: 6px;
   display: flex;
-  height: 270px;
+  height: 300px;
   flex-direction: column;
   /*&:hover {
     cursor: pointer;
@@ -68,17 +68,14 @@
   }*/
 }
 .pass-template p {
-  flex: 1;
   color: #cccccc;
   padding: 20px;
   padding-bottom: 0;
 }
 .pass-template .status-box {
   min-height: 86px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   color: #cccccc;
+  flex: 1;
 }
 .pass-template .status-box.upload {
   display: flex;
@@ -90,6 +87,9 @@
   margin-top: 0;
   border: 2px dashed #3a445a;
   border-radius: 6px;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
 }
 .pass-template .status-box.upload:hover {
   cursor: pointer;
@@ -103,10 +103,11 @@
 }
 .pass-template button {
   border-radius: 6px;
-  margin: 20px;
+  padding: 10px 0;
   background-color: #444c66;
   color: #fff;
-  padding: 10px 0;
+  margin: 0 20px;
+  margin-bottom: 20px;
 }
 .pass-template button:hover {
   cursor: pointer;

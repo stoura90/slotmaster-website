@@ -59,6 +59,7 @@
             transition: all .15s linear;
         }
         &:hover {
+            cursor: pointer;
             span {
                 color: $text-light;
             }

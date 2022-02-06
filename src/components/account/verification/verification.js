@@ -6,34 +6,38 @@ import {Verification} from "../../index";
 import {Country} from "@microblink/blinkid-in-browser-sdk";
 import UploadDoc from "../uploadDoc/uploadDoc";
 import {useOTP} from "../../../core/hooks/useOTP";
+import Select from "../../forms/select/Select"
 
-const countries =[
-    { id:"VGB",value:"British Virgin Islands"},
-    { id:"BRN",value:"Brunei Darussalam"},
-    { id:"BGR",value:"Bulgaria"},
-    { id:"BFA",value:"Burkina Faso"},
-    { id:"BDI",value:"Burundi"}
-]
-const curencies =[
-    { id:"USD",value:"US Dollar"},
-    { id:"EUR",value:"Euro"},
-    { id:"GEL",value:"Lari"},
-    { id:"RUB",value:"Russian Ruble"},
-]
+const countries ={
+    VGB:"British Virgin Islands",
+    BRN:"Brunei Darussalam",
+    BGR:"Bulgaria",
+    BFA:"Burkina Faso",
+    BDI:"Burundi"
+}
+const currency = {
+    USD: "US Dollar",
+    EUR: "Euro",
+    GEL: "Lari",
+    RUB: "Russian Ruble",
+}
 
-const passportType=[
-    {id:"",name: ""},
-    {id:"id_card",name: "ID Card"},
-    {id:"passport",name: "Passport"},
-    {id:"resident_identification",name: "Resident Identification"},
-]
+const passportType= {
+    id_card: "ID Card",
+    passport: "Passport",
+    resident_identification: "Resident Identification",
+}
 const MobilePrefixList=[
-    {id:1,prefix: "+1"},
-    {id:673,prefix: "+673"},
-    {id:359,prefix: "+359"},
-    {id:226,prefix: "+226"},
-    {id:257,prefix: "+257"}
+    {id:1,value: "+1"},
+    {id:673,value: "+673"},
+    {id:359,value: "+359"},
+    {id:226,value: "+226"},
+    {id:257,value: "+257"}
 ]
+const gender = {
+    F:"Female",
+    M:'Male'
+}
 const Confirmation = () => {
     const {t} = useTranslation();
     const {otp, PHONE,EMAIL,CLOSE,ERROR} = useOTP();
@@ -46,7 +50,6 @@ const Confirmation = () => {
         lastName:'',
         username:'',
         currency: "",
-        city:'',
         country:"",
         mobileConfirmed:0,
         emailConfirmed:0,
@@ -88,7 +91,19 @@ const Confirmation = () => {
 
                 if (response?.data?.data?.userVerifyStatus === 2){setStep(2)}
 
-                const {
+                let res = response.data.data;
+                setInfoData(_.fromPairs(_.map(infoData, (v,k)=> {
+                    switch (k){
+                        case 'country':return [k,countries[res[k]]];
+                        case 'currency':return [k,currency[res[k]]];
+                        case 'gender':return [k,gender[res[k]]];
+                        case 'phone':return [k,res['mobile']];
+                        case 'mobilePrefix':return [k,'+'+res['mobilePrefix']];
+                        default: return [k,res[k]];
+                    }
+                })))
+
+                /*const {
                     firstName,
                     email,
                     mobile,
@@ -115,7 +130,7 @@ const Confirmation = () => {
                     mobileConfirmed:mobileConfirmed,
                     emailConfirmed:emailConfirmed,
                     mobilePrefix:mobilePrefix
-                })
+                })*/
             }
         })
     }
@@ -229,58 +244,51 @@ const Confirmation = () => {
                                                 <div className="form-title">{t("Information")}</div>
                                             </div>
                                             <div className="col-12 col-md-6">
-                                                <div className={`input-label-border ${error("mobile")}`}  >
-                                                    <div style={{display:'flex',width:"100%"}}>
-                                                        <div className="input-label" style={{width:"150px"}}>
-                                                            <select className="select2" placeholder="Code"
-                                                                    value={infoData.mobilePrefix}
-                                                                    onChange={event => setInfoData({...infoData,mobilePrefix:event.target.value})}
-                                                            >
-                                                                {
-                                                                    _.map(MobilePrefixList, (v,k)=><option key={k} value={v.id}>{v.prefix}</option>)
-                                                                }
-                                                            </select>
-                                                            <label htmlFor="phone">{t("Prefix")}</label>
-                                                        </div>
-                                                        <div   style={{flex:1,position: "relative"}}>
-                                                            <input
-                                                                type="number"
-                                                                name="phone"
-                                                                id="phone"
-                                                                className="for-confirm"
-                                                                value={infoData.mobile}
-                                                                onChange={e => setInfoData({...infoData,mobile:e.target.value})}
-                                                            />
-                                                            <label htmlFor="phone">{t("Phone")}</label>
-                                                            {
-                                                                infoData?.mobileConfirmed===1?<span className="confirmed">{t("Confirmed")}</span>:
-                                                                    <button
-                                                                        type="button"
-                                                                        className="btn-confirm"
-                                                                        onClick={()=>{
-                                                                            if(infoData.mobile.trim().length>0){
-                                                                                PHONE({
-                                                                                    prefix:infoData.mobilePrefix,
-                                                                                    number:infoData.mobile,
-                                                                                    send:"/us/v2/api/secured/personal/info/otp/get",
-                                                                                    verify:"/us/v2/api/secured/personal/info/otp/verify",
-                                                                                    save:e=>{
-                                                                                        if(e){
-                                                                                            setInfoData({...infoData,mobileConfirmed:1});
-                                                                                            CLOSE()
-                                                                                        }
-
+                                                <div style={{display:'flex',width:"100%"}}>
+                                                    <div style={{width:"150px",marginRight: '10px'}}>
+                                                        <Select data={MobilePrefixList} value={infoData.mobilePrefix} label={t("Prefix")}
+                                                            //plData={''} plName={t("Choose Sex")}
+                                                                id={'mobilePrefix'}
+                                                                onSelect={(e)=> setInfoData({...infoData,mobilePrefix:e})}
+                                                        />
+                                                    </div>
+                                                    <div className={`input-label-border ${error("phone")}`} style={{flex:1,position: "relative"}}>
+                                                        <input
+                                                            type="number"
+                                                            name="phone"
+                                                            id="phone"
+                                                            className="for-confirm"
+                                                            value={infoData.phone}
+                                                            onChange={e => setInfoData({...infoData,phone:e.target.value})}
+                                                        />
+                                                        <label htmlFor="phone">{t("Phone")}</label>
+                                                        {
+                                                            infoData?.mobileConfirmed===1?<span className="confirmed">{t("Confirmed")}</span>:
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn-confirm"
+                                                                    onClick={()=>{
+                                                                        if(infoData.mobile.trim().length>0){
+                                                                            PHONE({
+                                                                                prefix:infoData.mobilePrefix,
+                                                                                number:infoData.mobile,
+                                                                                send:"/us/v2/api/secured/personal/info/otp/get",
+                                                                                verify:"/us/v2/api/secured/personal/info/otp/verify",
+                                                                                save:e=>{
+                                                                                    if(e){
+                                                                                        setInfoData({...infoData,mobileConfirmed:1});
+                                                                                        CLOSE()
                                                                                     }
-                                                                                })
-                                                                            }
-                                                                        }}
-                                                                    >
-                                                                        {t("Confirm")}
-                                                                    </button>
-                                                            }
-                                                        </div>
-                                                        </div>
 
+                                                                                }
+                                                                            })
+                                                                        }
+                                                                    }}
+                                                                >
+                                                                    {t("Confirm")}
+                                                                </button>
+                                                        }
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="col-12 col-md-6">
@@ -333,17 +341,12 @@ const Confirmation = () => {
                                                 </div>
                                             </div>
                                             <div className="col-12 col-md-6">
-                                                <div className={`select-label-border ${error("gender")}`}>
-                                                    <select onChange={e => {
-                                                        setInfoData({...infoData,gender:e.target.value})
-                                                    }} value={infoData?.gender} className="select2" placeholder="Sex" id="gender">
-                                                        <option value={""}>{t("Choose Sex")} </option>
-                                                        {
-                                                            _.map([{id:'F',value:"Female"},{id:'M',value:"Male"}],  (v,k)=> <option key={k} value={v.id}> {v.value}</option>)
-                                                        }
-                                                    </select>
-                                                    <label htmlFor="gender">{t("Sex")}</label>
-                                                </div>
+                                                <Select data={gender} value={infoData.gender} label={t("Sex")}
+                                                        plData={''} plName={t("Choose Sex")}
+                                                        id={'countries'}
+                                                        error={error("gender")}
+                                                        onSelect={(e)=> setInfoData({...infoData,gender:e})}
+                                                />
                                             </div>
                                             <div className="col-12 col-md-6">
                                                 <div className={`input-label-border ${error("dob")}`}>
@@ -358,30 +361,20 @@ const Confirmation = () => {
                                                 </div>
                                             </div>
                                             <div className="col-12 col-md-6">
-                                                <div className={`select-label-border ${error("country")}`}>
-                                                    <select onChange={e => {
-                                                        setInfoData({...infoData,country:e.target.value})
-                                                    }} value={infoData?.country} className="select2" placeholder="Country" id="account">
-                                                        <option value={""}>{t("Choose Country")} </option>
-                                                        {
-                                                            _.map(countries,  (v,k)=> <option key={k} value={v.id}> {v.value}</option>)
-                                                        }
-                                                    </select>
-                                                    <label htmlFor="select">{t("Country")}</label>
-                                                </div>
+                                                <Select data={countries} value={infoData.country} label={t("Country")}
+                                                        plData={''} plName={t("Choose Country")}
+                                                        id={'countries'}
+                                                        error={error("country")}
+                                                        onSelect={(e)=> setInfoData({...infoData,country:e})}
+                                                />
                                             </div>
                                             <div className="col-12 col-md-6">
-                                                <div className={`select-label-border ${error("currency")}`}>
-                                                    <select onChange={e => {
-                                                        setInfoData({...infoData,currency:e.target.value})
-                                                    }} value={infoData.currency} className="select2" placeholder="Currency" id="account">
-                                                        <option value={""}>{t("Choose Currency")} </option>
-                                                        {
-                                                            _.map(curencies,(v,k)=><option key={k} value={v.id}>{v.value}</option>)
-                                                        }
-                                                    </select>
-                                                    <label htmlFor="select">{t("Currency")}</label>
-                                                </div>
+                                                <Select data={currency} value={infoData.currency} label={t("Currency")}
+                                                        plData={''} plName={t("Choose Currency")}
+                                                        id={'currency'}
+                                                        error={error("currency")}
+                                                        onSelect={(e)=> setInfoData({...infoData,currency:e})}
+                                                />
                                             </div>
 
                                         </div>
@@ -396,27 +389,21 @@ const Confirmation = () => {
                                                 <div className="row step2" style={{marginTop:'20px'}}>
 
                                                     <div className="col-12 col-md-6">
-                                                        <div className={`input-label ${error("passportType")}`} style={{width:"100%"}}>
-                                                            <select className="select2" placeholder="passportType" value={documents.passportType} onChange={event => setDocuments({...documents,passportType:event.target.value})}>
-                                                                <option  value={""}>{t("Choose type")}</option>
-                                                                {
-                                                                    _.map(passportType, (v,k)=><option key={k} value={v.id}>{v.name}</option>)
-                                                                }
-                                                            </select>
-                                                            <label htmlFor="select">{t("Document Type")}</label>
-                                                        </div>
+                                                        <Select data={passportType} value={documents.passportType} label={t("Document Type")}
+                                                                plData={''} plName={t("Choose type")}
+                                                                id={'passportType'}
+                                                                error={error("passportType")}
+                                                                onSelect={(e)=> setDocuments({...documents,passportType:e})}
+                                                        />
                                                     </div>
 
                                                     <div className="col-12 col-md-6">
-                                                        <div className={`input-label ${error("country")}`} style={{width:"100%"}}>
-                                                            <select className="select2" placeholder="Country" value={documents.country} onChange={event => setDocuments({...documents,country:event.target.value})}>
-                                                                <option value={""}>{t("Choose country")}</option>
-                                                                {
-                                                                    _.map(countries, (v,k)=><option key={k} value={v.id}>{v.value}</option>)
-                                                                }
-                                                            </select>
-                                                            <label htmlFor="select">{t("Country")}</label>
-                                                        </div>
+                                                        <Select data={countries} value={documents.country} label={t("Country")}
+                                                                plData={''} plName={t("Choose country")}
+                                                                id={'countries'}
+                                                                error={error("country")}
+                                                                onSelect={(e)=> setDocuments({...documents,country:e})}
+                                                        />
                                                     </div>
 
                                                     <div className="col-12 col-md-6">
@@ -448,7 +435,7 @@ const Confirmation = () => {
                                                         />
                                                     </div>
 
-                                                    <div className={"error-text"}>{t("error")}</div>
+                                                    {/*<div className={"error-text"}>{t("error")}</div>*/}
 
                                                 </div>
 

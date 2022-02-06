@@ -18,6 +18,7 @@ import ShowMore from "./showMore/ShowMore";
 import Verification from "./account/verification/verification"
 import Finances from "./account/finances/finances"
 import PLXModal from "./modal/PLXModal";
+import SvgDot from "./loader/svgdot";
 export {
     PLXModal,
     Header,
@@ -38,5 +39,6 @@ export {
     ShowMore,
     ContentNavigator,
     Verification,
-    Finances
+    Finances,
+    SvgDot
 }

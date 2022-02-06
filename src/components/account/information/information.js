@@ -2,30 +2,36 @@ import React, {useEffect, useState} from 'react';
 import './style.scss';
 import {Actions, useTranslation} from "../../../core";
 import _ from "lodash";
-import {Verification} from "../../index";
+import Select from "../../forms/select/Select"
+import {useOTP} from "../../../core/hooks/useOTP";
 
-const countries =[
-    { id:"VGB",value:"British Virgin Islands"},
-    { id:"BRN",value:"Brunei Darussalam"},
-    { id:"BGR",value:"Bulgaria"},
-    { id:"BFA",value:"Burkina Faso"},
-    { id:"BDI",value:"Burundi"}
-]
-const curencies =[
-    { id:"USD",value:"US Dollar"},
-    { id:"EUR",value:"Euro"},
-    { id:"GEL",value:"Lari"},
-    { id:"RUB",value:"Russian Ruble"},
-]
+const countries ={
+    VGB:"British Virgin Islands",
+    BRN:"Brunei Darussalam",
+    BGR:"Bulgaria",
+    BFA:"Burkina Faso",
+    BDI:"Burundi"
+}
+
+const currency = {
+    USD: "US Dollar",
+    EUR: "Euro",
+    GEL: "Lari",
+    RUB: "Russian Ruble",
+}
 const questions = [
     { id:1,value:"What is your mother\'s maiden name?"},
     { id:2,value:"What was your first pet?"},
     { id:3,value:"What was the model of your first car?"},
     { id:4,value:"In what city were you born?"},
 ]
-
+const gender = {
+    F:"Female",
+    M:'Male'
+}
 const Information = () => {
-    const {t} = useTranslation()
+    const {t} = useTranslation();
+    const {otp, PHONE,EMAIL,CLOSE,ERROR} = useOTP();
     const [infoData, setInfoData] = useState({
         firstName:'',
         email:'',
@@ -37,9 +43,11 @@ const Information = () => {
         city:'',
         answer:'',
         country:"",
+        mobileConfirmed:0,
+        emailConfirmed:0,
         hasUserRequestedVerify:null,
         userVerifyStatus:null,
-        question: {id:0, value:'empty'}
+        question: {id:0, value:''}
     });
     const [status,setStatus]=useState({
         status:"",
@@ -52,9 +60,17 @@ const Information = () => {
     const getInfo = ()=>{
         Actions.User.info().then(response=>{
             if(response.status){
-                setInfoData(response.data.data);
-
-                console.log(response.data.data)
+                let res = response.data.data;
+                console.log('res[\'mobile\']',res['mobile'])
+                setInfoData(_.fromPairs(_.map(infoData, (v,k)=> {
+                  switch (k){
+                      case 'country':return [k,countries[res[k]]];
+                      case 'currency':return [k,currency[res[k]]];
+                      case 'gender':return [k,gender[res[k]]];
+                      case 'phone':return [k,res['mobile']];
+                      default: return [k,res[k]];
+                  }
+                })))
             }
         })
     }
@@ -157,24 +173,51 @@ const Information = () => {
                                         <div className="col-12 d-none d-md-flex">
                                             <div className="form-title">{t("Information")}</div>
                                         </div>
-                                        <div className="col-12 col-md-6">
+
+
+                                        {/*<div className="col-12 col-md-6">
+                                            <Select data={gender} value={infoData.gender} label={t("Sex")}
+                                                    plData={''} plName={t("Choose Sex")}
+                                                    id={'countries'}
+                                                    onSelect={(e)=> setInfoData({...infoData,gender:e})}
+                                            />
+                                        </div>*/}
+
+
+
+                                        <div className="col-12 col-md-6 res-12">
                                             <div className={`input-label-border ${error("mobile")}`}  >
                                                 <input
                                                     type="number"
                                                     name="phone"
                                                     id="phone"
                                                     className="for-confirm"
-                                                    value={infoData.mobile}
-                                                    onChange={e => setInfoData({...infoData,mobile:e.target.value})}
+                                                    value={infoData.phone}
+                                                    onChange={e => setInfoData({...infoData,phone:e.target.value})}
                                                 />
                                                 <label htmlFor="phone">{t("Phone")}</label>
                                                 {
-                                                    infoData?.additions?.is_mobile_verified?<span className="confirmed">{t("Confirmed")}</span>:
+                                                    infoData?.mobileConfirmed===1?<span className="confirmed">{t("Confirmed")}</span>:
                                                         <button
                                                             type="button"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#confirmPhone"
                                                             className="btn-confirm"
+                                                            onClick={()=>{
+                                                                if(infoData.mobile.trim().length>0){
+                                                                    PHONE({
+                                                                        prefix:infoData.mobilePrefix,
+                                                                        number:infoData.mobile,
+                                                                        send:"/us/v2/api/secured/personal/info/otp/get",
+                                                                        verify:"/us/v2/api/secured/personal/info/otp/verify",
+                                                                        save:e=>{
+                                                                            if(e){
+                                                                                setInfoData({...infoData,mobileConfirmed:1});
+                                                                                CLOSE()
+                                                                            }
+
+                                                                        }
+                                                                    })
+                                                                }
+                                                            }}
                                                         >
                                                             {t("Confirm")}
                                                         </button>
@@ -182,7 +225,7 @@ const Information = () => {
                                             </div>
 
                                         </div>
-                                        <div className="col-12 col-md-6">
+                                        <div className="col-12 col-md-6 res-12">
                                             <div  className={`input-label-border ${error("email")}`}>
                                                 <input
                                                     type="email"
@@ -194,11 +237,39 @@ const Information = () => {
                                                 />
                                                 <label htmlFor="email">Email</label>
                                                 {
-                                                    infoData?.additions?.is_email_verified?<span className="confirmed">Confirmed</span>:
+                                                    infoData?.emailConfirmed===1?<span className="confirmed">Confirmed</span>:
                                                         <button
+                                                            onClick={()=>{
+                                                                if(infoData.email.trim().length>0){
+                                                                    EMAIL({
+                                                                        email:infoData.email,
+                                                                        send:"/us/v2/api/secured/personal/info/otp/get",
+                                                                        verify:"/us/v2/api/secured/personal/info/otp/verify",
+                                                                        save:e=>{
+                                                                            if(e){
+                                                                                //setInfoData({...infoData,emailConfirmed:1});
+                                                                                //CLOSE();
+                                                                                PHONE({
+                                                                                    title:t('Operation Confirm'),
+                                                                                    prefix:infoData.mobilePrefix,
+                                                                                    number:infoData.mobile,
+                                                                                    additionalParams:{'email':infoData.email},
+                                                                                    send:"/us/v2/api/secured/personal/info/otp/get",
+                                                                                    verify:"/us/v2/api/secured/personal/info/otp/verify",
+                                                                                    save:e=>{
+                                                                                        if(e){
+                                                                                            setInfoData({...infoData,mobileConfirmed:1});
+                                                                                            CLOSE()
+                                                                                        }
+
+                                                                                    }
+                                                                                });
+                                                                            }
+                                                                        }
+                                                                    })
+                                                                }
+                                                            }}
                                                             type="button"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#confirmEmail"
                                                             className="btn-confirm"
                                                         >
                                                             {t("Confirm")}
@@ -226,17 +297,11 @@ const Information = () => {
                                         </div>
 
                                         <div className="col-12 col-md-6">
-                                            <div className={`select-label-border ${error("gender")}`}>
-                                                <select onChange={e => {
-                                                    setInfoData({...infoData,country:e.target.value})
-                                                }} value={infoData?.gender} className="select2" placeholder="Sex" id="gender">>
-                                                    <option value={""}>{t("Choose Sex")} </option>
-                                                    {
-                                                        _.map([{id:'F',value:"Female"},{id:'M',value:"Male"}],  (v,k)=> <option key={k} value={v.id}> {v.value}</option>)
-                                                    }
-                                                </select>
-                                                <label htmlFor="gender">{t("Sex")}</label>
-                                            </div>
+                                            <Select data={gender} value={infoData.gender} label={t("Sex")}
+                                                    plData={''} plName={t("Choose Sex")}
+                                                    id={'countries'}
+                                                    onSelect={(e)=> setInfoData({...infoData,gender:e})}
+                                            />
                                         </div>
 
                                         <div className="col-12 col-md-6">
@@ -246,30 +311,18 @@ const Information = () => {
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
-                                            <div className={`select-label-border ${error("country")}`}>
-                                                <select onChange={e => {
-                                                    setInfoData({...infoData,country:e.target.value})
-                                                }} value={infoData?.country} className="select2" placeholder="Country" id="account">
-                                                    <option value={""}>{t("Choose Country")} </option>
-                                                    {
-                                                        _.map(countries,  (v,k)=> <option key={k} value={v.id}> {v.value}</option>)
-                                                    }
-                                                </select>
-                                                <label htmlFor="select">{t("Country")}</label>
-                                            </div>
+                                            <Select data={countries} value={infoData.country} label={t("Country")}
+                                                    plData={''} plName={t("Choose Country")}
+                                                    id={'countries'}
+                                                    onSelect={(e)=> setInfoData({...infoData,country:e})}
+                                            />
                                         </div>
                                         <div className="col-12 col-md-6">
-                                            <div className={`select-label-border ${error("currency")}`}>
-                                                <select onChange={e => {
-                                                    setInfoData({...infoData,currency:e.target.value})
-                                                }} value={infoData.currency} className="select2" placeholder="Currency" id="account">
-                                                    <option value={""}>{t("Choose Currency")} </option>
-                                                    {
-                                                        _.map(curencies,(v,k)=><option key={k} value={v.id}>{v.value}</option>)
-                                                    }
-                                                </select>
-                                                <label htmlFor="select">{t("Currency")}</label>
-                                            </div>
+                                            <Select data={currency} value={infoData.currency} label={t("Currency")}
+                                                    plData={''} plName={t("Choose Currency")}
+                                                    id={'currency'}
+                                                    onSelect={(e)=> setInfoData({...infoData,currency:e})}
+                                            />
                                         </div>
 
                                     </div>
@@ -285,18 +338,11 @@ const Information = () => {
                                             <div className="form-title">{t("Security")}</div>
                                         </div>
                                         <div className="col-12 order-2 order-md-1">
-                                            <div className="select-label-border">
-                                                <select onChange={e => {
-                                                    setInfoData({...infoData,question:e.target.value})
-                                                }} selValue={infoData.question} value={infoData?.question} className="select2" placeholder={t("Secret question")} id="account">
-                                                    <option value={""}>Choose Question </option>
-                                                    {
-                                                        _.map(questions, (v,k)=> <option value={v.id} key={k}>{v.value}</option>)
-                                                    }
-
-                                                </select>
-                                                <label htmlFor="select">{t("Secret question")}</label>
-                                            </div>
+                                            <Select data={questions} value={infoData.question} label={t("Secret question")}
+                                                    plData={{id:0,value:''}} plName={t('Choose')}
+                                                    id={'question'}
+                                                    onSelect={(e)=> setInfoData({...infoData,question:e})}
+                                            />
                                         </div>
                                         <div className="col-12 order-3 order-md-2">
                                             <div className="input-label-border">

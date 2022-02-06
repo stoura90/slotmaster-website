@@ -3,16 +3,18 @@ import {PING, SIGN_IN} from "../actionTypes";
 import Request from "../../http/http";
 import moment from 'moment'
 import Http from "../../http/http2";
+import http from "../../http/http3";
 import {query_string} from "../../utils";
 import _ from "lodash";
-const signIn = (data) =>async (dispatch)=>{
-    const response = await Request.post(Config.User.SIGN_IN,query_string({
+
+const signIn = ({data,loader}) =>async (dispatch)=>{
+    const response = await http.post({
+        url:Config.User.SIGN_IN
+        ,data:query_string({
         "username":data.username,
         "password":data.password
-    }),{
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
+        }),
+        loader:loader
     });
     if(response.status){
         console.log(response)
@@ -63,19 +65,10 @@ const ping = () =>async (dispatch)=>{
 const info = ()=>{
     return (new Http()).get(Config.User.INFO)
 }
-const signUp = async (data) => {
-    const response = await Request.post(Config.User.SIGN_UP, query_string(data), {
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
-    });
+const signUp = async ({data,loader}) => {
+    const response = await http.post({url:Config.User.SIGN_UP, data:query_string(data),permitAll:true,loader:loader});
     if (!response.status) {
-        Request.event({
-            name: "httpError",
-            type: 'error',
-            details: "invalid credentials"
-        })
-
+        //window.pushEvent("Invalid Credentials","error")
        // alert(`An error occurred while registering`)
     }
     return response;
@@ -94,19 +87,27 @@ const updateInfo = async ({data}) => {
 
     return await (new Http()).post(Config.User.UPDATE_INFO, formData)
 }
-const  resendOtp = ({send,type,prefix,value,additionalParams={}}) =>{
+const  resendOtp = ({send,type,prefix,value,additionalParams={},loader,permitAll=false}) =>{
     //{type}&prefix={prefix}&value={value}
-    return new Http().get(send.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value).concat('&',_.map(additionalParams,(v, k)=>{
-        return k.concat('=',v)
-    }).join('&')))
+    return http.get({
+        url:send.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value).concat('&',_.map(additionalParams,(v, k)=>{
+            return k.concat('=',v)
+        }).join('&')),
+        loader:loader,
+        permitAll:permitAll
+    })
 }
-const  verifyOtp = ({verify,type,prefix,value,otp,additionalParams={}}) =>{
+const  verifyOtp = ({verify,type,prefix,value,otp,additionalParams={},loader,permitAll=false}) =>{
     //{type}&prefix={prefix}&value={value}
-    return new Http().get(verify.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value).replace('{otp}',otp).concat('&',_.map(additionalParams,(v, k)=>{
+    return http.get({
+        url:verify.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value).replace('{otp}',otp).concat('&',_.map(additionalParams,(v, k)=>{
         return k.concat('=',v)
-    }).join('&')))
-}
+    }).join('&')),
+        loader:loader,
+        permitAll:permitAll
+    })
 
+}
 const  recoverUserName = ({channel,prefix,data,token}) =>{
     //{type}&prefix={prefix}&value={value}
     return new Http().permitAll().post(Config.Guest.RECOVER.USERNAME.replace("{channel}",channel).replace("{prefix}",prefix).replace("{data}",data).replace('{token}',token))
@@ -115,8 +116,6 @@ const  recoverPassword = ({channel,prefix,data,token,username,otp}) =>{
     //{type}&prefix={prefix}&value={value}
     return new Http().permitAll().post(Config.Guest.RECOVER.PASSWORD.replace("{channel}",channel).replace("{prefix}",prefix).replace("{data}",data).replace('{token}',token).replace('{username}',username).replace('{otp}',otp))
 }
-
-
 const verification=(data)=>{
    return  (new Http()).post(Config.User.VERIFICATION,{
        "mail":data?.email,

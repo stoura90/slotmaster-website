@@ -1,37 +1,40 @@
-import {close} from "../../assets/img/icons/icons"
 import {useEffect, useState} from "react";
 import {Actions, useTranslation} from "../../core";
 import PropTypes from "prop-types";
-//import EventEmitter from "../../../core/utils/eventEmitter";
 import PLXModal from "../modal/PLXModal";
+import {UseEvent} from "../../core/hooks/useEvent";
+import {SvgDot} from "../index";
 
 window.reSendInterval=null;
-export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,verify,additionalParams})=>{
+export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,verify,additionalParams,title})=>{
     const {t} = useTranslation()
     const [error,setError]=useState("")
-
+    const [loader,setLoader]=useState(false)
+    const [codeRequest,setCodeRequest] = useState(false);
     let [reSend,setReSend]=useState(-1)
     const [code,setCode]=useState("")
-    const [show,setShow] = useState(false);
-    //const eventEmitter= new EventEmitter();
-
+    const ev  = UseEvent()
     useEffect(()=>{
-        setError(err)
+        setError(err);
     },[err])
 
     useEffect(()=>{
-        //eventEmitter.on("phone",setShow);
-        //return ()=>{eventEmitter.removeListener("recover",e=>setShow(false))}
+        const otpLoader = ev.subscribe('verifyOtp',setLoader)
+        return ()=>{
+            otpLoader.unsubscribe()
+        }
     },[])
 
     const onResend =()=>{
-        Actions.User.resendOtp({send:send.concat("?type={type}&prefix={prefix}&value={value}"),type:"email",prefix:"",value:email,additionalParams:additionalParams})
+        Actions.User.resendOtp({permitAll:true,send:send.concat("?type={type}&prefix={prefix}&value={value}"),type:"email",prefix:"",value:email,additionalParams:additionalParams,loader:setLoader})
             .then(response=>{
                 if(response.status){
                     setCode("")
                     setReSend(response.data.remaining)
+                    setCodeRequest(true);
                 }else {
-                    setError('error')
+                    setError('error');
+                    setCodeRequest(false);
                 }
 
             }).catch(reason => setError(reason))
@@ -39,7 +42,8 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
 
     const onVerify =()=>{
         if(code){
-            Actions.User.verifyOtp({verify:verify.concat("?type={type}&prefix={prefix}&value={value}&otp={otp}"),type:"email",prefix:"",value:email,otp:code,additionalParams:additionalParams})
+            Actions.User.verifyOtp({verify:verify.concat("?type={type}&prefix={prefix}&value={value}&otp={otp}"),type:"email",prefix:"",value:email,otp:code,additionalParams:additionalParams, loader:setLoader,
+                permitAll:true})
                 .then(response=>{
                     if(response.status){
                         save(true);
@@ -72,25 +76,24 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
 
             }
         }
+        setCodeRequest(true);
     },[reSend])
 
-    return show && (
-        <PLXModal title={t("Email Finances")} onClose={()=>setShow(false)} contentStyle={{maxWidth:'500px'}}>
-            {/*<div className="modal-head mb-0">
-                <button className="close" data-bs-dismiss="modal" onClick={()=>onClose()}>
-                    <img src={close} alt="Close modal"/>
-                </button>
-                <div className="modal-title">{t("Email Finances")}</div>
-            </div>*/}
+    return (
+        <PLXModal title={title?title:t('Email Verification')} onClose={()=>onClose()} contentStyle={{maxWidth:'500px'}}>
             <form onSubmit={e=>{
                 e.preventDefault();
-
+                if(!codeRequest){
+                    window.pushEvent('Please Request SMS Code','error');
+                    return;
+                }
                 if(!code){
-                    setError("Incorrect sms code");
+                    window.pushEvent("Incorrect sms code","error");
                     setTimeout(()=>{
                         setError("")
                     },2000)
                 }else{
+                    setCodeRequest(false);
                     if(verify){
                         onVerify()
                     }else{
@@ -114,7 +117,8 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
                 {/*
                     <p style={{color:"red"}}>{t(error)}</p>
 */}
-                <button type="submit" className="btn-dep justify-content-center px-0">
+                <button type="submit" className="btn-dep justify-content-center px-0" style={{position:'relative',overflow:'hidden'}}>
+                    {loader? (<SvgDot contentStyle={{background:'#00984a'}}/> ) : ''}
                     {t("Confirm")}
                 </button>
             </form>
@@ -124,20 +128,22 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
 
 }
 EmailVerificationModal.propTypes = {
+    //title:PropTypes.string,
     email:PropTypes.string,
     err:PropTypes.string,
     onSubmit:PropTypes.func,
     onClose:PropTypes.func,
     send:PropTypes.string,
-    save:PropTypes.string,
+    save:PropTypes.func,
     additionalParams:PropTypes.object
 }
 EmailVerificationModal.defaultValues = {
+    //title:'Email Verification',
     email:'',
     err:'',
     onSubmit:(code)=>console.log(code),
     onClose:(_)=>console.log(_),
-    save:"",
+    save:(_)=>console.log(_),
     send:"",
     additionalParams:{}
 }

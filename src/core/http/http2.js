@@ -133,6 +133,7 @@ class Http {
    }
     post(url,data,header=null){
         return new Promise((resolve,reject ) => {
+
             if(this.loader){
                 this.dispatchLoader(this.loader,true)
             }
