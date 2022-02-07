@@ -54,8 +54,8 @@ const SignUp =() =>{
         pass2:'password'
     });
     const [primaryContact, setPrimaryContact] = useState({
-        phone:true,
-        email:false
+        phone:false,
+        email:true
     });
 
     const [errors,setErrors]=useState([])
@@ -267,7 +267,7 @@ const SignUp =() =>{
     }
 
     return show && (
-        <PLXModal title={t("Sign Up")} onClose={()=>setShow(false)} dialogStyle={{maxWidth:'700px'}} contentStyle={{width:'700px'}}>
+        <PLXModal title={t("Sign Up")} onClose={()=>setShow(false)} dialogStyle={{maxWidth:'600px'}} contentStyle={{width:'600px'}}>
             <form style={{marginTop:'20px'}} onSubmit={(event)=>{
                 event.preventDefault();
 
@@ -301,7 +301,7 @@ const SignUp =() =>{
                             <label htmlFor="surname">{t("Username")}</label>
                         </div>
                     </div>
-                    <div className="col-12 col-md-6">
+                    {/*<div className="col-12 col-md-6">
 
                         <div className="select-label" style={{width:"100%"}}>
                             <select className="select2" placeholder="Country"
@@ -315,8 +315,8 @@ const SignUp =() =>{
                             <label htmlFor="select">{t("Country")}</label>
                         </div>
 
-                    </div>
-                    <div className="col-12 col-md-6" >
+                    </div>*/}
+                    {/*<div className="col-12 col-md-6" >
                         <label htmlFor="phone-primary">
                             <input type="checkbox" id={'phone-primary'} value={primaryContact.phone} checked={primaryContact.phone} onChange={e =>{
                                 setPrimaryContact({...primaryContact,phone:!(e.target.value === "true")});
@@ -344,7 +344,7 @@ const SignUp =() =>{
                             </div>
                         </div>
 
-                    </div>
+                    </div>*/}
                     <div className="col-12 col-md-6" >
                         {/*<div className="select-label" style={{width:"150px" }}>
                                     <select className="select2" placeholder="Currency"
@@ -357,11 +357,11 @@ const SignUp =() =>{
                                     </select>
                                     <label htmlFor="select">Currency</label>
                                 </div>*/}
-                        <label htmlFor="email-primary">
+                        {/*<label htmlFor="email-primary">
                             <input type="checkbox" id={'email-primary'} value={primaryContact.email} checked={primaryContact.email} onChange={e =>{
                                 setPrimaryContact({...primaryContact,email:!(e.target.value === "true")});
                             } }/>&nbsp; {t("Email Finances")}
-                        </label>
+                        </label>*/}
                         <div style={{display:"flex"}} className={`${primaryContact.email?'':'disable-email'}`}>
                             <div className={`input-label ${error("mail")}`} style={{width:"100%"}}>
                                 <input type="email" name="email" id="email"

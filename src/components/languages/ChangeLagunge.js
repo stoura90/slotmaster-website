@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom";
 import "./changeLagunge.scss"
  const ChangeLagunge = () =>{
     const {i18n} = useTranslation();
-    const [activeLang,setActiveLang] = useState('en')
+    const [activeLang,setActiveLang] = useState(i18n.language)
 
      const changeLang =(lang)=>{
          window.history.pushState(null,null,window.location.pathname.replace(i18n.language,lang))
