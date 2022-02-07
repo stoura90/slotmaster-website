@@ -7,6 +7,8 @@ import http from "../../http/http3";
 import {query_string} from "../../utils";
 import _ from "lodash";
 
+import JWT from "../../models/JWT";
+let jwt  = new JWT()
 const signIn = ({data,loader}) =>async (dispatch)=>{
     const response = await http.post({
         url:Config.User.SIGN_IN
@@ -20,12 +22,18 @@ const signIn = ({data,loader}) =>async (dispatch)=>{
         console.log(response)
         localStorage.setItem('GRD_access_token',response.data.access_token);
         localStorage.setItem('GRD_refresh_token',response.data.refresh_token);
-        dispatch(ping())
+        jwt.setData(response.data)
+        setTimeout(()=>{
+            dispatch(ping())
+        },100)
+
+
         dispatch({
             type: SIGN_IN,
             payload: {},
             status:response.status
         })
+
     }else{
         Request.event({
             name:"httpError",
@@ -50,8 +58,9 @@ const signOut = () => async (dispatch)=>{
   }
 }
 const ping = () =>async (dispatch)=>{
+
     return new Promise((resolve => {
-        (new Http()).get(Config.User.PING).then(response=>{
+        http.get({url:Config.User.PING}).then(response=>{
 
             dispatch({
                 type: PING,
@@ -116,25 +125,29 @@ const  recoverPassword = ({channel,prefix,data,token,username,otp}) =>{
     //{type}&prefix={prefix}&value={value}
     return new Http().permitAll().post(Config.Guest.RECOVER.PASSWORD.replace("{channel}",channel).replace("{prefix}",prefix).replace("{data}",data).replace('{token}',token).replace('{username}',username).replace('{otp}',otp))
 }
-const verification=(data)=>{
-   return  (new Http()).post(Config.User.VERIFICATION,{
-       "mail":data?.email,
-       "firstName":data?.firstName,
-       "lastName":data?.lastName,
-       "mobilePrefix":data?.mobilePrefix,
-       "mobile":data?.mobile,
-       "dob":moment(data?.dob).format("YYYY-MM-DD"),
-       "gender":data?.gender,
-       "passportType":data?.passportType,
-       "docNumber":data?.docNumber,
-       "country": data?.country,
-       "doc_expire_date":moment(data?.doc_expire_date).format("YYYY-MM-DD"),
-       "front":data?.front,
-       "back":data?.back,
-       "otp":data.otp
-   },{
-       'Content-Type' : 'text/plain'
-   });
+const verification=({data,loader})=>{
+   return  http.post({
+                url:Config.User.VERIFICATION,
+                data:{
+                   "mail":data?.email,
+                   "sourceId":data?.sourceId,
+                   "firstName":data?.firstName,
+                   "lastName":data?.lastName,
+                   "mobilePrefix":data?.mobilePrefix,
+                   "mobile":data?.mobile,
+                   "dob":moment(data?.dob).format("YYYY-MM-DD"),
+                   "gender":data?.gender,
+                   "passportType":data?.passportType,
+                   "docNumber":data?.docNumber,
+                   "country": data?.country,
+                   "doc_expire_date":moment(data?.doc_expire_date).format("YYYY-MM-DD"),
+                   "front":data?.front,
+                   "back":data?.back,
+                   "otp":data.otp
+               },
+                headers:{  'Content-Type' : 'text/plain' },
+                loader:loader
+        });
 }
 export default {
   signIn,

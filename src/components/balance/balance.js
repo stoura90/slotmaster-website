@@ -43,7 +43,7 @@ import {Actions, useTranslation} from "../../core";
 const Balance = ({route}) =>{
     const {t} = useTranslation()
     const {User,signOut} = useUser();
-    const {lang} = useParams();
+    const params = useParams();
     const [showBalance,setShowBalance] = useState(false);
 
     const [infoData, setInfoData] = useState({
@@ -71,11 +71,8 @@ const Balance = ({route}) =>{
     useEffect(()=>{
         getInfo()
         console.log('user',User)
-    },[])
+    },[params])
 
-    const showVerificationModal = () => {
-        document.getElementById('btn-confirm-verification').click();
-    }
     return (
         <>
 
@@ -175,7 +172,7 @@ const Balance = ({route}) =>{
                     {
                         (route !=="info" && route !==undefined) && <li className="col nav-item" role="presentation">
                             <Link
-                                to={`/${lang}/account/info`}
+                                to={`/${params.lang}/account/info`}
                                 className="d-flex align-items-center justify-content-between nav-link"
                             >
                                 <span>{t("Personal Data")}</span>
@@ -197,7 +194,7 @@ const Balance = ({route}) =>{
                         // User?.data?.verifyStatus !== 1 &&
                        route !=="verification" && infoData?.verifyStatus !== 0 && infoData?.hasUserRequestedVerify !== true  && <li className="col nav-item" role="presentation">
                             <Link
-                                to={`/${lang}/account/verification`}
+                                to={`/${params.lang}/account/verification`}
                                 className="d-flex align-items-center justify-content-between nav-link"
                             >
                                 <span>{t("Account Confirmation")}</span>
@@ -218,7 +215,7 @@ const Balance = ({route}) =>{
                     {
                         route !=="finances" &&  <li className="col nav-item" role="presentation">
                             <Link
-                                to={`/${lang}/account/finances`}
+                                to={`/${params.lang}/account/finances`}
                                 /*href="/confirmation.html"*/
                                 className="d-flex align-items-center justify-content-between nav-link"
                             >

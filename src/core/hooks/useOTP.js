@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {OTP_CLOSE, OTP_EMAIL, OTP_ERROR, OTP_PHONE} from "../store/actionTypes";
+import {OTP_CLOSE, OTP_EMAIL, OTP_ERROR, OTP_MULTI, OTP_PHONE} from "../store/actionTypes";
 
 export function useOTP() {
     const dispatch = useDispatch();
@@ -36,18 +36,31 @@ export function useOTP() {
             }
         })
     }
+    const MULTI = ({send,save,additionalParams,verify=null,title}) => {
+        dispatch({
+            type:OTP_MULTI,
+            payload:{
+                title:title,
+                type:"multi",
+                error:'',
+                send:send,
+                save:save,
+                verify:verify,
+                additionalParams:additionalParams
+            }
+        })
+    }
     const ERROR = ({error})=>{
         dispatch({
             type:OTP_ERROR,
             payload:error
         })
     }
-
     const CLOSE = () =>{
         dispatch({
             type:OTP_CLOSE
         })
     }
 
-   return {otp, PHONE,EMAIL,ERROR,CLOSE }
+   return {otp, PHONE,EMAIL,ERROR,CLOSE,MULTI }
 }

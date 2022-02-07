@@ -7,6 +7,8 @@ import {Country} from "@microblink/blinkid-in-browser-sdk";
 import UploadDoc from "../uploadDoc/uploadDoc";
 import {useOTP} from "../../../core/hooks/useOTP";
 import Select from "../../forms/select/Select"
+import SelectBox from "../../forms/select/NewSelect";
+import {useHistory, useParams} from "react-router-dom";
 
 const countries ={
     VGB:"British Virgin Islands",
@@ -22,11 +24,12 @@ const currency = {
     RUB: "Russian Ruble",
 }
 
-const passportType= {
-    id_card: "ID Card",
-    passport: "Passport",
-    resident_identification: "Resident Identification",
-}
+const passportType= [
+    {id: "id_card", title: "ID Card"},
+    {id: "passport",title: "Passport"},
+    {id: "resident_identification",title: "Resident Identification"},
+]
+
 const MobilePrefixList=[
     {id:1,value: "+1"},
     {id:673,value: "+673"},
@@ -40,7 +43,9 @@ const gender = {
 }
 const Confirmation = () => {
     const {t} = useTranslation();
-    const {otp, PHONE,EMAIL,CLOSE,ERROR} = useOTP();
+    const {lang} = useParams()
+    const history = useHistory()
+    const {otp, PHONE,EMAIL,CLOSE,ERROR,MULTI} = useOTP();
     const [infoData, setInfoData] = useState({
         firstName:'',
         email:'',
@@ -73,18 +78,8 @@ const Confirmation = () => {
     const [otpSource,setOtpSources]=useState(null)
     useEffect(()=>{
         getInfo()
-        getOtpSources();
     },[])
-    const getOtpSources = () =>{
-        Actions.Otp.sources().then(response=>{
-            if(response){
-               let find =  _.find(response,v=>v.preferred);
-               if(find){
-                   setOtpSources(find)
-               }
-            }
-        })
-    }
+
     const getInfo = ()=>{
         Actions.User.info().then(response=>{
             if(response.status){
@@ -156,14 +151,38 @@ const Confirmation = () => {
         let error = _.chain(documents).map((v,k)=>{
             return {key:k,value:v}
         }).filter(v=>!v.value).map(v=>v.key).value();
-
+        console.log(error)
         if(error.length>0){
             setErrors([...error])
         }else{
+            MULTI({
+                email:infoData.email,
+                send:"/us/v2/api/secured/personal/info/otp",
+                save:({code,sourceId})=>{
+                    if(code){
+                        Actions.User.verification({data:{
+                            ...infoData,...documents,otp:code,sourceId:sourceId,gender:infoData.gender==="Female"?'F':'M'
+
+                        },loader:"verifyOtp"}).then(response=>{
+                            if(response.status){
+                                CLOSE();
+                                window.pushEvent(t("The operation was performed successfully"),"success")
+                                history.push(`/${lang}/account/info`)
+                            }else{
+                                console.log("catch")
+                                ERROR({error:t("error")})
+                            }
+                        }).catch(e=>{
+                            console.log("catch")
+                            ERROR({error:t("error")})
+                        })
+                    }
+
+                }
+            })
 
 
-
-            if(otpSource?.type==="email"){
+       /*     if(otpSource?.type==="email"){
                 EMAIL({
                     email:infoData.email,
                     send:"/us/v2/api/secured/personal/info/otp/get",
@@ -210,7 +229,7 @@ const Confirmation = () => {
 
                     }
                 })
-            }
+            }*/
 
 
             console.log(otpSource)
@@ -389,12 +408,20 @@ const Confirmation = () => {
                                                 <div className="row step2" style={{marginTop:'20px'}}>
 
                                                     <div className="col-12 col-md-6">
-                                                        <Select data={passportType} value={documents.passportType} label={t("Document Type")}
+                                                        <SelectBox
+                                                            data={passportType}
+                                                            placeholder={"Document Type"}
+                                                            value={documents.passportType}
+                                                            error={error("passportType")}
+                                                            onSelect={(e)=> setDocuments({...documents,passportType:e.id})}
+
+                                                        />
+                                                       {/* <Select data={passportType} value={documents.passportType} label={t("Document Type")}
                                                                 plData={''} plName={t("Choose type")}
                                                                 id={'passportType'}
                                                                 error={error("passportType")}
                                                                 onSelect={(e)=> setDocuments({...documents,passportType:e})}
-                                                        />
+                                                        />*/}
                                                     </div>
 
                                                     <div className="col-12 col-md-6">

@@ -17,7 +17,7 @@ export const Select = ({data,value,label,id,onSelect,plData,plName})=>{
                                 plName && <li onClick={()=>onSelect(plData)}>{plName}</li>
                             }
                             {
-                                _.map(data, (v,k)=> <li key={k} onClick={()=>onSelect(v)}>{typeof v==='object'?v.value:v}</li>)
+                                _.map(data, (v,k)=> <li key={k} onClick={()=>onSelect(typeof data==='object'?k:v)}>{typeof v==='object'?v.value:v}</li>)
                             }
                         </ul>
                     </div>

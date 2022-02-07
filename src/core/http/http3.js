@@ -7,10 +7,12 @@ const http =  axios.create({
     timeout:10000
 })
 const loaders = UseEvent();
-const jwt  = new JWT()
+
 class Http {
 
     static get({url,loader,headers,permitAll=false}){
+        const jwt  = new JWT()
+        console.log(jwt)
         return new Promise((resolve) => {
             if (loader) this.setLoader(loader, true);
             http.get(url,permitAll?{}:{headers: {
@@ -28,6 +30,7 @@ class Http {
 
     }
     static post({url,data,loader,headers,permitAll}){
+        const jwt  = new JWT()
         return  new Promise(resolve => {
             if (loader) this.setLoader(loader, true);
             http.post(url,data,permitAll?{}:{headers: {
@@ -45,6 +48,7 @@ class Http {
 
     }
     static put({url,data,loader,headers,permitAll}){
+        const jwt  = new JWT()
         return  new Promise(resolve => {
             if (loader) this.setLoader(loader, true);
             http.put(url,data,permitAll?{}:{headers: {

@@ -82,5 +82,8 @@
   background-color: #181e2e;
   color: #d6dbeb;
 }
+.input-select .close-select-box {
+  display: none;
+}
 
 /*# sourceMappingURL=select.css.map */

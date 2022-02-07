@@ -4,46 +4,62 @@ import PropTypes from "prop-types";
 import PLXModal from "../modal/PLXModal";
 import {SvgDot} from "../index";
 import {UseEvent} from "../../core/hooks/useEvent";
+import _ from "lodash";
+import Select from "../forms/select/Select";
+import SelectBox from "../forms/select/NewSelect";
 
 window.reSendInterval=null;
-export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,verify,onClose,additionalParams,title})=>{
+export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalParams,title})=>{
     const {t} = useTranslation();
     const ev = UseEvent();
-    const [phone,setPhone]=useState("")
+    const [sourceId,setSourceId]=useState(null)
+    const [otpSources,setOtpSources]=useState([])
     const [error,setError]=useState("")
     let [reSend,setReSend]=useState(-1)
     const  [code,setCode]=useState("")
     const [loader,setLoader]=useState(false)
     const [codeRequest,setCodeRequest] = useState(false);
 
-    useEffect(()=> {
-        if(number && number.length > 3){
-            let length = number.toString().length;
-            setPhone(prefix+' '+(new Array(length-2)).join("*").concat(number.substring(length-3,2)))
-        }
-
-    },[number,prefix])
     useEffect(()=>{
         setError(err)
     },[err])
 
     useEffect(()=>{
-
+        getOtpSources()
        const otpLoader = ev.subscribe('verifyOtp',setLoader)
         return ()=> {
             otpLoader.unsubscribe()
         }
         //return ()=>{eventEmitter.removeListener("recover",e=>setShow(false))}
     },[])
-
+    const getOtpSources = () =>{
+        Actions.Otp.sources().then(response=>{
+            if(response){
+                console.log(response)
+                let find =  _.find(response,v=>v.preferred);
+                if(find){
+                    setSourceId(find.id)
+                }
+                setOtpSources(response)
+            }
+        })
+    }
     const onResend =()=>{
-        Actions.User.resendOtp({permitAll:true,send:send.concat("?type={type}&prefix={prefix}&value={value}"),type:"mobile",prefix:parseInt(prefix),value:number,additionalParams:additionalParams,loader:setLoader})
+        Actions.User.resendOtp({
+            permitAll:false,
+            send:send.concat("?id="+sourceId),
+            type:"multi",
+            sourceId:sourceId,
+            additionalParams:additionalParams,
+            loader:setLoader
+        })
             .then(response=>{
                 if(response.status){
                     setCode("")
                     setReSend(response.data.remaining);
                     setCodeRequest(true);
                 }else {
+                    console.log('mobOtp',response)
                     setError('error');
                     setCodeRequest(false);
                 }
@@ -53,16 +69,18 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,ve
         if(code){
             Actions.User.verifyOtp({
                 verify:verify.concat("?type={type}&prefix={prefix}&value={value}&otp={otp}"),
-                type:"mobile",prefix:prefix,value:number,otp:code,
+                type:"multi",
+                sourceId:sourceId,
+                otp:code,
                 additionalParams:additionalParams,
-                loader:setLoader,
-                permitAll:true
+                loader:setLoader
             })
                 .then(response=>{
                     if(response.status){
                         save(true);
                         setError('')
                     }else {
+                        console.log('444',response)
                         setError('error')
                         save(false)
                     }
@@ -109,13 +127,28 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,ve
                     if(verify){
                         onVerify()
                     }else{
-                        save(code)
+                        save({code:code,sourceId:sourceId})
                     }
                 }
             }} className="confirm-form">
+                {
+                    otpSources.length>1 && <div style={{marginTop:"20px"}}>
+                        <SelectBox
+                            placeholder={"Select verification method"}
+                            data={_.map(otpSources,v=>{
+                                return {
+                                    id:v.id,
+                                    title:v.value
+                                }
+                            })}
+                            onSelect={(e)=>setSourceId(e.id)}
+                            value={sourceId}
+                        />
+                    </div>
+                }
+
                 <p className="confirm-text">
-                    {t("A 6-digit SMS code was sent to")}:
-                    <span className="phone-num">{phone}</span>. {t("Please enter the code in the field below to confirm")}:
+                    {t("A 6-digit SMS code was sent to")}:<span className="phone-num">{sourceId?.type === 'email'? 'email':"mobile phone"}</span>. {t("Please enter the code in the field below to confirm")}:
                 </p>
                 <div className="input-label-border">
                     <input type="text" name="code" id="code" value={code} onChange={e=>setCode(e.target.value)} className="for-confirm"/>
@@ -134,20 +167,18 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,ve
     )
 
 }
-MobileVerificationModal.propTypes = {
-    //title:PropTypes.string,
-    number:PropTypes.string,
-    prefix:PropTypes.string,
+OtpVerificationModal.propTypes = {
+    type:PropTypes.string,
+    title:PropTypes.string,
     err:PropTypes.string,
     onSubmit:PropTypes.func,
     send:PropTypes.string,
     save:PropTypes.func,
     additionalParams:PropTypes.object
 }
-MobileVerificationModal.defaultValues = {
-    //title:"Phone Verification",
-    number:'',
-    prefix:'+995',
+OtpVerificationModal.defaultValues = {
+    title:"Otp Verification",
+    type:"multi",
     err:"",
     onSubmit:(_)=>console.log(_),
     save:(_)=>console.log(_),

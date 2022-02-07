@@ -7,6 +7,7 @@ export const PING="PING";
 export const SIGN_IN="SIGN_IN";
 export const SIGN_IN_MODAL="SIGN_IN_MODAL";
 export const LOADER_TOGGLE="LOADER_TOGGLE";
+export const OTP_MULTI="OTP_MULTI";
 export const OTP_EMAIL="OTP_EMAIL";
 export const OTP_PHONE="OTP_PHONE";
 export const OTP_ERROR="OTP_ERROR";
