@@ -14,6 +14,8 @@ class JWT {
     clear(){
         localStorage.removeItem("PLN_A_TOKEN");
         localStorage.removeItem("PLN_R_TOKEN");
+        this.access=null;
+        this.refresh=null;
     }
 
 }

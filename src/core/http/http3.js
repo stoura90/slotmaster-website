@@ -21,12 +21,14 @@ class Http {
                 }}).then(response=>{
                     resolve(response.status===200?{status:true,data:response.data}:{status:false,data:response.data})
             }).catch( async reason => {
-                if (enableRefreshToken&& jwt?.refresh && reason?.response?.status === 401) {
+                if (enableRefreshToken && jwt?.refresh && reason?.response?.status === 401) {
                     if(enableRefreshToken){
                         let refresh = await this.refreshToken(jwt)
                         if(refresh?.status){
                             jwt.setData(refresh.data.data);
                             resolve(this.get({url:url,loader:loader,headers:headers,permitAll:permitAll,enableRefreshToken:false}))
+                        }else{
+                            resolve({status:false})
                         }
                     }else{
                         loaders.emit('signIn',true);
@@ -34,6 +36,7 @@ class Http {
                     }
                 } else {
                     resolve({status: false, error: reason?.response?.data})
+
                 }
                 //window.pushEvent(reason.response.data.message,"error")
 
@@ -60,6 +63,8 @@ class Http {
                             resolve(this.post({
                                 url:url,data:data,loader:loader,headers:headers,permitAll:permitAll,enableRefreshToken:false
                             }))
+                        }else{
+                            resolve({status:false})
                         }
                     } else {
                         loaders.emit('signIn', true);
@@ -92,11 +97,12 @@ class Http {
                             resolve(this.put({
                                 url:url,data:data,loader:loader,headers:headers,permitAll:permitAll,enableRefreshToken:false
                             }))
+                        }else{
+                            resolve({status:false})
                         }
                     } else {
                         loaders.emit('signIn', true);
                         resolve({status: false, error: reason?.response?.data})
-
                     }
                 } else {
                     resolve({status: false, error: reason?.response?.data})
@@ -120,16 +126,15 @@ class Http {
     }
     static refreshToken(jwt){
 
-        console.log("refreh",jwt)
         return new Promise((resolve)=>{
-            this.post({url:Config.Config.REFRESH_TOKEN,data: query_string({refresh_token:jwt.refresh })})
+            http.post({url:Config.Config.REFRESH_TOKEN,data: query_string({"refresh_token":jwt.refresh })})
                 .then(response=>{
-                    console.log("accept tocken",response)
                     resolve({status:true,data:response})
                 })
                 .catch(reason => {
-                    console.log("reject reason",reason)
+                    jwt.clear()
                     resolve({status:false})
+
                 })
         })
 
