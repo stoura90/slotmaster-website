@@ -26,7 +26,7 @@ class Http {
                         let refresh = await this.refreshToken(jwt)
                         if(refresh.status){
                             jwt.setData(refresh.data.data);
-                            resolve(this.get({url,loader,headers,permitAll,enableRefreshToken}))
+                            resolve(this.get({url,loader,headers,permitAll,enableRefreshToken:false}))
                         }
                     }else{
                         loaders.emit('signIn',true);
@@ -58,7 +58,7 @@ class Http {
                         if (refresh.status) {
                             jwt.setData(refresh.data.data);
                             resolve(this.post({
-                                url,data,loader,headers,permitAll,enableRefreshToken
+                                url,data,loader,headers,permitAll,enableRefreshToken:false
                             }))
                         }
                     } else {
@@ -90,7 +90,7 @@ class Http {
                         if (refresh.status) {
                             jwt.setData(refresh.data.data);
                             resolve(this.put({
-                                url,data,loader,headers,permitAll,enableRefreshToken
+                                url,data,loader,headers,permitAll,enableRefreshToken:false
                             }))
                         }
                     } else {
