@@ -21,10 +21,10 @@ class Http {
                 }}).then(response=>{
                     resolve(response.status===200?{status:true,data:response.data}:{status:false,data:response.data})
             }).catch( async reason => {
-                if (enableRefreshToken&& jwt.refresh && reason.response.status === 401) {
+                if (enableRefreshToken&& jwt?.refresh && reason?.response?.status === 401) {
                     if(enableRefreshToken){
                         let refresh = await this.refreshToken(jwt)
-                        if(refresh.status){
+                        if(refresh?.status){
                             jwt.setData(refresh.data.data);
                             resolve(this.get({url:url,loader:loader,headers:headers,permitAll:permitAll,enableRefreshToken:false}))
                         }
@@ -52,7 +52,7 @@ class Http {
                 }}).then(response=>{
                 resolve(response.status===200?{status:true,data:response.data}:{status:false,data:response.data})
             }).catch(async reason => {
-                if (enableRefreshToken && jwt.refresh && reason.response.status === 401) {
+                if (enableRefreshToken && jwt.refresh && reason?.response.status === 401) {
                     if (enableRefreshToken) {
                         let refresh = await this.refreshToken(jwt)
                         if (refresh.status) {
@@ -84,7 +84,7 @@ class Http {
                 }}).then(response=>{
                 resolve(response.status===200?{status:true,data:response.data}:{status:false,data:response.data})
             }).catch(async reason => {
-                if (enableRefreshToken && jwt.refresh && reason.response.status === 401) {
+                if (enableRefreshToken && jwt.refresh && reason?.response.status === 401) {
                     if (enableRefreshToken) {
                         let refresh = await this.refreshToken(jwt)
                         if (refresh.status) {
