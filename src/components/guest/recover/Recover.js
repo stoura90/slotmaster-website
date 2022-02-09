@@ -4,6 +4,7 @@ import EventEmitter from "../../../core/utils/eventEmitter";
 import {Actions, useTranslation} from "../../../core";
 import _ from "lodash";
 import {useOTP} from "../../../core/hooks/useOTP";
+import './Recover.scss';
 
 const Recover = () =>{
     const {otp, PHONE,EMAIL,CLOSE,ERROR} = useOTP();
@@ -30,8 +31,6 @@ const Recover = () =>{
     })
 
     const [error, setError] = useState(null);
-
-
 
     useEffect(()=>{
         eventEmitter.on("recover",setType)
@@ -86,7 +85,6 @@ const Recover = () =>{
         }
     }
 
-
     const recoverPassword =(code)=>{
         window.grecaptcha.execute('6LcsE_IdAAAAAElaP_6dOnfzTJD2irfkvp1wzIeS', {action: 'recoverPassword'}).then(async(token)=> {
             Actions.User.recoverPassword({...form, token:token, otp:code}).then(response=>{
@@ -104,18 +102,19 @@ const Recover = () =>{
             //onClickBackDrop={e=>setType(null)}
             onClose={e=>setType(null)}
             contentStyle={{maxWidth:'350px'}}
+            dialogStyle={{maxWidth:'350px'}}
         >
 
             <form onSubmit={(event)=>{
                 event.preventDefault();
                 sendData()
-            }} className="form">
+            }} className="form recover-password">
                 <div className="row">
 
 
                     <div className="col-12">
                         <div className={`select-label-border`}>
-                            <select onChange={(e)=> setForm({...form, channel:e.target.value})}  value={form?.channel} className="select2" placeholder="Type" id="channel">>
+                            <select onChange={(e)=> setForm({...form, channel:e.target.value})}  value={form?.channel} className="select2" placeholder="Type" id="channel">
                                 <option value={""}>{t("Choose Type")} </option>
                                 {
                                     _.map([{id:'email',value:"Email"},{id:'mobile',value:"Phone"}],  (v,k)=> <option key={k} value={v.id}> {v.value}</option>)
@@ -128,7 +127,7 @@ const Recover = () =>{
                     {
                         form.channel === 'email'?(
                                 <div className="col-12">
-                                    <div  className={`input-label-border`}>
+                                    <div  className={`new-input-label`}>
                                         <input onChange={e => setForm({...form,data:e.target.value})} value={form.data} type="text" name="email" id="data-email"/>
                                         <label htmlFor="data-email">{form.channel === 'email' ? t("Email"):t("Phone")}</label>
                                     </div>
@@ -138,7 +137,7 @@ const Recover = () =>{
                             :
                             (
                                 <div className="col-12">
-                                    <div className={`input-label-border`}  >
+                                    <div className={`new-input-label`}  >
                                         <div style={{display:'flex',width:"100%"}}>
                                             <div className="input-label" style={{width:"100px"}}>
                                                 <select className="select2" id="Prefix" placeholder="Code"
@@ -174,7 +173,7 @@ const Recover = () =>{
                     {
                         type === 'Password' && (
                             <div className="col-12">
-                                <div  className={`input-label-border`}>
+                                <div  className={`new-input-label`}>
                                     <input onChange={e => setForm({...form,username:e.target.value})} value={form.username} type="text" name="username" id="data-username"/>
                                     <label htmlFor="data-username">{t("Username")}</label>
                                 </div>

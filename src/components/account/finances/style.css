@@ -1,3 +1,17 @@
-
+.finances {
+  display: flex !important;
+  flex-direction: row;
+  column-count: unset;
+}
+.finances li {
+  flex: 1;
+  padding: 0 6px;
+}
+.finances li:first-child {
+  padding-left: 0;
+}
+.finances li:last-child {
+  padding-right: 0;
+}
 
 /*# sourceMappingURL=style.css.map */

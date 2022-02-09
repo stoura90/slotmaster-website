@@ -8,7 +8,6 @@ const promo = React.lazy(() => import(("./screens/promo/promoScreen")));
 const terms = React.lazy(() => import(("./screens/terms/termScreen")));
 const casino = React.lazy(() => import(("./screens/casino/casinoScreen")));
 const virtuals = React.lazy(() => import(("./screens/virtuals/virtualsScreen")));
-const deposit = React.lazy(() => import(("./screens/deposit/depositScreen")));
 const account = React.lazy(() => import(("./screens/account/accountScreen")));
 const sport = React.lazy(() => import(("./screens/sport/sportScreen")));
 const live = React.lazy(() => import(("./screens/live/liveScreen")));
@@ -60,7 +59,6 @@ export const userRoutes = [
     { path: '/:lang/promo', name: 'Promo', exact:false, component: promo, page:"promo" },
     { path: '/:lang/terms', name: 'Terms', exact:false, component: terms , page:"terms"},
     { path: '/:lang/casino', name: 'Casino', exact:false, component: casino, page:"casino" },
-    { path: '/:lang/deposit', name: 'Deposit', exact:false, component: deposit, page:"deposit" },
     { path: '/:lang/account', name: 'Account', exact:true, component: account, page:"account" },
     { path: '/:lang/account/:route', name: 'Account', exact:false, component: account, page:"account" },
     { path: '/:lang/sport', name: 'Sport', exact:false, component: sport, page:"sport" },

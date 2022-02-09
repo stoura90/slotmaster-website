@@ -32,11 +32,12 @@ import sliderArrowPrev from "./slider-arrow-prev.svg";
 import time from "./time.svg";
 import viewOff from "./view-off.svg";
 import viewOn from "./view-on.svg";
-import loader from "./loader.gif"
-import wazdan from "./wazdan.png"
-import gr from "./gr.png"
-import kiron from "./kiron.png"
-import pragmatic from "./pragmatic.png"
+import loader from "./loader.gif";
+import wazdan from "./wazdan.png";
+import gr from "./gr.png";
+import kiron from "./kiron.png";
+import pragmatic from "./pragmatic.png";
+import coinspaid from "./coinspaid.svg";
 
 export {
 restriction18,
@@ -77,5 +78,6 @@ loader,
     wazdan,
     gr,
     kiron,
-    pragmatic
+    pragmatic,
+    coinspaid
 }
