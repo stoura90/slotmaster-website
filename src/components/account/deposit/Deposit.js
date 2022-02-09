@@ -27,7 +27,7 @@ const Deposit = ({onClose})=>{
                         </div>
                         <div className="col-12">
                             <div className="row px-0">
-                                <div className="col-md-6 col-lg-3 col-xl-2">
+                                <div className="col-md-6 col-lg-3">
                                     <div
                                         className="d-flex flex-column billing-card align-items-start justify-content-between"
                                     >
