@@ -4,7 +4,7 @@ import {OTP_CLOSE, OTP_EMAIL, OTP_ERROR, OTP_MULTI, OTP_PHONE} from "../store/ac
 export function useOTP() {
     const dispatch = useDispatch();
     const otp = useSelector(state => state.OTP);
-    const PHONE= ({prefix,number,send,save,additionalParams,verify=null,title})=>{
+    const PHONE= ({prefix,number,send,save,additionalParams,verify=null,title,permitAll=false})=>{
         dispatch({
             type:OTP_PHONE,
             payload:{
@@ -16,11 +16,12 @@ export function useOTP() {
                 send:send,
                 save:save,
                 verify:verify,
-                additionalParams:additionalParams
+                additionalParams:additionalParams,
+                permitAll:permitAll
             }
         })
     }
-    const EMAIL = ({email,send,save,additionalParams,verify=null,title}) => {
+    const EMAIL = ({email,send,save,additionalParams,verify=null,title,permitAll=false}) => {
         dispatch({
             type:OTP_EMAIL,
             payload:{
@@ -32,7 +33,8 @@ export function useOTP() {
                 send:send,
                 save:save,
                 verify:verify,
-                additionalParams:additionalParams
+                additionalParams:additionalParams,
+                permitAll:permitAll
             }
         })
     }

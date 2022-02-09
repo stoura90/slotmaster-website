@@ -6,7 +6,7 @@ import {UseEvent} from "../../core/hooks/useEvent";
 import {SvgDot} from "../index";
 
 window.reSendInterval=null;
-export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,verify,additionalParams,title})=>{
+export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,verify,additionalParams,title,permitAll=false})=>{
     const {t} = useTranslation()
     const [error,setError]=useState("")
     const [loader,setLoader]=useState(false)
@@ -26,7 +26,7 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
     },[])
 
     const onResend =()=>{
-        Actions.User.resendOtp({permitAll:true,send:send.concat("?type={type}&prefix={prefix}&value={value}"),type:"email",prefix:"",value:email,additionalParams:additionalParams,loader:setLoader})
+        Actions.User.resendOtp({permitAll:permitAll,send:send.concat("?type={type}&prefix={prefix}&value={value}"),type:"email",prefix:"",value:email,additionalParams:additionalParams,loader:setLoader})
             .then(response=>{
                 if(response.status){
                     setCode("")
@@ -42,8 +42,7 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
 
     const onVerify =()=>{
         if(code){
-            Actions.User.verifyOtp({verify:verify.concat("?type={type}&prefix={prefix}&value={value}&otp={otp}"),type:"email",prefix:"",value:email,otp:code,additionalParams:additionalParams, loader:setLoader,
-                permitAll:true})
+            Actions.User.verifyOtp({permitAll:permitAll,verify:verify.concat("?type={type}&prefix={prefix}&value={value}&otp={otp}"),type:"email",prefix:"",value:email,otp:code,additionalParams:additionalParams, loader:setLoader})
                 .then(response=>{
                     if(response.status){
                         save(true);

@@ -5,6 +5,7 @@ import _ from "lodash";
 import Select from "../../forms/select/Select"
 import {useOTP} from "../../../core/hooks/useOTP";
 import {useParams} from "react-router-dom";
+import ChangePassword from '../../account/changePassword/ChangePassword'
 
 const countries ={
     VGB:"British Virgin Islands",
@@ -13,6 +14,13 @@ const countries ={
     BFA:"Burkina Faso",
     BDI:"Burundi"
 }
+const MobilePrefixList=[
+    {id:1,prefix: "+1"},
+    {id:673,prefix: "+673"},
+    {id:359,prefix: "+359"},
+    {id:226,prefix: "+226"},
+    {id:257,prefix: "+257"}
+]
 
 const currency = {
     USD: "US Dollar",
@@ -26,13 +34,14 @@ const questions = [
     { id:3,value:"What was the model of your first car?"},
     { id:4,value:"In what city were you born?"},
 ]
+
 const gender = {
     F:"Female",
     M:'Male'
 }
 const Information = () => {
     const {t} = useTranslation();
-    const {otp, PHONE,EMAIL,CLOSE,ERROR} = useOTP();
+    const {otp, PHONE,EMAIL,CLOSE,ERROR,MULTI} = useOTP();
     const [infoData, setInfoData] = useState({
         firstName:'',
         email:'',
@@ -46,6 +55,7 @@ const Information = () => {
         country:"",
         mobileConfirmed:0,
         emailConfirmed:0,
+        mobilePrefix:"1",
         hasUserRequestedVerify:null,
         userVerifyStatus:null,
         question: {id:0, value:''}
@@ -76,6 +86,7 @@ const Information = () => {
         })
     }
     const [errors,setErrors]=useState([])
+    const [openChangePass,setOpenChangePass]=useState(false)
     const error=(key)=>{
         return errors.indexOf(key)>-1?"error":""
     }
@@ -186,47 +197,92 @@ const Information = () => {
 
 
 
-                                        <div className="col-12 col-md-6 res-12">
-                                            <div className={`input-label-border ${error("mobile")}`}  >
-                                                <input
-                                                    type="number"
-                                                    name="phone"
-                                                    id="phone"
-                                                    className="for-confirm"
-                                                    value={infoData.phone}
-                                                    onChange={e => setInfoData({...infoData,phone:e.target.value})}
-                                                />
-                                                <label htmlFor="phone">{t("Phone")}</label>
-                                                {
-                                                    infoData?.mobileConfirmed===1?<span className="confirmed">{t("Confirmed")}</span>:
-                                                        <button
-                                                            type="button"
-                                                            className="btn-confirm"
-                                                            onClick={()=>{
-                                                                if(infoData.mobile.trim().length>0){
-                                                                    PHONE({
-                                                                        prefix:infoData.mobilePrefix,
-                                                                        number:infoData.mobile,
-                                                                        send:"/us/v2/api/secured/personal/info/otp/get",
-                                                                        verify:"/us/v2/api/secured/personal/info/otp/verify",
-                                                                        save:e=>{
-                                                                            if(e){
-                                                                                setInfoData({...infoData,mobileConfirmed:1});
-                                                                                CLOSE()
-                                                                            }
+                                        <div className="col-12">
 
-                                                                        }
-                                                                    })
-                                                                }
-                                                            }}
+                                                <div style={{display:"flex"}} >
+                                                    <div className="input-label" style={{width:"100%",maxWidth:'150px'}}>
+                                                        <select className="select2" placeholder="Code"
+                                                                value={infoData.mobilePrefix}
+                                                                onChange={event => setInfoData({...infoData,mobilePrefix:event.target.value})}
                                                         >
-                                                            {t("Confirm")}
-                                                        </button>
-                                                }
-                                            </div>
+                                                            {
+                                                                _.map(MobilePrefixList, (v,k)=><option key={k} value={v.id}>{v.prefix}</option>)
+                                                            }
+                                                        </select>
+                                                        <label htmlFor="phone">{t("Prefix")}</label>
+                                                    </div>
 
+                                                    <div className={`input-label-border ${error("mobile")}`} style={{width:"100%",marginLeft:'10px'}}>
+                                                        <input
+                                                            type="number"
+                                                            name="phone"
+                                                            id="phone"
+                                                            className="for-confirm"
+                                                            value={infoData.phone}
+                                                            onChange={e => setInfoData({...infoData,phone:e.target.value})}
+                                                        />
+                                                        <label htmlFor="phone">{t("Phone")}</label>
+                                                        {
+                                                            infoData?.mobileConfirmed===1?<span className="confirmed">{t("Confirmed")}</span>:
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn-confirm"
+                                                                    onClick={()=>{
+                                                                        if(infoData.phone.trim().length>0){
+                                                                            PHONE({
+                                                                                prefix:infoData.mobilePrefix,
+                                                                                number:infoData.phone,
+                                                                                send:"/us/v2/api/secured/personal/info/otp/get",
+                                                                                verify:"/us/v2/api/secured/personal/info/otp/verify",
+                                                                                permitAll:false,
+                                                                                save:e=>{
+                                                                                    if(e){
+                                                                                        //CLOSE()
+                                                                                        MULTI({
+                                                                                            title:t('Confirm Operation'),
+                                                                                            email:infoData.email,
+                                                                                            send:"/us/v2/api/secured/personal/info/otp",
+                                                                                            additionalParams:{'email':infoData.email},
+                                                                                            save:({code,sourceId})=>{
+                                                                                                if(code){
+                                                                                                    Actions.User.verification_phone({data:{
+                                                                                                            otp:code,
+                                                                                                            sourceId:sourceId,
+                                                                                                            mobile:infoData.phone,
+                                                                                                            mobilePrefix:infoData.mobilePrefix
+
+                                                                                                        },loader:"verifyOtp"}).then(response=>{
+                                                                                                        if(response.status){
+                                                                                                            window.pushEvent(t("The operation was performed successfully"),"success");
+                                                                                                            getInfo();
+                                                                                                            CLOSE();
+                                                                                                            //history.push(`/${lang}/account/info`)
+                                                                                                        }else{
+                                                                                                            console.log("catch")
+                                                                                                            ERROR({error:t("error")})
+                                                                                                        }
+                                                                                                    }).catch(e=>{
+                                                                                                        console.log("catch")
+                                                                                                        ERROR({error:t("error")})
+                                                                                                    })
+                                                                                                }
+
+                                                                                            }
+                                                                                        })
+                                                                                    }
+
+                                                                                }
+                                                                            })
+                                                                        }
+                                                                    }}
+                                                                >
+                                                                    {t("Confirm")}
+                                                                </button>
+                                                        }
+                                                    </div>
+                                                </div>
                                         </div>
-                                        <div className="col-12 col-md-6 res-12">
+                                        <div className="col-12">
                                             <div  className={`input-label-border ${error("email")}`}>
                                                 <input
                                                     type="email"
@@ -246,25 +302,42 @@ const Information = () => {
                                                                         email:infoData.email,
                                                                         send:"/us/v2/api/secured/personal/info/otp/get",
                                                                         verify:"/us/v2/api/secured/personal/info/otp/verify",
+                                                                        permitAll:false,
                                                                         save:e=>{
                                                                             if(e){
                                                                                 //setInfoData({...infoData,emailConfirmed:1});
                                                                                 //CLOSE();
-                                                                                PHONE({
-                                                                                    title:t('Operation Confirm'),
-                                                                                    prefix:infoData.mobilePrefix,
-                                                                                    number:infoData.mobile,
+                                                                                MULTI({
+                                                                                    title:t('Confirm Operation'),
+                                                                                    email:infoData.email,
+                                                                                    send:"/us/v2/api/secured/personal/info/otp",
                                                                                     additionalParams:{'email':infoData.email},
-                                                                                    send:"/us/v2/api/secured/personal/info/otp/get",
-                                                                                    verify:"/us/v2/api/secured/personal/info/otp/verify",
-                                                                                    save:e=>{
-                                                                                        if(e){
-                                                                                            setInfoData({...infoData,mobileConfirmed:1});
-                                                                                            CLOSE()
+                                                                                    save:({code,sourceId})=>{
+                                                                                        if(code){
+                                                                                            Actions.User.verification_email({data:{
+                                                                                                    otp:code,
+                                                                                                    sourceId:sourceId,
+                                                                                                    email:infoData.email
+
+                                                                                                },loader:"verifyOtp"}).then(response=>{
+                                                                                                if(response.status){
+                                                                                                    window.pushEvent(t("The operation was performed successfully"),"success");
+                                                                                                    getInfo();
+                                                                                                    CLOSE();
+                                                                                                    //history.push(`/${lang}/account/info`)
+                                                                                                }else{
+                                                                                                    console.log("catch")
+                                                                                                    ERROR({error:t("error")})
+                                                                                                }
+                                                                                            }).catch(e=>{
+                                                                                                console.log("catch")
+                                                                                                ERROR({error:t("error")})
+                                                                                            })
                                                                                         }
 
                                                                                     }
-                                                                                });
+                                                                                })
+
                                                                             }
                                                                         }
                                                                     })
@@ -354,9 +427,8 @@ const Information = () => {
                                         <div className="col-12 order-1 order-md-3">
                                             <button
                                                 className="btn-change-password"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#passwordModal"
                                                 type="button"
+                                                onClick={()=>setOpenChangePass(true)}
                                             >
                                                 {t("Change Password")}
                                             </button>
@@ -370,6 +442,12 @@ const Information = () => {
                     </div>
                 </div>
             </div>
+            {
+                openChangePass && <ChangePassword
+                title={t("Change Password")}
+                onClose={setOpenChangePass}
+                />
+            }
         </>
     )
 }

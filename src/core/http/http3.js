@@ -29,7 +29,7 @@ class Http {
         })
 
     }
-    static post({url,data,loader,headers,permitAll}){
+    static post({url,data,loader,headers,permitAll=false}){
         const jwt  = new JWT()
         return  new Promise(resolve => {
             if (loader) this.setLoader(loader, true);

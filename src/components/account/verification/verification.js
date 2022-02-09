@@ -158,6 +158,7 @@ const Confirmation = () => {
             MULTI({
                 email:infoData.email,
                 send:"/us/v2/api/secured/personal/info/otp",
+                title:t('Confirm Operation'),
                 save:({code,sourceId})=>{
                     if(code){
                         Actions.User.verification({data:{

@@ -19,6 +19,7 @@ import Verification from "./account/verification/verification"
 import Finances from "./account/finances/finances"
 import PLXModal from "./modal/PLXModal";
 import SvgDot from "./loader/svgdot";
+import ChangePassword from "./account/changePassword/ChangePassword";
 export {
     PLXModal,
     Header,
@@ -40,5 +41,6 @@ export {
     ContentNavigator,
     Verification,
     Finances,
-    SvgDot
+    SvgDot,
+    ChangePassword
 }

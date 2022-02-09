@@ -34,6 +34,7 @@ const  OTP =()=>{
                                         onClose={CLOSE}
                                         send={otp.send}
                                         save={otp.save}
+                                        permitAll={otp.permitAll}
                                     />
         }
         {
@@ -48,6 +49,7 @@ const  OTP =()=>{
                                         onClose={CLOSE}
                                         send={otp.send}
                                         save={otp.save}
+                                        permitAll={otp.permitAll}
             />
         }
     </>

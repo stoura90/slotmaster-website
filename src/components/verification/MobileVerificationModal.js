@@ -6,7 +6,7 @@ import {SvgDot} from "../index";
 import {UseEvent} from "../../core/hooks/useEvent";
 
 window.reSendInterval=null;
-export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,verify,onClose,additionalParams,title})=>{
+export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,verify,onClose,additionalParams,title,permitAll=false})=>{
     const {t} = useTranslation();
     const ev = UseEvent();
     const [phone,setPhone]=useState("")
@@ -37,7 +37,7 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,ve
     },[])
 
     const onResend =()=>{
-        Actions.User.resendOtp({permitAll:true,send:send.concat("?type={type}&prefix={prefix}&value={value}"),type:"mobile",prefix:parseInt(prefix),value:number,additionalParams:additionalParams,loader:setLoader})
+        Actions.User.resendOtp({permitAll:permitAll,send:send.concat("?type={type}&prefix={prefix}&value={value}"),type:"mobile",prefix:parseInt(prefix),value:number,additionalParams:additionalParams,loader:setLoader})
             .then(response=>{
                 if(response.status){
                     setCode("")
@@ -56,7 +56,7 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,ve
                 type:"mobile",prefix:prefix,value:number,otp:code,
                 additionalParams:additionalParams,
                 loader:setLoader,
-                permitAll:true
+                permitAll:permitAll
             })
                 .then(response=>{
                     if(response.status){

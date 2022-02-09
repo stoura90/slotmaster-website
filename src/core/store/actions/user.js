@@ -149,6 +149,48 @@ const verification=({data,loader})=>{
                 loader:loader
         });
 }
+
+const verification_email=({data,loader})=>{
+   return  http.post({
+                url:Config.User.VERIFICATION_EMAIL,
+                data:query_string({
+                    "sourceId":data?.sourceId,
+                    "email":data?.email,
+                    "otp":data.otp
+               }),
+                headers:{  'Content-Type' : 'text/plain' },
+                loader:loader
+        });
+}
+const verification_phone=({data,loader})=>{
+    return  http.post({
+        url:Config.User.VERIFICATION_PHONE,
+        data:query_string({
+            "sourceId":data?.sourceId,
+            "otp":data.otp,
+            "mobile":data?.mobile,
+            "mobilePrefix":data.mobilePrefix
+        }),
+        headers:{  'Content-Type' : 'text/plain' },
+        loader:loader
+    });
+}
+
+const change_password=({data,loader})=>{
+    return  http.post({
+        url:Config.User.CHANGE_PASSWORD,
+        data:query_string({
+            "otp":data.otp,
+            "sourceId":data?.sourceId,
+            "oldPassword":data?.oldPassword,
+            "newPassword":data?.newPassword,
+            "newPassword2":data?.newPassword2
+        }),
+        headers:{  'Content-Type' : 'text/plain' },
+        loader:loader
+    });
+}
+
 export default {
   signIn,
   signOut,
@@ -160,5 +202,8 @@ export default {
     verifyOtp,
     verification,
     recoverUserName,
-    recoverPassword
+    recoverPassword,
+    verification_email,
+    verification_phone,
+    change_password
 }

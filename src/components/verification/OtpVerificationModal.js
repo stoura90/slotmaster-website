@@ -12,6 +12,7 @@ window.reSendInterval=null;
 export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalParams,title})=>{
     const {t} = useTranslation();
     const ev = UseEvent();
+    const [selectedSource,setSelectedSource]=useState(null);
     const [sourceId,setSourceId]=useState(null)
     const [otpSources,setOtpSources]=useState([])
     const [error,setError]=useState("")
@@ -34,11 +35,12 @@ export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalPar
     },[])
     const getOtpSources = () =>{
         Actions.Otp.sources().then(response=>{
-            if(response){
+            if(response && response.length > 0){
                 console.log(response)
-                let find =  _.find(response,v=>v.preferred);
+                let find =response.length===1?response[0]:_.find(response,v=>v.preferred);
                 if(find){
-                    setSourceId(find.id)
+                    setSourceId(find.id);
+                    setSelectedSource(find);
                 }
                 setOtpSources(response)
             }
@@ -111,11 +113,15 @@ export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalPar
     },[reSend])
 
     return (
-        <PLXModal title={title?title:t('Phone Verification')}
+        <PLXModal title={(t(title)).concat(' ',(selectedSource?.type === 'email'? t('via Email'): t('via Phone')))}
                   onClose={()=>onClose()}
                   contentStyle={{maxWidth:'500px' }}>
             <form onSubmit={e=>{
                 e.preventDefault();
+                if(!sourceId){
+                    onClose();
+                    return;
+                }
                 if(!codeRequest){
                     window.pushEvent('Please Request SMS Code','error');
                     return;
@@ -131,37 +137,49 @@ export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalPar
                     }
                 }
             }} className="confirm-form">
+
+
                 {
-                    otpSources.length>1 && <div style={{marginTop:"20px"}}>
+                    otpSources.length !== 0 ?<div style={{marginTop:"20px"}}>
                         <SelectBox
                             placeholder={"Select verification method"}
                             data={_.map(otpSources,v=>{
                                 return {
                                     id:v.id,
-                                    title:v.value
+                                    title:v.value,
+                                    type:v.type
                                 }
                             })}
-                            onSelect={(e)=>setSourceId(e.id)}
+                            onSelect={(e)=>{
+                                setSourceId(e.id);
+                                setSelectedSource(e);
+                            }}
                             value={sourceId}
                         />
-                    </div>
+                    </div> : <div style={{color: '#ff4646',paddingTop: '20px'}}>Error was reported. Contact the hotline</div>
+                }
+                {
+                   sourceId? <div>
+                       <p className="confirm-text">
+                           {t("A 6-digit SMS code was sent to")}:<span className="phone-num">{selectedSource?.type === 'email'? ' Email':" Phone "}</span>. {t("Please enter the code in the field below to confirm")}:
+                       </p>
+                       <div className="input-label-border">
+                           <input type="text" name="code" id="code" value={code} onChange={e=>setCode(e.target.value)} className="for-confirm"/>
+                           <label htmlFor="code">{t("SMS Code")}</label>
+                           {
+                               reSend!==-1? <span className="timeout">{reSend}</span>: <button type="button" className="btn-confirm" onClick={()=>onResend()}>{t("Send")}</button>
+                           }
+                       </div>
+                       <p style={{color:"red"}}>{error}</p>
+                       <button type="submit" className="btn-dep justify-content-center px-0" style={{position:'relative',overflow:'hidden'}}>
+                           {loader? (<SvgDot contentStyle={{background:'#00984a'}}/> ) : ''}
+                           {t("Confirm")}
+                       </button>
+                   </div>:<div>
+                       <button type="submit" className="btn-dep justify-content-center px-0" style={{position:'relative',overflow:'hidden'}}>{t("close")}</button>
+                   </div>
                 }
 
-                <p className="confirm-text">
-                    {t("A 6-digit SMS code was sent to")}:<span className="phone-num">{sourceId?.type === 'email'? 'email':"mobile phone"}</span>. {t("Please enter the code in the field below to confirm")}:
-                </p>
-                <div className="input-label-border">
-                    <input type="text" name="code" id="code" value={code} onChange={e=>setCode(e.target.value)} className="for-confirm"/>
-                    <label htmlFor="code">{t("SMS Code")}</label>
-                    {
-                        reSend!==-1? <span className="timeout">{reSend}</span>: <button type="button" className="btn-confirm" onClick={()=>onResend()}>{t("Send")}</button>
-                    }
-                </div>
-                <p style={{color:"red"}}>{error}</p>
-                <button type="submit" className="btn-dep justify-content-center px-0" style={{position:'relative',overflow:'hidden'}}>
-                    {loader? (<SvgDot contentStyle={{background:'#00984a'}}/> ) : ''}
-                    {t("Confirm")}
-                </button>
             </form>
         </PLXModal>
     )
