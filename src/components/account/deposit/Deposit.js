@@ -1,20 +1,30 @@
 import React, {useEffect, useState} from "react";
 import {Actions, useTranslation} from "../../../core";
 import PLXModal from "../../modal/PLXModal";
-import {Balance, SvgDot} from "../../index";
 import {useOTP} from "../../../core/hooks/useOTP";
-import _ from "lodash";
 import {arrowLeftBack, coinspaid, percent, time} from "../../../assets/img/icons/icons";
+import {logoM, logoM_jpg} from "../../../assets/img/images"
 import './Deposit.scss';
+import {QRCode} from "react-qrcode-logo";
+import {SvgDot} from "../../index";
 
 window.reSendInterval=null;
 const Deposit = ({onClose})=>{
     const {t} = useTranslation();
-    const {otp, PHONE,EMAIL,CLOSE,ERROR,MULTI} = useOTP();
     const [loader,setLoader]=useState(false)
+    const [qr,setQr] = useState(null)
 
+    const QRGenerator = () =>{
+        return  qr  !==null && <PLXModal title={t("QR")} onClose={()=>setQr(null)} contentStyle={{width:'auto'}} >
+            <div className="user_verify_test"> 1 BTC  ~ {qr?.rate} EURO </div> <br/>
+            <a href={qr?.url} target={"_blank"}>
+                <QRCode value={qr?.url} fgColor={"black"} size={300} logoImage={logoM_jpg} style={{width:"300px",height:"300px" }}/>
+            </a>
+        </PLXModal>
+    }
     return (
         <>
+            {QRGenerator()}
             <div className="row deposit-content">
 
                 <div className="col-12">
@@ -55,13 +65,20 @@ const Deposit = ({onClose})=>{
                                         </div>
                                         <button
                                             type="button"
-                                            href="#"
-                                            target="_blank"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#depositModal"
                                             className="btn-dep"
+                                            disabled={loader}
+                                            style={{position:'relative',overflow:'hidden'}}
+                                            onClick={()=>{
+                                                Actions.Deposit.getCoinSpaidOrder({loader:setLoader})
+                                                    .then(response=>{
+
+                                                        setQr(response.status?response?.data?.data:null)
+                                                    }).catch((reason)=>{
+                                                        console.log(reason)
+                                                })
+                                            }}
                                         >
-                                            {t("Deposit")}
+                                            {loader?<SvgDot/>:  t("Deposit")}}
                                         </button>
                                     </div>
                                 </div>

@@ -3,13 +3,13 @@ import './style.scss';
 import { useTranslation} from "../../../core";
 import Deposit from '../deposit/Deposit';
 import Withdraw from '../withdraw/Withdraw';
+import {PLXModal} from "../../index";
 
 const Finances = () => {
     const {t} = useTranslation();
     const [deposit,setDeposit]=useState(false);
     const [withdraw,setWithdraw]=useState(false);
     const [history,setHistory]=useState(false);
-
     const svgArrow =()=>{
         return (<svg xmlns="http://www.w3.org/2000/svg" width="20" height="16.828" viewBox="0 0 20 16.828">
                 <g id="arrow-left" transform="translate(1 1.414)">

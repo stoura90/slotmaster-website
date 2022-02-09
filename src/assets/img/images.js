@@ -20,6 +20,7 @@ import jeton from './jeton.png';
 import kings from './kings.png';
 import liver from './liver.png';
 import logoM from './logo-m.png';
+import logoM_jpg from './logo-m.jpg';
 import manCity from './man-city.png';
 import manUn from './man-un.png';
 import matchLiveBg from './match-live-bg.png';
@@ -101,7 +102,8 @@ export  {
     webmoneySmall,
     w1,
     w2,
-    prg
+    prg,
+    logoM_jpg
 }
 
 

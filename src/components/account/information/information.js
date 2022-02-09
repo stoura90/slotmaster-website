@@ -191,20 +191,7 @@ const Information = () => {
                                         <div className="col-12 d-none d-md-flex">
                                             <div className="form-title">{t("Information")}</div>
                                         </div>
-
-
-                                        {/*<div className="col-12 col-md-6">
-                                            <Select data={gender} value={infoData.gender} label={t("Sex")}
-                                                    plData={''} plName={t("Choose Sex")}
-                                                    id={'countries'}
-                                                    onSelect={(e)=> setInfoData({...infoData,gender:e})}
-                                            />
-                                        </div>*/}
-
-
-
                                         <div className="col-12">
-
                                                 <div style={{display:"flex"}} >
                                                     <div className="input-label" style={{width:"100%",maxWidth:'150px'}}>
                                                         <SelectBox
