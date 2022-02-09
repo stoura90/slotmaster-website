@@ -151,7 +151,6 @@ const Confirmation = () => {
         let error = _.chain(documents).map((v,k)=>{
             return {key:k,value:v}
         }).filter(v=>!v.value).map(v=>v.key).value();
-        console.log(error)
         if(error.length>0){
             setErrors([...error])
         }else{

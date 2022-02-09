@@ -126,6 +126,7 @@ const SignUp =() =>{
                 otp.EMAIL({
                     email:signUpForm.mail,
                     send:"/us/v2/api/reg/otp/get",
+                    permitAll:true,
                     save:code=>{
                         if(code){
                             onSignUp({...signUpForm,otp:code});
@@ -140,6 +141,7 @@ const SignUp =() =>{
                     prefix:signUpForm.mobilePrefix,
                     number:signUpForm.mobile,
                     send:"/us/v2/api/reg/otp/get",
+                    permitAll:true,
                     save:code=>{
                         if(code){
                             onSignUp({...signUpForm,otp:code});

@@ -12,7 +12,7 @@ function getMb(total){
     return  (total / Math.pow(1024, 1)).toFixed(3)
 }
 const getAllFiles = function(dirPath, arrayOfFiles) {
-    files = fs.readdirSync(dirPath)
+    let files = fs.readdirSync(dirPath)
 
     arrayOfFiles = arrayOfFiles || []
 
