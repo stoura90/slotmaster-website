@@ -34,19 +34,15 @@ const passportType= [
 ]
 
 const MobilePrefixList=[
-    {id:1,value: "+1"},
-    {id:673,value: "+673"},
-    {id:359,value: "+359"},
-    {id:226,value: "+226"},
-    {id:257,value: "+257"}
+    {id:1,title: "+1"},
+    {id:673,title: "+673"},
+    {id:359,title: "+359"},
+    {id:226,title: "+226"},
+    {id:257,title: "+257"}
 ]
 const gender = [
-    {
-        id:"F",title:"Female",
-    },
-    {
-        id:"M",title:"Male",
-    }
+    { id:"F",title:"Female",},
+    { id:"M",title:"Male",}
 ]
 
 const Confirmation = () => {
@@ -57,7 +53,7 @@ const Confirmation = () => {
     const [infoData, setInfoData] = useState({
         firstName:'',
         email:'',
-        phone:'',
+        mobile:'',
         gender:'',
         dob:"",
         lastName:'',
@@ -94,10 +90,7 @@ const Confirmation = () => {
                 if (response?.data?.data?.userVerifyStatus === 2){setStep(2)}
                 let res = response.data.data;
                 setInfoData(_.fromPairs(_.map(infoData, (v,k)=> {
-
                     switch (k){
-                        case 'phone':return [k,res['mobile']];
-                        case 'mobilePrefix':return [k,'+'+res['mobilePrefix']];
                         default: return [k,res[k]];
                     }
                 })))
@@ -158,14 +151,17 @@ const Confirmation = () => {
         if(error.length>0){
             setErrors([...error])
         }else{
+
+
             MULTI({
                 email:infoData.email,
                 send:"/us/v2/api/secured/personal/info/otp",
                 title:t('Confirm Operation'),
                 save:({code,sourceId})=>{
                     if(code){
+                        console.log("infodata",infoData)
                         Actions.User.verification({data:{
-                            ...infoData,...documents,otp:code,sourceId:sourceId,gender:infoData.gender==="Female"?'F':'M'
+                            ...infoData,...documents,otp:code,sourceId:sourceId
 
                         },loader:"verifyOtp"}).then(response=>{
                             if(response.status){
@@ -269,20 +265,22 @@ const Confirmation = () => {
                                             <div className="col-12 col-md-6">
                                                 <div style={{display:'flex',width:"100%"}}>
                                                     <div style={{width:"150px",marginRight: '10px'}}>
-                                                        <Select data={MobilePrefixList} value={infoData.mobilePrefix} label={t("Prefix")}
+                                                        <SelectBox
+                                                            data={MobilePrefixList}
+                                                            value={infoData.mobilePrefix}
+                                                            placeholder={t("Prefix")}
                                                             //plData={''} plName={t("Choose Sex")}
-                                                                id={'mobilePrefix'}
-                                                                onSelect={(e)=> setInfoData({...infoData,mobilePrefix:e})}
+                                                            onSelect={(e)=> setInfoData({...infoData,mobilePrefix:e.id})}
                                                         />
                                                     </div>
-                                                    <div className={`input-label-border ${error("phone")}`} style={{flex:1,position: "relative"}}>
+                                                    <div className={`input-label-border ${error("mobile")}`} style={{flex:1,position: "relative"}}>
                                                         <input
                                                             type="number"
-                                                            name="phone"
-                                                            id="phone"
+                                                            name="mobile"
+                                                            id="mobile"
                                                             className="for-confirm"
-                                                            value={infoData.phone}
-                                                            onChange={e => setInfoData({...infoData,phone:e.target.value})}
+                                                            value={infoData.mobile}
+                                                            onChange={e => setInfoData({...infoData,mobile:e.target.value})}
                                                         />
                                                         <label htmlFor="phone">{t("Phone")}</label>
                                                         {
