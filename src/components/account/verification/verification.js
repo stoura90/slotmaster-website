@@ -9,20 +9,23 @@ import {useOTP} from "../../../core/hooks/useOTP";
 import Select from "../../forms/select/Select"
 import SelectBox from "../../forms/select/NewSelect";
 import {useHistory, useParams} from "react-router-dom";
+import moment from "moment";
 
-const countries ={
-    VGB:"British Virgin Islands",
-    BRN:"Brunei Darussalam",
-    BGR:"Bulgaria",
-    BFA:"Burkina Faso",
-    BDI:"Burundi"
-}
-const currency = {
-    USD: "US Dollar",
-    EUR: "Euro",
-    GEL: "Lari",
-    RUB: "Russian Ruble",
-}
+const countries =[
+    {id:"VGB",title:"British Virgin Islands"},
+    {id:"BRN",title:"Brunei Darussalam"},
+    {id:"BGR",title:"Bulgaria"},
+    {id:"BFA",title:"Burkina Faso"},
+    {id:"BDI",title:"Burundi"},
+
+]
+const currency = [
+    {  id:'USD',title:"US Dollar" },
+    {  id:'EUR',title:"Euro" },
+    {  id:'GEL',title:"Lari" },
+    {  id:'RUB',title:"Russian Ruble" }
+]
+
 
 const passportType= [
     {id: "id_card", title: "ID Card"},
@@ -31,16 +34,17 @@ const passportType= [
 ]
 
 const MobilePrefixList=[
-    {id:1,value: "+1"},
-    {id:673,value: "+673"},
-    {id:359,value: "+359"},
-    {id:226,value: "+226"},
-    {id:257,value: "+257"}
+    {id:1,title: "+1"},
+    {id:673,title: "+673"},
+    {id:359,title: "+359"},
+    {id:226,title: "+226"},
+    {id:257,title: "+257"}
 ]
-const gender = {
-    F:"Female",
-    M:'Male'
-}
+const gender = [
+    { id:"F",title:"Female",},
+    { id:"M",title:"Male",}
+]
+
 const Confirmation = () => {
     const {t} = useTranslation();
     const {lang} = useParams()
@@ -49,7 +53,7 @@ const Confirmation = () => {
     const [infoData, setInfoData] = useState({
         firstName:'',
         email:'',
-        phone:'',
+        mobile:'',
         gender:'',
         dob:"",
         lastName:'',
@@ -65,7 +69,7 @@ const Confirmation = () => {
         "passportType":"",
         "docNumber":"",
         "country": "",
-        "doc_expire_date":"",
+        "doc_expire_date":moment(new Date(),"YYYY-MM-DD").add(1,"days").format('YYYY-MM-DD'),
         "front":"",
         "back":""
     })
@@ -83,17 +87,10 @@ const Confirmation = () => {
     const getInfo = ()=>{
         Actions.User.info().then(response=>{
             if(response.status){
-
                 if (response?.data?.data?.userVerifyStatus === 2){setStep(2)}
-
                 let res = response.data.data;
                 setInfoData(_.fromPairs(_.map(infoData, (v,k)=> {
                     switch (k){
-                        case 'country':return [k,countries[res[k]]];
-                        case 'currency':return [k,currency[res[k]]];
-                        case 'gender':return [k,gender[res[k]]];
-                        case 'phone':return [k,res['mobile']];
-                        case 'mobilePrefix':return [k,'+'+res['mobilePrefix']];
                         default: return [k,res[k]];
                     }
                 })))
@@ -154,14 +151,17 @@ const Confirmation = () => {
         if(error.length>0){
             setErrors([...error])
         }else{
+
+
             MULTI({
                 email:infoData.email,
                 send:"/us/v2/api/secured/personal/info/otp",
                 title:t('Confirm Operation'),
                 save:({code,sourceId})=>{
                     if(code){
+                        console.log("infodata",infoData)
                         Actions.User.verification({data:{
-                            ...infoData,...documents,otp:code,sourceId:sourceId,gender:infoData.gender==="Female"?'F':'M'
+                            ...infoData,...documents,otp:code,sourceId:sourceId
 
                         },loader:"verifyOtp"}).then(response=>{
                             if(response.status){
@@ -265,20 +265,22 @@ const Confirmation = () => {
                                             <div className="col-12 col-md-6">
                                                 <div style={{display:'flex',width:"100%"}}>
                                                     <div style={{width:"150px",marginRight: '10px'}}>
-                                                        <Select data={MobilePrefixList} value={infoData.mobilePrefix} label={t("Prefix")}
+                                                        <SelectBox
+                                                            data={MobilePrefixList}
+                                                            value={infoData.mobilePrefix}
+                                                            placeholder={t("Prefix")}
                                                             //plData={''} plName={t("Choose Sex")}
-                                                                id={'mobilePrefix'}
-                                                                onSelect={(e)=> setInfoData({...infoData,mobilePrefix:e})}
+                                                            onSelect={(e)=> setInfoData({...infoData,mobilePrefix:e.id})}
                                                         />
                                                     </div>
-                                                    <div className={`input-label-border ${error("phone")}`} style={{flex:1,position: "relative"}}>
+                                                    <div className={`input-label-border ${error("mobile")}`} style={{flex:1,position: "relative"}}>
                                                         <input
                                                             type="number"
-                                                            name="phone"
-                                                            id="phone"
+                                                            name="mobile"
+                                                            id="mobile"
                                                             className="for-confirm"
-                                                            value={infoData.phone}
-                                                            onChange={e => setInfoData({...infoData,phone:e.target.value})}
+                                                            value={infoData.mobile}
+                                                            onChange={e => setInfoData({...infoData,mobile:e.target.value})}
                                                         />
                                                         <label htmlFor="phone">{t("Phone")}</label>
                                                         {
@@ -360,11 +362,12 @@ const Confirmation = () => {
                                                 </div>
                                             </div>
                                             <div className="col-12 col-md-6">
-                                                <Select data={gender} value={infoData.gender} label={t("Sex")}
-                                                        plData={''} plName={t("Choose Sex")}
-                                                        id={'countries'}
+                                                <SelectBox
+                                                        data={gender} value={infoData.gender}
+                                                        placeholder={t("Sex")}
+                                                        id={'gender'}
                                                         error={error("gender")}
-                                                        onSelect={(e)=> setInfoData({...infoData,gender:e})}
+                                                        onSelect={(e)=> setInfoData({...infoData,gender:e.id})}
                                                 />
                                             </div>
                                             <div className="col-12 col-md-6">
@@ -380,19 +383,21 @@ const Confirmation = () => {
                                                 </div>
                                             </div>
                                             <div className="col-12 col-md-6">
-                                                <Select data={countries} value={infoData.country} label={t("Country")}
-                                                        plData={''} plName={t("Choose Country")}
-                                                        id={'countries'}
+                                                <SelectBox
+                                                        data={countries}
+                                                        value={infoData.country}
+                                                        placeholder={t("Country")}
                                                         error={error("country")}
-                                                        onSelect={(e)=> setInfoData({...infoData,country:e})}
+                                                        onSelect={(e)=> setInfoData({...infoData,country:e.id})}
                                                 />
                                             </div>
                                             <div className="col-12 col-md-6">
-                                                <Select data={currency} value={infoData.currency} label={t("Currency")}
-                                                        plData={''} plName={t("Choose Currency")}
-                                                        id={'currency'}
+                                                <SelectBox
+                                                        data={currency}
+                                                        value={infoData.currency}
+                                                        placeholder={t("Currency")}
                                                         error={error("currency")}
-                                                        onSelect={(e)=> setInfoData({...infoData,currency:e})}
+                                                        onSelect={(e)=> setInfoData({...infoData,currency:e.id})}
                                                 />
                                             </div>
 
@@ -425,11 +430,12 @@ const Confirmation = () => {
                                                     </div>
 
                                                     <div className="col-12 col-md-6">
-                                                        <Select data={countries} value={documents.country} label={t("Country")}
-                                                                plData={''} plName={t("Choose country")}
-                                                                id={'countries'}
+                                                        <SelectBox
+                                                                data={countries}
+                                                                value={documents.country}
+                                                                placeholder={t("Country")}
                                                                 error={error("country")}
-                                                                onSelect={(e)=> setDocuments({...documents,country:e})}
+                                                                onSelect={(e)=> setDocuments({...documents,country:e.id})}
                                                         />
                                                     </div>
 
@@ -442,7 +448,12 @@ const Confirmation = () => {
 
                                                     <div className="col-12 col-md-6">
                                                         <div className={`input-label-border ${error("doc_expire_date")}`}>
-                                                            <input onChange={e => setDocuments({...documents,doc_expire_date:e.target.value})} value={documents.doc_expire_date} type="date" name="dob" id="dob"/>
+                                                            <input
+                                                                    onChange={e => setDocuments({...documents,doc_expire_date:e.target.value})}
+                                                                    value={documents.doc_expire_date}
+                                                                    type="date" name="dob"
+                                                                    id="dob"
+                                                                    min={moment(new Date(),"YYYY-MM-DD").add(1,"days").format("YYYY-MM-DD")}/>
                                                             <label htmlFor="dob">{t("Document Expire Date")}</label>
                                                         </div>
                                                     </div>

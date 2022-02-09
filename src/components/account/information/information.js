@@ -6,28 +6,42 @@ import Select from "../../forms/select/Select"
 import {useOTP} from "../../../core/hooks/useOTP";
 import {useParams} from "react-router-dom";
 import ChangePassword from '../../account/changePassword/ChangePassword'
+import SelectBox from "../../forms/select/NewSelect";
 
-const countries ={
-    VGB:"British Virgin Islands",
-    BRN:"Brunei Darussalam",
-    BGR:"Bulgaria",
-    BFA:"Burkina Faso",
-    BDI:"Burundi"
-}
-const MobilePrefixList=[
-    {id:1,prefix: "+1"},
-    {id:673,prefix: "+673"},
-    {id:359,prefix: "+359"},
-    {id:226,prefix: "+226"},
-    {id:257,prefix: "+257"}
+
+const countries =[
+    {id:"VGB",title:"British Virgin Islands"},
+    {id:"BRN",title:"Brunei Darussalam"},
+    {id:"BGR",title:"Bulgaria"},
+    {id:"BFA",title:"Burkina Faso"},
+    {id:"BDI",title:"Burundi"},
+
+]
+const currency = [
+    {  id:'USD',title:"US Dollar" },
+    {  id:'EUR',title:"Euro" },
+    {  id:'GEL',title:"Lari" },
+    {  id:'RUB',title:"Russian Ruble" }
 ]
 
-const currency = {
-    USD: "US Dollar",
-    EUR: "Euro",
-    GEL: "Lari",
-    RUB: "Russian Ruble",
-}
+
+const passportType= [
+    {id: "id_card", title: "ID Card"},
+    {id: "passport",title: "Passport"},
+    {id: "resident_identification",title: "Resident Identification"},
+]
+
+const MobilePrefixList=[
+    {id:1,title: "+1"},
+    {id:673,title: "+673"},
+    {id:359,title: "+359"},
+    {id:226,title: "+226"},
+    {id:257,title: "+257"}
+]
+const gender = [
+    { id:"F",title:"Female",},
+    { id:"M",title:"Male",}
+]
 const questions = [
     { id:1,value:"What is your mother\'s maiden name?"},
     { id:2,value:"What was your first pet?"},
@@ -35,17 +49,13 @@ const questions = [
     { id:4,value:"In what city were you born?"},
 ]
 
-const gender = {
-    F:"Female",
-    M:'Male'
-}
 const Information = () => {
     const {t} = useTranslation();
     const {otp, PHONE,EMAIL,CLOSE,ERROR,MULTI} = useOTP();
     const [infoData, setInfoData] = useState({
         firstName:'',
         email:'',
-        phone:'',
+        mobile:'',
         gender:'',
         lastName:'',
         username:'',
@@ -75,10 +85,6 @@ const Information = () => {
                 console.log('res[\'mobile\']',res['mobile'])
                 setInfoData(_.fromPairs(_.map(infoData, (v,k)=> {
                   switch (k){
-                      case 'country':return [k,countries[res[k]]];
-                      case 'currency':return [k,currency[res[k]]];
-                      case 'gender':return [k,gender[res[k]]];
-                      case 'phone':return [k,res['mobile']];
                       default: return [k,res[k]];
                   }
                 })))
@@ -201,25 +207,24 @@ const Information = () => {
 
                                                 <div style={{display:"flex"}} >
                                                     <div className="input-label" style={{width:"100%",maxWidth:'150px'}}>
-                                                        <select className="select2" placeholder="Code"
+                                                        <SelectBox
+                                                            data={MobilePrefixList}
+                                                            id={"prefix"}
+                                                            placeholder={t("Prefix")}
+                                                            className="select2"
                                                                 value={infoData.mobilePrefix}
-                                                                onChange={event => setInfoData({...infoData,mobilePrefix:event.target.value})}
-                                                        >
-                                                            {
-                                                                _.map(MobilePrefixList, (v,k)=><option key={k} value={v.id}>{v.prefix}</option>)
-                                                            }
-                                                        </select>
-                                                        <label htmlFor="phone">{t("Prefix")}</label>
+                                                                onSelect={e => setInfoData({...infoData,mobilePrefix:e.id})}
+                                                        />
                                                     </div>
 
                                                     <div className={`input-label-border ${error("mobile")}`} style={{width:"100%",marginLeft:'10px'}}>
                                                         <input
                                                             type="number"
-                                                            name="phone"
-                                                            id="phone"
+                                                            name="mobile"
+                                                            id="mobile"
                                                             className="for-confirm"
-                                                            value={infoData.phone}
-                                                            onChange={e => setInfoData({...infoData,phone:e.target.value})}
+                                                            value={infoData.mobile}
+                                                            onChange={e => setInfoData({...infoData,mobile:e.target.value})}
                                                         />
                                                         <label htmlFor="phone">{t("Phone")}</label>
                                                         {
@@ -371,10 +376,12 @@ const Information = () => {
                                         </div>
 
                                         <div className="col-12 col-md-6">
-                                            <Select data={gender} value={infoData.gender} label={t("Sex")}
-                                                    plData={''} plName={t("Choose Sex")}
-                                                    id={'countries'}
-                                                    onSelect={(e)=> setInfoData({...infoData,gender:e})}
+                                            <SelectBox
+                                                data={gender}
+                                                value={infoData.gender}
+                                                placeholder={t("Choose Sex")}
+                                                id={'gender'}
+                                                onSelect={(e)=> setInfoData({...infoData,gender:e.id})}
                                             />
                                         </div>
 
@@ -385,17 +392,21 @@ const Information = () => {
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
-                                            <Select data={countries} value={infoData.country} label={t("Country")}
-                                                    plData={''} plName={t("Choose Country")}
+                                            <SelectBox
+                                                    data={countries}
+                                                    value={infoData.country}
+                                                    placeholder={t("Choose Country")}
                                                     id={'countries'}
-                                                    onSelect={(e)=> setInfoData({...infoData,country:e})}
+                                                    onSelect={(e)=> setInfoData({...infoData,country:e.id})}
                                             />
                                         </div>
                                         <div className="col-12 col-md-6">
-                                            <Select data={currency} value={infoData.currency} label={t("Currency")}
-                                                    plData={''} plName={t("Choose Currency")}
-                                                    id={'currency'}
-                                                    onSelect={(e)=> setInfoData({...infoData,currency:e})}
+                                            <SelectBox
+                                                data={currency}
+                                                value={infoData.currency}
+                                                placeholder={t("Choose Currency")}
+                                                id={'currency'}
+                                                onSelect={(e)=> setInfoData({...infoData,currency:e.id})}
                                             />
                                         </div>
 

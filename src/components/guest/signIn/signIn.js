@@ -29,8 +29,9 @@ const SignIn =() =>{
     const signIn=async () => {
 
         setError(null)
-        const response = await dispatch(Actions.User.signIn({data:loginForm,loader:setSignInLoader}))
 
+        const response = await dispatch(Actions.User.signIn({data:loginForm,loader:setSignInLoader}))
+        console.log(loginForm,response)
         if (response.status) {
             if(window.location.href.indexOf("playSlot")>-1){
                 window.location.reload()
@@ -61,7 +62,6 @@ const SignIn =() =>{
                 </div>
                 <div className="input-label" >
                     <p className={"forgot-password"}><span onClick={()=>{
-                        document.getElementById("signIn-btn").click()
                         eventEmitter.emit("recover","Username")
                     }}>{t("Forgot Username")}?</span></p>
                 </div>
@@ -102,7 +102,6 @@ const SignIn =() =>{
             </form>
             <p style={{fontSize:"0.75rem", color:"white", textAlign:"center", marginTop:"10px"}}>{t("Don't have an account?")} <span className={"forgot-password"} onClick={()=>{
                 setShow(false);
-                document.getElementById("signUp-btn").click()
             }}>{t("Sign Up")}</span></p>
         </PLXModal>
     )

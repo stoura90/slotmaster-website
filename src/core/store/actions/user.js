@@ -2,7 +2,6 @@ import {Actions, Config} from "../../index";
 import {PING, SIGN_IN} from "../actionTypes";
 import Request from "../../http/http";
 import moment from 'moment'
-import Http from "../../http/http2";
 import http from "../../http/http3";
 import {query_string} from "../../utils";
 import _ from "lodash";
@@ -10,18 +9,17 @@ import _ from "lodash";
 import JWT from "../../models/JWT";
 let jwt  = new JWT()
 const signIn = ({data,loader}) =>async (dispatch)=>{
+
     const response = await http.post({
         url:Config.User.SIGN_IN
         ,data:query_string({
         "username":data.username,
         "password":data.password
         }),
-        loader:loader
+        loader:loader,
+        permitAll:true
     });
     if(response.status){
-        console.log(response)
-        localStorage.setItem('GRD_access_token',response.data.access_token);
-        localStorage.setItem('GRD_refresh_token',response.data.refresh_token);
         jwt.setData(response.data)
         setTimeout(()=>{
             dispatch(ping())
@@ -61,7 +59,7 @@ const ping = () =>async (dispatch)=>{
 
     return new Promise((resolve => {
         http.get({url:Config.User.PING}).then(response=>{
-
+            console.log("ping",response)
             dispatch({
                 type: PING,
                 payload: response.status?response.data.data:{},
@@ -72,7 +70,7 @@ const ping = () =>async (dispatch)=>{
 
 }
 const info = ()=>{
-    return (new Http()).get(Config.User.INFO)
+    return http.get({url:Config.User.INFO})
 }
 const signUp = async ({data,loader}) => {
     const response = await http.post({url:Config.User.SIGN_UP, data:query_string(data),permitAll:true,loader:loader});
@@ -94,7 +92,7 @@ const updateInfo = async ({data}) => {
     formData.append("countryCode", data?.country?.iso3)
     formData.append("currencyCode", data?.currency?.iso)
 
-    return await (new Http()).post(Config.User.UPDATE_INFO, formData)
+    return await http.post({url:Config.User.UPDATE_INFO,data:formData} )
 }
 const  resendOtp = ({send,type,prefix,value,additionalParams={},loader,permitAll=false}) =>{
     //{type}&prefix={prefix}&value={value}
@@ -118,12 +116,17 @@ const  verifyOtp = ({verify,type,prefix,value,otp,additionalParams={},loader,per
 
 }
 const  recoverUserName = ({channel,prefix,data,token}) =>{
-    //{type}&prefix={prefix}&value={value}
-    return new Http().permitAll().post(Config.Guest.RECOVER.USERNAME.replace("{channel}",channel).replace("{prefix}",prefix).replace("{data}",data).replace('{token}',token))
+    //{type}&prefix={prefix}&value={value}url
+    return http.post({
+        url:Config.Guest.RECOVER.USERNAME.replace("{channel}",channel).replace("{prefix}",prefix).replace("{data}",data).replace('{token}',token),
+        permitAll:true
+    })
 }
 const  recoverPassword = ({channel,prefix,data,token,username,otp}) =>{
     //{type}&prefix={prefix}&value={value}
-    return new Http().permitAll().post(Config.Guest.RECOVER.PASSWORD.replace("{channel}",channel).replace("{prefix}",prefix).replace("{data}",data).replace('{token}',token).replace('{username}',username).replace('{otp}',otp))
+    return http.post({
+        url:Config.Guest.RECOVER.PASSWORD.replace("{channel}",channel).replace("{prefix}",prefix).replace("{data}",data).replace('{token}',token).replace('{username}',username).replace('{otp}',otp)
+    })
 }
 const verification=({data,loader})=>{
    return  http.post({
