@@ -45,7 +45,7 @@ const Header = ({page}) =>{
                                             </div>
 
                                             <Link  to={`/${lang}/account`} className="account-link"><img src={account} alt=""/></Link>
-                                            <Link  to={`/${lang}/deposit`} className="deposit-link">{t("deposit")}</Link>
+                                            <Link  to={`/${lang}/account/finances?to=deposit`} className="deposit-link">{t("deposit")}</Link>
                                         {/*<button
                                             className="navbar-toggler"
                                             type="button"

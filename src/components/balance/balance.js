@@ -1,39 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {logoM, sl2} from "../../assets/img/images";
-import {Guest, Swp} from "../index";
+
 import {useUser} from "../../core/hooks/useUser";
 import {
-    restriction18,
-    account,
-    arrowLeft,
-    arrowLeftBack,
-    borderDashed,
-    checked,
-    checkedMb,
-    clockModal,
-    close,
-    discord,
-    fileUpload,
-    filter,
-    hArrows,
-    home,
-    logo,
-    logout,
-    multiArrow,
-    netnet,
-    percent,
-    percentModal,
-    play,
-    plus,
     reload,
-    remove,
-    search,
-    searchLight,
-    selectArrow,
-    skrillSmall,
-    sliderArrowNext,
-    sliderArrowPrev,
-    time,
     viewOff,
     viewOn,
 } from '../../assets/img/icons/icons';
@@ -42,6 +11,7 @@ import {Actions, useTranslation} from "../../core";
 
 const Balance = ({route}) =>{
     const {t} = useTranslation()
+
     const {User,signOut} = useUser();
     const params = useParams();
     const [showBalance,setShowBalance] = useState(false);
@@ -153,7 +123,7 @@ const Balance = ({route}) =>{
                             </div>
                         </div>
                     </div>
-                    <button className="btn-dep">{t("Make a Deposit")}</button>
+                   <Link to={`/${params.lang}/account/finances?to=deposit`}><button className="btn-dep">{t("Make a Deposit")}</button></Link>
                 </div>
             </div>
 

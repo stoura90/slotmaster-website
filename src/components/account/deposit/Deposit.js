@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Actions, useTranslation} from "../../../core";
 import PLXModal from "../../modal/PLXModal";
-import {useOTP} from "../../../core/hooks/useOTP";
 import {arrowLeftBack, coinspaid, percent, time} from "../../../assets/img/icons/icons";
 import {logoM, logoM_jpg} from "../../../assets/img/images"
 import './Deposit.scss';
@@ -78,7 +77,7 @@ const Deposit = ({onClose})=>{
                                                 })
                                             }}
                                         >
-                                            {loader?<SvgDot/>:  t("Deposit")}}
+                                            {loader?<SvgDot/>:  t("Deposit")}
                                         </button>
                                     </div>
                                 </div>

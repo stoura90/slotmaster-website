@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss';
 import { useTranslation} from "../../../core";
 import Deposit from '../deposit/Deposit';
 import Withdraw from '../withdraw/Withdraw';
 import {PLXModal} from "../../index";
+import {useNavigation} from "../../../core/hooks/useNavigation";
 
 const Finances = () => {
     const {t} = useTranslation();
+    const nav = useNavigation()
     const [deposit,setDeposit]=useState(false);
     const [withdraw,setWithdraw]=useState(false);
     const [history,setHistory]=useState(false);
@@ -23,7 +25,11 @@ const Finances = () => {
                 </g>
             </svg>)
     }
-
+    useEffect(()=>{
+        if(nav.get("to")==="deposit"){
+            setDeposit(true)
+        }
+    },[])
     return (
         <>
             <div className="tab-content" id="verificationTabContent">
