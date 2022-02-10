@@ -21,9 +21,13 @@ class Http {
                 }}).then(response=>{
                     resolve(response.status===200?{status:true,data:response.data}:{status:false,data:response.data})
             }).catch( async reason => {
+                console.log("refresh",enableRefreshToken,jwt?.refresh,reason?.response?.status)
+
                 if (enableRefreshToken && jwt?.refresh && reason?.response?.status === 401) {
                     if(enableRefreshToken){
                         let refresh = await this.refreshToken(jwt)
+                        console.log("refresh-token",refresh)
+
                         if(refresh?.status){
                             jwt.setData(refresh.data.data);
                             resolve(this.get({url:url,loader:loader,headers:headers,permitAll:permitAll,enableRefreshToken:false}))
@@ -125,14 +129,14 @@ class Http {
         }
     }
     static refreshToken(jwt){
-
         return new Promise((resolve)=>{
-            http.post({url:Config.Config.REFRESH_TOKEN,data: query_string({"refresh_token":jwt.refresh })})
+            http.post( Config.Config.REFRESH_TOKEN, query_string({"refresh_token":jwt.refresh }))
                 .then(response=>{
                     resolve({status:true,data:response})
                 })
                 .catch(reason => {
                     jwt.clear()
+
                     resolve({status:false})
 
                 })

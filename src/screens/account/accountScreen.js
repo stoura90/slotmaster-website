@@ -2,10 +2,11 @@ import React, {useEffect} from 'react';
 import {Balance, Finances, Footer, Header, Information, Verification} from "../../components";
 
 import "../../assets/styles/_select2.scss"
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
+import {useUser} from "../../core/hooks/useUser";
 const AccountScreen = () =>{
-    const {route} = useParams()
-
+    const {route,lang} = useParams()
+    const {User} = useUser();
     const renderView=()=> {
 
         switch(route){
@@ -15,8 +16,9 @@ const AccountScreen = () =>{
         }
     }
 
-    return (
+    return User.isLogged?(
         <>
+
             <Header page={'account'}/>
 
             <main className="account">
@@ -33,7 +35,7 @@ const AccountScreen = () =>{
             <Footer/>
 
         </>
-    )
+    ):( <Redirect to={`/${lang}/main`}/>)
 }
 
 export default AccountScreen

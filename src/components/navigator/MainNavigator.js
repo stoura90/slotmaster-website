@@ -1,30 +1,32 @@
 import React from "react";
-import {BrowserRouter as Router, BrowserRouter, Redirect, Route} from "react-router-dom";
+import {BrowserRouter as Router, BrowserRouter, Redirect, Route, useParams} from "react-router-dom";
 import {guestRoutes,userRoutes} from "../../route";
 import {createBrowserHistory} from "history";
 import {useUser} from "../../core/hooks/useUser";
+const account = React.lazy(() => import(("../../screens/account/accountScreen")));
 
 
 const MainNavigator = ()=>{
     const browserHistory = createBrowserHistory();
-    const {User} = useUser();
+    const {User} = useUser()
 
     return (
         <Router history={browserHistory}>
             <BrowserRouter>
                 {
-                    (User.isLogged?userRoutes:guestRoutes).map((route, idx) => {
-                    return route.component ? (
-                        <Route
-                            key={idx}
-                            path={route.path}
-                            exact={route.exact}
-                            name={route.name}
-                            params={{page:route.page}}
-                            render={props => (
-                                <route.component {...props} />
-                            )} />
-                    ) : <Redirect to={'/ru'}/>;
+
+                    (userRoutes).map((route, idx) => {
+                        return route.component ? (
+                            <Route
+                                key={idx}
+                                path={route.path}
+                                exact={route.exact}
+                                name={route.name}
+                                params={{page:route.page}}
+                                render={props => (
+                                    <route.component {...props} />
+                                )} />
+                        ) :   <Redirect to={'/ru'}/>;
                 })}
             </BrowserRouter>
 

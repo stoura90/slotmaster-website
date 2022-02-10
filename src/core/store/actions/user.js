@@ -32,13 +32,6 @@ const signIn = ({data,loader}) =>async (dispatch)=>{
             status:response.status
         })
 
-    }else{
-        Request.event({
-            name:"httpError",
-            type:'error',
-            details:"invalid credentials"
-        })
-        localStorage.removeItem('GRD_access_token');
     }
  return response;
 }
@@ -56,8 +49,7 @@ const signOut = () => async (dispatch)=>{
   }
 }
 const ping = () =>async (dispatch)=>{
-
-    return new Promise((resolve => {
+    return new Promise(resolve => {
         http.get({url:Config.User.PING}).then(response=>{
             console.log("ping",response)
             dispatch({
@@ -65,9 +57,11 @@ const ping = () =>async (dispatch)=>{
                 payload: response.status?response.data.data:{},
                 status:response.status
             })
-        }).finally(()=>resolve(true))
-    }))
-
+            resolve(true)
+        }).catch(()=>{
+            resolve(true)
+        })
+    })
 }
 const info = ()=>{
     return http.get({url:Config.User.INFO})

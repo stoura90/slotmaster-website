@@ -2,27 +2,17 @@ import {Suspense, useEffect, useLayoutEffect, useState} from 'react'
 
 import {Actions, Provider, useTranslation} from "./core";
 import {Button, Footer, Guest, Header, MainNavigator, } from "./components";
-import EventEmitter from "./core/utils/eventEmitter";
 import {useDispatch} from "react-redux";
-import {useUser} from "./core/hooks/useUser";
 import OTP from "./components/verification";
 
-const eventEmitter = new EventEmitter();
 const  App=()=> {
     const {t,i18n}  = useTranslation()
     const dispatch = useDispatch();
-    const {User,signOut} = useUser();
     const [loaded,setLoaded]=useState(false)
-    //const [modal, setModal]=useState(true);
 
     useEffect( () => {
-        checkLanguage()
         ping()
-        eventEmitter.on("httpError", errorHandler)
-
-        return () => {
-            eventEmitter.removeListener("httpError")
-        }
+        checkLanguage()
     },[])
 
     const checkLanguage = ()=>{
@@ -39,11 +29,9 @@ const  App=()=> {
         }else{
             window.location.href="/ru"
         }
-
-
     }
     const errorHandler=(event)=>{
-        switch (event.type){
+        /*switch (event.type){
             case 'signOut': signOut();break;
             case 'signIn': signOut(()=>{
                 setTimeout(()=>{
@@ -51,16 +39,14 @@ const  App=()=> {
                         document.getElementById("signIn-btn").click();
                     }
                 },200)
-
-
             });break;
             default: break;
-        }
+        }*/
     }
-    const ping = () => {
-          dispatch(Actions.User.ping()).then(setLoaded)
+    const ping =  async () => {
+        setLoaded(await dispatch(Actions.User.ping()))
     }
-  return loaded && (<>
+  return  loaded && (<>
           <MainNavigator/>
           <Guest/>
           <OTP/>

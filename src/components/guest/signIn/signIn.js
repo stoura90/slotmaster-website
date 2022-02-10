@@ -31,7 +31,6 @@ const SignIn =() =>{
         setError(null)
 
         const response = await dispatch(Actions.User.signIn({data:loginForm,loader:setSignInLoader}))
-        console.log(loginForm,response)
         if (response.status) {
             if(window.location.href.indexOf("playSlot")>-1){
                 window.location.reload()
