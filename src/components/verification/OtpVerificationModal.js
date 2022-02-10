@@ -32,7 +32,14 @@ export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalPar
             otpLoader.unsubscribe()
         }
         //return ()=>{eventEmitter.removeListener("recover",e=>setShow(false))}
-    },[])
+    },[]);
+
+    useEffect(()=>{
+        if(sourceId){
+            onResend()
+        }
+    },[sourceId])
+
     const getOtpSources = () =>{
         Actions.Otp.sources().then(response=>{
             if(response && response.length > 0){
@@ -42,7 +49,8 @@ export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalPar
                     setSourceId(find.id);
                     setSelectedSource(find);
                 }
-                setOtpSources(response)
+                setOtpSources(response);
+
             }
         })
     }

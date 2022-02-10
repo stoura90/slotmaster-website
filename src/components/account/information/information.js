@@ -227,10 +227,10 @@ const Information = () => {
                                                                     type="button"
                                                                     className="btn-confirm"
                                                                     onClick={()=>{
-                                                                        if(infoData.phone.trim().length>0){
+                                                                        if(infoData.mobile.trim().length>0){
                                                                             PHONE({
                                                                                 prefix:infoData.mobilePrefix,
-                                                                                number:infoData.phone,
+                                                                                number:infoData.mobile,
                                                                                 send:"/us/v2/api/secured/personal/info/otp/get",
                                                                                 verify:"/us/v2/api/secured/personal/info/otp/verify",
                                                                                 permitAll:false,
@@ -247,7 +247,7 @@ const Information = () => {
                                                                                                     Actions.User.verification_phone({data:{
                                                                                                             otp:code,
                                                                                                             sourceId:sourceId,
-                                                                                                            mobile:infoData.phone,
+                                                                                                            mobile:infoData.mobile,
                                                                                                             mobilePrefix:infoData.mobilePrefix
 
                                                                                                         },loader:"verifyOtp"}).then(response=>{

@@ -23,13 +23,16 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,ve
         }
 
     },[number,prefix])
+
     useEffect(()=>{
         setError(err)
     },[err])
 
     useEffect(()=>{
 
-       const otpLoader = ev.subscribe('verifyOtp',setLoader)
+        onResend();
+
+        const otpLoader = ev.subscribe('verifyOtp',setLoader)
         return ()=> {
             otpLoader.unsubscribe()
         }
@@ -73,6 +76,7 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,ve
         }
 
     }
+
     useEffect(()=>{
 
         if(reSend===-1){

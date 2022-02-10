@@ -19,6 +19,7 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
     },[err])
 
     useEffect(()=>{
+        onResend();
         const otpLoader = ev.subscribe('verifyOtp',setLoader)
         return ()=>{
             otpLoader.unsubscribe()
