@@ -100,7 +100,7 @@ const  resendOtp = ({send,type,prefix,value,additionalParams={},loader,permitAll
 }
 const  verifyOtp = ({verify,type,prefix,value,otp,additionalParams={},loader,permitAll=false}) =>{
     //{type}&prefix={prefix}&value={value}
-    return http.get({
+    return http.post({
         url:verify.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value).replace('{otp}',otp).concat('&',_.map(additionalParams,(v, k)=>{
         return k.concat('=',v)
     }).join('&')),

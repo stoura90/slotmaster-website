@@ -27,7 +27,7 @@ const Withdraw = ({onClose})=>{
 
         if(withdraw?.amount > 0 && withdraw?.address !== ''){
             MULTI({
-                send:"/ws/v1/api/secured/payment/otp",
+                send:"/os/v1/api/secured/otp/withdraw-coinspaid",
                 title:t('Confirm Operation'),
                 save:({code,sourceId})=>{
                     if(code){
@@ -58,7 +58,7 @@ const Withdraw = ({onClose})=>{
         }
     }
     const withdrawDialog = () =>{
-        return openWithdraw && <PLXModal title={t("Withdraw")} onClose={()=>setWithdraw(null)} contentStyle={{width:'350px'}} dialogStyle={{width:"350px"}}  >
+        return openWithdraw && <PLXModal title={t("Withdraw")} onClose={()=>setOpenWithdraw(false)} contentStyle={{width:'350px'}} dialogStyle={{width:"350px"}}  >
                 <div style={{minWidth:'200px'}}>
                     <form onSubmit={e=>{
                         e.preventDefault()

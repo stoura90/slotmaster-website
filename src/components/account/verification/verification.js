@@ -152,10 +152,9 @@ const Confirmation = () => {
             setErrors([...error])
         }else{
 
-
             MULTI({
                 email:infoData.email,
-                send:"/us/v2/api/secured/personal/info/otp",
+                send:"/os/v1/api/secured/otp/profile-verification",
                 title:t('Confirm Operation'),
                 save:({code,sourceId})=>{
                     if(code){
@@ -181,59 +180,6 @@ const Confirmation = () => {
                 }
             })
 
-
-       /*     if(otpSource?.type==="email"){
-                EMAIL({
-                    email:infoData.email,
-                    send:"/us/v2/api/secured/personal/info/otp/get",
-                    save:code=>{
-                        if(code){
-                            Actions.User.verification({
-                                ...infoData,...documents,otp:code
-                            }).then(response=>{
-                                if(response.status){
-                                    CLOSE();
-                                }else{
-                                    console.log("catch")
-                                    ERROR({error:t("error")})
-                                }
-                            }).catch(e=>{
-                                console.log("catch")
-                                ERROR({error:t("error")})
-                            })
-                        }
-
-                    }
-                })
-            }else{
-                PHONE({
-                    prefix:infoData.mobilePrefix,
-                    number:infoData.mobile,
-                    send:"/us/v2/api/secured/personal/info/otp/get",
-                    save:code=>{
-                        if(code){
-                            Actions.User.verification({
-                                ...infoData,...documents,otp:code
-                            }).then(response=>{
-                                if(response.status){
-                                    CLOSE();
-                                }else{
-                                    console.log("catch")
-                                    ERROR({error:t("error")})
-                                }
-                            }).catch(e=>{
-                                console.log("catch")
-                                ERROR({error:t("error")})
-                            })
-                        }
-
-                    }
-                })
-            }*/
-
-
-            console.log(otpSource)
-            console.log()
         }
     }
     return (
@@ -293,12 +239,13 @@ const Confirmation = () => {
                                                                             PHONE({
                                                                                 prefix:infoData.mobilePrefix,
                                                                                 number:infoData.mobile,
-                                                                                send:"/us/v2/api/secured/personal/info/otp/get",
-                                                                                verify:"/us/v2/api/secured/personal/info/otp/verify",
+                                                                                send:"/os/v1/api/secured/otp/profile-verification-mobile",
+                                                                                verify:"/os/v1/api/secured/otp/profile-verification-mobile",
                                                                                 save:e=>{
                                                                                     if(e){
                                                                                         setInfoData({...infoData,mobileConfirmed:1});
-                                                                                        CLOSE()
+                                                                                        window.pushEvent(t("The operation was performed successfully"),"success");
+                                                                                        CLOSE();
                                                                                     }
 
                                                                                 }
@@ -330,10 +277,11 @@ const Confirmation = () => {
                                                                     if(infoData.email.trim().length>0){
                                                                         EMAIL({
                                                                                 email:infoData.email,
-                                                                                send:"/us/v2/api/secured/personal/info/otp/get",
-                                                                                verify:"/us/v2/api/secured/personal/info/otp/verify",
+                                                                                send:"/os/v1/api/secured/otp/profile-verification-email",
+                                                                                verify:"/os/v1/api/secured/otp/profile-verification-email",
                                                                                 save:e=>{
                                                                                     if(e){
+                                                                                        window.pushEvent(t("The operation was performed successfully"),"success");
                                                                                         setInfoData({...infoData,emailConfirmed:1});
                                                                                         CLOSE()
                                                                                     }

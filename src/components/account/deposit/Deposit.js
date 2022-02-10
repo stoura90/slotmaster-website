@@ -14,8 +14,8 @@ const Deposit = ({onClose})=>{
     const [qr,setQr] = useState(null)
 
     const QRGenerator = () =>{
-        return  qr  !==null && <PLXModal title={t("QR")} onClose={()=>setQr(null)} contentStyle={{width:'auto'}} >
-            <div className="user_verify_test"> 1 BTC  ~ {qr?.rate} EURO </div> <br/>
+        return  qr  !==null && <PLXModal title={t("Deposit QR")} onClose={()=>setQr(null)} contentStyle={{width:'auto'}} >
+            <div className="user_verify_test"> 1 BTC  ~ {qr?.rate} EUR </div> <br/>
             <a href={qr?.url} target={"_blank"}>
                 <QRCode value={qr?.url} fgColor={"black"} size={300} logoImage={logoM_jpg} style={{width:"300px",height:"300px" }}/>
             </a>

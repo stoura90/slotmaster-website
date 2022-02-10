@@ -231,8 +231,9 @@ const Information = () => {
                                                                             PHONE({
                                                                                 prefix:infoData.mobilePrefix,
                                                                                 number:infoData.mobile,
-                                                                                send:"/us/v2/api/secured/personal/info/otp/get",
-                                                                                verify:"/us/v2/api/secured/personal/info/otp/verify",
+                                                                                //send:"/us/v2/api/secured/personal/info/otp/get",
+                                                                                send:"/os/v1/api/secured/otp/profile-info-mobile",
+                                                                                verify:"/os/v1/api/secured/otp/profile-info-mobile",
                                                                                 permitAll:false,
                                                                                 save:e=>{
                                                                                     if(e){
@@ -240,7 +241,7 @@ const Information = () => {
                                                                                         MULTI({
                                                                                             title:t('Confirm Operation'),
                                                                                             email:infoData.email,
-                                                                                            send:"/us/v2/api/secured/personal/info/otp",
+                                                                                            send:"/os/v1/api/secured/otp/profile-info-mobile",
                                                                                             additionalParams:{'email':infoData.email},
                                                                                             save:({code,sourceId})=>{
                                                                                                 if(code){
@@ -299,8 +300,8 @@ const Information = () => {
                                                                 if(infoData.email.trim().length>0){
                                                                     EMAIL({
                                                                         email:infoData.email,
-                                                                        send:"/us/v2/api/secured/personal/info/otp/get",
-                                                                        verify:"/us/v2/api/secured/personal/info/otp/verify",
+                                                                        send:"/os/v1/api/secured/otp/profile-info-email",
+                                                                        verify:"/os/v1/api/secured/otp/profile-info-email",
                                                                         permitAll:false,
                                                                         save:e=>{
                                                                             if(e){
@@ -309,7 +310,7 @@ const Information = () => {
                                                                                 MULTI({
                                                                                     title:t('Confirm Operation'),
                                                                                     email:infoData.email,
-                                                                                    send:"/us/v2/api/secured/personal/info/otp",
+                                                                                    send:"/os/v1/api/secured/otp/profile-info-email",
                                                                                     additionalParams:{'email':infoData.email},
                                                                                     save:({code,sourceId})=>{
                                                                                         if(code){

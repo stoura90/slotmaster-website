@@ -44,7 +44,7 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,ve
             .then(response=>{
                 if(response.status){
                     setCode("")
-                    setReSend(response.data.remaining);
+                    setReSend(response.data.data.remaining);
                     setCodeRequest(true);
                 }else {
                     setError('error');

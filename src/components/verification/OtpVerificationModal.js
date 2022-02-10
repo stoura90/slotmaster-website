@@ -57,7 +57,7 @@ export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalPar
     const onResend =()=>{
         Actions.User.resendOtp({
             permitAll:false,
-            send:send.concat("?id="+sourceId),
+            send:send.concat("/"+sourceId+"?"),
             type:"multi",
             sourceId:sourceId,
             additionalParams:additionalParams,
@@ -66,7 +66,7 @@ export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalPar
             .then(response=>{
                 if(response.status){
                     setCode("")
-                    setReSend(response.data.remaining);
+                    setReSend(response.data.data.remaining);
                     setCodeRequest(true);
                 }else {
                     console.log('mobOtp',response)

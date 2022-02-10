@@ -27,7 +27,8 @@ export const Config ={
       LIST_BY_FILTER:'/ss/v1/api/page/{webPageId}/slot/filter/{filterId}/games'
    },
    OTP:{
-      SOURCES:"/us/v2/api/secured/personal/info/otp/sources"
+      //SOURCES:"/us/v2/api/secured/personal/info/otp/sources"
+      SOURCES:"/os/v1/api/secured/sources"
    },
    Guest:{
       RECOVER: {

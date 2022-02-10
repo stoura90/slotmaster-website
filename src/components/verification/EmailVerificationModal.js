@@ -31,7 +31,7 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
             .then(response=>{
                 if(response.status){
                     setCode("")
-                    setReSend(response.data.remaining)
+                    setReSend(response.data.data.remaining)
                     setCodeRequest(true);
                 }else {
                     setError('error');
