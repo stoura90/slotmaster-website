@@ -194,6 +194,20 @@ const change_password=({data,loader})=>{
     });
 }
 
+const withdraw_coinsPaid=({data,loader})=>{
+    return  http.post({
+        url:Config.User.WITHDRAW_COINSPAID,
+        data:query_string({
+            "otp":data.otp,
+            "sourceId":data?.sourceId,
+            "amount":data?.amount,
+            "address":data?.address
+        }),
+        headers:{  'Content-Type' : 'text/plain' },
+        loader:loader
+    });
+}
+
 export default {
   signIn,
   signOut,
@@ -208,5 +222,6 @@ export default {
     recoverPassword,
     verification_email,
     verification_phone,
-    change_password
+    change_password,
+    withdraw_coinsPaid
 }

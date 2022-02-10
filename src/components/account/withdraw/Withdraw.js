@@ -11,18 +11,54 @@ import {QRCode} from "react-qrcode-logo";
 import {logoM_jpg} from "../../../assets/img/images";
 import SelectBox from "../../forms/select/NewSelect";
 
+
 window.reSendInterval=null;
 const Withdraw = ({onClose})=>{
     const {t} = useTranslation();
-    const [withdraw,setWithdraw]=useState(null)
     const {otp, PHONE,EMAIL,CLOSE,ERROR,MULTI} = useOTP();
-    const [loader,setLoader]=useState(false)
+    const [withdraw,setWithdraw]=useState({amount:'', address:""});
+    const [loader,setLoader]=useState(false);
+    const [openWithdraw,setOpenWithdraw]=useState(false);
     const errors=[];
     const error=(key)=>{
         return errors.indexOf(key)>-1?"error":""
     }
+    const withdrawHandler=()=> {
+
+        if(withdraw?.amount > 0 && withdraw?.address !== ''){
+            MULTI({
+                send:"/ws/v1/api/secured/payment/otp",
+                title:t('Confirm Operation'),
+                save:({code,sourceId})=>{
+                    if(code){
+                        Actions.User.withdraw_coinsPaid({data:{
+                                otp:code,
+                                amount:withdraw?.amount,
+                                address:withdraw?.address,
+                                sourceId:sourceId
+                            },loader:"verifyOtp"}).then(response=>{
+                            if(response.status){
+                                CLOSE();
+                                setOpenWithdraw(false);
+                                window.pushEvent(t("The operation was performed successfully"),"success")
+                            }else{
+                                console.log("catch")
+                                ERROR({error:t("error")})
+                            }
+                        }).catch(e=>{
+                            console.log("catch")
+                            ERROR({error:t("error")})
+                        })
+                    }
+
+                }
+            })
+        }else{
+            window.pushEvent('Please fill fields','error');
+        }
+    }
     const withdrawDialog = () =>{
-        return withdrawDialog && <PLXModal title={t("Withdraw")} onClose={()=>setWithdraw(null)} contentStyle={{width:'100%',maxWidth:"300px"}} dialogStyle={{width:"350px",maxWidth:"350px"}}  >
+        return openWithdraw && <PLXModal title={t("Withdraw")} onClose={()=>setWithdraw(null)} contentStyle={{width:'350px'}} dialogStyle={{width:"350px"}}  >
                 <div style={{minWidth:'200px'}}>
                     <form onSubmit={e=>{
                         e.preventDefault()
@@ -30,8 +66,8 @@ const Withdraw = ({onClose})=>{
                         <br/>
                         <div className="new-input-label" >
                             <div className="input-box">
-                                <input type={"text"} name="Amount" id="amount"
-                                       value={withdraw?.money} onChange={event => setWithdraw({...withdraw,money:event.target.value})}
+                                <input type={"number"} name="Amount" id="amount"
+                                       value={withdraw?.amount} onChange={event => setWithdraw({...withdraw,amount:event.target.value})}
                                 />
                                 <label htmlFor="amount">{t("Money")}</label>
                             </div>
@@ -40,13 +76,13 @@ const Withdraw = ({onClose})=>{
                         <div className="new-input-label" >
                             <div className="input-box">
                                 <input type="text" name="account" id="account"
-                                       value={withdraw?.account} onChange={event => setWithdraw({...withdraw,account:event.target.value})}
+                                       value={withdraw?.address} onChange={event => setWithdraw({...withdraw,address:event.target.value})}
                                 />
                                 <label htmlFor="account">{t("Account Number")}</label>
                             </div>
                         </div>
                         <div className="new-input-label" style={{display:'flex',justifyContent:'center'}} >
-                        <button  onClick={()=>setWithdraw(true)} className="btn-primary"
+                        <button  onClick={()=> withdrawHandler()} className="btn-primary"
                                 id="withdraw-tab" type="submit" style={{width:"100%",marginTop:"16px",maxWidth:"100%"}}>
                             <span>Withdraw</span>
                         </button>
@@ -94,10 +130,7 @@ const Withdraw = ({onClose})=>{
                                         <div className="reflection-duration">Instantly</div>
                                     </div>
                                 </div>
-                                <a target="_blank" className="btn-dark" onClick={()=>setWithdraw({
-                                    money:"",
-                                    account:""
-                                })}>Withdraw</a>
+                                <a target="_blank" className="btn-dark" onClick={()=>setOpenWithdraw(true)}>Withdraw</a>
                             </div>
                         </div>
                     </div>
