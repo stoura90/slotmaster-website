@@ -127,13 +127,6 @@ const Balance = ({route}) =>{
                 </div>
             </div>
 
-            {
-                infoData?.hasUserRequestedVerify === true && infoData?.verifyStatus !== 0 &&
-                <div className="col-12">
-                    <div className="user_verify_test">Your information has been submitted and Waiting for Review </div>
-                </div>
-            }
-
 
             <div className="col-12">
                 <ul

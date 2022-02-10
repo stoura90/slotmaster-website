@@ -134,6 +134,13 @@ const Information = () => {
     return (
         <>
 
+            {
+                infoData?.hasUserRequestedVerify === true && infoData?.verifyStatus !== 0 &&
+                <div className="col-12">
+                    <div className="user_verify_test">Your information has been submitted and Waiting for Review </div>
+                </div>
+            }
+            <br/>
             <div className="tab-content" id="accountTabContent">
                 <div
                     className="tab-pane fade show active"
