@@ -27,7 +27,8 @@ const  App=()=> {
                 }
             }
         }else{
-            window.location.href="/ru"
+            i18n.changeLanguage("en");
+            window.location.href="/en"
         }
     }
     const errorHandler=(event)=>{

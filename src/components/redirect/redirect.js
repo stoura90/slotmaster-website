@@ -4,7 +4,7 @@ import {Redirect as Route} from 'react-router-dom';
 const Redirect = () => {
 
     return(
-        <Route to={'/ru/main'}/>
+        <Route to={'/en/main'}/>
     )
 }
 

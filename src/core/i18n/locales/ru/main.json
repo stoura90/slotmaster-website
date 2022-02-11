@@ -45,5 +45,7 @@
   "Search": "Поиск",
   "Filters": "Фильтры",
   "Providers": "Провайдеры",
-  "Provider": "Провайдер"
+  "Provider": "Провайдер",
+  "Forgot Username": "восстановить имя пользователя",
+  "Forgot Password": "восстановить пароль"
 }
