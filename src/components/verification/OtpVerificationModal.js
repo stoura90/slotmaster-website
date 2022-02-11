@@ -20,6 +20,7 @@ export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalPar
     const  [code,setCode]=useState("")
     const [loader,setLoader]=useState(false)
     const [codeRequest,setCodeRequest] = useState(false);
+    const [showError,setShowError] = useState(false);
 
     useEffect(()=>{
         setError(err)
@@ -42,8 +43,8 @@ export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalPar
 
     const getOtpSources = () =>{
         Actions.Otp.sources().then(response=>{
+            console.log('sorse',response)
             if(response && response.length > 0){
-                console.log(response)
                 let find =response.length===1?response[0]:_.find(response,v=>v.preferred);
                 if(find){
                     setSourceId(find.id);
@@ -51,6 +52,8 @@ export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalPar
                 }
                 setOtpSources(response);
 
+            }else{
+                setShowError(true);
             }
         })
     }
@@ -64,8 +67,9 @@ export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalPar
             loader:setLoader
         })
             .then(response=>{
+                console.log('mobOtp',response)
                 if(response.status){
-                    setCode("")
+                    setCode("");
                     setReSend(response.data.data.remaining);
                     setCodeRequest(true);
                 }else {
@@ -148,23 +152,28 @@ export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalPar
 
 
                 {
-                    otpSources.length !== 0 ?<div style={{marginTop:"20px"}}>
-                        <SelectBox
-                            placeholder={"Select verification method"}
-                            data={_.map(otpSources,v=>{
-                                return {
-                                    id:v.id,
-                                    title:v.value,
-                                    type:v.type
-                                }
-                            })}
-                            onSelect={(e)=>{
-                                setSourceId(e.id);
-                                setSelectedSource(e);
-                            }}
-                            value={sourceId}
-                        />
-                    </div> : <div style={{color: '#ff4646',paddingTop: '20px'}}>Error was reported. Contact the hotline</div>
+                    showError && <div style={{color: '#ff4646',paddingTop: '20px'}}>Error was reported. Contact the hotline</div>
+                }
+                {
+                    otpSources.length !== 0 ? (
+                        <div style={{marginTop:"20px"}}>
+                            <SelectBox
+                                placeholder={"Select verification method"}
+                                data={_.map(otpSources,v=>{
+                                    return {
+                                        id:v.id,
+                                        title:v.value,
+                                        type:v.type
+                                    }
+                                })}
+                                onSelect={(e)=>{
+                                    setSourceId(e.id);
+                                    setSelectedSource(e);
+                                }}
+                                value={sourceId}
+                            />
+                        </div>
+                    ) : ''
                 }
                 {
                    sourceId? <div>
