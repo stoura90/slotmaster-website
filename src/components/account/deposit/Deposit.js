@@ -42,32 +42,28 @@ const Deposit = ({onClose})=>{
     const [qrData,setQrData] = useState({})
     const [selectedCurrency,setSelectedCurrency] = useState({id:"BTC",title:"BTC",name:"Bitcoin"});
     const [copyText,setCopyText] = useState(false);
-
-
     useEffect(()=>{
         if(qr){
             getCurrencyCourse();
             setQrData({...qrData,url:''})
         }
     },[selectedCurrency,qr])
-
-
     const getCurrencyCourse=()=>{
         //Actions.Deposit.getCoinRate({currency:selectedCurrency,loader:setLoader})
         Actions.Deposit.getCoinSpaidOrder({currency:selectedCurrency.id,loader:setLoader})
             .then(response=>{
                 if(response.status){
                     setQrData(response?.data?.data);
+                }else{
+                   window.pushEvent(response.error?.message,"error")
+
                 }
             }).catch((reason)=>{
             console.log(reason)
         })
     }
-
-
     const QRGenerator = () =>{
         return  qr !==null && <PLXModal title={t("Deposit QR")} onClose={()=>setQr(null)} className={'deposit-modal-new'} dialogStyle={{width:'300px'}} contentStyle={{width:'300px'}} >
-
             <br/>
             <SelectBox
                 data={currencyList}
@@ -77,38 +73,45 @@ const Deposit = ({onClose})=>{
                 value={selectedCurrency.id}
                 onSelect={e => setSelectedCurrency(e)}
             />
+            <div className="dep-wrap" >
 
-            <div className="dep-wrap">
-                <p style={{color:'#8594c1',fontSize:'12px',margin:'4px 3px'}}>{qrData?.exchangeRate?.rateFrom} {qrData.currency}  ~ {qrData?.exchangeRate?.rateTo} {qrData.toCurrency}</p>
-                <br/>
-                <a href={qr?.url} target={"_blank"} style={{textAlign:'center',borderRadius:'3px'}}>
-                    <QRCode value={`bitcoin:`+qrData?.url} fgColor={"black"} size={150} logoImage={logoM_jpg} />
-                </a>
-                <br/>
-                <br/>
-                <div className="row">
-                    <div className="col-12">
-                        <div  className={`input-label-border qr-address`}>
-                            <input  value={qrData?.url} type="text" name="name" id="qrUrl"/>
-                            <label htmlFor="qrUrl">{selectedCurrency.name+' '+t("Address")}</label>
-                            <i onClick={()=> {
-                                window.navigator.clipboard.writeText(qrData?.url);
-                                setCopyText(true);
-                                setTimeout(function(){
-                                    setCopyText(false)
-                                },3000);
-                            }}><img src={copy}/></i>
-                            <span data-show={copyText}>copied</span>
-
-                        </div>
-                    </div>
-                </div>
                 {
-                    !qrData?.url ? <div className="loader-wrap"><SvgDot/></div> : ''
+                    (qrData?.url) ? (
+                        <>
+                            <p style={{color:'#8594c1',fontSize:'12px',margin:'4px 3px'}}>{qrData?.exchangeRate?.rateFrom} {qrData.currency}  ~ {qrData?.exchangeRate?.rateTo} {qrData.toCurrency}</p>
+                            <br/>
+                            <a href={qr?.url} target={"_blank"} style={{textAlign:'center',borderRadius:'3px'}}>
+                                <QRCode value={`bitcoin:`+qrData?.url} fgColor={"black"} size={150} logoImage={logoM_jpg} />
+                            </a>
+                            <br/>
+                            <br/>
+                            <div className="row">
+                                <div className="col-12">
+                                    <div  className={`input-label-border qr-address`}>
+                                        <input  value={qrData?.url} type="text" name="name" id="qrUrl"/>
+                                        <label htmlFor="qrUrl">{selectedCurrency.name+' '+t("Address")}</label>
+                                        <i onClick={()=> {
+                                            window.navigator.clipboard.writeText(qrData?.url);
+                                            setCopyText(true);
+                                            setTimeout(function(){
+                                                setCopyText(false)
+                                            },3000);
+                                        }}><img src={copy}/></i>
+                                        <span data-show={copyText}>copied</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                    ):(
+                        <div style={{height:"150px"}}>
+                            {loader && <div className="loader-wrap"><SvgDot/></div>}
+                        </div>
+                    )
                 }
+
+
             </div>
-
-
         </PLXModal>
     }
     return (

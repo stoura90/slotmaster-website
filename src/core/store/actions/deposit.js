@@ -9,7 +9,11 @@ const getCoinRate=({currency,loader})=>{
     return http.get({url:Config.Deposit.CoinsRate.concat('?currency=',currency),loader:loader})
 }
 
+const getCoinExchangeRate=({currency,loader})=>{
+    return http.get({url:Config.Deposit.CoinsExchangeRate.concat('?currency=',currency),loader:loader})
+}
 export {
     getCoinSpaidOrder,
-    getCoinRate
+    getCoinRate,
+    getCoinExchangeRate
 }

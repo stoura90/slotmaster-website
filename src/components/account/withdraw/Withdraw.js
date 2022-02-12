@@ -42,13 +42,17 @@ const Withdraw = ({onClose})=>{
     const {t} = useTranslation();
     const {otp, PHONE,EMAIL,CLOSE,ERROR,MULTI} = useOTP();
     const [withdraw,setWithdraw]=useState({amount:'', address:""});
-    const [loader,setLoader]=useState(false);
     const [openWithdraw,setOpenWithdraw]=useState(false);
     const [selectedCurrency,setSelectedCurrency] = useState({id:"BTC",title:"BTC",name:"Bitcoin"});
-    const errors=[];
-    const error=(key)=>{
-        return errors.indexOf(key)>-1?"error":""
-    }
+    const [exRate,setExRate]=useState(null)
+    const [loader,setLoader]=useState(false)
+
+    useEffect(()=>{
+        if(selectedCurrency){
+            setExRate(null)
+            getExchangeRate(selectedCurrency?.id)
+        }
+    },[selectedCurrency])
     const withdrawHandler=()=> {
 
         if(withdraw?.amount > 0 && withdraw?.address !== ''){
@@ -102,33 +106,56 @@ const Withdraw = ({onClose})=>{
                             onSelect={e => setSelectedCurrency(e)}
                         />
                         </div>
+                        {
+                            exRate? <>
+                                <p style={{color:'#8594c1',fontSize:'12px',margin:'4px 3px'}}>{exRate?.exchangeRate?.rateFrom} {exRate.currency}  ~ {exRate?.exchangeRate?.rateTo} {exRate.toCurrency}</p>
 
-                        <div className="new-input-label" >
-                            <div className="input-box">
-                                <input type={"number"} name="Amount" id="amount"
-                                       value={withdraw?.amount} onChange={event => setWithdraw({...withdraw,amount:event.target.value})}
-                                />
-                                <label htmlFor="amount">{t("Money")}</label>
-                            </div>
+                                <div className="new-input-label" >
+                                    <div className="input-box">
+                                        <input type={"number"} name="Amount" id="amount"
+                                               value={withdraw?.amount} onChange={event => setWithdraw({...withdraw,amount:event.target.value})}
+                                        />
+                                        <label htmlFor="amount">{t("Money")}</label>
+                                    </div>
 
-                        </div>
-                        <div className="new-input-label" >
-                            <div className="input-box">
-                                <input type="text" name="account" id="account"
-                                       value={withdraw?.address} onChange={event => setWithdraw({...withdraw,address:event.target.value})}
-                                />
-                                <label htmlFor="account">{t("Address")}</label>
-                            </div>
-                        </div>
-                        <div className="new-input-label" style={{display:'flex',justifyContent:'center'}} >
-                        <button  onClick={()=> withdrawHandler()} className="btn-primary"
-                                id="withdraw-tab" type="submit" style={{width:"100%",marginTop:"16px",maxWidth:"100%"}}>
-                            <span>Withdraw</span>
-                        </button>
-                        </div>
+                                </div>
+                                <div className="new-input-label" >
+                                    <div className="input-box">
+                                        <input type="text" name="account" id="account"
+                                               value={withdraw?.address} onChange={event => setWithdraw({...withdraw,address:event.target.value})}
+                                        />
+                                        <label htmlFor="account">{t("Address")}</label>
+                                    </div>
+                                </div>
+                                <div className="new-input-label" style={{display:'flex',justifyContent:'center'}} >
+                                    <button  onClick={()=> withdrawHandler()} className="btn-primary"
+                                             id="withdraw-tab" type="submit" style={{width:"100%",marginTop:"16px",maxWidth:"100%"}}>
+                                        <span>Withdraw</span>
+                                    </button>
+                                </div>
+                            </>:
+                                <div style={{height:"150px",position:'relative'}}>
+                                    {loader && <div className="loader-wrap"><SvgDot/></div>}
+                                </div>
+                        }
+
                     </form>
                 </div>
         </PLXModal>
+    }
+
+    const getExchangeRate = (currency)=>{
+        Actions.Deposit.getCoinExchangeRate({currency:currency,loader:setLoader})
+            .then(response=>{
+                if(response.status){
+                    setExRate(response.data.data)
+                }else{
+                    setExRate(null)
+                    window.pushEvent(response.error?.message,"error")
+
+                }
+
+            })
     }
 
     return (
