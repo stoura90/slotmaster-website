@@ -1,7 +1,7 @@
 import {close} from "../../assets/img/icons/icons";
 import PropTypes from "prop-types";
 
-const PLXModal = ({children,title,footer,onClickBackDrop,closeButton,onClose,contentStyle,dialogStyle})=>{
+const PLXModal = ({children,title,footer,onClickBackDrop,closeButton,onClose,contentStyle,dialogStyle,className})=>{
     return  (
         <div
             className="custom-modal"
@@ -9,7 +9,7 @@ const PLXModal = ({children,title,footer,onClickBackDrop,closeButton,onClose,con
 
         >
 
-            <div className="modal-dialog modal-dialog-centered auth-modal" style={{...dialogStyle}}>
+            <div className={`modal-dialog modal-dialog-centered auth-modal ${className}`} style={{...dialogStyle}}>
                 <div className="modal-content" style={{...contentStyle}}>
                     <div className="modal-head mb-0">
                         {

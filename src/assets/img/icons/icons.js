@@ -38,6 +38,7 @@ import gr from "./gr.png";
 import kiron from "./kiron.png";
 import pragmatic from "./pragmatic.png";
 import coinspaid from "./coinspaid.svg";
+import copy from "./copy.svg";
 
 export {
 restriction18,
@@ -79,5 +80,6 @@ loader,
     gr,
     kiron,
     pragmatic,
-    coinspaid
+    coinspaid,
+    copy
 }

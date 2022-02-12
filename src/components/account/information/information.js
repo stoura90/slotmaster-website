@@ -200,12 +200,12 @@ const Information = () => {
                                         </div>
                                         <div className="col-12">
                                                 <div style={{display:"flex"}} >
-                                                    <div className="input-label" style={{width:"100%",maxWidth:'150px'}}>
+                                                    <div className="input-select" style={{width:"100%",maxWidth:'150px'}}>
                                                         <SelectBox
                                                             data={MobilePrefixList}
                                                             id={"prefix"}
                                                             placeholder={t("Prefix")}
-                                                            className="select2"
+                                                            className=""
                                                                 value={infoData.mobilePrefix}
                                                                 onSelect={e => setInfoData({...infoData,mobilePrefix:e.id})}
                                                         />

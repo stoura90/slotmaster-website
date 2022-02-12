@@ -3,4 +3,91 @@
   color: #8594c1;
 }
 
+.currency .currency-list span {
+  color: #8594c1;
+  padding-right: 10px;
+  font-size: 14px;
+}
+.currency p {
+  color: #5f667c;
+  margin: 10px 0;
+}
+
+#react-qrcode-logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 3px;
+}
+
+.crypto-currency input {
+  background-color: #262e45;
+}
+
+.deposit-modal-new .modal-content {
+  padding: 44px 20px 32px !important;
+}
+.deposit-modal-new .input-select input {
+  border: 2px solid #293148;
+}
+.deposit-modal-new .qr-address {
+  position: relative;
+}
+.deposit-modal-new .qr-address input {
+  border: 2px solid #293148;
+  padding-right: 45px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.deposit-modal-new .qr-address i {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 40px;
+  height: calc(100% - 4px);
+  background: #4e5876;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+.deposit-modal-new .qr-address i:hover {
+  cursor: pointer;
+  background: #68759a;
+}
+.deposit-modal-new .qr-address span {
+  position: absolute;
+  top: 5px;
+  right: 45px;
+  padding: 1px 6px;
+  background: #293148;
+  color: #27cf44;
+  font-size: 12px;
+  transition: all 1s;
+  opacity: 0;
+}
+.deposit-modal-new .qr-address span[data-show=true] {
+  opacity: 1;
+  transition: all 1s;
+}
+.deposit-modal-new .dep-wrap {
+  position: relative;
+  text-align: center;
+}
+.deposit-modal-new .dep-wrap a {
+  display: inline-block;
+}
+.deposit-modal-new .dep-wrap p {
+  text-align: left;
+}
+.deposit-modal-new .dep-wrap .loader-wrap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #1d2438eb;
+}
+
 /*# sourceMappingURL=Deposit.css.map */

@@ -296,7 +296,7 @@ const SignUp =() =>{
                             </div>*/}
                     <div className="col-12 col-md-6">
                         <div className={`input-label ${error("username")}`}>
-                            <input type="text" name="username" id="username"
+                            <input type="text" name="username" id="surname"
                                    value={signUpForm.username}
                                    onChange={event => setSignUpForm({...signUpForm,username:event.target.value})}
                             />

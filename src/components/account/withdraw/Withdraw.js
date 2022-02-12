@@ -13,12 +13,38 @@ import SelectBox from "../../forms/select/NewSelect";
 
 
 window.reSendInterval=null;
+
+const currencyList = [
+    { id:"BTC",title:"BTC",name:"Bitcoin"},
+    { id:"LTC",title:"LTC",name:"Litecoin"},
+    { id:"BCH",title:"BCH",name:"Bitcoin cash"},
+    { id:"ADA",title:"ADA",name:"Cardano"},
+    { id:"ETH",title:"ETH",name:"Ethereum"},
+    { id:"DOGE",title:"DOGE",name:"Dogecoin"},
+    { id:"NEO",title:"NEO",name:"Neo"},
+    { id:"XRP",title:"XRP",name:"Ripple"},
+    { id:"USDT",title:"USDT",name:"Tether* USD"},
+    { id:"USDTE",title:"USDTE",name:"Tether USD ERC20"},
+    { id:"USDTT",title:"USDTT",name:"Tether USD TRC20"},
+    { id:"ERC20",title:"ERC20",name:"ERC20"},
+    { id:"BNB",title:"BNB",name:"Binance Coin"},
+    { id:"EURS",title:"EURS",name:"STASIS EURS"},
+    { id:"USDC",title:"USDC",name:"USD Coin"},
+    { id:"TRX",title:"TRX",name:"TRON"},
+    { id:"XED",title:"XED",name:"Exeedme ERC20 tok"},
+    { id:"DAI",title:"DAI",name:"Dai ERC20 Stablec"},
+    { id:"MRX",title:"MRX",name:"Metrix Coin"},
+    { id:"WBTC",title:"WBTC",name:"Wrapped Bitcoin"},
+    { id:"CPD",title:"CPD",name:"CoinsPaid token"},
+]
+
 const Withdraw = ({onClose})=>{
     const {t} = useTranslation();
     const {otp, PHONE,EMAIL,CLOSE,ERROR,MULTI} = useOTP();
     const [withdraw,setWithdraw]=useState({amount:'', address:""});
     const [loader,setLoader]=useState(false);
     const [openWithdraw,setOpenWithdraw]=useState(false);
+    const [selectedCurrency,setSelectedCurrency] = useState({id:"BTC",title:"BTC",name:"Bitcoin"});
     const errors=[];
     const error=(key)=>{
         return errors.indexOf(key)>-1?"error":""
@@ -35,7 +61,8 @@ const Withdraw = ({onClose})=>{
                                 otp:code,
                                 amount:withdraw?.amount,
                                 address:withdraw?.address,
-                                sourceId:sourceId
+                                sourceId:sourceId,
+                                currency: selectedCurrency.id
                             },loader:"verifyOtp"}).then(response=>{
                             if(response.status){
                                 CLOSE();
@@ -64,6 +91,18 @@ const Withdraw = ({onClose})=>{
                         e.preventDefault()
                     }} className="personal-data">
                         <br/>
+
+                        <div className="new-input-label" >
+                        <SelectBox
+                            data={currencyList}
+                            id={"crypto-currency"}
+                            placeholder={t("currency")}
+                            className="crypto-currency"
+                            value={selectedCurrency.id}
+                            onSelect={e => setSelectedCurrency(e)}
+                        />
+                        </div>
+
                         <div className="new-input-label" >
                             <div className="input-box">
                                 <input type={"number"} name="Amount" id="amount"
@@ -78,7 +117,7 @@ const Withdraw = ({onClose})=>{
                                 <input type="text" name="account" id="account"
                                        value={withdraw?.address} onChange={event => setWithdraw({...withdraw,address:event.target.value})}
                                 />
-                                <label htmlFor="account">{t("Account Number")}</label>
+                                <label htmlFor="account">{t("Address")}</label>
                             </div>
                         </div>
                         <div className="new-input-label" style={{display:'flex',justifyContent:'center'}} >

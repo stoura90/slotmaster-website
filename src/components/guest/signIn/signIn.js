@@ -68,7 +68,7 @@ const SignIn =() =>{
                     <input type="password" name="password" id="signIn_password"
                            value={loginForm.password} onChange={event => setLoginForm({...loginForm,password:event.target.value})}
                     />
-                    <label htmlFor="password">{t("Password")}</label>
+                    <label htmlFor="signIn_password">{t("Password")}</label>
                     <div className="toggle-password hide"  onClick={e => {
                         let classList = e.target.classList;
                         let contain = classList.contains('hide');

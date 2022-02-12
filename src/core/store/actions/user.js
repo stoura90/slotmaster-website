@@ -195,7 +195,8 @@ const withdraw_coinsPaid=({data,loader})=>{
             "otp":data.otp,
             "sourceId":data?.sourceId,
             "amount":data?.amount,
-            "address":data?.address
+            "address":data?.address,
+            "currency":data?.currency
         }),
         headers:{  'Content-Type' : 'text/plain' },
         loader:loader

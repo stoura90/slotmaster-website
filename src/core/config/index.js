@@ -37,7 +37,8 @@ export const Config ={
       }
    },
    Deposit:{
-      CoinsPaid:"/ws/v1/api/secured/payment/coinspaid/deposit"
+      CoinsPaid:"/ws/v1/api/secured/payment/coinspaid/deposit",
+      CoinsRate:"/ws/v1/api/secured/payment/coinspaid/rate"
    }
 }
 

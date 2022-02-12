@@ -23330,6 +23330,9 @@ select {
 .custom-modal .modal-content {
   padding: 20px;
 }
+.custom-modal .modal-dialog {
+  margin: 0 auto;
+}
 
 .step2 .input-label {
   min-width: 100% !important;

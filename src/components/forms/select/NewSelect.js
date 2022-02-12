@@ -3,7 +3,7 @@ import './select.scss';
 import _ from "lodash";
 import {useOutsideAlerter} from "../../../core/hooks/useOutSideClick";
 
-const SelectBox = memo(({id,data,onSelect,value,placeholder})=>{
+const SelectBox = memo(({id,data,onSelect,value,placeholder,className})=>{
     const ref = useRef(null);
     useOutsideAlerter(ref)
     const selected = useMemo(()=>{
@@ -12,7 +12,7 @@ const SelectBox = memo(({id,data,onSelect,value,placeholder})=>{
         return null
     },[value])
     return (
-        <div className="input-select input-style" onClick={()=>{
+        <div className={`input-select input-style ${className}`} onClick={()=>{
             if(ref.current.classList.contains("close-select-box")){
                 ref.current.classList.remove("close-select-box");
             }else{
@@ -27,7 +27,12 @@ const SelectBox = memo(({id,data,onSelect,value,placeholder})=>{
                         {
                             _.map(data, (v,k)=> <li key={k} onClick={()=>{
                                 onSelect(v);
-                            }}>{v.title}</li>)
+                            }}>
+                                {v.title}
+                                {
+                                    v.name?<span>{v.name}</span>:''
+                                }
+                            </li>)
                         }
                     </ul>
                 </div>

@@ -474,6 +474,9 @@ select{
   .modal-content{
     padding: 20px;
   }
+  .modal-dialog {
+    margin: 0 auto;
+  }
 }
 .step2{
   .input-label{
