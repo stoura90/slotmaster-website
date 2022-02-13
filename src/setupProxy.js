@@ -34,4 +34,8 @@ module.exports = function(app) {
         '/v1',
         createProxyMiddleware(proxy)
     );
+    app.use(
+        '/wsd/v1',
+        createProxyMiddleware(proxy)
+    );
 };

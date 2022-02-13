@@ -12,7 +12,8 @@ export const Config ={
       VERIFICATION_EMAIL:"/us/v2/api/secured/personal/info/email/change",
       VERIFICATION_PHONE:"/us/v2/api/secured/personal/info/mobile/change",
       CHANGE_PASSWORD:"/us/v2/api/secured/personal/password/change",
-      WITHDRAW_COINSPAID:"/ws/v1/api/secured/payment/coinspaid/withdraw"
+      WITHDRAW_COINSPAID:"/ws/v1/api/secured/payment/coinspaid/withdraw",
+      GET_SECURITY_QUESTIONS:"/wsd/v1/api/security-questions"
    },
    Config:{
       REFRESH_TOKEN:"/v1/api/refresh_token",

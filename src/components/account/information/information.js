@@ -2,12 +2,11 @@ import React, {useEffect, useState} from 'react';
 import './style.scss';
 import {Actions, useTranslation} from "../../../core";
 import _ from "lodash";
-import Select from "../../forms/select/Select"
 import {useOTP} from "../../../core/hooks/useOTP";
-import {useParams} from "react-router-dom";
 import ChangePassword from '../../account/changePassword/ChangePassword'
 import SelectBox from "../../forms/select/NewSelect";
 import {SvgDot} from "../../index";
+import PLXModal from "../../modal/PLXModal";
 
 
 const countries =[
@@ -45,12 +44,14 @@ const gender = [
     { id:"F",title:"Female",},
     { id:"M",title:"Male",}
 ]
-const questions = [
+/*
+const securityQuestions = [
     { id:1,title:"What is your mother\'s maiden name?"},
     { id:2,title:"What was your first pet?"},
     { id:3,title:"What was the model of your first car?"},
     { id:4,title:"In what city were you born?"},
 ]
+*/
 
 const Information = () => {
     const {t} = useTranslation();
@@ -71,15 +72,36 @@ const Information = () => {
         verifyStatus:null,
 
     });
+    const [questions, setQuestions] = useState({
+        question1:'',
+        answer1:'',
+        question2:'',
+        answer2:''
+
+    });
     const  [loader,setLoader]=useState(false)
+    const  [securityQuestionsLoader,setSecurityQuestionsLoader]=useState(false)
     const [status,setStatus]=useState({
         status:"",
         msg:""
     })
+    const [errors,setErrors]=useState([])
+    const [openChangePass,setOpenChangePass]=useState(false);
+    const [openSecretQuestion,setOpenSecretQuestion]=useState(false);
+    const [securityQuestions,setSecurityQuestions]=useState([]);
+    const [open2FA,setOpen2FA]=useState(false);
     useEffect(()=>{
         getInfo()
 
     },[])
+    useEffect(()=>{
+        if(openSecretQuestion && securityQuestions.length===0){
+            Actions.User.getSecurityQuestion({loader:setSecurityQuestionsLoader})
+                .then((response)=>{
+                    setSecurityQuestions((response.status && response.data?response.data:[]))
+                })
+        }
+    },[openSecretQuestion])
     const getInfo = ()=>{
         Actions.User.info().then(response=>{
             if(response.status){
@@ -93,21 +115,39 @@ const Information = () => {
             }
         })
     }
-    const [errors,setErrors]=useState([])
-    const [openChangePass,setOpenChangePass]=useState(false)
+
+
     const error=(key)=>{
         return errors.indexOf(key)>-1?"error":""
     }
+
+    const saveSecurityAnswers=()=>{
+        let error = _.chain(questions).map((v,k)=>{ return  {key:k,value:v}}).filter(v=>!v.value).map(v=>v.key).value();
+        if(error.length>0){
+            setErrors([...error])
+        }else{
+            setErrors([])
+            Actions.User.saveSecurityQuestions({data:questions,loader:setSecurityQuestionsLoader})
+                .then(response=>{
+                    if(response.status){
+
+                        setOpenSecretQuestion(false)
+                    }else{
+                        window.pushEvent("error")
+                    }
+                })
+            console.log("send")
+        }
+    }
+
     const onUpdate = ()=>{
 
         let error = _.chain(infoData).map((v,k)=>{ return  {key:k,value:v}}).filter(v=>!v.value).map(v=>v.key).value();
 
-        console.log(error)
 
         if(error.length>0){
             setErrors([...error])
         }else{
-            console.log(infoData)
             Actions.User.updateInfo({data:infoData,loader:setLoader}).then(response=>{
                 setTimeout(()=>{
                     setStatus({
@@ -437,7 +477,7 @@ const Information = () => {
                                             <button
                                                 className="btn-change-password"
                                                 type="button"
-                                                onClick={()=>setOpenChangePass(true)}
+                                                onClick={()=>setOpenSecretQuestion(true)}
                                             >
                                                 {t("Secret Question")}
                                             </button>
@@ -446,7 +486,7 @@ const Information = () => {
                                             <button
                                                 className="btn-change-password"
                                                 type="button"
-                                                onClick={()=>setOpenChangePass(true)}
+                                                onClick={()=>setOpen2FA(true)}
                                             >
                                                 {t("Set 2fa")}
                                             </button>
@@ -476,6 +516,104 @@ const Information = () => {
                 title={t("Change Password")}
                 onClose={setOpenChangePass}
                 />
+            }
+            {
+                open2FA && (
+                    <PLXModal title={t('Set 2fa')} onClose={()=>setOpen2FA(false)} dialogStyle={{maxWidth:'360px'}} >
+                        <form onSubmit={e=>{
+                            e.preventDefault();
+                            //changePassword();
+                        }} className="confirm-form password-change">
+
+                            <div className="row">
+                                <h5>{t("Question")}1</h5>
+                                <div className="col-12">
+                                    <SelectBox data={questions} value={infoData.question} placeholder={t("Secret question")}
+                                               id={'question1'}
+                                               onSelect={(e)=> setInfoData({...infoData,question:e.id})}
+                                    />
+                                </div>
+                                <div className="col-12">
+                                    <div className="input-label-border">
+                                        <input onChange={e => setInfoData({...infoData,answer:e.target.value})} value={infoData.answer} type="text" name="secret-answer" id="secretAnswer"/>
+                                        <label htmlFor="secretAnswer">{t("Secret answer")}</label>
+                                    </div>
+                                </div>
+
+
+                                <h5>{t("Question")}2</h5>
+                                <div className="col-12">
+                                    <SelectBox data={questions} value={infoData.question} placeholder={t("Secret question")}
+                                               id={'question1'}
+                                               onSelect={(e)=> setInfoData({...infoData,question:e.id})}
+                                    />
+                                </div>
+                                <div className="col-12">
+                                    <div className="input-label-border">
+                                        <input onChange={e => setInfoData({...infoData,answer:e.target.value})} value={infoData.answer} type="text" name="secret-answer" id="secretAnswer"/>
+                                        <label htmlFor="secretAnswer">{t("Secret answer")}</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <button type="submit" className="btn-dep justify-content-center px-0" style={{position:'relative',overflow:'hidden'}}>
+                                {loader? (<SvgDot contentStyle={{background:'#00984a'}}/> ) : ''}
+                                {t("Save")}
+                            </button>
+                        </form>
+                    </PLXModal>
+                )
+            }
+            {
+                openSecretQuestion && (
+                    <PLXModal title={t('Secret Question')} onClose={()=>setOpenSecretQuestion(false)} dialogStyle={{maxWidth:'360px'}} >
+                        <form onSubmit={e=>{
+                            e.preventDefault();
+                            console.log(questions)
+                            //changePassword();
+                            saveSecurityAnswers()
+                        }} className="confirm-form password-change">
+
+                            <div className="row">
+                                <h6 style={{color: '#727fa4'}}>{t("Question")} 1</h6>
+                                <div  className={`input-select-border col-12 ${error("question1")}`}>
+                                    <SelectBox data={securityQuestions} value={questions.question1} placeholder={t("Secret question")}
+                                               id={'question1'}
+                                               onSelect={(e)=> setQuestions({...questions,question1:e.id})}
+                                    />
+                                </div>
+                                <div className="col-12">
+                                    <div className={`input-label-border ${error("answer1")}`}>
+                                        <input onChange={e => setQuestions({...questions,answer1:e.target.value})} value={questions.answer1} type="text" name="secret-answer" id="secretAnswer"/>
+                                        <label htmlFor="secretAnswer">{t("Secret answer")}</label>
+                                    </div>
+                                </div>
+
+
+                                <h6 style={{color: '#727fa4'}}>{t("Question")} 2</h6>
+                                <div  className={`input-select-border col-12 ${error("question2")}`}>
+                                    <SelectBox data={securityQuestions} value={questions.question2} placeholder={t("Secret question")}
+                                               id={'question2'}
+                                               onSelect={(e)=> setQuestions({...questions,question2:e.id})}
+                                    />
+                                </div>
+                                <div className="col-12">
+                                    <div className={`input-label-border ${error("answer2")}`}>
+                                        <input onChange={e => setQuestions({...questions,answer2:e.target.value})} value={questions.answer2} type="text" name="secret-answer" id="secretAnswer"/>
+                                        <label htmlFor="secretAnswer">{t("Secret answer")}</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <button type="submit" className="btn-dep justify-content-center px-0" style={{position:'relative',overflow:'hidden'}}>
+                                {securityQuestionsLoader? (<SvgDot contentStyle={{background:'#00984a'}}/> ) : ''}
+                                {t("Save")}
+                            </button>
+                        </form>
+                    </PLXModal>
+                )
             }
         </>
     )

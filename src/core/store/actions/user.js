@@ -191,8 +191,15 @@ const withdraw_coinsPaid=({data,loader})=>{
         loader:loader
     });
 }
-
+const getSecurityQuestion =({loader})=>{
+   return  http.get({url:Config.User.GET_SECURITY_QUESTIONS,loader:loader})
+}
+const saveSecurityQuestions =({loader,data})=>{
+    return  http.post({url:Config.User.GET_SECURITY_QUESTIONS,loader:loader,data:query_string(data)})
+}
 export default {
+  getSecurityQuestion,
+    saveSecurityQuestions,
   signIn,
   signOut,
   ping,
