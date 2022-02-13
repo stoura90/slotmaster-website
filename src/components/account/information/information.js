@@ -98,7 +98,7 @@ const Information = () => {
         if(openSecretQuestion && securityQuestions.length===0){
             Actions.User.getSecurityQuestion({loader:setSecurityQuestionsLoader})
                 .then((response)=>{
-                    setSecurityQuestions((response.status && response.data?response.data:[]))
+                    setSecurityQuestions((response.status && response.data?response.data?.data:[]))
                 })
         }
     },[openSecretQuestion])
@@ -127,16 +127,33 @@ const Information = () => {
             setErrors([...error])
         }else{
             setErrors([])
-            Actions.User.saveSecurityQuestions({data:questions,loader:setSecurityQuestionsLoader})
-                .then(response=>{
-                    if(response.status){
+            MULTI({
+                title:t('Confirm Operation'),
+                send:"/os/v1/api/secured/otp/profile-info-security-question",
+                save:({code,sourceId})=>{
+                    if(code){
 
-                        setOpenSecretQuestion(false)
-                    }else{
-                        window.pushEvent("error")
+                        Actions.User.saveSecurityQuestions({data:{
+                                otp:code,
+                                sourceId:sourceId,
+                                ...questions
+                            },loader:"verifyOtp"}).then(response=>{
+                            if(response.status){
+                                window.pushEvent(t("The operation was performed successfully"),"success");
+                                setOpenSecretQuestion(false)
+                                CLOSE();
+                            }else{
+                                console.log("catch")
+                                ERROR({error:t("error")})
+                            }
+                        }).catch(e=>{
+                            console.log("catch")
+                            ERROR({error:t("error")})
+                        })
                     }
-                })
-            console.log("send")
+
+                }
+            })
         }
     }
 
@@ -488,7 +505,7 @@ const Information = () => {
                                                 type="button"
                                                 onClick={()=>setOpen2FA(true)}
                                             >
-                                                {t("Set 2fa")}
+                                                {t("2FA Autorization")}
                                             </button>
                                         </div>
                                         <div className="col-12 order-1 order-md-3">
@@ -519,43 +536,13 @@ const Information = () => {
             }
             {
                 open2FA && (
-                    <PLXModal title={t('Set 2fa')} onClose={()=>setOpen2FA(false)} dialogStyle={{maxWidth:'360px'}} >
+                    <PLXModal title={t('Set 2FA Autorization')} onClose={()=>setOpen2FA(false)} dialogStyle={{maxWidth:'360px'}} >
                         <form onSubmit={e=>{
                             e.preventDefault();
                             //changePassword();
                         }} className="confirm-form password-change">
 
-                            <div className="row">
-                                <h5>{t("Question")}1</h5>
-                                <div className="col-12">
-                                    <SelectBox data={questions} value={infoData.question} placeholder={t("Secret question")}
-                                               id={'question1'}
-                                               onSelect={(e)=> setInfoData({...infoData,question:e.id})}
-                                    />
-                                </div>
-                                <div className="col-12">
-                                    <div className="input-label-border">
-                                        <input onChange={e => setInfoData({...infoData,answer:e.target.value})} value={infoData.answer} type="text" name="secret-answer" id="secretAnswer"/>
-                                        <label htmlFor="secretAnswer">{t("Secret answer")}</label>
-                                    </div>
-                                </div>
-
-
-                                <h5>{t("Question")}2</h5>
-                                <div className="col-12">
-                                    <SelectBox data={questions} value={infoData.question} placeholder={t("Secret question")}
-                                               id={'question1'}
-                                               onSelect={(e)=> setInfoData({...infoData,question:e.id})}
-                                    />
-                                </div>
-                                <div className="col-12">
-                                    <div className="input-label-border">
-                                        <input onChange={e => setInfoData({...infoData,answer:e.target.value})} value={infoData.answer} type="text" name="secret-answer" id="secretAnswer"/>
-                                        <label htmlFor="secretAnswer">{t("Secret answer")}</label>
-                                    </div>
-                                </div>
-
-                            </div>
+                            {/*html here*/}
 
                             <button type="submit" className="btn-dep justify-content-center px-0" style={{position:'relative',overflow:'hidden'}}>
                                 {loader? (<SvgDot contentStyle={{background:'#00984a'}}/> ) : ''}
@@ -578,7 +565,7 @@ const Information = () => {
                             <div className="row">
                                 <h6 style={{color: '#727fa4'}}>{t("Question")} 1</h6>
                                 <div  className={`input-select-border col-12 ${error("question1")}`}>
-                                    <SelectBox data={securityQuestions} value={questions.question1} placeholder={t("Secret question")}
+                                    <SelectBox data={securityQuestions.filter(v=>questions.question2 !==v.id)} value={questions.question1} placeholder={t("Secret question")}
                                                id={'question1'}
                                                onSelect={(e)=> setQuestions({...questions,question1:e.id})}
                                     />
@@ -593,7 +580,7 @@ const Information = () => {
 
                                 <h6 style={{color: '#727fa4'}}>{t("Question")} 2</h6>
                                 <div  className={`input-select-border col-12 ${error("question2")}`}>
-                                    <SelectBox data={securityQuestions} value={questions.question2} placeholder={t("Secret question")}
+                                    <SelectBox data={securityQuestions.filter(v=>questions.question1 !==v.id)} value={questions.question2} placeholder={t("Secret question")}
                                                id={'question2'}
                                                onSelect={(e)=> setQuestions({...questions,question2:e.id})}
                                     />

@@ -19,7 +19,7 @@ const SelectBox = memo(({id,data,onSelect,value,placeholder,className})=>{
                 ref.current.classList.add("close-select-box");
             }
         }}>
-            <input type="text" name="select"  value={selected?.title} id={id}/>
+            <input type="text" name="select"  value={selected?.title||selected?.name} id={id}/>
             <label htmlFor={id}>{placeholder}</label>
             {
                 <div className={"select-option-box close-select-box"} ref={ref}>

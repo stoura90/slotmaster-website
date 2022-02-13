@@ -195,7 +195,7 @@ const getSecurityQuestion =({loader})=>{
    return  http.get({url:Config.User.GET_SECURITY_QUESTIONS,loader:loader})
 }
 const saveSecurityQuestions =({loader,data})=>{
-    return  http.post({url:Config.User.GET_SECURITY_QUESTIONS,loader:loader,data:query_string(data)})
+    return  http.post({url:Config.User.SAVE_SECURITY_QUESTIONS,loader:loader,data:query_string(data)})
 }
 export default {
   getSecurityQuestion,
