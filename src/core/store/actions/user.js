@@ -74,19 +74,8 @@ const signUp = async ({data,loader}) => {
     }
     return response;
 }
-const updateInfo = async ({data}) => {
-    let formData = new FormData();
-
-    formData.append("firstName", data.firstName)
-    formData.append("lastName", data.lastName)
-    formData.append("dob", data.dob)
-    formData.append("mobile", data.mobile)
-    formData.append("username", data.username)
-    formData.append("email", data.email)
-    formData.append("countryCode", data?.country?.iso3)
-    formData.append("currencyCode", data?.currency?.iso)
-
-    return await http.post({url:Config.User.UPDATE_INFO,data:formData} )
+const updateInfo = async ({data,loader}) => {
+    return await http.post({url:Config.User.UPDATE_INFO,data:query_string(data),loader:loader } )
 }
 const  resendOtp = ({send,type,prefix,value,additionalParams={},loader,permitAll=false}) =>{
     //{type}&prefix={prefix}&value={value}
