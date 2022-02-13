@@ -417,7 +417,7 @@ const Information = () => {
                                         <div className="col-12 d-none d-md-flex">
                                             <div className="form-title">{t("Security")}</div>
                                         </div>
-                                        <div className="col-12 order-2 order-md-1">
+                                        {/*<div className="col-12 order-2 order-md-1">
                                             <SelectBox data={questions} value={infoData.question} placeholder={t("Secret question")}
                                                     id={'question1'}
                                                     onSelect={(e)=> setInfoData({...infoData,question:e.id})}
@@ -428,6 +428,24 @@ const Information = () => {
                                                 <input onChange={e => setInfoData({...infoData,answer:e.target.value})} value={infoData.answer} type="text" name="secret-answer" id="secretAnswer"/>
                                                 <label htmlFor="secretAnswer">{t("Secret answer")}</label>
                                             </div>
+                                        </div>*/}
+                                        <div className="col-12 order-1 order-md-3">
+                                            <button
+                                                className="btn-change-password"
+                                                type="button"
+                                                onClick={()=>setOpenChangePass(true)}
+                                            >
+                                                {t("Secret Question")}
+                                            </button>
+                                        </div>
+                                        <div className="col-12 order-1 order-md-3">
+                                            <button
+                                                className="btn-change-password"
+                                                type="button"
+                                                onClick={()=>setOpenChangePass(true)}
+                                            >
+                                                {t("Set 2fa")}
+                                            </button>
                                         </div>
                                         <div className="col-12 order-1 order-md-3">
                                             <button
