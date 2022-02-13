@@ -43,10 +43,10 @@ const gender = [
     { id:"M",title:"Male",}
 ]
 const questions = [
-    { id:1,value:"What is your mother\'s maiden name?"},
-    { id:2,value:"What was your first pet?"},
-    { id:3,value:"What was the model of your first car?"},
-    { id:4,value:"In what city were you born?"},
+    { id:1,title:"What is your mother\'s maiden name?"},
+    { id:2,title:"What was your first pet?"},
+    { id:3,title:"What was the model of your first car?"},
+    { id:4,title:"In what city were you born?"},
 ]
 
 const Information = () => {
@@ -60,15 +60,14 @@ const Information = () => {
         lastName:'',
         username:'',
         currency: "",
-        city:'',
         answer:'',
         country:"",
         mobileConfirmed:0,
         emailConfirmed:0,
         mobilePrefix:"1",
         hasUserRequestedVerify:null,
-        userVerifyStatus:null,
-        question: {id:0, value:''}
+        verifyStatus:null,
+
     });
     const [status,setStatus]=useState({
         status:"",
@@ -97,8 +96,10 @@ const Information = () => {
         return errors.indexOf(key)>-1?"error":""
     }
     const onUpdate = ()=>{
+
         let error = _.chain(infoData).map((v,k)=>{ return  {key:k,value:v}}).filter(v=>!v.value).map(v=>v.key).value();
 
+        console.log(error)
 
         if(error.length>0){
             setErrors([...error])
@@ -111,7 +112,6 @@ const Information = () => {
                         msg:''
                     })
                 },2000)
-
                 console.log(response)
 
                 if(response.status){
@@ -418,10 +418,9 @@ const Information = () => {
                                             <div className="form-title">{t("Security")}</div>
                                         </div>
                                         <div className="col-12 order-2 order-md-1">
-                                            <Select data={questions} value={infoData.question} label={t("Secret question")}
-                                                    plData={{id:0,value:''}} plName={t('Choose')}
-                                                    id={'question'}
-                                                    onSelect={(e)=> setInfoData({...infoData,question:e})}
+                                            <SelectBox data={questions} value={infoData.question} placeholder={t("Secret question")}
+                                                    id={'question1'}
+                                                    onSelect={(e)=> setInfoData({...infoData,question:e.id})}
                                             />
                                         </div>
                                         <div className="col-12 order-3 order-md-2">
