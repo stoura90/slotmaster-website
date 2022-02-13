@@ -7,6 +7,7 @@ import {useOTP} from "../../../core/hooks/useOTP";
 import {useParams} from "react-router-dom";
 import ChangePassword from '../../account/changePassword/ChangePassword'
 import SelectBox from "../../forms/select/NewSelect";
+import {SvgDot} from "../../index";
 
 
 const countries =[
@@ -18,10 +19,12 @@ const countries =[
 
 ]
 const currency = [
+/*
     {  id:'USD',title:"US Dollar" },
+*/
     {  id:'EUR',title:"Euro" },
-    {  id:'GEL',title:"Lari" },
-    {  id:'RUB',title:"Russian Ruble" }
+   /* {  id:'GEL',title:"Lari" },
+    {  id:'RUB',title:"Russian Ruble" }*/
 ]
 
 
@@ -60,7 +63,6 @@ const Information = () => {
         lastName:'',
         username:'',
         currency: "",
-        answer:'',
         country:"",
         mobileConfirmed:0,
         emailConfirmed:0,
@@ -69,6 +71,7 @@ const Information = () => {
         verifyStatus:null,
 
     });
+    const  [loader,setLoader]=useState(false)
     const [status,setStatus]=useState({
         status:"",
         msg:""
@@ -104,7 +107,8 @@ const Information = () => {
         if(error.length>0){
             setErrors([...error])
         }else{
-            Actions.User.updateInfo({data:infoData}).then(response=>{
+            console.log(infoData)
+            Actions.User.updateInfo({data:infoData,loader:setLoader}).then(response=>{
                 setTimeout(()=>{
                     setStatus({
                         ...status,
@@ -442,7 +446,9 @@ const Information = () => {
                                 </div>
                             </div>
                             <div style={{color:`${status.status ==="success"? 'green':'red'}`}}>{status.msg}</div>
-                            <button type="submit" className="btn-primary">{t("Save")}</button>
+                            <button type="submit" className="btn-primary" style={{position:'relative',overflow:'hidden'}}>
+                                {loader? <SvgDot/>:t("Save")}
+                            </button>
                         </form>
                     </div>
                 </div>
