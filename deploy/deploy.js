@@ -4,7 +4,7 @@ const utils = require("./deployUtils")
 let sftp = new Client();
 const path = require('path');
 const src = path.join(__dirname, '..', 'build/');
-let remote = '/var/www/planetaxbet/website';
+let remote = '/var/www/planetaxbet/website_prod';
 const total = utils.getTotalSize(`${src}`);
 
 const progress = new cliProgress.Bar({

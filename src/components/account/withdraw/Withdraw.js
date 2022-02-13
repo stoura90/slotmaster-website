@@ -42,8 +42,7 @@ const Withdraw = ({onClose})=>{
     const {t} = useTranslation();
     const {otp, PHONE,EMAIL,CLOSE,ERROR,MULTI} = useOTP();
     const [withdraw,setWithdraw]=useState({amount:'', address:""});
-    const [openWithdraw,setOpenWithdraw]=useState(false);
-    const [selectedCurrency,setSelectedCurrency] = useState({id:"BTC",title:"BTC",name:"Bitcoin"});
+    const [selectedCurrency,setSelectedCurrency] = useState();
     const [exRate,setExRate]=useState(null)
     const [loader,setLoader]=useState(false)
 
@@ -70,7 +69,7 @@ const Withdraw = ({onClose})=>{
                             },loader:"verifyOtp"}).then(response=>{
                             if(response.status){
                                 CLOSE();
-                                setOpenWithdraw(false);
+                                setSelectedCurrency(null);
                                 window.pushEvent(t("The operation was performed successfully"),"success")
                             }else{
                                 console.log("catch")
@@ -89,7 +88,7 @@ const Withdraw = ({onClose})=>{
         }
     }
     const withdrawDialog = () =>{
-        return openWithdraw && <PLXModal title={t("Withdraw")} onClose={()=>setOpenWithdraw(false)} contentStyle={{width:'350px'}} dialogStyle={{width:"350px"}}  >
+        return selectedCurrency && <PLXModal title={t("Withdraw")} onClose={()=>setSelectedCurrency(null)} contentStyle={{width:'350px'}} dialogStyle={{width:"350px"}}  >
                 <div style={{minWidth:'200px'}}>
                     <form onSubmit={e=>{
                         e.preventDefault()
@@ -196,7 +195,7 @@ const Withdraw = ({onClose})=>{
                                         <div className="reflection-duration">Instantly</div>
                                     </div>
                                 </div>
-                                <a target="_blank" className="btn-dark" onClick={()=>setOpenWithdraw(true)}>Withdraw</a>
+                                <a target="_blank" className="btn-dark" onClick={()=>setSelectedCurrency({id:"BTC",title:"BTC",name:"Bitcoin"})}>Withdraw</a>
                             </div>
                         </div>
                     </div>
