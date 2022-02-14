@@ -38,7 +38,7 @@ const currencyList = [
 const Deposit = ({onClose})=>{
     const {t} = useTranslation();
     const [loader,setLoader]=useState(false)
-    const [qr,setQr] = useState(null)
+    const [qr,setQr] = useState(true)
     const [qrData,setQrData] = useState({})
     const [selectedCurrency,setSelectedCurrency] = useState({id:"BTC",title:"BTC",name:"Bitcoin"});
     const [copyText,setCopyText] = useState(false);
