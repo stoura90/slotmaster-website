@@ -173,7 +173,6 @@ const Information = () => {
                         msg:''
                     })
                 },2000)
-                console.log(response)
 
                 if(response.status){
                     setStatus({

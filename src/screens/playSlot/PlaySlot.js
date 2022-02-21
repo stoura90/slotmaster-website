@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {useUser} from "../../core/hooks/useUser";
 import {Guest} from "../../components";
 import {useNavigation} from "../../core/hooks/useNavigation";
+import EventEmitter from "../../core/utils/eventEmitter";
 
 const PlaySlot= () => {
     const {t} = useTranslation()
@@ -11,6 +12,7 @@ const PlaySlot= () => {
     const {User} = useUser()
     const navigation  = useNavigation()
     const [loaded,setLoaded]=useState(false)
+    const ev  = new EventEmitter()
     useLayoutEffect(()=>{
         if(!navigation.get("uri")){
             window.close()
@@ -21,7 +23,7 @@ const PlaySlot= () => {
     },[])
     useEffect(()=>{
         if(!User.isLogged){
-            document.getElementById("signIn-btn").click();
+            ev.emit("signIn",true)
         }
     },[loaded])
 
@@ -31,9 +33,7 @@ const PlaySlot= () => {
 
     return <div style={{width:'100%', height:'100%'}}>
         <Guest/>
-        <button className="btn-text text-capitalize" data-bs-toggle="modal" data-bs-target="#LoginModal"
-                id="signIn-btn" style={{display:"none"}}>{t("Log In")}
-        </button>
+
 
 
         {

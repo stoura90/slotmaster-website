@@ -1,19 +1,19 @@
 import {Config} from "../../config";
-import Http from "../../http/http2";
+import http from "../../http/http3";
 const play =(slot)=>{
-    return (new Http()).get(Config.Slot.PLAY.replace("{gameId}",slot.id))
+    return http.get({url:Config.Slot.PLAY.replace("{gameId}",slot.id)})
 }
 const list =  ({webPageId="1"}) => {
-    return (new Http()).permitAll().setLoader("zura-loader").get(Config.Slot.LIST.replace("{webPageId}",webPageId));
+    return http.get({url:Config.Slot.LIST.replace("{webPageId}",webPageId),permitAll:true});
 }
 const listByPage =  ({webPageId="1"}) => {
-    return (new Http()).permitAll().setLoader("slot-list-loader").get(Config.Slot.SLOT_LIST.replace("{webPageId}",webPageId));
+    return http.get({url:Config.Slot.SLOT_LIST.replace("{webPageId}",webPageId),permitAll:true});
 }
 const listByProvider =  (id,webPageId="1") => {
-    return (new Http()).permitAll().get(Config.Slot.LIST_BY_PROVIDER.replace("{slotProviderId}",id).replace("{webPageId}",webPageId));
+    return http.get({url:Config.Slot.LIST_BY_PROVIDER.replace("{slotProviderId}",id).replace("{webPageId}",webPageId),permitAll:true});
 }
 const listByFilter =  (id,webPageId="1") => {
-    return (new Http()).permitAll().get(Config.Slot.LIST_BY_FILTER.replace("{filterId}",id).replace("{webPageId}",webPageId));
+    return http.get({url:Config.Slot.LIST_BY_FILTER.replace("{filterId}",id).replace("{webPageId}",webPageId),permitAll:true});
 }
 export default {
     play,
