@@ -63,7 +63,7 @@ const Information = () => {
         gender:'',
         lastName:'',
         username:'',
-        currency: "",
+        currency: "EUR",
         country:"",
         mobileConfirmed:0,
         emailConfirmed:0,
@@ -442,7 +442,7 @@ const Information = () => {
 
                                         <div className="col-12 col-md-6">
                                             <div className={`input-label-border ${error("username")}`}>
-                                                <input onChange={e => setInfoData({...infoData,username:e.target.value})} value={infoData.username} type="text" name="username" id="username" placeholder="username"/>
+                                                <input onChange={e => setInfoData({...infoData,username:e.target.value})} value={infoData.username} type="text" name="username" id="username" />
                                                 <label htmlFor="username">{t("Username")}</label>
                                             </div>
                                         </div>
@@ -456,13 +456,17 @@ const Information = () => {
                                             />
                                         </div>
                                         <div className="col-12 col-md-6">
-                                            <SelectBox
+                                            <div className={`input-label-border ${error("username")}`}>
+                                                <input value={currency[0].title} type="text" name="currency" id="currency" placeholder="currency"/>
+                                                <label htmlFor="currency">{t("currency")}</label>
+                                            </div>
+                                            {/*<SelectBox
                                                 data={currency}
                                                 value={infoData.currency}
-                                                placeholder={t("Choose Currency")}
+                                                placeholder={t("Currency")}
                                                 id={'currency'}
                                                 onSelect={(e)=> setInfoData({...infoData,currency:e.id})}
-                                            />
+                                            />*/}
                                         </div>
 
                                     </div>

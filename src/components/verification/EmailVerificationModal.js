@@ -103,13 +103,13 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
                 }
             }} className="confirm-form">
                 <p className="confirm-text">
-                    {t("A 6-digit SMS code was sent to")}:
+                    {t("A 6-digit Email code was sent to")}:
                     <br/>
                     <span className="phone-num">{email}</span><br/> {t("Please enter the code in the field below to confirm")}:
                 </p>
                 <div className={`input-label-border ${error?'error':''}`}>
                     <input type="number" name="code" id="code" value={code} onChange={e=>setCode(e.target.value)} className="for-confirm"/>
-                    <label htmlFor="code">{t("SMS Code")}</label>
+                    <label htmlFor="code">{t("Email Code")}</label>
                     {
                         reSend!==-1? <span className="timeout">{reSend}</span>: <button type="button" className="btn-confirm" onClick={()=>onResend()}>{t("Send")}</button>
                     }

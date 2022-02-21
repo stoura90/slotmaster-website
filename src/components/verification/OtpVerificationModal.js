@@ -178,11 +178,11 @@ export const OtpVerificationModal = ({err,send,save,verify,onClose,additionalPar
                 {
                    sourceId? <div>
                        <p className="confirm-text">
-                           {t("A 6-digit SMS code was sent to")}:<span className="phone-num">{selectedSource?.type === 'email'? ' Email':" Phone "}</span>. {t("Please enter the code in the field below to confirm")}:
+                           {t("A 6-digit code was sent to")}:<span className="phone-num">{selectedSource?.type === 'email'? ' Email':" Phone "}</span>. {t("Please enter the code in the field below to confirm")}:
                        </p>
                        <div className="input-label-border">
                            <input type="text" name="code" id="code" value={code} onChange={e=>setCode(e.target.value)} className="for-confirm"/>
-                           <label htmlFor="code">{t("SMS Code")}</label>
+                           <label htmlFor="code">{selectedSource?.type === 'email' ? t("Email Code") : t("SMS Code") }</label>
                            {
                                reSend!==-1? <span className="timeout">{reSend}</span>: <button type="button" className="btn-confirm" onClick={()=>onResend()}>{t("Send")}</button>
                            }
