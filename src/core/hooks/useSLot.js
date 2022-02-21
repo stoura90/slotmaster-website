@@ -1,17 +1,18 @@
-import {useDispatch, useSelector} from "react-redux";
-import {SIGN_IN} from "../store/actionTypes";
+
 import {Actions, useTranslation} from "../index";
 import {useUser} from "./useUser";
 import {useLoader} from "./useLoader";
+import EventEmitter from "../utils/eventEmitter";
 
 export function useSLot() {
     const User = useUser();
     const {setLoader} = useLoader()
     const {t,i18n} = useTranslation()
+    const ev =new EventEmitter()
     const play=(slot)=>{
 
         if(!User.User.isLogged){
-            document.getElementById("signIn-btn").click();
+            ev.emit("signIn",true)
             return;
         }
         setLoader(slot.gameId)
