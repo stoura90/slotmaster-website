@@ -107,7 +107,7 @@ const Balance = ({route}) =>{
                         <div className="col-12 col-lg-4 d-none d-lg-flex">
                             <div className="d-flex flex-column balance-item">
                                 <span>{t("Balance")}</span>
-                                <div  className={`sum ${showBalance?'':'blur-text'}`}>${showBalance?"100000.00 ":"0000000"}<span className={`${showBalance?'':'blur-text'}`}>{t("USD")}</span></div>
+                                <div  className={`sum ${showBalance?'':'blur-text'}`}>{showBalance? (User.data.accounts.main.amount/100).toFixed(2) :"0000000"} <span className={`${showBalance?'':'blur-text'}`}>{t(User.data.accounts.main.currency.iso3)}</span></div>
                             </div>
                         </div>
                         <div className="col-6 col-lg-4">
@@ -123,7 +123,8 @@ const Balance = ({route}) =>{
                             </div>
                         </div>
                     </div>
-                   <Link to={`/${params.lang}/account/finances?to=deposit`}><button className="btn-dep">{t("Make a Deposit")}</button></Link>
+                   {/*<Link to={`/${params.lang}/account/finances?to=withdraw`}><button className="btn-with">{t("Withdraw")}</button></Link>
+                   <Link to={`/${params.lang}/account/finances?to=deposit`}><button className="btn-dep">{t("Deposit")}</button></Link>*/}
                 </div>
             </div>
 

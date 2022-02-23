@@ -13,11 +13,12 @@ const SelectBox = memo(({id,data,onSelect,value,placeholder,className})=>{
     },[value])
     return (
         <div className={`input-select input-style ${className}`} onClick={()=>{
-            if(ref.current.classList.contains("close-select-box")){
-                ref.current.classList.remove("close-select-box");
-            }else{
-                ref.current.classList.add("close-select-box");
-            }
+            ref.current.classList.toggle("close-select-box")
+            //if(ref.current.classList.contains("close-select-box")){
+            //    ref.current.classList.remove("close-select-box");
+            //}else{
+            //    ref.current.classList.add("close-select-box");
+            //}
         }}>
             <input type="text" name="select"  value={selected?.title||selected?.name} id={id}/>
             <label htmlFor={id}>{placeholder}</label>

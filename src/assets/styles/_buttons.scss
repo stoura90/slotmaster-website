@@ -111,7 +111,7 @@ button, .btn-primary {
     }
 }
 
-.btn-dep {
+.btn-dep, .btn-with {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,6 +126,7 @@ button, .btn-primary {
     color: $white;  
     white-space: nowrap;
     transition: all .15s linear;
+    margin-left: 12px;
     &:hover {
         background: #0ab45c;
         color: $text-light;  

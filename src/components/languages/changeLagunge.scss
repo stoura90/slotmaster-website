@@ -1,9 +1,11 @@
 .changeLagunge{
-  margin-left: 20px;
+  //margin-left: 20px;
   height: 35px;
+  display: flex;
+  align-items: center;
 
   .lang {
-    padding: 10px;
+    //padding: 10px;
     position: relative;
 
     &[data-lang="ru"] {
@@ -34,17 +36,26 @@
     }
 
     .active-lang {
-      width: 26px;
-      height: 17px;
-      padding-left: 26px;
+      //width: 26px;
+      //height: 17px;
+      //padding-left: 26px;
+      //position: relative;
+      width: 24px;
+      height: 24px;
+      /* padding-left: 26px; */
       position: relative;
+      background-size: cover !important;
+      background-position: center !important;
+      border-radius: 50px;
+      border: 1px solid #fff;
 
     }
     .lang-wrapper{
       display: none;
       position: absolute;
       top: 100%;
-      right: 0px;
+      left: 50%;
+      transform: translateX(-50%);
 
       .items {
         margin-top: 5px;
@@ -56,10 +67,10 @@
           position: relative;
           align-items: center;
           color: #fff;
-          width: 90px;
+          //width: 90px;
           height: 26px;
           /* justify-content: center; */
-          padding-right: 10px;
+          //padding-right: 10px;
           padding-left: 45px;
 
           &[data-lang="ru"],

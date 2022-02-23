@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useTranslation} from "../../core";
 import {useParams} from "react-router-dom";
 import "./changeLagunge.scss"
- const ChangeLagunge = () =>{
+ const ChangeLagunge = ({style}) =>{
     const {i18n} = useTranslation();
     const [activeLang,setActiveLang] = useState(i18n.language)
 
@@ -12,13 +12,13 @@ import "./changeLagunge.scss"
          setActiveLang(lang);
      }
 
-    return  <div className={"changeLagunge"}>
+    return  <div className={"changeLagunge"} style={style}>
         <div className="lang" data-lang={activeLang}>
             <div className="active-lang">&nbsp;</div>
             <div className="lang-wrapper">
                 <div className="items">
-                    <div className="item" data-lang="ru" onClick={()=>changeLang('ru')}>RUS</div>
-                    <div className="item" data-lang="en" onClick={()=>changeLang('en')}>ENG</div>
+                    <div className="item" data-lang="ru" onClick={()=>changeLang('ru')}/>
+                    <div className="item" data-lang="en" onClick={()=>changeLang('en')}/>
                 </div>
             </div>
         </div>

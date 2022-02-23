@@ -4,6 +4,7 @@ import {useUser} from "../../core/hooks/useUser";
 import {
     account,
     logo2,
+    user_ico
 } from '../../assets/img/icons/icons';
 import {Link, useParams} from "react-router-dom";
 import PropTypes from 'prop-types';
@@ -44,8 +45,10 @@ const Header = ({page}) =>{
                                                 <span className="current-balance">{(User.data.accounts.main.amount/100).toFixed(2)}</span>
                                             </div>
 
-                                            <Link  to={`/${lang}/account`} className="account-link"><img src={account} alt=""/></Link>
+
+                                            <Link  to={`/${lang}/account/finances?to=withdraw`} className="withdraw-link">{t("withdraw")}</Link>
                                             <Link  to={`/${lang}/account/finances?to=deposit`} className="deposit-link">{t("deposit")}</Link>
+                                            <Link  to={`/${lang}/account`} className="account-link"><img src={user_ico} alt=""/></Link>
                                         {/*<button
                                             className="navbar-toggler"
                                             type="button"
@@ -88,7 +91,7 @@ const Header = ({page}) =>{
                                         </button>
                                     </>
                                 }
-                                <ChangeLagunge/>
+                                <ChangeLagunge style={User.isLogged? {}:{marginLeft:'20px'}}/>
                             </div>
                         </div>
                     </div>

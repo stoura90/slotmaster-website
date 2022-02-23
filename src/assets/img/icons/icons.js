@@ -39,6 +39,7 @@ import kiron from "./kiron.png";
 import pragmatic from "./pragmatic.png";
 import coinspaid from "./coinspaid.svg";
 import copy from "./copy.svg";
+import user_ico from "./user_ico.svg";
 
 export {
 restriction18,
@@ -81,5 +82,6 @@ loader,
     kiron,
     pragmatic,
     coinspaid,
-    copy
+    copy,
+    user_ico
 }
