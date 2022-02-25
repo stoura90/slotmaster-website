@@ -5,6 +5,7 @@ import {Button, Footer, Guest, Header, MainNavigator, } from "./components";
 import {useDispatch} from "react-redux";
 import OTP from "./components/verification";
 
+
 const  App=()=> {
     const {t,i18n}  = useTranslation()
     const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const  App=()=> {
     }
   return  loaded && (<>
           <MainNavigator/>
+
           <Guest/>
           <OTP/>
           <div className="event-wrap"/>

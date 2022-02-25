@@ -41,6 +41,11 @@ import coinspaid from "./coinspaid.svg";
 import copy from "./copy.svg";
 import user_ico from "./user_ico.svg";
 
+import stickHome from "./stick-home.svg";
+import stickDeposit from "./stick-dep.svg";
+import stickWithdraw from "./stick-withdraw.svg";
+import stickAccount from "./stick-account.svg";
+
 export {
 restriction18,
 account,
@@ -83,5 +88,9 @@ loader,
     pragmatic,
     coinspaid,
     copy,
-    user_ico
+    user_ico,
+    stickHome,
+    stickDeposit,
+    stickWithdraw,
+    stickAccount
 }

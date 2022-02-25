@@ -1,0 +1,44 @@
+.stickFooter {
+  display: none;
+  align-items: center;
+  flex-direction: row;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #141925;
+  height: 70px;
+  z-index: 99999999;
+  margin: 0;
+  padding: 0;
+  box-shadow: 0 0 6px #141925;
+}
+.stickFooter li {
+  flex: 1;
+  list-style: none;
+}
+.stickFooter li a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 14px;
+}
+.stickFooter li a i {
+  text-align: center;
+}
+.stickFooter li a span {
+  text-align: center;
+  color: #B0BBD4;
+  margin-top: 5px;
+}
+
+@media (max-width: 576px) {
+  .footer {
+    padding-bottom: 80px !important;
+  }
+
+  .stickFooter {
+    display: flex;
+  }
+}
+
+/*# sourceMappingURL=stickFooter.css.map */
