@@ -9,7 +9,7 @@ import {arrowLeftBack, coinspaid} from "../../../assets/img/icons/icons";
 import {DateRange} from "react-date-range";
 import moment from "moment";
 
-const Transactions = () => {
+const Transactions = ({onClose}) => {
     const {t} = useTranslation();
     const nav = useNavigation()
     const [deposit,setDeposit]=useState(false);
@@ -41,7 +41,7 @@ const Transactions = () => {
             <div className="col-12">
                 <div className="row">
                     <div className="col-12">
-                        <button className="d-flex align-items-center back bg-transparent">
+                        <button className="d-flex align-items-center back bg-transparent" onClick={()=>onClose()}>
 
                             <img src={arrowLeftBack} alt=""/>
 
@@ -80,7 +80,23 @@ const Transactions = () => {
                                 }
 
                             </div>
-                           {/* <div className="col-12 col-md-4 d-none d-md-block">
+
+                        </div>
+                    </div>
+                    <div className="col-12 transaction-table d-none d-md-block">
+                        <div className="row mx-0 table-head">
+                            <div className="col">
+                                <div className="table-th">Date</div>
+                            </div>
+                            <div className="col">
+                                <div className="table-th">Time</div>
+                            </div>
+                            <div className="col ps-0">
+                                <div className="table-th">Vendor</div>
+                            </div>
+                            <div className="col">
+                                <div className="table-th">Amount</div>
+                            </div>{/* <div className="col-12 col-md-4 d-none d-md-block">
                                 <div className="select-label">
                                     <select
                                         className="select2 select2-checkbox"
@@ -120,22 +136,6 @@ const Transactions = () => {
                                     </select>
                                 </div>
                             </div>*/}
-                        </div>
-                    </div>
-                    <div className="col-12 transaction-table d-none d-md-block">
-                        <div className="row mx-0 table-head">
-                            <div className="col">
-                                <div className="table-th">Date</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-th">Time</div>
-                            </div>
-                            <div className="col ps-0">
-                                <div className="table-th">Vendor</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-th">Amount</div>
-                            </div>
                             <div className="col">
                                 <div className="table-th">Type</div>
                             </div>

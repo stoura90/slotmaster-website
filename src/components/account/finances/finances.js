@@ -3,7 +3,7 @@ import './style.scss';
 import { useTranslation} from "../../../core";
 import Deposit from '../deposit/Deposit';
 import Withdraw from '../withdraw/Withdraw';
-import {PLXModal} from "../../index";
+import {PLXModal, Transactions} from "../../index";
 import {useNavigation} from "../../../core/hooks/useNavigation";
 
 const Finances = () => {
@@ -57,13 +57,13 @@ const Finances = () => {
                                             {svgArrow()}
                                         </button>
                                     </li>
-                                    {/*<li className="nav-item" role="presentation">
+                                  <li className="nav-item" role="presentation">
                                         <button onClick={()=>setHistory(true)} className="d-flex align-items-center justify-content-between nav-link secondery"
                                                 id="transaction-tab" type="button">
                                             <span>Transaction history</span>
                                             {svgArrow()}
                                         </button>
-                                    </li>*/}
+                                    </li>
                                 </ul>
                             </div>
                         )
@@ -77,7 +77,9 @@ const Finances = () => {
                         withdraw ? <Withdraw onClose={()=> setWithdraw(false)}/>:''
                     }
 
-
+                    {
+                        history ? <Transactions onClose={()=> setHistory(false)}/>:''
+                    }
 
                 </div>
             </div>
