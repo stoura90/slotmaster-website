@@ -20636,7 +20636,6 @@ button:active, .btn-primary:active {
   color: #fff;
   white-space: nowrap;
   transition: all 0.15s linear;
-  margin-left: 12px;
 }
 .btn-dep:hover, .btn-with:hover {
   background: #0ab45c;
@@ -22403,6 +22402,27 @@ button:active, .btn-primary:active {
   margin: 20px 0;
 }
 
+.mob-balance-btn {
+  display: none;
+}
+.mob-balance-btn .btn-with {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  border-radius: 6px;
+  background-color: #171e2d;
+  border: 2px solid #3E4962;
+  transition: all 0.15s linear;
+  margin: 0;
+  width: 100%;
+}
+.mob-balance-btn .btn-with:hover {
+  background-color: #242d42;
+}
+.mob-balance-btn .btn-dep {
+  width: 100%;
+}
+
 .footer {
   margin-top: 40px;
   overflow: hidden;
@@ -23369,6 +23389,28 @@ select {
 
 .modal-footer:empty {
   display: none;
+}
+
+@media (max-width: 576px) {
+  .footer {
+    padding-bottom: 80px !important;
+  }
+
+  .stickFooter {
+    display: flex;
+  }
+
+  .authorization-interface .withdraw-link,
+.authorization-interface .deposit-link {
+    display: none !important;
+  }
+  .authorization-interface .navbar-balance {
+    margin-right: 0 !important;
+  }
+
+  .account-billing-info .mob-balance-btn {
+    display: block;
+  }
 }
 
 /*# sourceMappingURL=app.css.map */

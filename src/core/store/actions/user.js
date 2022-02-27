@@ -197,6 +197,9 @@ const getSecurityQuestion =({loader})=>{
 const saveSecurityQuestions =({loader,data})=>{
     return  http.post({url:Config.User.SAVE_SECURITY_QUESTIONS,loader:loader,data:query_string(data)})
 }
+const save2faAuthentication =({loader,data})=>{
+    return  http.post({url:Config.User.SAVE_2FA_AUTHENTICATION,loader:loader,data:query_string(data)})
+}
 export default {
   getSecurityQuestion,
     saveSecurityQuestions,
@@ -214,5 +217,6 @@ export default {
     verification_email,
     verification_phone,
     change_password,
-    withdraw_coinsPaid
+    withdraw_coinsPaid,
+    save2faAuthentication
 }

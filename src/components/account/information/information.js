@@ -90,6 +90,7 @@ const Information = () => {
     const [openSecretQuestion,setOpenSecretQuestion]=useState(false);
     const [securityQuestions,setSecurityQuestions]=useState([]);
     const [open2FA,setOpen2FA]=useState(false);
+    const [dat2FA,setDat2FA]=useState(false);
     useEffect(()=>{
         getInfo()
 
@@ -155,6 +156,36 @@ const Information = () => {
                 }
             })
         }
+    }
+
+    const save2faAuthentication =()=> {
+        MULTI({
+            title:t('Confirm Operation'),
+            send:"/os/v1/api/secured/otp/profile-info-2fa-authentication",
+            save:({code,sourceId})=>{
+                if(code){
+
+                    Actions.User.save2faAuthentication({data:{
+                            otp:code,
+                            sourceId:sourceId,
+                            twoFA:dat2FA
+                        },loader:"verifyOtp"}).then(response=>{
+                        if(response.status){
+                            window.pushEvent(t("The operation was performed successfully"),"success");
+                            setOpenSecretQuestion(false)
+                            CLOSE();
+                        }else{
+                            console.log("catch")
+                            ERROR({error:t("error")})
+                        }
+                    }).catch(e=>{
+                        console.log("catch")
+                        ERROR({error:t("error")})
+                    })
+                }
+
+            }
+        })
     }
 
     const onUpdate = ()=>{
@@ -542,12 +573,27 @@ const Information = () => {
                     <PLXModal title={t('Set 2FA Autorization')} onClose={()=>setOpen2FA(false)} dialogStyle={{maxWidth:'360px'}} >
                         <form onSubmit={e=>{
                             e.preventDefault();
-                            //changePassword();
-                        }} className="confirm-form password-change">
+                            save2faAuthentication();
+                        }} className="confirm-form aut-2fa">
 
-                            {/*html here*/}
+                            <div className="row">
+                                <div  className="col-12" style={{marginBottom:'0'}}>
+                                    <br/>
+                                    <p>you can turn on/off 2FA autorization here</p>
+                                    <p style={{fontSize:'14px',lineHeight:'14px',color:'#707c9b'}}>2fa is used for additional security during authentication</p>
+                                    <div className="out-2fa-box">
+                                        <div style={{color:'#707c9b'}}>USE 2FA:</div>
+                                        <div onClick={()=>setDat2FA(!dat2FA)} className={`btn-2fa ${dat2FA?'active':'disable'}`}>
+                                            <i/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <p style={{fontSize:'14px',lineHeight:'14px',color:'#707c9b',marginBottom:'0'}}>After saving the change, you must press the save</p>
+                                </div>
+                            </div>
 
-                            <button type="submit" className="btn-dep justify-content-center px-0" style={{position:'relative',overflow:'hidden'}}>
+
+                            <button type="submit" className="btn-dep justify-content-center px-0" style={{position:'relative',overflow:'hidden',marginLeft:'0'}}>
                                 {loader? (<SvgDot contentStyle={{background:'#00984a'}}/> ) : ''}
                                 {t("Save")}
                             </button>

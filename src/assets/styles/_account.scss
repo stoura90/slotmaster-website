@@ -310,5 +310,25 @@
     background-color: #1b2233;
     margin: 20px 0;
 }
+.mob-balance-btn {
+    display: none;
 
+    .btn-with {
+        display: flex;
+        align-items: center;
+        color: #fff;
+        border-radius: 6px;
+        background-color: #171e2d;
+        border: 2px solid #3E4962;
+        transition: all 0.15s linear;
+        margin: 0;
+        width: 100%;
+        &:hover {
+            background-color: #242d42;
+        }
+    }
+    .btn-dep {
+        width: 100%;
+    }
+}
 

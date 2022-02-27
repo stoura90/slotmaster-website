@@ -486,3 +486,25 @@ select{
 }
 
 .modal-footer:empty {display:none;}
+
+
+// override for mobile
+@media(max-width: 576px) {
+  .footer {
+    padding-bottom: 80px !important;
+  }
+  .stickFooter {
+    display: flex;
+  }
+
+  .authorization-interface {
+    .withdraw-link,
+    .deposit-link {display: none !important;}
+    .navbar-balance {margin-right: 0 !important;}
+  }
+  .account-billing-info {
+    .mob-balance-btn {
+      display: block;
+    }
+  }
+}

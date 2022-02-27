@@ -10,8 +10,12 @@
   .currency-list {
     span {
       color: #8594c1;
-      padding-right: 10px;
       font-size: 14px;
+      padding: 2px 8px;
+      text-decoration: none;
+      float: left;
+      display: block;
+      position: relative;
     }
   }
   p{

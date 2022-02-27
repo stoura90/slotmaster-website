@@ -14,7 +14,8 @@ export const Config ={
       CHANGE_PASSWORD:"/us/v2/api/secured/personal/password/change",
       WITHDRAW_COINSPAID:"/ws/v1/api/secured/payment/coinspaid/withdraw",
       GET_SECURITY_QUESTIONS:"/wsd/v1/api/security-questions",
-      SAVE_SECURITY_QUESTIONS:"/us/v2/api/secured/personal/info/security/questions/change"
+      SAVE_SECURITY_QUESTIONS:"/us/v2/api/secured/personal/info/security/questions/change",
+      SAVE_2FA_AUTHENTICATION:"/us/v2/api/secured/personal/info/security/2fa/change"
    },
    Config:{
       REFRESH_TOKEN:"/v1/api/refresh_token",

@@ -40,10 +40,10 @@ const Header = ({page}) =>{
                                                 <div data-user>{User.data.username}</div>
                                                 <div data-pin>id: {User.data.id}</div>
                                             </div>*/}
-                                            <div className="navbar-balance d-flex flex-column">
+                                            <Link to={`/${lang}/account`} className="navbar-balance d-flex flex-column">
                                                 <span className="currency">{User.data.accounts.main.currency.iso3}</span>
                                                 <span className="current-balance">{(User.data.accounts.main.amount/100).toFixed(2)}</span>
-                                            </div>
+                                            </Link>
 
 
                                             <Link  to={`/${lang}/account/finances?to=withdraw`} className="withdraw-link">{t("withdraw")}</Link>

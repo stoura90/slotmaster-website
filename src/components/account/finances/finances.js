@@ -25,11 +25,8 @@ const Finances = () => {
                 </g>
             </svg>)
     }
-    useEffect(()=>{
-        if(nav.get("to")==="deposit"){
-            setDeposit(true)
-        }
-    },[])
+
+
     return (
         <>
             <div className="tab-content" id="verificationTabContent">

@@ -179,27 +179,19 @@ const Deposit = ({onClose})=>{
                             <div className="currency">
                                 <h5 style={{color:'#c6d1ed'}}>Supported crypto currencies</h5>
                                 <div className="currency-list">
-                                    <span>BTC - Bitcoin,</span>
-                                    <span>LTC - Litecoin,</span>
-                                    <span>BCH - Bitcoin cash,</span>
-                                    <span>ADA - Cardano,</span>
-                                    <span>ETH - Ethereum,</span>
-                                    <span>DOGE - Dogecoin,</span>
-                                    <span>NEO - Neo,</span>
-                                    <span>XRP - Ripple,</span>
-                                    <span>USDT - Tether* USD,</span>
-                                    <span>USDTE - Tether USD ERC20 token,</span>
-                                    <span>USDTT - Tether USD TRC20 token,</span>
-                                    <span>ERC20 token(s),</span>
-                                    <span>BNB - Binance Coin,</span>
-                                    <span>EURS - STASIS EURS,</span>
-                                    <span>USDC - USD Coin,</span>
-                                    <span>TRX - TRON,</span>
-                                    <span>XED - Exeedme ERC20 token,</span>
-                                    <span>DAI - Dai ERC20 Stablecoin,</span>
-                                    <span>MRX - Metrix Coin,</span>
-                                    <span>WBTC - Wrapped Bitcoin,</span>
-                                    <span>CPD - CoinsPaid token</span>
+                                    <span>BTC - Bitcoin</span>
+                                    <span>LTC - Litecoin</span>
+                                    <span>ETH - Ethereum</span>
+                                    <span>BNB - Binance Coin</span>
+                                    <span>BUSD - Binance USD</span>
+                                    <span>USDTE - Tether USD ERC20</span>
+                                    <span>USDTT - Tether USD TRC20</span>
+                                    <span>DOGE - Dogecoin</span>
+                                    <span>NEO - Neo</span>
+                                    <span>ADA - Cardano</span>
+                                    <span>TRX - TRON</span>
+                                    <span>USDC - USD Coin</span>
+                                    <span>USDT - Tether* USD</span>
                                 </div>
                             </div>
                         </div>
@@ -212,3 +204,7 @@ const Deposit = ({onClose})=>{
 
 }
 export default Deposit;
+
+
+
+

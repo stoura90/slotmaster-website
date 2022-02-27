@@ -147,7 +147,7 @@ const ChangePassword = ({title,email,err,onSubmit,onClose,send,save,verify,addit
 
 
 
-                <button type="submit" className="btn-dep justify-content-center px-0" style={{position:'relative',overflow:'hidden'}}>
+                <button type="submit" className="btn-dep justify-content-center px-0" style={{position:'relative',overflow:'hidden',marginLeft:'0'}}>
                     {loader? (<SvgDot contentStyle={{background:'#00984a'}}/> ) : ''}
                     {t("Save")}
                 </button>

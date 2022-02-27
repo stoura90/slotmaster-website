@@ -123,8 +123,17 @@ const Balance = ({route}) =>{
                             </div>
                         </div>
                     </div>
-                   {/*<Link to={`/${params.lang}/account/finances?to=withdraw`}><button className="btn-with">{t("Withdraw")}</button></Link>
-                   <Link to={`/${params.lang}/account/finances?to=deposit`}><button className="btn-dep">{t("Deposit")}</button></Link>*/}
+
+                    <div className="row mob-balance-btn">
+                        <div className="col-12">
+                            <Link to={`/${params.lang}/account/finances?to=deposit`}><button className="btn-dep">{t("Deposit")}</button></Link>
+                        </div>
+
+                        <div className="col-12">
+                            <Link to={`/${params.lang}/account/finances?to=withdraw`}><button className="btn-with">{t("Withdraw")}</button></Link>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

@@ -1,3 +1,54 @@
+.aut-2fa {
+  color: #8f9ec8;
+
+  .out-2fa-box {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+    .btn-2fa {
+      width: 45px;
+      height: 24px;
+      border-radius: 50px;
+      position: relative;
+      transition: all 0.4s ease;
+      margin-left: 20px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:before {
+        position: absolute;
+        content: "";
+        width: 20px;
+        height: 20px;
+        border-radius: 50px;
+        background: #f3f1f1;
+        left: 3px;
+        top: 2px;
+        z-index: 122222222;
+        box-shadow: 0 0 5px #1d2438;
+      }
+
+      &.disable {
+        background: #505a76;
+      }
+      &.active {
+        //background: #00984a;
+        background: #af9020;
+        &:before {
+          right: 3px;
+          left: unset;
+        }
+      }
+    }
+
+  }
+}
+
 .personal-data {
   input[type="date"] {
     &::-webkit-calendar-picker-indicator {

@@ -31,14 +31,4 @@
   margin-top: 5px;
 }
 
-@media (max-width: 576px) {
-  .footer {
-    padding-bottom: 80px !important;
-  }
-
-  .stickFooter {
-    display: flex;
-  }
-}
-
 /*# sourceMappingURL=stickFooter.css.map */

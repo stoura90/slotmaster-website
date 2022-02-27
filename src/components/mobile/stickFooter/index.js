@@ -8,9 +8,11 @@ import {
 } from '../../../assets/img/icons/icons';
 
 import './stickFooter.scss';
+import {useUser} from "../../../core/hooks/useUser";
 
 const StickFooter = () =>{
     const lang = 'en';
+    const {User} = useUser();
 
     return (
         <>
@@ -21,24 +23,32 @@ const StickFooter = () =>{
                         <span>Home</span>
                     </Link>
                 </li>
-                <li>
-                    <Link to={`/${lang}/account/finances?to=deposit`}>
-                        <i><img src={stickDeposit} alt=""/></i>
-                        <span>Deposit</span>
-                    </Link>
-                </li>
-                <li>
-                    <Link to={`/${lang}/account/finances?to=withdraw`}>
-                        <i><img src={stickWithdraw} alt=""/></i>
-                        <span>Withdraw</span>
-                    </Link>
-                </li>
-                <li>
-                    <Link to={`/${lang}/account`}>
-                        <i><img src={stickAccount} alt=""/></i>
-                        <span>Account</span>
-                    </Link>
-                </li>
+                {
+                    User.isLogged? <>
+                        <li>
+                            <Link to={`/${lang}/account/finances?to=deposit`}>
+                                <i><img src={stickDeposit} alt=""/></i>
+                                <span>Deposit</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={`/${lang}/account/finances?to=withdraw`}>
+                                <i><img src={stickWithdraw} alt=""/></i>
+                                <span>Withdraw</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={`/${lang}/account`}>
+                                <i><img src={stickAccount} alt=""/></i>
+                                <span>Account</span>
+                            </Link>
+                        </li>
+                    </>
+                        :
+                    <>
+                    </>
+                }
+
             </ul>
         </>
     )
