@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Balance, Finances, Footer, Header, Information, Verification} from "../../components";
+import {Balance, Finances, Footer, Header, Information, Verification,Transactions} from "../../components";
 
 import "../../assets/styles/_select2.scss"
 import {Redirect, useParams} from "react-router-dom";
@@ -12,6 +12,7 @@ const AccountScreen = () =>{
         switch(route){
             case "verification":return <Verification/>
             case "finances":return <Finances/>
+            case "transactions":return <Transactions/>
             default : return <Information/>
         }
     }

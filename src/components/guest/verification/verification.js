@@ -157,7 +157,7 @@ const UserVerification =() =>{
                             {
                                 step !== 1 && <div className="back-step" onClick={()=>setStep(step-1)}> {'< '}{t("Back")}</div>
                             }
-                            {t("User Finances")}
+                            {t("User Transactions")}
                         </div>
                     </div>
                     {
@@ -210,7 +210,7 @@ const UserVerification =() =>{
                                     <label htmlFor="phone-primary">
                                         <input type="checkbox" id={'phone-primary'} value={primaryContact.phone} checked={primaryContact.phone} onChange={e =>{
                                             setPrimaryContact({...primaryContact,phone:!(e.target.value === "true")});
-                                        } }/>&nbsp; {t("Phone Finances")}
+                                        } }/>&nbsp; {t("Phone Transactions")}
                                     </label>
                                     <div style={{display:"flex"}} className={`${primaryContact.phone?'':'disable-phone'}`}>
                                         <div className="input-label" style={{width:"150px"}}>
@@ -232,7 +232,7 @@ const UserVerification =() =>{
                                     <label htmlFor="email-primary">
                                         <input type="checkbox" id={'email-primary'} value={primaryContact.email} checked={primaryContact.email} onChange={e =>{
                                             setPrimaryContact({...primaryContact,email:!(e.target.value === "true")});
-                                        } }/>&nbsp; {t("Email Finances")}
+                                        } }/>&nbsp; {t("Email Transactions")}
                                     </label>
                                     <div style={{display:"flex"}} className={`${primaryContact.email?'':'disable-email'}`}>
                                         <div className={`input-label ${error("mail")}`} style={{width:"100%"}}>
@@ -363,8 +363,8 @@ const UserVerification =() =>{
             </button>
 {/*
 
-            <Finances.MobileVerificationModal prefix={'+'+signUpForm.mobilePrefix} number={signUpForm.mobile} err={otpError} onSubmit={code=>onSignUp({...signUpForm,otp:code}) }/>
-            <Finances.EmailVerificationModal email={signUpForm.mail} err={otpError} onSubmit={code=>onSignUp({...signUpForm,otp:code}) }/>
+            <Transactions.MobileVerificationModal prefix={'+'+signUpForm.mobilePrefix} number={signUpForm.mobile} err={otpError} onSubmit={code=>onSignUp({...signUpForm,otp:code}) }/>
+            <Transactions.EmailVerificationModal email={signUpForm.mail} err={otpError} onSubmit={code=>onSignUp({...signUpForm,otp:code}) }/>
 */}
 
         </div>
