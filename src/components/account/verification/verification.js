@@ -310,6 +310,7 @@ const Confirmation = () => {
                                                 </div>
                                             </div>
                                             <div className="col-12 col-md-6">
+                                                <div className={`${error("gender")}`}>
                                                 <SelectBox
                                                         data={gender} value={infoData.gender}
                                                         placeholder={t("Sex")}
@@ -317,6 +318,7 @@ const Confirmation = () => {
                                                         error={error("gender")}
                                                         onSelect={(e)=> setInfoData({...infoData,gender:e.id})}
                                                 />
+                                                </div>
                                             </div>
                                             <div className="col-12 col-md-6">
                                                 <div className={`input-label-border ${error("dob")}`}>
@@ -326,11 +328,12 @@ const Confirmation = () => {
                                             </div>
                                             <div className="col-12 col-md-6">
                                                 <div className={`input-label-border ${error("username")}`}>
-                                                    <input onChange={e => setInfoData({...infoData,username:e.target.value})} value={infoData.username} type="text" name="username" id="username" placeholder="username"/>
+                                                    <input onChange={e => setInfoData({...infoData,username:e.target.value})} value={infoData.username} type="text" name="username" id="username"/>
                                                     <label htmlFor="username">{t("Username")}</label>
                                                 </div>
                                             </div>
                                             <div className="col-12 col-md-6">
+                                                <div className={`${error("country")}`}>
                                                 <SelectBox
                                                         data={countries}
                                                         value={infoData.country}
@@ -338,8 +341,10 @@ const Confirmation = () => {
                                                         error={error("country")}
                                                         onSelect={(e)=> setInfoData({...infoData,country:e.id})}
                                                 />
+                                                </div>
                                             </div>
                                             <div className="col-12 col-md-6">
+                                                <div className={`${error("currency")}`}>
                                                 <SelectBox
                                                         data={currency}
                                                         value={infoData.currency}
@@ -347,6 +352,7 @@ const Confirmation = () => {
                                                         error={error("currency")}
                                                         onSelect={(e)=> setInfoData({...infoData,currency:e.id})}
                                                 />
+                                                </div>
                                             </div>
 
                                         </div>

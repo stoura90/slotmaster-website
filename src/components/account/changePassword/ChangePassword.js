@@ -101,7 +101,6 @@ const ChangePassword = ({title,email,err,onSubmit,onClose,send,save,verify,addit
                         ERROR({error:t("error")})
                     })
                 }
-
             }
         })
     }

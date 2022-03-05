@@ -131,14 +131,13 @@
     }
 
     .footer-copyright {
-      max-width: 714px;
+      //max-width: 714px;
       width: 100%;
       font-family: $proximaSemi;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 14px;
       text-align: left;
       color: #4d5a7d;
-      margin-right: 15px;
     }
   }
 
@@ -187,6 +186,25 @@
     a {
       img {
         width: auto;
+      }
+    }
+  }
+
+  .crypto {
+    i {
+      width: 40px;
+      height: 40px;
+      background: #1b2233;
+      transition: all 0.15s linear;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      float: left;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      &:hover {
+        background: #212a3b;
       }
     }
   }

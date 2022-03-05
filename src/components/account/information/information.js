@@ -195,6 +195,7 @@ const Information = () => {
 
         if(error.length>0){
             setErrors([...error])
+            console.log('error',error)
         }else{
             Actions.User.updateInfo({data:infoData,loader:setLoader}).then(response=>{
                 setTimeout(()=>{
@@ -462,6 +463,7 @@ const Information = () => {
                                         </div>
 
                                         <div className="col-12 col-md-6">
+                                            <div className={`${error("gender")}`}>
                                             <SelectBox
                                                 data={gender}
                                                 value={infoData.gender}
@@ -469,6 +471,7 @@ const Information = () => {
                                                 id={'gender'}
                                                 onSelect={(e)=> setInfoData({...infoData,gender:e.id})}
                                             />
+                                            </div>
                                         </div>
 
                                         <div className="col-12 col-md-6">

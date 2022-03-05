@@ -41,3 +41,50 @@
   #phone {background: #181e2e;}
 }
 
+.aut-2fa {
+  p {
+    color: #828FB6;
+    text-align: center;
+  }
+  .fields {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    input {
+      background: #262E45;
+      margin: 0 4px;
+      width: 45px;
+      height: 50px;
+      border-radius: 4px;
+      text-align: center;
+      color: #fff;
+      font-size: 25px;
+    }
+  }
+  .opt-status {
+    min-height: 30px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .countDown {
+    padding: 5px 12px;
+    text-align: right;
+    .timeout {
+      width: 25px;
+      text-align: right;
+      display: inline-block;
+    }
+    button {
+      padding: 0 !important;
+      background: unset !important;
+      display: inline-block;
+      height: 20px;
+      margin-top: 10px;
+      &:hover {
+        cursor: pointer;
+        color: #d6dbe9;
+      }
+    }
+  }
+
+}

@@ -22564,14 +22564,12 @@ button:active, .btn-primary:active {
   color: #e6e9f1;
 }
 .footer .footer-bt .footer-copyright {
-  max-width: 714px;
   width: 100%;
   font-family: "Proxima Regular", Helvetica;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   text-align: left;
   color: #4d5a7d;
-  margin-right: 15px;
 }
 .footer .social-list .social-item {
   width: 50px;
@@ -22607,6 +22605,22 @@ button:active, .btn-primary:active {
 }
 .footer .swiper-slide a img {
   width: auto;
+}
+.footer .crypto i {
+  width: 40px;
+  height: 40px;
+  background: #1b2233;
+  transition: all 0.15s linear;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.footer .crypto i:hover {
+  background: #212a3b;
 }
 
 .transaction-table {
@@ -23336,6 +23350,34 @@ label[for=phone-primary] {
   border-bottom: 3px solid #ffbc00;
 }
 
+@media only screen and (max-width: 990px) {
+  .footer-crypto-soc h6 {
+    text-align: center !important;
+  }
+  .footer-crypto-soc .crypto {
+    justify-content: center !important;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .footer-crypto-soc .social-list {
+    justify-content: center !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .footer-copyright {
+    display: flex;
+    flex-direction: column;
+  }
+  .footer-copyright iframe {
+    margin-top: 30px;
+    margin-left: 0 !important;
+  }
+
+  .logo-list .swiper-wrapper {
+    justify-content: center;
+  }
+}
 @media only screen and (max-width: 1000px) {
   .slider .swiper-container:before {
     height: 10vw;

@@ -12,11 +12,12 @@ const loaders = UseEvent();
 
 class Http {
 
-    static get({url,loader,headers,permitAll=false,enableRefreshToken=true}){
+    static get({url,loader,headers,permitAll=false,enableRefreshToken=true,header}){
         const jwt  = new JWT()
         return new Promise((resolve) => {
             if (loader) this.setLoader(loader, true);
-            http.get(url,permitAll?{}:{headers: {
+            http.get(url,permitAll? header? {headers:{...header}}:{} :{headers: {
+                    ...header,
                     'Authorization': `bearer ${jwt.access}`
                 }}).then(response=>{
                     resolve(response.status===200?{status:true,data:response.data}:{status:false,data:response.data})
@@ -30,7 +31,7 @@ class Http {
 
                         if(refresh?.status){
                             jwt.setData(refresh.data.data);
-                            resolve(this.get({url:url,loader:loader,headers:headers,permitAll:permitAll,enableRefreshToken:false}))
+                            resolve(this.get({url:url,loader:loader,headers:headers,permitAll:permitAll,enableRefreshToken:false,header:header}))
                         }else{
                             resolve({status:false})
                         }
@@ -50,11 +51,12 @@ class Http {
         })
 
     }
-    static post({url,data,loader,headers,permitAll=false,enableRefreshToken=true}){
+    static post({url,data,loader,headers,permitAll=false,enableRefreshToken=true,header}){
         const jwt  = new JWT()
         return  new Promise(resolve => {
             if (loader) this.setLoader(loader, true);
-            http.post(url,data,permitAll?{}:{headers: {
+            http.post(url,data,permitAll? header? {headers:{...header}}:{} :{headers: {
+                    ...header,
                     'Authorization': `bearer ${jwt.access}`
                 }}).then(response=>{
                 resolve(response.status===200?{status:true,data:response.data}:{status:false,data:response.data})
@@ -65,7 +67,7 @@ class Http {
                         if (refresh.status) {
                             jwt.setData(refresh.data.data);
                             resolve(this.post({
-                                url:url,data:data,loader:loader,headers:headers,permitAll:permitAll,enableRefreshToken:false
+                                url:url,data:data,loader:loader,headers:headers,permitAll:permitAll,enableRefreshToken:false,header:header
                             }))
                         }else{
                             resolve({status:false})

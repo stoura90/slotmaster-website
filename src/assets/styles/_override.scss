@@ -419,7 +419,37 @@ label[for="phone-primary"] {font-size: 15px; color: #8f9ec8;}
 }
 
 
+@media only screen and (max-width: 990px) {
+  .footer-crypto-soc{
+    h6 {text-align: center !important;}
+    .crypto {
+      justify-content: center !important;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .social-list {
+      justify-content: center !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+  }
+  .footer-copyright {
+    display: flex;
+    flex-direction: column;
+    iframe {
+      margin-top: 30px;
+      margin-left: 0 !important;
+    }
+  }
+  .restriction {
 
+  }
+  .logo-list {
+    .swiper-wrapper {
+      justify-content: center;
+    }
+  }
+}
 
 @media only screen and (max-width: 1000px) {
   .slider {

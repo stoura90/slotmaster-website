@@ -16,40 +16,34 @@ const StickFooter = () =>{
 
     return (
         <>
-            <ul className="stickFooter">
-                <li>
-                    <Link to={`/${lang}/main`}>
-                        <i><img src={stickHome} alt=""/></i>
-                        <span>Home</span>
-                    </Link>
-                </li>
-                {
-                    User.isLogged? <>
-                        <li>
-                            <Link to={`/${lang}/account/finances?to=deposit`}>
-                                <i><img src={stickDeposit} alt=""/></i>
-                                <span>Deposit</span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={`/${lang}/account/finances?to=withdraw`}>
-                                <i><img src={stickWithdraw} alt=""/></i>
-                                <span>Withdraw</span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={`/${lang}/account`}>
-                                <i><img src={stickAccount} alt=""/></i>
-                                <span>Account</span>
-                            </Link>
-                        </li>
-                    </>
-                        :
-                    <>
-                    </>
-                }
-
-            </ul>
+            {
+                User.isLogged && <ul className="stickFooter">
+                    <li>
+                        <Link to={`/${lang}/main`}>
+                            <i><img src={stickHome} alt=""/></i>
+                            <span>Home</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={`/${lang}/account/finances?to=deposit`}>
+                            <i><img src={stickDeposit} alt=""/></i>
+                            <span>Deposit</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={`/${lang}/account/finances?to=withdraw`}>
+                            <i><img src={stickWithdraw} alt=""/></i>
+                            <span>Withdraw</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={`/${lang}/account`}>
+                            <i><img src={stickAccount} alt=""/></i>
+                            <span>Account</span>
+                        </Link>
+                    </li>
+                </ul>
+            }
         </>
     )
 }

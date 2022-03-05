@@ -8,16 +8,20 @@ import _ from "lodash";
 
 import JWT from "../../models/JWT";
 let jwt  = new JWT()
-const signIn = ({data,loader}) =>async (dispatch)=>{
+const signIn = ({data,loader,sourceId,code,token2fa,header}) =>async (dispatch)=>{
 
     const response = await http.post({
         url:Config.User.SIGN_IN
         ,data:query_string({
-        "username":data.username,
-        "password":data.password
+            "username":data.username,
+            "password":data.password,
+            sourceId:sourceId,
+            code:code,
+            '2fa-token':token2fa,
         }),
         loader:loader,
-        permitAll:true
+        permitAll:true,
+        header:header
     });
     if(response.status){
         jwt.setData(response.data)
@@ -77,14 +81,15 @@ const signUp = async ({data,loader}) => {
 const updateInfo = async ({data,loader}) => {
     return await http.post({url:Config.User.UPDATE_INFO,data:query_string(data),loader:loader } )
 }
-const  resendOtp = ({send,type,prefix,value,additionalParams={},loader,permitAll=false}) =>{
+const  resendOtp = ({send,type,prefix,value,additionalParams={},loader,permitAll=false,header=null}) =>{
     //{type}&prefix={prefix}&value={value}
     return http.get({
         url:send.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value).concat('&',_.map(additionalParams,(v, k)=>{
             return k.concat('=',v)
         }).join('&')),
         loader:loader,
-        permitAll:permitAll
+        permitAll:permitAll,
+        header:header
     })
 }
 const  verifyOtp = ({verify,type,prefix,value,otp,additionalParams={},loader,permitAll=false}) =>{

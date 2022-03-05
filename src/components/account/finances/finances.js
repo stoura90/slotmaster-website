@@ -12,6 +12,18 @@ const Finances = () => {
     const [deposit,setDeposit]=useState(false);
     const [withdraw,setWithdraw]=useState(false);
     const [history,setHistory]=useState(false);
+
+    useEffect(()=>{
+        if(nav.get('to') === "deposit"){
+            setWithdraw(false)
+            setDeposit(true);
+        }else if(nav.get('to') === "withdraw"){
+            setDeposit(false);
+            setWithdraw(true)
+        }
+        nav.remove('to')
+    },[nav])
+
     const svgArrow =()=>{
         return (<svg xmlns="http://www.w3.org/2000/svg" width="20" height="16.828" viewBox="0 0 20 16.828">
                 <g id="arrow-left" transform="translate(1 1.414)">
