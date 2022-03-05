@@ -8,6 +8,8 @@ import reportWebVitals from './reportWebVitals';
 import "./assets/styles/app.scss"
 import {Provider} from "./core";
 import {store as Store} from "./core/store/store";
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 ReactDOM.render(
   <React.StrictMode>
       <Suspense  fallback={""}>

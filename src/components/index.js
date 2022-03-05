@@ -20,6 +20,7 @@ import Finances from "./account/finances/finances"
 import PLXModal from "./modal/PLXModal";
 import SvgDot from "./loader/svgdot";
 import ChangePassword from "./account/changePassword/ChangePassword";
+import Transactions from "./account/transactions/transactions";
 export {
     PLXModal,
     Header,
@@ -42,5 +43,6 @@ export {
     Verification,
     Finances,
     SvgDot,
-    ChangePassword
+    ChangePassword,
+    Transactions
 }

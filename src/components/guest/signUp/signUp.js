@@ -195,8 +195,8 @@ const SignUp =() =>{
              }else{
                  if(!confirmed){
                      if(!primaryContact.phone && !primaryContact.email){
-                         //alert('Chose Finances Method');
-                         window.top.pushEvent('Chose Finances Method','error');
+                         //alert('Chose Transactions Method');
+                         window.top.pushEvent('Chose Transactions Method','error');
 
                          return;
                      }
@@ -237,7 +237,7 @@ const SignUp =() =>{
                  }).catch(reason => {console.log(reason)})
                  /*if(!confirmed){
                      if(!primaryContact.phone && !primaryContact.email){
-                         alert('Chose Finances Method');
+                         alert('Chose Transactions Method');
                      }else{
                          if(primaryContact.phone){
                              document.getElementById('btn-confirm-phone').click();
@@ -322,7 +322,7 @@ const SignUp =() =>{
                         <label htmlFor="phone-primary">
                             <input type="checkbox" id={'phone-primary'} value={primaryContact.phone} checked={primaryContact.phone} onChange={e =>{
                                 setPrimaryContact({...primaryContact,phone:!(e.target.value === "true")});
-                            } }/>&nbsp; {t("Phone Finances")}
+                            } }/>&nbsp; {t("Phone Transactions")}
                         </label>
                         <div style={{display:"flex"}} className={`${primaryContact.phone?'':'disable-phone'}`}>
                             <div className="input-label" style={{width:"150px"}}>
@@ -362,7 +362,7 @@ const SignUp =() =>{
                         {/*<label htmlFor="email-primary">
                             <input type="checkbox" id={'email-primary'} value={primaryContact.email} checked={primaryContact.email} onChange={e =>{
                                 setPrimaryContact({...primaryContact,email:!(e.target.value === "true")});
-                            } }/>&nbsp; {t("Email Finances")}
+                            } }/>&nbsp; {t("Email Transactions")}
                         </label>*/}
                         <div style={{display:"flex"}} className={`${primaryContact.email?'':'disable-email'}`}>
                             <div className={`input-label ${error("mail")}`} style={{width:"100%"}}>

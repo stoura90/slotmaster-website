@@ -132,12 +132,11 @@ const Balance = ({route}) =>{
                         <div className="col-12">
                             <Link to={`/${params.lang}/account/finances?to=withdraw`}><button className="btn-with">{t("Withdraw")}</button></Link>
                         </div>
+
                     </div>
 
                 </div>
             </div>
-
-
             <div className="col-12">
                 <ul
                     className="row account-tabs d-flex flex-column flex-md-row list-unstyled"

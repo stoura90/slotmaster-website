@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Balance, Finances, Footer, Header, Information, Verification} from "../../components";
+import {Balance, Finances, Footer, Header, Information, Verification,Transactions} from "../../components";
 
 import "../../assets/styles/_select2.scss"
 import {Redirect, useParams} from "react-router-dom";
