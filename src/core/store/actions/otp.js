@@ -6,6 +6,12 @@ const sources  = async () => {
     return response.status?response.data.data:[]
 }
 
+const getPrimary  = async () => {
+    const response = await http.get({url:Config.OTP.GET_PRIMARY})
+    return response.status?response.data.data:[]
+}
+
 export default {
-    sources
+    sources,
+    getPrimary
 }

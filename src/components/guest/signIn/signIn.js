@@ -72,6 +72,7 @@ const SignIn =() =>{
                 return
             }
             setShow(false);
+            setShowOTP(false);
         } else {
             if(response?.error){
                 if(response?.error?.error === "otp_required"){
@@ -289,7 +290,7 @@ const SignIn =() =>{
                                 </div>
 
                                 <div className="opt-status">
-asadasdads
+
                                 </div>
 
                               </div>

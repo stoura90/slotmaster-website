@@ -15,7 +15,7 @@ export const Config ={
       WITHDRAW_COINSPAID:"/ws/v1/api/secured/payment/coinspaid/withdraw",
       GET_SECURITY_QUESTIONS:"/wsd/v1/api/security-questions",
       SAVE_SECURITY_QUESTIONS:"/us/v2/api/secured/personal/info/security/questions/change",
-      SAVE_2FA_AUTHENTICATION:"/us/v2/api/secured/personal/info/security/2fa/change"
+      SAVE_2FA_AUTHENTICATION:"/us/v2/api/secured/personal/info/security/2fa"
    },
    Config:{
       REFRESH_TOKEN:"/v1/api/refresh_token",
@@ -31,7 +31,8 @@ export const Config ={
    },
    OTP:{
       //SOURCES:"/us/v2/api/secured/personal/info/otp/sources"
-      SOURCES:"/os/v1/api/secured/sources"
+      SOURCES:"/os/v1/api/secured/sources",
+      GET_PRIMARY:"/us/v2/api/secured/personal/info/security/2fa"
    },
    Guest:{
       RECOVER: {

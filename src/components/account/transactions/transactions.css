@@ -1,0 +1,71 @@
+.transactions {
+  display: flex !important;
+  flex-direction: row;
+  column-count: unset;
+}
+.transactions li {
+  flex: 1;
+  padding: 0 6px;
+}
+.transactions li:first-child {
+  padding-left: 0;
+}
+.transactions li:last-child {
+  padding-right: 0;
+}
+
+.date-range-picker {
+  width: 100% !important;
+  position: relative;
+  cursor: pointer;
+}
+.date-range-picker .rdrDateRangeWrapper {
+  width: 100% !important;
+}
+.date-range-picker .rdrMonthsVertical {
+  padding-bottom: 40px !important;
+}
+.date-range-picker .rdrMonth {
+  width: 100%;
+}
+.date-range-picker select {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+.date-range-picker .select-button {
+  position: absolute;
+  align-items: center;
+  text-transform: capitalize;
+  padding: 5px 20px;
+  font-family: "Proxima Bold";
+  font-weight: 700;
+  font-size: 14px;
+  text-align: left;
+  color: #1f202c;
+  border-radius: 6px;
+  border: 2px solid #3E4962;
+  transition: all 0.15s linear;
+  bottom: 5px;
+  z-index: 222;
+  right: 5px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.custom-date-filter {
+  display: flex;
+  width: 100%;
+  border-radius: 4px;
+  background-color: #181e2e !important;
+  color: #8f9ec8;
+  border: 2px solid #1c243a !important;
+  padding: 0 16px;
+  height: 50px;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: left;
+  transition: all 0.15s linear;
+  align-items: center;
+}
+
+/*# sourceMappingURL=transactions.css.map */

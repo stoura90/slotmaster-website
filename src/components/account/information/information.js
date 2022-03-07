@@ -91,10 +91,17 @@ const Information = () => {
     const [securityQuestions,setSecurityQuestions]=useState([]);
     const [open2FA,setOpen2FA]=useState(false);
     const [dat2FA,setDat2FA]=useState(false);
+
+    //const [show2FAError,setShow2FAError] = useState(false);
+    //const [sourceId,setSourceId]=useState(null)
+    const [otpSource,setOtpSource]=useState('');
+    //const [selectedSource,setSelectedSource]=useState(null);
+
     useEffect(()=>{
         getInfo()
 
     },[])
+
     useEffect(()=>{
         if(openSecretQuestion && securityQuestions.length===0){
             Actions.User.getSecurityQuestion({loader:setSecurityQuestionsLoader})
@@ -103,6 +110,7 @@ const Information = () => {
                 })
         }
     },[openSecretQuestion])
+
     const getInfo = ()=>{
         Actions.User.info().then(response=>{
             if(response.status){
@@ -116,7 +124,6 @@ const Information = () => {
             }
         })
     }
-
 
     const error=(key)=>{
         return errors.indexOf(key)>-1?"error":""
@@ -164,7 +171,6 @@ const Information = () => {
             send:"/os/v1/api/secured/otp/profile-info-2fa-authentication",
             save:({code,sourceId})=>{
                 if(code){
-
                     Actions.User.save2faAuthentication({data:{
                             otp:code,
                             sourceId:sourceId,
@@ -172,7 +178,7 @@ const Information = () => {
                         },loader:"verifyOtp"}).then(response=>{
                         if(response.status){
                             window.pushEvent(t("The operation was performed successfully"),"success");
-                            setOpenSecretQuestion(false)
+                            setOpen2FA(false)
                             CLOSE();
                         }else{
                             console.log("catch")
@@ -223,6 +229,23 @@ const Information = () => {
         }
 
     }
+
+    const getPrimaryOtp = () =>{
+        Actions.Otp.getPrimary().then(response=>{
+            console.log(223,response)
+            if(response){
+                if(response?.enabled){
+                    setDat2FA(response?.enabled);
+                }
+                if(response?.source){
+                    setOtpSource(response?.source);
+                }
+            }
+            // show 2fa dialog
+            setOpen2FA(true)
+        })
+    }
+
     return (
         <>
 
@@ -540,7 +563,7 @@ const Information = () => {
                                             <button
                                                 className="btn-change-password"
                                                 type="button"
-                                                onClick={()=>setOpen2FA(true)}
+                                                onClick={()=>getPrimaryOtp()}
                                             >
                                                 {t("2FA Autorization")}
                                             </button>
@@ -573,33 +596,42 @@ const Information = () => {
             }
             {
                 open2FA && (
-                    <PLXModal title={t('Set 2FA Autorization')} onClose={()=>setOpen2FA(false)} dialogStyle={{maxWidth:'360px'}} >
+                    <PLXModal title={t('Set 2FA Authentication')} onClose={()=>setOpen2FA(false)} dialogStyle={{maxWidth:'360px'}} >
                         <form onSubmit={e=>{
                             e.preventDefault();
                             save2faAuthentication();
                         }} className="confirm-form aut-2fa">
+                            {
+                                otpSource === '' ? (
+                                    <>
+                                        <div style={{color: '#ff4646',paddingTop: '20px'}}>Error was reported. Contact the hotline</div>
+                                    </>
+                                ):(
+                                    <>
+                                        <div className="row">
+                                            <div  className="col-12" style={{marginBottom:'0'}}>
+                                                <br/>
 
-                            <div className="row">
-                                <div  className="col-12" style={{marginBottom:'0'}}>
-                                    <br/>
-                                    <p>you can turn on/off 2FA autorization here</p>
-                                    <p style={{fontSize:'14px',lineHeight:'14px',color:'#707c9b'}}>2fa is used for additional security during authentication</p>
-                                    <div className="out-2fa-box">
-                                        <div style={{color:'#707c9b'}}>USE 2FA:</div>
-                                        <div onClick={()=>setDat2FA(!dat2FA)} className={`btn-2fa ${dat2FA?'active':'disable'}`}>
-                                            <i/>
+                                                <p style={{fontSize:'14px',lineHeight:'14px',color:'#707c9b'}}>Two-factor authentication (2FA) adds an additional layer of security to your account by requiring to enter a one-time verification code sent using your preferred channel in order to login</p>
+                                                <div className="out-2fa-box">
+                                                    <div style={{color:'#707c9b'}}>Turn on Two-factor authentication:</div>
+                                                    <div onClick={()=>setDat2FA(!dat2FA)} className={`btn-2fa ${dat2FA?'active':'disable'}`}><i/></div>
+                                                </div>
+                                                <br/>
+                                                {
+                                                    dat2FA && <p style={{fontSize:'14px',lineHeight:'14px',color:'#707c9b',marginBottom:'0'}}>on next time login one time verification code will be sent to this channel: <span style={{color:'#ccc'}}>{otpSource}</span></p>
+                                                }
+                                            </div>
                                         </div>
-                                    </div>
-                                    <br/>
-                                    <p style={{fontSize:'14px',lineHeight:'14px',color:'#707c9b',marginBottom:'0'}}>After saving the change, you must press the save</p>
-                                </div>
-                            </div>
 
 
-                            <button type="submit" className="btn-dep justify-content-center px-0" style={{position:'relative',overflow:'hidden',marginLeft:'0'}}>
-                                {loader? (<SvgDot contentStyle={{background:'#00984a'}}/> ) : ''}
-                                {t("Save")}
-                            </button>
+                                        <button type="submit" className="btn-dep justify-content-center px-0" style={{position:'relative',overflow:'hidden',marginLeft:'0'}}>
+                                            {loader? (<SvgDot contentStyle={{background:'#00984a'}}/> ) : ''}
+                                            {t("Save")}
+                                        </button>
+                                    </>
+                                )
+                            }
                         </form>
                     </PLXModal>
                 )
