@@ -26,13 +26,11 @@ const currency = [
     {  id:'RUB',title:"Russian Ruble" }*/
 ]
 
-
 const passportType= [
     {id: "id_card", title: "ID Card"},
     {id: "passport",title: "Passport"},
     {id: "resident_identification",title: "Resident Identification"},
 ]
-
 const MobilePrefixList=[
     {id:1,title: "+1"},
     {id:673,title: "+673"},
@@ -56,10 +54,15 @@ const securityQuestions = [
 const Information = () => {
     const {t} = useTranslation();
     const {otp, PHONE,EMAIL,CLOSE,ERROR,MULTI} = useOTP();
+    const [forEdit,setForEdit] = useState({
+        email:'',
+        mobile:''
+    })
     const [infoData, setInfoData] = useState({
         firstName:'',
         email:'',
         mobile:'',
+        dob:'',
         gender:'',
         lastName:'',
         username:'',
@@ -79,8 +82,8 @@ const Information = () => {
         answer2:''
 
     });
-    const  [loader,setLoader]=useState(false)
-    const  [securityQuestionsLoader,setSecurityQuestionsLoader]=useState(false)
+    const [loader,setLoader]=useState(false)
+    const [securityQuestionsLoader,setSecurityQuestionsLoader]=useState(false)
     const [status,setStatus]=useState({
         status:"",
         msg:""
@@ -92,10 +95,25 @@ const Information = () => {
     const [open2FA,setOpen2FA]=useState(false);
     const [dat2FA,setDat2FA]=useState(false);
 
-    //const [show2FAError,setShow2FAError] = useState(false);
-    //const [sourceId,setSourceId]=useState(null)
     const [otpSource,setOtpSource]=useState('');
-    //const [selectedSource,setSelectedSource]=useState(null);
+
+    const getSecurityQuestion =(ans={})=>{
+        Actions.User.getSecurityQuestion({loader:setSecurityQuestionsLoader})
+            .then((response)=>{
+                setSecurityQuestions((response.status && response.data?response.data?.data:[]))
+
+                if(ans !== {}){
+                    console.log(ans)
+                    setQuestions({
+                        question1:parseInt(ans?.data?.security_question1),
+                        answer1:ans?.data?.security_answer1,
+                        question2:parseInt(ans?.data?.security_question2),
+                        answer2:ans?.data?.security_answer2
+
+                    })
+                }
+            })
+    }
 
     useEffect(()=>{
         getInfo()
@@ -104,9 +122,44 @@ const Information = () => {
 
     useEffect(()=>{
         if(openSecretQuestion && securityQuestions.length===0){
-            Actions.User.getSecurityQuestion({loader:setSecurityQuestionsLoader})
+
+            Actions.User.checkSecurityQuestion({loader:setSecurityQuestionsLoader})
                 .then((response)=>{
-                    setSecurityQuestions((response.status && response.data?response.data?.data:[]))
+                    if(response.status){
+                        getSecurityQuestion()
+                    }else{
+                        if(response?.error && response?.error?.resultCode === 81){
+                            MULTI({
+                                title:t('Confirm Operation'),
+                                send:"/os/v1/api/secured/otp/profile-info-security-question-get",
+                                save:({code,sourceId})=>{
+                                    if(code){
+                                        Actions.User.confirmSQOTP({data:{
+                                                otp:code,
+                                                sourceId:sourceId
+                                            },loader:"verifyOtp"}).then(response=>{
+                                            //setSecurityQuestions((response.status && response.data?response.data?.data:[]))
+                                            if(response.status){
+                                                window.pushEvent(t("The operation was performed successfully"),"success");
+                                                getSecurityQuestion(response.data);
+                                                CLOSE();
+                                            }else{
+                                                console.log("catch")
+                                                ERROR({error:t("error")})
+                                            }
+                                        }).catch(e=>{
+                                            console.log("catch")
+                                            ERROR({error:t("error")})
+                                        })
+                                    }
+
+                                }
+                            })
+                        }
+                    }
+                    //console.log(response.status);
+                    //setSecurityQuestions((response.status && response.data?response.data?.data:[]))
+
                 })
         }
     },[openSecretQuestion])
@@ -115,7 +168,6 @@ const Information = () => {
         Actions.User.info().then(response=>{
             if(response.status){
                 let res = response.data.data;
-                console.log('res[\'mobile\']',res['mobile'])
                 setInfoData(_.fromPairs(_.map(infoData, (v,k)=> {
                   switch (k){
                       default: return [k,res[k]];
@@ -148,7 +200,8 @@ const Information = () => {
                             },loader:"verifyOtp"}).then(response=>{
                             if(response.status){
                                 window.pushEvent(t("The operation was performed successfully"),"success");
-                                setOpenSecretQuestion(false)
+                                setOpenSecretQuestion(false);
+                                setSecurityQuestions([]);
                                 CLOSE();
                             }else{
                                 console.log("catch")
@@ -196,7 +249,16 @@ const Information = () => {
 
     const onUpdate = ()=>{
 
-        let error = _.chain(infoData).map((v,k)=>{ return  {key:k,value:v}}).filter(v=>!v.value).map(v=>v.key).value();
+        setErrors([])
+
+        let error = _.chain(infoData).map((v,k)=>{
+            if(["mobileConfirmed","emailConfirmed","mobilePrefix","mobile","email","hasUserRequestedVerify"].includes(k)){
+                return {key:k,value:1}
+            }
+            return {key:k,value:v}
+        }).filter(v=>!v.value).map(v=>v.key).value();
+
+        //let error = _.chain(infoData).map((v,k)=>{ return{key:k,value:v}}).filter(v=>!v.value).map(v=>v.key).value();
 
 
         if(error.length>0){
@@ -215,15 +277,15 @@ const Information = () => {
                 if(response.status){
                     setStatus({
                         ...status,
-                        status:'success',
-                        msg:t('The information was successfully updated')
+                        status:'success'//, msg:t('The information was successfully updated')
                     })
+                    window.pushEvent('The information was successfully updated','success')
                 }else {
                     setStatus({
                         ...status,
-                        status:"error",
-                        msg:t("An error occurred while updating the information")
+                        status:"error"//,msg:t("An error occurred while updating the information")
                     })
+                    window.pushEvent('An error occurred while updating the information','error')
                 }
             })
         }
@@ -315,14 +377,14 @@ const Information = () => {
                                         </div>
                                         <div className="col-12">
                                                 <div style={{display:"flex"}} >
-                                                    <div className="input-select" style={{width:"100%",maxWidth:'150px'}}>
+                                                    <div className="input-select" style={{width:"100%",maxWidth:'100px'}}>
                                                         <SelectBox
                                                             data={MobilePrefixList}
                                                             id={"prefix"}
                                                             placeholder={t("Prefix")}
                                                             className=""
-                                                                value={infoData.mobilePrefix}
-                                                                onSelect={e => setInfoData({...infoData,mobilePrefix:e.id})}
+                                                            value={infoData.mobilePrefix}
+                                                            onSelect={e => setInfoData({...infoData,mobilePrefix:e.id})}
                                                         />
                                                     </div>
 
@@ -334,15 +396,87 @@ const Information = () => {
                                                             className="for-confirm"
                                                             value={infoData.mobile}
                                                             onChange={e => setInfoData({...infoData,mobile:e.target.value})}
+                                                            disabled={forEdit.mobile === '' && infoData.mobileConfirmed?'disabled':''}
                                                         />
                                                         <label htmlFor="phone">{t("Phone")}</label>
                                                         {
-                                                            infoData?.mobileConfirmed===1?<span className="confirmed">{t("Confirmed")}</span>:
+                                                            (forEdit.mobile === '' && infoData.mobileConfirmed === 1)?
+                                                            <button
+                                                                onClick={()=>{
+                                                                    setForEdit({...forEdit,mobile:infoData.mobile});
+                                                                    setInfoData({...infoData,mobileConfirmed:0,mobile:''});
+                                                                    /*if(infoData.email.trim().length>0){
+                                                                        EMAIL({
+                                                                            email:infoData.email,
+                                                                            send:"/os/v1/api/secured/otp/profile-info-email",
+                                                                            verify:"/os/v1/api/secured/otp/profile-info-email",
+                                                                            permitAll:false,
+                                                                            save:e=>{
+                                                                                if(e){
+                                                                                    //setInfoData({...infoData,emailConfirmed:1});
+                                                                                    //CLOSE();
+                                                                                    MULTI({
+                                                                                        title:t('Confirm Operation'),
+                                                                                        email:infoData.email,
+                                                                                        send:"/os/v1/api/secured/otp/profile-info-email",
+                                                                                        additionalParams:{'email':infoData.email},
+                                                                                        save:({code,sourceId})=>{
+                                                                                            if(code){
+                                                                                                Actions.User.verification_email({data:{
+                                                                                                        otp:code,
+                                                                                                        sourceId:sourceId,
+                                                                                                        email:infoData.email
+
+                                                                                                    },loader:"verifyOtp"}).then(response=>{
+                                                                                                    if(response.status){
+                                                                                                        window.pushEvent(t("The operation was performed successfully"),"success");
+                                                                                                        getInfo();
+                                                                                                        CLOSE();
+                                                                                                        //history.push(`/${lang}/account/info`)
+                                                                                                    }else{
+                                                                                                        console.log("catch")
+                                                                                                        ERROR({error:t("error")})
+                                                                                                    }
+                                                                                                }).catch(e=>{
+                                                                                                    console.log("catch")
+                                                                                                    ERROR({error:t("error")})
+                                                                                                })
+                                                                                            }
+
+                                                                                        }
+                                                                                    })
+
+                                                                                }
+                                                                            }
+                                                                        })
+                                                                    }*/
+                                                                }}
+                                                                type="button" className="btn-confirm"
+                                                            >{t("Edit")}</button>
+                                                            :
+                                                            <div className="btn-group">
+                                                                {
+                                                                    forEdit.mobile !== '' && <button
+                                                                        onClick={()=>{
+                                                                            setInfoData({...infoData,mobile:forEdit.mobile,mobileConfirmed:1});
+                                                                            setForEdit({...forEdit,mobile:''});
+
+                                                                        }}
+                                                                        type="button" className="btn-confirm"
+                                                                        style={{marginRight:'5px',padding:'0 20px'}}
+                                                                    >X</button>
+                                                                }
                                                                 <button
                                                                     type="button"
                                                                     className="btn-confirm"
                                                                     onClick={()=>{
+                                                                        if(forEdit.mobile === infoData.mobile) {
+                                                                            window.pushEvent('use another mobile number','error');
+                                                                            return;
+                                                                        }
+
                                                                         if(infoData.mobile.trim().length>0){
+                                                                            setForEdit({...forEdit,mobile:''});
                                                                             PHONE({
                                                                                 prefix:infoData.mobilePrefix,
                                                                                 number:infoData.mobile,
@@ -393,6 +527,7 @@ const Information = () => {
                                                                 >
                                                                     {t("Confirm")}
                                                                 </button>
+                                                            </div>
                                                         }
                                                     </div>
                                                 </div>
@@ -406,13 +541,86 @@ const Information = () => {
                                                     className="for-confirm"
                                                     value={infoData.email}
                                                     onChange={e => setInfoData({...infoData,email:e.target.value})}
+                                                    disabled={forEdit.email === '' && infoData.emailConfirmed?'disabled':''}
                                                 />
                                                 <label htmlFor="email">Email</label>
                                                 {
-                                                    infoData?.emailConfirmed===1?<span className="confirmed">Confirmed</span>:
+                                                    (forEdit.email === '' && infoData.emailConfirmed === 1)?
+                                                    <button
+                                                        onClick={()=>{
+                                                            setForEdit({...forEdit,email:infoData.email});
+                                                            setInfoData({...infoData,emailConfirmed:0,email:''});
+                                                            /*if(infoData.email.trim().length>0){
+                                                                EMAIL({
+                                                                    email:infoData.email,
+                                                                    send:"/os/v1/api/secured/otp/profile-info-email",
+                                                                    verify:"/os/v1/api/secured/otp/profile-info-email",
+                                                                    permitAll:false,
+                                                                    save:e=>{
+                                                                        if(e){
+                                                                            //setInfoData({...infoData,emailConfirmed:1});
+                                                                            //CLOSE();
+                                                                            MULTI({
+                                                                                title:t('Confirm Operation'),
+                                                                                email:infoData.email,
+                                                                                send:"/os/v1/api/secured/otp/profile-info-email",
+                                                                                additionalParams:{'email':infoData.email},
+                                                                                save:({code,sourceId})=>{
+                                                                                    if(code){
+                                                                                        Actions.User.verification_email({data:{
+                                                                                                otp:code,
+                                                                                                sourceId:sourceId,
+                                                                                                email:infoData.email
+
+                                                                                            },loader:"verifyOtp"}).then(response=>{
+                                                                                            if(response.status){
+                                                                                                window.pushEvent(t("The operation was performed successfully"),"success");
+                                                                                                getInfo();
+                                                                                                CLOSE();
+                                                                                                //history.push(`/${lang}/account/info`)
+                                                                                            }else{
+                                                                                                console.log("catch")
+                                                                                                ERROR({error:t("error")})
+                                                                                            }
+                                                                                        }).catch(e=>{
+                                                                                            console.log("catch")
+                                                                                            ERROR({error:t("error")})
+                                                                                        })
+                                                                                    }
+
+                                                                                }
+                                                                            })
+
+                                                                        }
+                                                                    }
+                                                                })
+                                                            }*/
+                                                        }}
+                                                        type="button" className="btn-confirm"
+                                                    >{t("Edit")}</button>
+                                                    :
+                                                    <div className="btn-group">
+                                                        {
+                                                            forEdit.email !== '' && <button
+                                                                onClick={()=>{
+                                                                    console.log('forEdit',forEdit)
+                                                                    setInfoData({...infoData,email:forEdit.email,emailConfirmed:1});
+                                                                    setForEdit({...forEdit,email:''});
+
+                                                                }}
+                                                                type="button" className="btn-confirm"
+                                                                style={{marginRight:'5px',padding:'0 20px'}}
+                                                            >X</button>
+                                                        }
+
                                                         <button
                                                             onClick={()=>{
+                                                                if(forEdit.email === infoData.email) {
+                                                                    window.pushEvent('use another email address','error');
+                                                                    return;
+                                                                }
                                                                 if(infoData.email.trim().length>0){
+                                                                    setForEdit({...forEdit,email:''});
                                                                     EMAIL({
                                                                         email:infoData.email,
                                                                         send:"/os/v1/api/secured/otp/profile-info-email",
@@ -458,81 +666,54 @@ const Information = () => {
                                                                     })
                                                                 }
                                                             }}
-                                                            type="button"
-                                                            className="btn-confirm"
-                                                        >
-                                                            {t("Confirm")}
-                                                        </button>
+                                                            type="button" className="btn-confirm"
+                                                        >{t("Confirm")}</button>
+                                                    </div>
                                                 }
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
                                             <div  className={`input-label-border ${error("firstName")}`}>
-                                                <input onChange={e => setInfoData({...infoData,firstName:e.target.value})} value={infoData.firstName} type="text" name="name" id="name"/>
+                                                <input value={infoData.firstName} type="text" name="name" id="name"/>
                                                 <label htmlFor="name">{t("Name")}</label>
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
                                             <div className={`input-label-border ${error("lastName")}`}>
-                                                <input onChange={e => setInfoData({...infoData,lastName:e.target.value})} value={infoData.lastName} type="text" name="surname" id="surname"/>
+                                                <input value={infoData.lastName} type="text" name="surname" id="surname"/>
                                                 <label htmlFor="surname">{t("Surname")}</label>
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
-                                            <div className={`input-label-border ${error("dob")}`}>
-                                                <input onChange={e => setInfoData({...infoData,dob:e.target.value})} value={infoData.dob} type="date" name="dob" id="dob"/>
+                                            <div className={`input-label-border`}>
+                                                <input value={infoData.dob} type="text" name="dob" id="dob"/>
                                                 <label htmlFor="dob">{t("Date of birth")}</label>
                                             </div>
                                         </div>
 
                                         <div className="col-12 col-md-6">
-                                            <div className={`${error("gender")}`}>
-                                            <SelectBox
-                                                data={gender}
-                                                value={infoData.gender}
-                                                placeholder={t("Choose Sex")}
-                                                id={'gender'}
-                                                onSelect={(e)=> setInfoData({...infoData,gender:e.id})}
-                                            />
+                                            <div className={`input-label-border`}>
+                                                <input value={infoData.gender ? (gender.filter(v=> v.id === infoData.gender).map(v=> v.title)):''} type="text" name="gender" id="gender"/>
+                                                <label htmlFor="gender">{t("gender")}</label>
                                             </div>
                                         </div>
 
                                         <div className="col-12 col-md-6">
-                                            <div className={`input-label-border ${error("username")}`}>
-                                                <input onChange={e => setInfoData({...infoData,username:e.target.value})} value={infoData.username} type="text" name="username" id="username" />
-                                                <label htmlFor="username">{t("Username")}</label>
+                                            <div className={`input-label-border`}>
+                                                <input value={infoData.country? (countries.filter(v=> v.id === infoData.country).map(v=> v.title)):''} type="text" name="Country" id="Country"/>
+                                                <label htmlFor="Country">{t("Country")}</label>
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
-                                            <SelectBox
-                                                    data={countries}
-                                                    value={infoData.country}
-                                                    placeholder={t("Choose Country")}
-                                                    id={'countries'}
-                                                    onSelect={(e)=> setInfoData({...infoData,country:e.id})}
-                                            />
-                                        </div>
-                                        <div className="col-12 col-md-6">
-                                            <div className={`input-label-border ${error("username")}`}>
-                                                <input value={currency[0].title} type="text" name="currency" id="currency" placeholder="currency"/>
+                                            <div className={`input-label-border`}>
+                                                <input value={currency[0].title} type="text" name="currency" id="currency"/>
                                                 <label htmlFor="currency">{t("currency")}</label>
                                             </div>
-                                            {/*<SelectBox
-                                                data={currency}
-                                                value={infoData.currency}
-                                                placeholder={t("Currency")}
-                                                id={'currency'}
-                                                onSelect={(e)=> setInfoData({...infoData,currency:e.id})}
-                                            />*/}
                                         </div>
 
                                     </div>
                                 </div>
-                                <div
-                                    className="col-12 col-md-4 tab-pane"
-                                    id="security"
-                                    role="tabpanel"
-                                    aria-labelledby="security-tab"
+                                <div className="col-12 col-md-4 tab-pane" id="security" role="tabpanel" aria-labelledby="security-tab"
                                 >
                                     <div className="row personal-row">
                                         <div className="col-12 d-none d-md-flex">
@@ -580,10 +761,10 @@ const Information = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div style={{color:`${status.status ==="success"? 'green':'red'}`}}>{status.msg}</div>
+                            {/*<div style={{color:`${status.status ==="success"? 'green':'red'}`}}>{status.msg}</div>
                             <button type="submit" className="btn-primary" style={{position:'relative',overflow:'hidden'}}>
                                 {loader? <SvgDot/>:t("Save")}
-                            </button>
+                            </button>*/}
                         </form>
                     </div>
                 </div>
@@ -637,8 +818,8 @@ const Information = () => {
                 )
             }
             {
-                openSecretQuestion && (
-                    <PLXModal title={t('Secret Question')} onClose={()=>setOpenSecretQuestion(false)} dialogStyle={{maxWidth:'360px'}} >
+                openSecretQuestion && securityQuestions.length > 0 && (
+                    <PLXModal title={t('Secret Question')} onClose={()=>{setOpenSecretQuestion(false);setSecurityQuestions([]);}} dialogStyle={{maxWidth:'360px'}} >
                         <form onSubmit={e=>{
                             e.preventDefault();
                             console.log(questions)

@@ -5,15 +5,27 @@ import {betsoft, evolutionGaming, netent} from "../../assets/img/images";
 import {discord, gr, kiron, pragmatic, wazdan} from "../../assets/img/icons/icons";
 import {Link} from "react-router-dom";
 import {i18n, useTranslation} from "../../core";
-import {btc,ltc} from "../../assets/img/crypro/crypto";
+import {
+    ada,
+    bnb,
+    btc,
+    busd,
+    dash,
+    eth,
+    ltc,
+    neo,
+    trx,
+    usdc,
+    usdt} from "../../assets/img/crypro/crypto";
 
 const Footer =()=>{
     const {t} = useTranslation()
     return(
         <footer className="footer">
             <div className="container">
-                <div className="row gx-0 align-items-center">
+                <div className="row gx-0 align-items-center foot-wrap">
                     <div className="col-12 d-md-none">
+                        <h6 style={{textAlign:'left',color:'#C6D1ED',paddingLeft:'3px'}}>Follow Us</h6>
                         <div className="d-flex align-items-center justify-content-between social-list">
                             <a
                                 href="#"
@@ -52,7 +64,7 @@ const Footer =()=>{
                             </a>
                         </div>
                     </div>
-                    <div className="col-12 col-lg-3">
+                    <div className="mob-col col-12 col-lg-3" >
                         <ul className="footer-menu">
                             <li>
                                 <a href="#">{t("About Us")}</a>
@@ -74,7 +86,7 @@ const Footer =()=>{
                             </li>
                         </ul>
                     </div>
-                    <div className="col-12 col-lg-3">
+                    <div className="mob-col col-12 col-lg-3">
                         <ul className="footer-menu">
                             <li><Link to={`/${i18n.language}/privacy`}>{t("Privacy Policy")}</Link></li>
                             <li><Link to={`/${i18n.language}/kyc_aml`}>{t("KYC/AML Policy")}</Link></li>
@@ -111,21 +123,20 @@ const Footer =()=>{
                     <div className="col-12 col-lg-8">
                         <h6 style={{textAlign:'left',color:'#C6D1ED'}}>Accepted Currencies</h6>
                         <div style={{justifyContent:'left'}} className="crypto">
-                            <i className="crypto"><img src={btc} /></i>
-                            <i className="crypto"><img src={ltc} /></i>
-                            <i className="crypto"><img src={ltc} /></i>
-                            <i className="crypto"><img src={ltc} /></i>
-                            <i className="crypto"><img src={ltc} /></i>
-                            <i className="crypto"><img src={ltc} /></i>
-                            <i className="crypto"><img src={ltc} /></i>
-                            <i className="crypto"><img src={ltc} /></i><i className="crypto"><img src={ltc} /></i><i className="crypto"><img src={ltc} /></i><i className="crypto"><img src={ltc} /></i>
-                            <i className="crypto"><img src={ltc} /></i><i className="crypto"><img src={ltc} /></i><i className="crypto"><img src={ltc} /></i><i className="crypto"><img src={ltc} /></i>
-                            <i className="crypto"><img src={ltc} /></i><i className="crypto"><img src={ltc} /></i><i className="crypto"><img src={ltc} /></i><i className="crypto"><img src={ltc} /></i>
-                            <i className="crypto"><img src={ltc} /></i><i className="crypto"><img src={ltc} /></i><i className="crypto"><img src={ltc} /></i><i className="crypto"><img src={ltc} /></i>
-
+                            <i className="crypto" data-color="bnb"><img src={bnb} /></i>
+                            <i className="crypto" data-color="ada"><img src={ada} /></i>
+                            <i className="crypto" data-color="btc"><img src={btc} /></i>
+                            <i className="crypto" data-color="busd"><img src={busd} /></i>
+                            <i className="crypto" data-color="dash"><img src={dash} /></i>
+                            <i className="crypto" data-color="eth"><img src={eth} /></i>
+                            <i className="crypto" data-color="ltc"><img src={ltc} /></i>
+                            <i className="crypto" data-color="neo"><img src={neo} /></i>
+                            <i className="crypto" data-color="trx"><img src={trx} /></i>
+                            <i className="crypto" data-color="usdc"><img src={usdc} /></i>
+                            <i className="crypto" data-color="usdt"><img src={usdt} /></i>
                         </div>
                     </div>
-                    <div className="col-12 col-lg-4">
+                    <div className="col-12 col-lg-4 d-none d-md-flex  flex-md-column">
                         <h6 style={{textAlign:'right',color:'#C6D1ED'}}>Follow Us</h6>
                         <div style={{justifyContent:'right'}} className="d-none d-md-flex social-list">
                                 <a

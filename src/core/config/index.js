@@ -11,18 +11,20 @@ export const Config ={
       VERIFICATION:"/us/v2/api/secured/personal/info/verify",
       VERIFICATION_EMAIL:"/us/v2/api/secured/personal/info/email/change",
       VERIFICATION_PHONE:"/us/v2/api/secured/personal/info/mobile/change",
-      CHANGE_PASSWORD:"/us/v2/api/secured/personal/password/change",
+      CHANGE_PASSWORD:"/us/v2/api/secured/personal/info/password/change",
       WITHDRAW_COINSPAID:"/ws/v1/api/secured/payment/coinspaid/withdraw",
       GET_SECURITY_QUESTIONS:"/wsd/v1/api/security-questions",
-      SAVE_SECURITY_QUESTIONS:"/us/v2/api/secured/personal/info/security/questions/change",
-      SAVE_2FA_AUTHENTICATION:"/us/v2/api/secured/personal/info/security/2fa"
+      CHECK_SECURITY_QUESTIONS:"/us/v2/api/secured/personal/info/security/questions",
+      SAVE_SECURITY_QUESTIONS:"/us/v2/api/secured/personal/info/security/questions/save",
+      SAVE_2FA_AUTHENTICATION:"/us/v2/api/secured/personal/info/security/2fa",
+      CONFIRM_SECURITY_QUESTIONS_OTP:"/us/v2/api/secured/personal/info/security/questions"
    },
    Config:{
       REFRESH_TOKEN:"/v1/api/refresh_token",
       SPORT_TOKEN:"/ws/v1/api/secured/sport/get/url"
    },
    Slot:{
-      PLAY:"/ss/v1/api/secured/url?id={gameId}&lang=ru",
+      PLAY:"/ss/v1/api/secured/url?id={gameId}&lang={lang}",
       //LIST:"/ss/v1/api/slot/providers",
       LIST:"/ss/v1/api/page/{webPageId}/slot/categories",
       SLOT_LIST:"/ss/v1/api/page/{webPageId}/slots",

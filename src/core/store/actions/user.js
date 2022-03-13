@@ -199,14 +199,21 @@ const withdraw_coinsPaid=({data,loader})=>{
 const getSecurityQuestion =({loader})=>{
    return  http.get({url:Config.User.GET_SECURITY_QUESTIONS,loader:loader})
 }
+const checkSecurityQuestion =({loader})=>{
+   return  http.get({url:Config.User.CHECK_SECURITY_QUESTIONS,loader:loader})
+}
 const saveSecurityQuestions =({loader,data})=>{
     return  http.post({url:Config.User.SAVE_SECURITY_QUESTIONS,loader:loader,data:query_string(data)})
+}
+const confirmSQOTP =({loader,data})=>{
+    return  http.post({url:Config.User.CONFIRM_SECURITY_QUESTIONS_OTP,loader:loader,data:query_string(data)})
 }
 const save2faAuthentication =({loader,data})=>{
     return  http.post({url:Config.User.SAVE_2FA_AUTHENTICATION,loader:loader,data:query_string(data)})
 }
 export default {
   getSecurityQuestion,
+    checkSecurityQuestion,
     saveSecurityQuestions,
   signIn,
   signOut,
@@ -223,5 +230,6 @@ export default {
     verification_phone,
     change_password,
     withdraw_coinsPaid,
-    save2faAuthentication
+    save2faAuthentication,
+    confirmSQOTP
 }

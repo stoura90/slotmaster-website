@@ -132,11 +132,14 @@ const Confirmation = () => {
     const nextStep = ()=>{
         setErrors([])
         let error = _.chain(infoData).map((v,k)=>{
-            if(["mobileConfirmed","emailConfirmed"].includes(k)){
+            if(["mobileConfirmed","emailConfirmed","mobilePrefix","mobile","email"].includes(k)){
                 return {key:k,value:1}
             }
             return {key:k,value:v}
         }).filter(v=>!v.value).map(v=>v.key).value();
+
+        console.log(error);
+
         if(error.length>0){
             setErrors([...error])
         }else{
@@ -210,7 +213,7 @@ const Confirmation = () => {
                                             </div>
                                             <div className="col-12 col-md-6">
                                                 <div style={{display:'flex',width:"100%"}}>
-                                                    <div style={{width:"150px",marginRight: '10px'}}>
+                                                    <div style={{width:"100px",marginRight: '10px'}}>
                                                         <SelectBox
                                                             data={MobilePrefixList}
                                                             value={infoData.mobilePrefix}
@@ -219,7 +222,7 @@ const Confirmation = () => {
                                                             onSelect={(e)=> setInfoData({...infoData,mobilePrefix:e.id})}
                                                         />
                                                     </div>
-                                                    <div className={`input-label-border ${error("mobile")}`} style={{flex:1,position: "relative"}}>
+                                                    <div className={`input-label-border`} style={{flex:1,position: "relative"}}>
                                                         <input
                                                             type="number"
                                                             name="mobile"
@@ -442,9 +445,10 @@ const Confirmation = () => {
                             <div style={{color:`${status.status ==="success"? 'green':'red'}`}}>{status.msg}</div>
                             <button type="submit" style={{width:'100%'}} className="btn-primary" onClick={()=>{
                                 if(step===1){
-                                    nextStep()
+                                    console.log(1111,infoData);
+                                    nextStep();
                                 }else{
-                                    finishStep()
+                                    finishStep();
                                 }
                             }}>{t("Confirm And Continue")}</button>
                         </div>

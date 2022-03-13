@@ -19,7 +19,7 @@ const PlaySlot= () => {
         }
         document.body.style.height="100vh"
         document.getElementById("root").style.height="100vh"
-        ping().then(setLoaded)
+        ping().then((e)=>setLoaded(e))
     },[])
     useEffect(()=>{
         if(!User.isLogged){

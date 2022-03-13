@@ -172,6 +172,8 @@ button, .btn-primary {
     } 
 }
 
+
+
 .btn-change-password {
     display: flex;
     align-items: center;
@@ -210,6 +212,15 @@ button, .btn-primary {
     @media(min-width: $md) {
         color: #99a8d4;
         padding: 0 28px;
+    }
+}
+
+.btn-group {
+    position: absolute;
+    top: 0;
+    right: 0;
+    .btn-confirm {
+        position: unset !important;
     }
 }
 

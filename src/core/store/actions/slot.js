@@ -1,7 +1,7 @@
 import {Config} from "../../config";
 import http from "../../http/http3";
 const play =(slot)=>{
-    return http.get({url:Config.Slot.PLAY.replace("{gameId}",slot.id)})
+    return http.get({url:Config.Slot.PLAY.replace("{gameId}",slot.id).replace("{lang}",slot.lang)})
 }
 const list =  ({webPageId="1"}) => {
     return http.get({url:Config.Slot.LIST.replace("{webPageId}",webPageId),permitAll:true});

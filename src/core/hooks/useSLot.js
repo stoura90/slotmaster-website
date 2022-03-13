@@ -3,20 +3,22 @@ import {Actions, useTranslation} from "../index";
 import {useUser} from "./useUser";
 import {useLoader} from "./useLoader";
 import EventEmitter from "../utils/eventEmitter";
+import {UseEvent} from "./useEvent";
 
 export function useSLot() {
     const User = useUser();
     const {setLoader} = useLoader()
     const {t,i18n} = useTranslation()
-    const ev =new EventEmitter()
+    const ev =UseEvent()
     const play=(slot)=>{
 
         if(!User.User.isLogged){
             ev.emit("signIn",true)
             return;
         }
-        setLoader(slot.gameId)
-        Actions.Slot.play(slot).then(response=>{
+        setLoader(slot.gameId);
+
+        Actions.Slot.play({...slot,lang:i18n.language}).then(response=>{
             if(response.status && response.data.data.result===0){
                 let win;
                 if(response.data.data?.type ===null){
@@ -38,7 +40,6 @@ export function useSLot() {
                         return ;
                     case 'sg_html':
                         win = window.open(`/${i18n.language}/playSlot`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
-
                         win.document.write(response.data.data.html.concat(`
                             <style>
                              html,body {
@@ -49,18 +50,15 @@ export function useSLot() {
                         `).concat(`<script>${response.data.data.script}</script>`))
                         break;
                     default:
-                        console.log(response.data.data.url)
+                        //console.log(response.data.data.url)
                         window.open(`/${i18n.language}/playSlot?uri=${response.data.data.url}`,"_blank","toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
                     break
-
-
                 }
             }else{
                 alert("Error")
             }
-            setLoader(null)
-        }).catch(reason => setLoader(null))
-
+        })
+        .finally(()=>setLoader(null))
     }
 
     return  {play}

@@ -68,16 +68,14 @@ const ChangePassword = ({title,email,err,onSubmit,onClose,send,save,verify,addit
 
     const changePassword=()=>{
 
-        if(infoData.currentPass !== '' && infoData.pass1 === infoData.pass2){
-            window.pushEvent('wrong password')
-            return;
-        }
+        //if(infoData.currentPass === '' || infoData.pass1 === infoData.pass2){
+        //    window.pushEvent('wrong password')
+        //    return;
+        //}
 
         MULTI({
-            title:title,
-            email:infoData.email,
-            send:"/us/v2/api/secured/personal/info/otp",
-            additionalParams:{'email':infoData.email},
+            title:t('Confirm Operation'),
+            send:"/os/v1/api/secured/otp/profile-info-password-change",
             save:({code,sourceId})=>{
                 if(code){
                     Actions.User.change_password({data:{
@@ -87,6 +85,7 @@ const ChangePassword = ({title,email,err,onSubmit,onClose,send,save,verify,addit
                             newPassword:infoData.pass1,
                             newPassword2:infoData.pass2
                         },loader:"verifyOtp"}).then(response=>{
+                        //setSecurityQuestions((response.status && response.data?response.data?.data:[]))
                         if(response.status){
                             window.pushEvent(t("The operation was performed successfully"),"success");
                             CLOSE();
@@ -101,8 +100,10 @@ const ChangePassword = ({title,email,err,onSubmit,onClose,send,save,verify,addit
                         ERROR({error:t("error")})
                     })
                 }
+
             }
         })
+
     }
 
     return (

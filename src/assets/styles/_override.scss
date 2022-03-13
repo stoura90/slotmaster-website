@@ -160,13 +160,16 @@
 }
 .for_widget {
   //background: #000000cc;
+  //background-image: url("../../assets/img/loader_sp_orange.gif");
   background: #00000073;
   border-radius: 10px;
   margin-top: -5vw;
   padding-bottom: 6px;
   min-height: 288px;
-  //background-image: url("../../assets/img/loader_sp_orange.gif");
+  > div {margin-bottom: 0 !important}
 }
+/*
+ // main page sport widget style
 #top-matches-container, #application-container {
   position: relative;
 
@@ -239,7 +242,7 @@
   }
 
 }
-
+*/
 
 .navbar .navbar-head .navbar-brand {
   height: 50px !important;
@@ -522,10 +525,45 @@ select{
 @media(max-width: 576px) {
   .footer {
     padding-bottom: 80px !important;
+    .footer-bt {
+      flex-direction: column-reverse;
+      .restriction {margin: 0;}
+    }
+    .footer-copyright {
+      iframe {
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+    }
+    .footer-crypto-soc {
+      h6 {
+        text-align: left !important;
+        margin-bottom: 20px;
+        padding: 0 8px;
+      }
+    }
+
+    .foot-wrap {
+      &.align-items-center {
+        align-items: flex-start !important;
+      }
+      .mob-col {
+        width: 50%;
+        margin-bottom: 0;
+        .footer-menu {
+          justify-content: flex-start;
+          margin: 0;
+          li {
+            width: 100%;
+            margin: 5px 0;
+          }
+        }
+      }
+    }
+    .crypto i {margin-right: 9px;}
+    //.logo-list {margin-top: 15px;}
   }
-  .stickFooter {
-    display: flex;
-  }
+  .stickFooter {display: flex;}
 
   .authorization-interface {
     .withdraw-link,
@@ -537,4 +575,11 @@ select{
       display: block;
     }
   }
+}
+
+@media(max-width: 321px) {
+  .footer {
+    .crypto i {margin-right: 8px;}
+  }
+
 }
