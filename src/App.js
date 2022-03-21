@@ -4,14 +4,22 @@ import {Actions, Provider, useTranslation} from "./core";
 import {Button, Footer, Guest, Header, MainNavigator, } from "./components";
 import {useDispatch} from "react-redux";
 import OTP from "./components/verification";
+import {useNav} from "./core/hooks/useNav";
+import {useCookie} from "./core/hooks/useCookie";
 
 
 const  App=()=> {
     const {t,i18n}  = useTranslation()
     const dispatch = useDispatch();
     const [loaded,setLoaded]=useState(false)
-
+    const cookie = useCookie()
+    const nav  = useNav()
     useEffect( () => {
+       if(nav.get("cxd")){
+            //აფილეიტები
+            cookie.setCookie("cxd",nav.get("cxd"),14)
+       }
+
         ping()
         checkLanguage()
     },[])

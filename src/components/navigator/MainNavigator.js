@@ -9,16 +9,11 @@ const account = React.lazy(() => import(("../../screens/account/accountScreen"))
 
 const MainNavigator = ()=>{
     const browserHistory = createBrowserHistory();
-    const {User} = useUser()
-
     return (
         <Router history={browserHistory}>
             <BrowserRouter>
-                {
-
-                    (userRoutes).map((route, idx) => {
+                {(userRoutes).map((route, idx) => {
                         return route.component ? (
-
                             <Route
                                 key={idx}
                                 path={route.path}
@@ -31,8 +26,6 @@ const MainNavigator = ()=>{
                                         <StickFooter/>
                                     </>
                                 )} />
-
-
                         ) :   <Redirect to={'/ru'}/>;
                 })}
             </BrowserRouter>

@@ -9,6 +9,7 @@ import PLXModal from "../../modal/PLXModal";
 import {SvgDot} from "../../index";
 import Http from "../../../core/http/http2";
 import {UseEvent} from "../../../core/hooks/useEvent";
+import {useCookie} from "../../../core/hooks/useCookie";
 
 
 
@@ -27,6 +28,7 @@ const CountryList=[
     {id:"BDI",name: "Burundi"},
 ]
 const SignUp =() =>{
+    const cookie = useCookie()
     const {t,i18n} = useTranslation();
     const otp = useOTP();
     const ev = UseEvent();
@@ -202,7 +204,11 @@ const SignUp =() =>{
                      }
                  }
                  localStorage.removeItem("GRD_access_token")
-                 Actions.User.signUp({data:{...signUpForm,token:token},loader:"verifyOtp"}).then(response=>{
+                 let data = {...signUpForm,token:token}
+                 if(cookie.getCookie("cxd")){
+                     data = {...data,cxd:cookie.getCookie("cxd")}
+                 }
+                 Actions.User.signUp({data:data,loader:"verifyOtp"}).then(response=>{
                      // data:loginForm,loader:setSignInLoader
                      if(response.status){
                          //document.getElementById("close-sign-up").click();
@@ -250,7 +256,6 @@ const SignUp =() =>{
                  }else{
 
                  }*/
-
 
              }
          }).catch(ex=>{ console.log(ex)})
