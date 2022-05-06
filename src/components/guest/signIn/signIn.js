@@ -217,7 +217,12 @@ const SignIn =() =>{
                                 <p>Enter the code that came to your email or SMS</p>
                                 <div className="fields">
                                     <input type="number" ref={ref1} value={otp[0]} onChange={(e)=>{
+
                                         if(e.target.value){
+                                            if(e.target.value.length>1){
+                                                ref2.current.focus();
+                                                return;
+                                            }
                                             otp[0]=e.target.value;
                                             setOtp([...otp])
                                             ref2.current.focus()
@@ -227,7 +232,12 @@ const SignIn =() =>{
                                         }
                                     }}/>
                                     <input type="number" ref={ref2} value={otp[1]} onChange={(e)=>{
+
                                         if(e.target.value){
+                                            if(e.target.value.length>1){
+                                                ref3.current.focus();
+                                                return;
+                                            }
                                             otp[1]=e.target.value;
                                             setOtp([...otp])
                                             ref3.current.focus()
@@ -238,7 +248,12 @@ const SignIn =() =>{
                                         }
                                     }}/>
                                     <input type="number" ref={ref3} value={otp[2]} onChange={(e)=>{
+
                                         if(e.target.value){
+                                            if(e.target.value.length>1){
+                                                ref4.current.focus();
+                                                return;
+                                            }
                                             otp[2]=e.target.value;
                                             setOtp([...otp])
                                             ref4.current.focus()
@@ -249,7 +264,12 @@ const SignIn =() =>{
                                         }
                                     }}/>
                                     <input type="number" ref={ref4} value={otp[3]} onChange={(e)=>{
+
                                         if(e.target.value){
+                                            if(e.target.value.length>1){
+                                                ref5.current.focus();
+                                                return;
+                                            }
                                             otp[3]=e.target.value;
                                             setOtp([...otp])
                                             ref5.current.focus()
@@ -260,7 +280,12 @@ const SignIn =() =>{
                                         }
                                     }}/>
                                     <input type="number" ref={ref5} value={otp[4]} onChange={(e)=>{
+
                                         if(e.target.value){
+                                            if(e.target.value.length>1){
+                                                ref6.current.focus();
+                                                return;
+                                            }
                                             otp[4]=e.target.value;
                                             setOtp([...otp])
                                             ref6.current.focus()
@@ -271,7 +296,11 @@ const SignIn =() =>{
                                         }
                                     }}/>
                                     <input type="number" ref={ref6} value={otp[5]} onChange={(e)=>{
+                                        console.log(e)
                                         if(e.target.value){
+                                            if(e.target.value.length>1){
+                                                return;
+                                            }
                                             otp[5]=e.target.value;
                                             setOtp([...otp])
                                         }else{

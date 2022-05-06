@@ -123,7 +123,7 @@ const SlotsScreen = () =>{
                             </div>
 
                             <div className="select-label d-none d-lg-flex me-0">
-                                <CustomDropdown label={t("Provider")} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
+                                <CustomDropdown type={"filter"} label={t("Provider")} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
                                     setFiltersFilter(false)
                                     setProviderFilter(!providerFilter)
                                 }}/>
