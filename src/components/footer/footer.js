@@ -99,17 +99,17 @@ const Footer =()=>{
                         <div className="row gx-0">
                             <div className={"position-relative  logo-list ft-carousel-1"}>
                                 <FooterCarousel count={3} data={[
-                                    {id:1,icon:evolutionGaming},
-                                    {id:1,icon:wazdan},
-                                    {id:1,icon:gr},
+                                    {id:67,icon:evolutionGaming, page:'casino'},
+                                    {id:63,icon:wazdan, page:'slots'},
+                                    {id:69,icon:gr,page:'virtuals'},
 
                                 ]}/>
                             </div>
                             <div className={"position-relative  logo-list ft-carousel-2 last"}>
                                 <FooterCarousel count={3} data={[
-                                    {id:1,icon:kiron},
-                                    {id:1,icon:pragmatic},
-                                    {id:1,icon:betsoft},
+                                    {id:62,icon:kiron , page:'virtuals'},
+                                    {id:58,icon:pragmatic, page:'slots'},
+                                    {id:57,icon:betsoft, page:'slots'},
                                 ]}/>
                             </div>
 

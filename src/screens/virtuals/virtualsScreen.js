@@ -119,7 +119,7 @@ const VirtualsScreen = () =>{
                             </div>
 
                             <div className="select-label d-none d-lg-flex me-0">
-                                <CustomDropdown label={t("Provider")} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
+                                <CustomDropdown type={"filter"} label={t("Provider")} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
                                     setFiltersFilter(false)
                                     setProviderFilter(!providerFilter)
                                 }}/>
@@ -132,7 +132,7 @@ const VirtualsScreen = () =>{
                         </div>
 
                         <div className={"custom-filter-mobile d-lg-none"}>
-                            <CustomDropdown showFilter={true} label={t("Provider")} filters={filters} setFilters={setSelectedFilters} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
+                            <CustomDropdown type={"filter"} showFilter={true} label={t("Provider")} filters={filters} setFilters={setSelectedFilters} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
                                 setFiltersFilter(false)
                                 setProviderFilter(!providerFilter)
                             }}/>

@@ -4,10 +4,15 @@ import {close, multiArrow} from "../../assets/img/icons/icons"
 import _ from 'lodash'
 import PropTypes from "prop-types";
 import {useTranslation} from "../../core";
-export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,showFilter,filters,setFilters})=>{
+import {useNav} from "../../core/hooks/useNav";
+import {value} from "lodash/seq";
+export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,showFilter,filters,setFilters,type="custom"})=>{
+    const nav = useNav();
     const [providers,setProviders]=useState([])
     const [filter,setFilter]=useState([])
     const {t} = useTranslation()
+
+
     useEffect(()=>{
         if(setFilter && open){
             document.body.style.overflowY="hidden"
@@ -16,12 +21,25 @@ export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,sh
         }
     },[showFilter,setOpen])
     useEffect(()=>{
+
+        if(type==='filter' && nav.get("id")){
+            data = _.map(data, v=>{
+                console.log(v.id.toString(),nav.get("id"),v.id.toString() ===nav.get("id"))
+                if(v.id.toString() ===nav.get("id")){
+                    v.checked=true;
+                }
+                return v;
+            })
+            console.log(data)
+        }
+
         setProviders(data)
     },[data])
     useEffect(()=>{
         setFilter([...filters])
     },[filters])
     useEffect(()=>{
+
         onSelect(_.filter(providers,v=>v?.checked))
     },[providers])
     useEffect(()=>{

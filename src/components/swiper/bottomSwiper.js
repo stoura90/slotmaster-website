@@ -6,9 +6,12 @@ import 'swiper/components/navigation/navigation.scss';
 import {slotSardCover} from "../../assets/img/images";
 import {play} from "../../assets/img/icons/icons";
 import _ from 'lodash'
+import {Link} from "react-router-dom";
+import {i18n} from "../../core";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 const  FooterCarousel = (props) =>{
+    const lang = i18n.language
     const [data,setData]= useState(props.data)
     const [count,setCount] = useState(props.count || 5)
     useEffect(()=> {
@@ -26,9 +29,9 @@ const  FooterCarousel = (props) =>{
                 _.map(data, (v,index)=>{
                     return  (
                         <SwiperSlide key={index}>
-                            <a href="#" target="_blank">
+                            <Link to={`/${lang}/${v.page}?id=${v.id}`}>
                                 <img src={v.icon} alt="Bitcoin" />
-                            </a>
+                            </Link>
                         </SwiperSlide>
                     )
                 })

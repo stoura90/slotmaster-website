@@ -7,8 +7,10 @@ import _ from "lodash"
 import {useParams} from "react-router-dom";
 import {CustomDropdown} from "../../components/dropdown/dropDown";
 import {filter} from "../../assets/img/icons/icons";
+import {useNav} from "../../core/hooks/useNav";
 
 const CasinoScreen = () =>{
+    const nav = useNav();
     const {t} = useTranslation()
     const [page,setPage]=useState(1)
     const [providers,setProviders]=useState([])
@@ -21,14 +23,16 @@ const CasinoScreen = () =>{
     const [searchText, setSearchText] = useState("")
     const [selected,setSelected] = useState([])
     const [showMobileFilter,setShowMobileFilter] = useState(false)
-
     useEffect(()=>{
+
+console.log(selectedProvider)
+
         loadSlotList()
         loadProvider()
+
     },[])
     useEffect(()=>{
         if(selectedProvider.length>0 || selectedFilters.length>0){
-
             setPage(_.size(filteredSlotList)/20 + 1)
         }else{
             setPage(1)
@@ -119,7 +123,9 @@ const CasinoScreen = () =>{
                             </div>
 
                             <div className="select-label d-none d-lg-flex me-0">
-                                <CustomDropdown label={t("Provider")} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
+                                <CustomDropdown type={"filter"} label={t("Provider")} data={providers} onSelect={(e)=>{
+                                    setSelectedProvider(e)
+                                }} open={providerFilter} setOpen={()=>{
                                     setFiltersFilter(false)
                                     setProviderFilter(!providerFilter)
                                 }}/>
@@ -132,7 +138,9 @@ const CasinoScreen = () =>{
                         </div>
 
                         <div className={"custom-filter-mobile d-lg-none"}>
-                            <CustomDropdown showFilter={true}  filters={filters} setFilters={setSelectedFilters} label={t("Provider")} data={providers} onSelect={setSelectedProvider} open={showMobileFilter} setOpen={()=>{
+                            <CustomDropdown showFilter={true} type={'filter'}  filters={filters} setFilters={setSelectedFilters} label={t("Provider")} data={providers} onSelect={e=>{
+                                setSelectedProvider(e)
+                            }} open={showMobileFilter} setOpen={()=>{
                                 setFiltersFilter(false)
                                 setShowMobileFilter(!showMobileFilter)
                             }}/>
