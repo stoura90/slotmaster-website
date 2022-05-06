@@ -9,7 +9,7 @@ export const TopMatchesWidget=({lang})=>{
     const [widgetLang,setWidgetLang]=useState(lang)
     const [params]=useState({
         "server":["www.planetaxbet.com","planetaxbet.com"].indexOf(window.location.hostname)>-1?"https://sport.planetaxbet.com/":"https://sport.staging.planetaxbet.com/",
-        "target":"#top-matches-container",
+        "containerId":"top-matches-container",
         "defaultLanguage":lang
     })
     const getToken=()=>{
@@ -53,6 +53,7 @@ export const TopMatchesWidget=({lang})=>{
         console.log(lang)
         if (User.isLogged) {
             response.then(res=>{
+                console.log('asdada',res)
                 if(res.status){
                     loadFrame({...params,token:res.data.data.token,defaultLanguage:widgetLang})
                 }else {

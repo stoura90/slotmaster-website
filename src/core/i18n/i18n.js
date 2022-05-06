@@ -8,6 +8,7 @@ import { useTranslation ,withTranslation} from 'react-i18next';
 //en
 import main_en from "./locales/en/main.json";
 import main_ru from "./locales/ru/main.json";
+import main_es from "./locales/es/main.json";
 
 
 
@@ -17,8 +18,8 @@ i18n
     .use(initReactI18next)
     .init({
         fallbackLng: 'ru',
-        whitelist: ['ru', 'en'],
-        preload: ['ru', 'en'],
+        whitelist: ['ru', 'en', 'es'],
+        preload: ['ru', 'en', 'es'],
         lng: localStorage.getItem("i18nextLng")||'ru',
         debug: true,
 
@@ -31,6 +32,9 @@ i18n
             },
             en: {
                 main: main_en,
+            },
+            es: {
+                main: main_es
             }
         },
         ns: ["main"],

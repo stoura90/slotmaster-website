@@ -46,9 +46,9 @@ const Balance = ({route}) =>{
     return (
         <>
 
-            <div className="col-12 d-flex justify-content-between">
+            <div className="col-12 d-flex justify-content-between" style={{padding:'0 10px'}}>
                 <div className="d-flex flex-column flex-md-row align-items-md-center">
-                    <span className="user-fullname">{User.data.firstName} {User.data.lastName}</span>
+                    <span className="user-fullname">{User.data.username}</span>
                     <span className="user-id">({User.data.id})</span>
                 </div>
                 <a className="user-logout d-flex align-items-center" onClick={()=>{
@@ -84,14 +84,14 @@ const Balance = ({route}) =>{
                     <span>{t("Log Out")}</span>
                 </a>
             </div>
-            <div className="col-12">
+            {/*<div className="col-12">
                 <div
                     className="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between account-billing-info"
                 >
                     <div className="d-flex align-items-center justify-content-between px-1 px-lg-0">
                         <div className="d-flex d-lg-none flex-column balance-item mob">
                             <span>{t("Balance")}</span>
-                            <div className={`sum ${showBalance?'':'blur-text'}`}>100000.00 <span className={`${showBalance?'':'blur-text'}`}>{t("USD")}</span></div>
+                            <div className={`sum ${showBalance?'':'blur-text'}`}>100000.00 <span className={`${showBalance?'':'blur-text'}`}>{t(User.data.currency)}</span></div>
                         </div>
                         <div className="d-flex align-items-center">
                             <button className="btn-for-icon" onClick={()=>setShowBalance(!showBalance)}>
@@ -136,7 +136,7 @@ const Balance = ({route}) =>{
                     </div>
 
                 </div>
-            </div>
+            </div>*/}
             <div className="col-12">
                 <ul
                     className="row account-tabs d-flex flex-column flex-md-row list-unstyled"

@@ -43,7 +43,8 @@ const Withdraw = ({onClose})=>{
     const {t} = useTranslation();
     const {otp, PHONE,EMAIL,CLOSE,ERROR,MULTI} = useOTP();
     const [withdraw,setWithdraw]=useState({amount:'', address:""});
-    const [selectedCurrency,setSelectedCurrency] = useState();
+    const [crypto,setCrypto]=useState('');
+    const [selectedCurrency,setSelectedCurrency] = useState({ id:"BTC",title:"BTC",name:"Bitcoin"});
     const [exRate,setExRate]=useState(null)
     const [loader,setLoader]=useState(false)
 
@@ -108,17 +109,33 @@ const Withdraw = ({onClose})=>{
                         </div>
                         {
                             exRate? <>
-                                <p style={{color:'#8594c1',fontSize:'12px',margin:'4px 3px'}}>{exRate?.exchangeRate?.rateFrom} {exRate.currency}  ~ {exRate?.exchangeRate?.rateTo} {exRate.toCurrency}</p>
+                                <p style={{color:'#8594c1',fontSize:'12px',margin:'4px 3px'}}>
+                                    {exRate?.exchangeRate?.rateFrom} {exRate.currency} ~ {exRate?.exchangeRate?.rateTo} {exRate.toCurrency}
+                                </p>
 
                                 <div className="new-input-label" >
                                     <div className="input-box">
-                                        <input type={"number"} name="Amount" id="amount"
-                                               value={withdraw?.amount} onChange={event => setWithdraw({...withdraw,amount:event.target.value})}
+                                        <input type={"number"} name="Amount" id="amount" value={withdraw?.amount} onChange={event => {
+                                            setWithdraw({...withdraw,amount:event.target.value});
+                                            setCrypto(event.target.value * exRate?.exchangeRate?.rateTo);
+                                        }}
                                         />
                                         <label htmlFor="amount">{t("Money")}</label>
                                     </div>
 
                                 </div>
+
+                                <div className="new-input-label">
+                                    <div className="input-box">
+                                        <input type={"number"} name="Amount" id="amount" value={crypto} onChange={event => {
+                                            setCrypto(event.target.value);
+                                            setWithdraw({...withdraw,amount: (event.target.value / exRate?.exchangeRate?.rateTo)});
+                                        }}
+                                        />
+                                        <label htmlFor="amount">{exRate.toCurrency}</label>
+                                    </div>
+                                </div>
+
                                 <div className="new-input-label" >
                                     <div className="input-box">
                                         <input type="text" name="account" id="account"

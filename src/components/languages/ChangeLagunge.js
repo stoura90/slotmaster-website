@@ -19,6 +19,7 @@ import "./changeLagunge.scss"
                 <div className="items">
                     <div className="item" data-lang="ru" onClick={()=>changeLang('ru')}/>
                     <div className="item" data-lang="en" onClick={()=>changeLang('en')}/>
+                    <div className="item" data-lang="es" onClick={()=>changeLang('es')}/>
                 </div>
             </div>
         </div>

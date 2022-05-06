@@ -14,13 +14,14 @@ const Finances = () => {
     const [history,setHistory]=useState(false);
 
     useEffect(()=>{
-        if(nav.get('to') === "deposit"){
-            setWithdraw(false)
-            setDeposit(true);
-        }else if(nav.get('to') === "withdraw"){
+        if(nav.get('to') === "withdraw"){
             setDeposit(false);
             setWithdraw(true)
+        }else if(nav.get('to') === "deposit"){
+            setWithdraw(false)
+            setDeposit(true);
         }
+
         nav.remove('to')
     },[nav])
 

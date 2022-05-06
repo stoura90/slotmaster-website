@@ -73,14 +73,12 @@ const Information = () => {
         mobilePrefix:"1",
         hasUserRequestedVerify:null,
         verifyStatus:null,
-
     });
     const [questions, setQuestions] = useState({
         question1:'',
         answer1:'',
         question2:'',
         answer2:''
-
     });
     const [loader,setLoader]=useState(false)
     const [securityQuestionsLoader,setSecurityQuestionsLoader]=useState(false)
@@ -109,7 +107,6 @@ const Information = () => {
                         answer1:ans?.data?.security_answer1,
                         question2:parseInt(ans?.data?.security_question2),
                         answer2:ans?.data?.security_answer2
-
                     })
                 }
             })
