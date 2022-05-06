@@ -120,7 +120,8 @@ const Withdraw = ({onClose})=>{
                                             setCrypto(event.target.value * exRate?.exchangeRate?.rateTo);
                                         }}
                                         />
-                                        <label htmlFor="amount">{t("Money")}</label>
+                                        <label htmlFor="amount">EUR</label>
+                                        {/*{t("Money")}*/}
                                     </div>
 
                                 </div>
