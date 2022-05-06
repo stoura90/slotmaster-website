@@ -293,5 +293,20 @@ a {
     }
 }
 
+.verify_status {
+    span {
+        margin-right: 15px;
+        &.unveridied{
+            color:#af4e4e
+        }
+        &.verified{
+            color:green
+        }
+        &.pending{
+            color:#af8b3a
+        }
+    }
+}
+
 // override all styles
 @import './override';
