@@ -1,8 +1,16 @@
 import React from 'react';
 import '../footer/footer.scss';
 import {FooterCarousel} from "../index";
-import {betsoft, evolutionGaming, netent} from "../../assets/img/images";
-import {discord, gr, kiron, pragmatic, wazdan} from "../../assets/img/icons/icons";
+import {betsoft, netent} from "../../assets/img/images";
+import {discord, gr,
+    evolutionGaming,
+    relax,
+    pragmatic,
+    playngo,
+    isoftbet,
+    kiron,
+    wazdan,
+} from "../../assets/img/icons/icons";
 import {Link} from "react-router-dom";
 import {i18n, useTranslation} from "../../core";
 import {
@@ -100,16 +108,16 @@ const Footer =()=>{
                             <div className={"position-relative  logo-list ft-carousel-1"}>
                                 <FooterCarousel count={3} data={[
                                     {id:67,icon:evolutionGaming, page:'casino'},
-                                    {id:63,icon:wazdan, page:'slots'},
-                                    {id:69,icon:gr,page:'virtuals'},
+                                    {id:63,icon:relax, page:'slots'},
+                                    {id:69,icon:pragmatic, page:'slots'},
 
                                 ]}/>
                             </div>
                             <div className={"position-relative  logo-list ft-carousel-2 last"}>
                                 <FooterCarousel count={3} data={[
-                                    {id:62,icon:kiron , page:'virtuals'},
-                                    {id:58,icon:pragmatic, page:'slots'},
-                                    {id:57,icon:betsoft, page:'slots'},
+                                    {id:62,icon:playngo , page:'slots'},
+                                    {id:58,icon:isoftbet, page:'slots'},
+                                    {id:57,icon:kiron, page:'virtuals'},
                                 ]}/>
                             </div>
 

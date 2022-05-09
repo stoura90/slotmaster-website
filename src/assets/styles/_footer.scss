@@ -64,7 +64,8 @@
       width: 100%;
       height: 50px;
       border-radius: 6px;
-      background: #1a2231;
+      //background: #1a2231;
+      background: #1B2233;
       padding: 5px;
       overflow: hidden;
       transition: all 0.15s linear;
@@ -73,8 +74,8 @@
       }
       img {
         max-width: 70%;
-        opacity: 0.4;
-        filter: contrast(0%) brightness(20);
+        opacity: 0.6;
+        //filter: contrast(0%) brightness(20);
         @media(min-width: $sm) {
           max-width: 100%;
         }

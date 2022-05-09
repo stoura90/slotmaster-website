@@ -33,10 +33,9 @@ import time from "./time.svg";
 import viewOff from "./view-off.svg";
 import viewOn from "./view-on.svg";
 import loader from "./loader.gif";
-import wazdan from "./wazdan.png";
+
 import gr from "./gr.png";
-import kiron from "./kiron.png";
-import pragmatic from "./pragmatic.png";
+
 import coinspaid from "./coinspaid.svg";
 import copy from "./copy.svg";
 import user_ico from "./user_ico.svg";
@@ -45,6 +44,14 @@ import stickHome from "./stick-home.svg";
 import stickDeposit from "./stick-dep.svg";
 import stickWithdraw from "./stick-withdraw.svg";
 import stickAccount from "./stick-account.svg";
+
+import evolutionGaming from './evolution-gaming.png';
+import relax from './relax.png';
+import pragmatic from "./pragmatic.png";
+import playngo from "./playngo.png";
+import isoftbet from "./isoftbet.png";
+import kiron from "./kiron.png";
+import wazdan from "./wazdan.png";
 
 export {
 restriction18,
@@ -82,15 +89,20 @@ time,
 viewOff,
 viewOn,
 loader,
-    wazdan,
     gr,
-    kiron,
-    pragmatic,
     coinspaid,
     copy,
     user_ico,
     stickHome,
     stickDeposit,
     stickWithdraw,
-    stickAccount
+    stickAccount,
+
+    evolutionGaming,
+    relax,
+    pragmatic,
+    playngo,
+    isoftbet,
+    kiron,
+    wazdan,
 }

@@ -21,6 +21,8 @@ import PLXModal from "./modal/PLXModal";
 import SvgDot from "./loader/svgdot";
 import ChangePassword from "./account/changePassword/ChangePassword";
 import Transactions from "./account/transactions/transactions";
+import Carusel3D from "./3D_Carusel/3DCarusel";
+
 export {
     PLXModal,
     Header,
@@ -44,5 +46,6 @@ export {
     Finances,
     SvgDot,
     ChangePassword,
-    Transactions
+    Transactions,
+    Carusel3D
 }

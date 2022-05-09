@@ -1,8 +1,13 @@
 import React, { useEffect, useRef, useState} from 'react';
 import { sl2,w2} from '../../assets/img/images';
-import {Carousel, Header, Swp, Footer, Sport} from "../../components";
+import {Carousel, Header, Swp, Footer, Sport, Carusel3D} from "../../components";
 import {Link, useParams} from "react-router-dom";
 import {Actions, useTranslation} from "../../core";
+
+import image_1 from '../../assets/img/slide/image_1.png';
+import image_2 from '../../assets/img/slide/image_2.png';
+import image_3 from '../../assets/img/slide/image_3.png';
+import image_4 from '../../assets/img/slide/image_4.png';
 
 
 const MainScreen = () =>{
@@ -32,12 +37,29 @@ const MainScreen = () =>{
                 setResize(window.innerWidth)
             })
         }
-    },[])
+    },[]);
+
+    let slides = [
+        <img  src={image_1} alt="1" />,
+        <img  src={image_2} alt="2" />,
+        <img  src={image_3} alt="3" />,
+        <img  src={image_4} alt="4" />,
+        ];
+
+    const callback = function(index){
+        console.log("callback",index);
+    }
+
     return (
         <>
             <Header page={"main"}/>
 
-            <div className=" slider">
+            <div style={{minHeight:'360px',margin:'10px 0'}}>
+                <Carusel3D slides={slides} autoplay={true} interval={7000} onSlideChange={callback}/>
+            </div>
+
+
+            {/*<div className=" slider">
                 <Swp count={3}  data={[
                     //{id:1, icon:prg },
                     {id:2, icon:w2 },
@@ -47,11 +69,11 @@ const MainScreen = () =>{
                     {id:6, icon:sl2 },
                     {id:7, icon:sl2 }
                 ]}/>
-            </div>
+            </div>*/}
 
             <main className="widget_cont">
                 <div className="container" ref={ref}>
-                    <div className="row for_widget">
+                    <div className="row for_widget" style={{margin:'0'}}>
                         <div className="col-12">
                             {
                                 window.location.pathname.indexOf('/main') !==-1 &&
