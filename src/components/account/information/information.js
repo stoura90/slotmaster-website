@@ -2076,7 +2076,6 @@ const Information = () => {
                                                             onSelect={e => setInfoData({...infoData,mobilePrefix:e.id})}
                                                         />
                                                     </div>
-
                                                     <div className={`input-label-border ${error("mobile")}`} style={{width:"100%",marginLeft:'10px'}}>
                                                         <input
                                                             type="number"
@@ -2363,39 +2362,39 @@ const Information = () => {
                                         </div>
                                         <div className="col-12 col-md-6">
                                             <div  className={`input-label-border ${error("firstName")}`}>
-                                                <input value={infoData.firstName} type="text" name="name" id="name"/>
+                                                <input disabled value={infoData.firstName} type="text" name="name" id="name"/>
                                                 <label htmlFor="name">{t("Name")}</label>
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
                                             <div className={`input-label-border ${error("lastName")}`}>
-                                                <input value={infoData.lastName} type="text" name="surname" id="surname"/>
+                                                <input disabled value={infoData.lastName} type="text" name="surname" id="surname"/>
                                                 <label htmlFor="surname">{t("Surname")}</label>
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
-                                            <div className={`input-label-border`}>
-                                                <input value={infoData.dob} type="text" name="dob" id="dob"/>
+                                            <div  className={`input-label-border`}>
+                                                <input disabled value={infoData.dob} type="text" name="dob" id="dob"/>
                                                 <label htmlFor="dob">{t("Date of birth")}</label>
                                             </div>
                                         </div>
 
                                         <div className="col-12 col-md-6">
                                             <div className={`input-label-border`}>
-                                                <input value={infoData.gender ? (gender.filter(v=> v.id === infoData.gender).map(v=> v.title)):''} type="text" name="gender" id="gender"/>
+                                                <input disabled value={infoData.gender ? (gender.filter(v=> v.id === infoData.gender).map(v=> v.title)):''} type="text" name="gender" id="gender"/>
                                                 <label htmlFor="gender">{t("gender")}</label>
                                             </div>
                                         </div>
 
                                         <div className="col-12 col-md-6">
                                             <div className={`input-label-border`}>
-                                                <input value={infoData.country? (countries.filter(v=> v.id === infoData.country).map(v=> v.title)):''} type="text" name="Country" id="Country"/>
+                                                <input disabled value={infoData.country? (countries.filter(v=> v.id === infoData.country).map(v=> v.title)):''} type="text" name="Country" id="Country"/>
                                                 <label htmlFor="Country">{t("Nationality")}</label>
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
                                             <div className={`input-label-border`}>
-                                                <input value={currency[0].title} type="text" name="currency" id="currency"/>
+                                                <input value={currency[0].title} type="text" name="currency" id="currency" disabled/>
                                                 <label htmlFor="currency">{t("currency")}</label>
                                             </div>
                                         </div>
