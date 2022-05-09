@@ -1823,8 +1823,19 @@ const Confirmation = () => {
         setErrors([])
         let error = _.chain(infoData).map((v,k)=>{
             if(["mobileConfirmed","emailConfirmed","mobilePrefix","mobile","email"].includes(k)){
+                console.log(k,v)
                 return {key:k,value:1}
             }
+            if(k==="dob"){
+                if(v){
+                    let d = moment(new Date(v)).diff(moment(moment(new Date((new Date()).getFullYear()-18, (new Date()).getMonth(),  (new Date()).getDate())).format("YYYY-MM-DD")), 'days')
+                    if(d>0){
+                        return {key:k,value:undefined}
+                    }
+                }
+                console.log(k,v)
+            }
+
             return {key:k,value:v}
         }).filter(v=>!v.value).map(v=>v.key).value();
 
@@ -2015,7 +2026,7 @@ const Confirmation = () => {
                                             </div>
                                             <div className="col-12 col-md-6">
                                                 <div className={`input-label-border ${error("dob")}`}>
-                                                    <input onChange={e => setInfoData({...infoData,dob:e.target.value})} value={infoData.dob} type="date" name="dob" id="dob"/>
+                                                    <input onChange={e => setInfoData({...infoData,dob:e.target.value})} value={infoData.dob} type="date" name="dob" id="dob" max={moment(new Date((new Date()).getFullYear()-18, (new Date()).getMonth(),  (new Date()).getDate())).format("YYYY-MM-DD")}/>
                                                     <label htmlFor="dob">{t("Date of birth")}</label>
                                                 </div>
                                             </div>
@@ -2026,11 +2037,11 @@ const Confirmation = () => {
                                                 </div>
                                             </div>
                                             <div className="col-12 col-md-6">
-                                                <div className={`${error("country")}`}>
+                                                <div className={`${error("Nationality")}`}>
                                                 <SelectBox
                                                         data={countries}
                                                         value={infoData.country}
-                                                        placeholder={t("Country")}
+                                                        placeholder={t("Nationality")}
                                                         error={error("country")}
                                                         onSelect={(e)=> setInfoData({...infoData,country:e.id})}
                                                 />
@@ -2086,7 +2097,7 @@ const Confirmation = () => {
                                                         <SelectBox
                                                                 data={countries}
                                                                 value={documents.country}
-                                                                placeholder={t("Country")}
+                                                                placeholder={t("Nationality")}
                                                                 error={error("country")}
                                                                 onSelect={(e)=> setDocuments({...documents,country:e.id})}
                                                         />

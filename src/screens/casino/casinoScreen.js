@@ -33,7 +33,8 @@ console.log(selectedProvider)
     },[])
     useEffect(()=>{
         if(selectedProvider.length>0 || selectedFilters.length>0){
-            setPage(_.size(filteredSlotList)/20 + 1)
+            //setPage(_.size(filteredSlotList)/20 + 1)
+            setPage( 1)
         }else{
             setPage(1)
         }
