@@ -1,6 +1,7 @@
 import {useTranslation} from "../../core";
 
 const ShowMore=({page,count, length, setPage})=>{
+    console.log(page,count,length)
     const {t} = useTranslation()
     return  page*count<length && (
         <div className="show-more">

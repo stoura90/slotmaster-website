@@ -27,13 +27,12 @@ const SlotsScreen = () =>{
     },[])
     useEffect(()=>{
         if(selectedProvider.length>0 || selectedFilters.length>0){
-
-            setPage(_.size(filteredSlotList)/20 + 1)
+            //setPage(_.size(filteredSlotList)/20 + 1)
+            setPage(1)
         }else{
             setPage(1)
         }
     },[selectedProvider,selectedFilters,searchText])
-
     const filteredSlotList = useMemo(()=>{
         let filtered =list;
         if(searchText.trim().length>0){
@@ -53,9 +52,6 @@ const SlotsScreen = () =>{
 
         return filtered;
     },[list,selectedProvider,selectedFilters,searchText])
-
-
-
     const homeClick = () => {
         setSelectedProvider({name:'All Providers'});
         loadProvider();
@@ -69,7 +65,6 @@ const SlotsScreen = () =>{
             setFilters(response.status?response.data.data.filterGroups:[]);
         }).catch(reason => console.log(reason))
     }
-
     const loadSlotList =()=>{
         Actions.Slot.listByPage(1).then((response)=>{
             setList(response.status?response.data.data:[])
@@ -78,12 +73,9 @@ const SlotsScreen = () =>{
     // const loadSlots = (id) => {
     //     Actions.Slot.listByProvider(id,"1").then(response=>setList(response.status?response.data.data:[]))
     // }
-
-
     const getSlotList=()=> {
         return _.filter(filteredSlotList,(v,k)=>k<page*20);
     }
-
     return (
         <>
             <Header page={"slots"}/>
