@@ -2026,11 +2026,11 @@ const Confirmation = () => {
                                                 </div>
                                             </div>
                                             <div className="col-12 col-md-6">
-                                                <div className={`${error("country")}`}>
+                                                <div className={`${error("Nationality")}`}>
                                                 <SelectBox
                                                         data={countries}
                                                         value={infoData.country}
-                                                        placeholder={t("Country")}
+                                                        placeholder={t("Nationality")}
                                                         error={error("country")}
                                                         onSelect={(e)=> setInfoData({...infoData,country:e.id})}
                                                 />
@@ -2086,7 +2086,7 @@ const Confirmation = () => {
                                                         <SelectBox
                                                                 data={countries}
                                                                 value={documents.country}
-                                                                placeholder={t("Country")}
+                                                                placeholder={t("Nationality")}
                                                                 error={error("country")}
                                                                 onSelect={(e)=> setDocuments({...documents,country:e.id})}
                                                         />
