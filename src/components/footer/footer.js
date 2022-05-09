@@ -131,17 +131,17 @@ const Footer =()=>{
                     <div className="col-12 col-lg-8">
                         <h6 style={{textAlign:'left',color:'#C6D1ED'}}>Accepted Currencies</h6>
                         <div style={{justifyContent:'left'}} className="crypto">
-                            <i className="crypto" data-color="bnb"><img src={bnb} /></i>
-                            <i className="crypto" data-color="ada"><img src={ada} /></i>
                             <i className="crypto" data-color="btc"><img src={btc} /></i>
-                            <i className="crypto" data-color="busd"><img src={busd} /></i>
-                            <i className="crypto" data-color="dash"><img src={dash} /></i>
-                            <i className="crypto" data-color="eth"><img src={eth} /></i>
                             <i className="crypto" data-color="ltc"><img src={ltc} /></i>
+                            <i className="crypto" data-color="eth"><img src={eth} /></i>
+                            <i className="crypto" data-color="bnb"><img src={bnb} /></i>
+                            <i className="crypto" data-color="busd"><img src={busd} /></i>
+                            <i className="crypto" data-color="usdt"><img src={usdt} /></i>
+                            <i className="crypto" data-color="dash"><img src={dash} /></i>
                             <i className="crypto" data-color="neo"><img src={neo} /></i>
+                            <i className="crypto" data-color="ada"><img src={ada} /></i>
                             <i className="crypto" data-color="trx"><img src={trx} /></i>
                             <i className="crypto" data-color="usdc"><img src={usdc} /></i>
-                            <i className="crypto" data-color="usdt"><img src={usdt} /></i>
                         </div>
                     </div>
                     <div className="col-12 col-lg-4 d-none d-md-flex  flex-md-column">
