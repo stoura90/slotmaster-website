@@ -12,7 +12,7 @@ import {useTranslation} from "../../core";
 import ChangeLagunge from "../languages/ChangeLagunge";
 import {UseEvent} from "../../core/hooks/useEvent";
 const Header = ({page}) =>{
-    const {t} = useTranslation();
+    const {t,i18n} = useTranslation();
     const ev = UseEvent();
     const {User} = useUser();
     const {lang} = useParams();
@@ -40,15 +40,15 @@ const Header = ({page}) =>{
                                                 <div data-user>{User.data.username}</div>
                                                 <div data-pin>id: {User.data.id}</div>
                                             </div>*/}
-                                            <Link to={`/${lang}/account`} className="navbar-balance d-flex flex-column">
+                                            <Link to={`/${i18n.language}/account`} className="navbar-balance d-flex flex-column">
                                                 <span className="currency">EUR{/*{User.data.accounts.main.currency.iso3}*/}</span>
                                                 <span className="current-balance">{(User.data.accounts.main.amount).toFixed(2)}</span>
                                             </Link>
 
 
-                                            <Link  to={`/${lang}/account/finances?to=withdraw`} className="withdraw-link">{t("withdraw")}</Link>
-                                            <Link  to={`/${lang}/account/finances?to=deposit`} className="deposit-link">{t("deposit")}</Link>
-                                            <Link  to={`/${lang}/account`} className="account-link"><img src={user_ico} alt=""/></Link>
+                                            <Link  to={`/${i18n.language}/account/finances?to=withdraw`} className="withdraw-link">{t("withdraw")}</Link>
+                                            <Link  to={`/${i18n.language}/account/finances?to=deposit`} className="deposit-link">{t("deposit")}</Link>
+                                            <Link  to={`/${i18n.language}/account`} className="account-link"><img src={user_ico} alt=""/></Link>
                                         {/*<button
                                             className="navbar-toggler"
                                             type="button"
@@ -100,7 +100,7 @@ const Header = ({page}) =>{
                     <div className="container">
                         <ul className="navbar-nav">
                             <li className="nav-item d-none d-md-flex">
-                                <Link to={`/${lang}/main`} className={`nav-link  home ${page==='main'? 'active':''}`}>
+                                <Link to={`/${i18n.language}/main`} className={`nav-link  home ${page==='main'? 'active':''}`}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="24"
@@ -125,19 +125,19 @@ const Header = ({page}) =>{
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={`/${lang}/sport`} className={`nav-link ${page==='sport'? 'active':''}`}>{t("Sport")}</Link>
+                                <Link to={`/${i18n.language}/sport`} className={`nav-link ${page==='sport'? 'active':''}`}>{t("Sport")}</Link>
                             </li>
                             <li className="nav-item">
-                                <Link  className={`nav-link ${page==='live'? 'active':''}`} to={`/${lang}/live`}>{t("Live")}</Link>
+                                <Link  className={`nav-link ${page==='live'? 'active':''}`} to={`/${i18n.language}/live`}>{t("Live")}</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={`/${lang}/virtuals`}  className={`nav-link ${page==='virtuals'? 'active':''}`} >{t("Virtuals")}</Link>
+                                <Link to={`/${i18n.language}/virtuals`}  className={`nav-link ${page==='virtuals'? 'active':''}`} >{t("Virtuals")}</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={`/${lang}/casino`}  className={`nav-link ${page==='casino'? 'active':''}`}>{t("Casino")}</Link>
+                                <Link to={`/${i18n.language}/casino`}  className={`nav-link ${page==='casino'? 'active':''}`}>{t("Casino")}</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={`/${lang}/slots`}  className={`nav-link ${page==='slots'? 'active':''}`}>{t("Slot")}</Link>
+                                <Link to={`/${i18n.language}/slots`}  className={`nav-link ${page==='slots'? 'active':''}`}>{t("Slot")}</Link>
                             </li>
                             {/*<li className="nav-item">
                                 <Link  to={`/${lang}/promo`}  className={`nav-link ${page==='promo'? 'active':''}`}>{t("Promo")}</Link>

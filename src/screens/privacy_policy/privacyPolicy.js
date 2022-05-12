@@ -1,17 +1,18 @@
 import React, {useEffect} from 'react';
 
 import {ContentNavigator, Footer, Header, Swp} from "../../components";
+import {useTranslation} from "../../core";
 
 
-const privacyPolicy = () =>{
-
+const PrivacyPolicy = () =>{
+    const {t,i18n} = useTranslation();
     return (
         <>
             <Header page={"privacy_policy"}/>
 
             <main className="page">
                 <div className="container">
-                    <ContentNavigator page="privacy_policy" lang="ka"/>
+                    <ContentNavigator page="privacy_policy" lang={i18n.language}/>
                     <div className="page-wrapper">
                         <div className="row">
                             <div className="col-12">
@@ -290,4 +291,4 @@ const privacyPolicy = () =>{
     )
 }
 
-export default privacyPolicy
+export default PrivacyPolicy

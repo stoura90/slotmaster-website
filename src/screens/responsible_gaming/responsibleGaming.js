@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
 
 import {ContentNavigator, Footer, Header, Swp} from "../../components";
+import {useTranslation} from "../../core";
 
 
-const responsibleGaming = () =>{
+const ResponsibleGaming = () =>{
+    const {i18n} = useTranslation()
 
     return (
         <>
@@ -11,7 +13,7 @@ const responsibleGaming = () =>{
 
             <main className="page">
                 <div className="container">
-                    <ContentNavigator page="responsible_gaming" lang="ka"/>
+                    <ContentNavigator page="responsible_gaming" lang={i18n.language}/>
                     <div className="page-wrapper">
                         <div className="row">
                             <div className="col-12">
@@ -39,4 +41,4 @@ const responsibleGaming = () =>{
     )
 }
 
-export default responsibleGaming
+export default ResponsibleGaming

@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
 
 import {ContentNavigator, Footer, Header, Swp} from "../../components";
+import {useTranslation} from "../../core";
 
 
 const TermScreen = () =>{
+    const {i18n} = useTranslation()
 
     return (
         <>
@@ -11,7 +13,7 @@ const TermScreen = () =>{
 
             <main className="page">
                 <div className="container">
-                    <ContentNavigator page="terms" lang="ka"/>
+                    <ContentNavigator page="terms" lang={i18n.language}/>
                     <div className="page-wrapper">
                         <div className="row">
                             <div className="col-12">

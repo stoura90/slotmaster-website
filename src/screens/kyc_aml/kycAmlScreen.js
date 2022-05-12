@@ -1,17 +1,18 @@
 import React, {useEffect} from 'react';
 
 import {ContentNavigator, Footer, Header, Swp} from "../../components";
+import {useTranslation} from "../../core";
 
 
-const kycAmlScreen = () =>{
-
+const KycAmlScreen = () =>{
+    const {t,i18n}  = useTranslation()
     return (
         <>
             <Header page={"kyc_aml"}/>
 
             <main className="page">
                 <div className="container">
-                    <ContentNavigator page="kyc_aml" lang="ka"/>
+                    <ContentNavigator page="kyc_aml" lang={i18n.language}/>
                     <div className="page-wrapper">
                         <div className="row">
                             <div className="col-12">
@@ -339,4 +340,4 @@ const kycAmlScreen = () =>{
     )
 }
 
-export default kycAmlScreen
+export default KycAmlScreen

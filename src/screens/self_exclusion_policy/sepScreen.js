@@ -1,17 +1,18 @@
 import React, {useEffect} from 'react';
 
 import {ContentNavigator, Footer, Header, Swp} from "../../components";
+import {useTranslation} from "../../core";
 
 
-const sepScreen = () =>{
-
+const SepScreen = () =>{
+    const {i18n} = useTranslation()
     return (
         <>
             <Header page={"self_exclusion_policy"}/>
 
             <main className="page">
                 <div className="container">
-                    <ContentNavigator page="self_exclusion_policy" lang="ka"/>
+                    <ContentNavigator page="self_exclusion_policy" lang={i18n.language}/>
                     <div className="page-wrapper">
                         <div className="row">
                             <div className="col-12">
@@ -60,4 +61,4 @@ const sepScreen = () =>{
     )
 }
 
-export default sepScreen
+export default SepScreen

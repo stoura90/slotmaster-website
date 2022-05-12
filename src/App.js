@@ -1,62 +1,52 @@
-import {Suspense, useEffect, useLayoutEffect, useState} from 'react'
+import { useEffect, useState} from 'react'
 
-import {Actions, Provider, useTranslation} from "./core";
-import {Button, Footer, Guest, Header, MainNavigator, } from "./components";
+import {Actions, useTranslation} from "./core";
+import { Guest, MainNavigator, } from "./components";
 import {useDispatch} from "react-redux";
 import OTP from "./components/verification";
 import {useNav} from "./core/hooks/useNav";
 import {useCookie} from "./core/hooks/useCookie";
+import {UseEvent} from "./core/hooks/useEvent";
+import {useUser} from "./core/hooks/useUser";
 
 
 const  App=()=> {
     const {t,i18n}  = useTranslation()
     const dispatch = useDispatch();
+    const event = UseEvent();
     const [loaded,setLoaded]=useState(false)
     const cookie = useCookie()
-    const nav  = useNav()
+    const nav  = useNav();
+    const user = useUser()
     useEffect( () => {
        if(nav.get("cxd")){
             //აფილეიტები
             cookie.setCookie("cxd",nav.get("cxd"),14)
        }
-
         ping()
-        checkLanguage()
+        //checkLanguage()
+        const listener = event.subscribe("plxEvent",(e)=>{
+            switch (e?.type) {
+                case "signOut":
+                        console.log(e)
+                        localStorage.clear()
+                        user.signOut(()=>event.emit('signIn',true))
+                    break;
+
+                default: break;
+            }
+        })
+
+        return ()=>{
+            listener.unsubscribe()
+        }
     },[])
 
-    const checkLanguage = ()=>{
-        if(window.location.pathname.includes("/en") || window.location.pathname.includes("/ru")){
-            if(window.location.pathname.includes("/en")){
-                if(i18n.language!=="en"){
-                    i18n.changeLanguage("en")
-                }
-            }else{
-                if(i18n.language!=="ru"){
-                    i18n.changeLanguage("ru")
-                }
-            }
-        }else{
-            i18n.changeLanguage("en");
-            window.location.href="/en"
-        }
-    }
-    const errorHandler=(event)=>{
-        /*switch (event.type){
-            case 'signOut': signOut();break;
-            case 'signIn': signOut(()=>{
-                setTimeout(()=>{
-                    if(document.getElementById("signIn-btn")){
-                        document.getElementById("signIn-btn").click();
-                    }
-                },200)
-            });break;
-            default: break;
-        }*/
-    }
+
     const ping =  async () => {
         setLoaded(await dispatch(Actions.User.ping()))
     }
-  return  loaded && (<>
+    return  loaded && (<>
           <MainNavigator/>
 
           <Guest/>
