@@ -22,6 +22,8 @@ import SvgDot from "./loader/svgdot";
 import ChangePassword from "./account/changePassword/ChangePassword";
 import Transactions from "./account/transactions/transactions";
 import Carusel3D from "./3D_Carusel/3DCarusel";
+import NewSWP from "./newSWP/NewSWP";
+
 
 export {
     PLXModal,
@@ -47,5 +49,7 @@ export {
     SvgDot,
     ChangePassword,
     Transactions,
-    Carusel3D
+    Carusel3D,
+    NewSWP
+
 }

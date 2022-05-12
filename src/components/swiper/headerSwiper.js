@@ -1,9 +1,10 @@
 import React,{useEffect,useState,useRef} from 'react'
 import SwiperCore, {Navigation, Pagination, Scrollbar, A11y, Virtual} from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+//import { Swiper, SwiperSlide } from 'swiper/react';
+import {Swiper, SwiperSlide} from "swiper/react/swiper-react";
 import 'swiper/swiper.scss';
-import 'swiper/components/navigation/navigation.scss';
-import 'swiper/components/pagination/pagination.scss';
+import 'swiper/modules/navigation/navigation.scss';
+import 'swiper/modules/pagination/pagination.scss';
 import _ from 'lodash'
 SwiperCore.use([Navigation,Virtual, Pagination, Scrollbar, A11y]);
 

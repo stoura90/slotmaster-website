@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState} from 'react';
 import { sl2,w2} from '../../assets/img/images';
-import {Carousel, Header, Swp, Footer, Sport, Carusel3D} from "../../components";
+import {Carousel, Header, Swp, Footer, Sport,NewSWP} from "../../components";   // Carusel3D
 import {Link, useParams} from "react-router-dom";
 import {Actions, useTranslation} from "../../core";
 
@@ -39,12 +39,7 @@ const MainScreen = () =>{
         }
     },[]);
 
-    let slides = [
-        <img  src={image_1} alt="1" />,
-        <img  src={image_2} alt="2" />,
-        <img  src={image_3} alt="3" />,
-        <img  src={image_4} alt="4" />,
-        ];
+    let slides = <img  src={image_1} alt="1" />;
 
     const callback = function(index){
         console.log("callback",index);
@@ -54,8 +49,12 @@ const MainScreen = () =>{
         <>
             <Header page={"main"}/>
 
-            <div style={{minHeight:'360px',margin:'10px 0'}}>
+            {/*<div style={{minHeight:'360px',margin:'10px 0'}}>
                 <Carusel3D slides={slides} autoplay={true} interval={7000} onSlideChange={callback}/>
+            </div>*/}
+
+            <div className="container" style={{minHeight:'360px',margin:'10px auto'}}>
+                <NewSWP slide={slides} />
             </div>
 
 
@@ -71,7 +70,7 @@ const MainScreen = () =>{
                 ]}/>
             </div>*/}
 
-            <main className="widget_cont">
+            <main className="widget_cont" >
                 <div className="container" ref={ref}>
                     <div className="row for_widget" style={{margin:'0'}}>
                         <div className="col-12">
