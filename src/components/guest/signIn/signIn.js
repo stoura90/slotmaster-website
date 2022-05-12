@@ -67,7 +67,10 @@ const SignIn =() =>{
             header:head
         }))
         if (response.status) {
-            if(window.location.href.indexOf("playSlot")>-1){
+            if(window.location.href.indexOf("playSlot")>-1
+             || window.location.href.indexOf("live")>-1
+             || window.location.href.indexOf("sport")>-1
+            ){
                 window.location.reload()
                 return
             }

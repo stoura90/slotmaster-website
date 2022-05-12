@@ -4,17 +4,20 @@ import {UseEvent} from "../hooks/useEvent";
 import JWT from "../models/JWT";
 import {Config} from "../config";
 import {query_string} from "../utils";
+import {useUser} from "../hooks/useUser";
 const http =  axios.create({
     baseURL: '/',
     timeout:10000
 })
 const loaders = UseEvent();
 
+
 class Http {
 
     static get({url,loader,headers,permitAll=false,enableRefreshToken=true,header}){
         const jwt  = new JWT()
         return new Promise((resolve) => {
+
             if (loader) this.setLoader(loader, true);
             http.get(url,permitAll? header? {headers:{...header}}:{} :{headers: {
                     ...header,
@@ -33,10 +36,14 @@ class Http {
                             jwt.setData(refresh.data.data);
                             resolve(this.get({url:url,loader:loader,headers:headers,permitAll:permitAll,enableRefreshToken:false,header:header}))
                         }else{
+                            loaders.emit('plxEvent',{type:'signOut'})
+
                             resolve({status:false})
+
                         }
                     }else{
-                        loaders.emit('signIn',true);
+                        loaders.emit('plxEvent',{type:'signOut'})
+
                         resolve({status: false, error: reason?.response?.data})
                     }
                 } else {
@@ -70,10 +77,12 @@ class Http {
                                 url:url,data:data,loader:loader,headers:headers,permitAll:permitAll,enableRefreshToken:false,header:header
                             }))
                         }else{
+                            loaders.emit('plxEvent',{type:'signOut'})
                             resolve({status:false})
                         }
                     } else {
-                        loaders.emit('signIn', true);
+                        loaders.emit('plxEvent',{type:'signOut'})
+
                         resolve({status: false, error: reason?.response?.data})
 
                     }
@@ -104,6 +113,7 @@ class Http {
                                 url:url,data:data,loader:loader,headers:headers,permitAll:permitAll,enableRefreshToken:false
                             }))
                         }else{
+                            loaders.emit('plxEvent',{type:'signOut'})
                             resolve({status:false})
                         }
                     } else {

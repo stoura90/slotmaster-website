@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "@microblink/blinkid-in-browser-sdk": "^5.10.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.6",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -13,6 +14,7 @@
     "bootstrap": "^4.6.0",
     "date-fns": "^2.28.0",
     "history": "^5.0.0",
+    "html-webpack-plugin": "^5.5.0",
     "i18next": "^19.8.7",
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-xhr-backend": "^3.2.2",

@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
 
 import {ContentNavigator, Footer, Header, Swp} from "../../components";
+import {useTranslation} from "../../core";
 
 
-const selfExclusionPolicy = () =>{
+const SelfExclusionPolicy = () =>{
+    const {i18n} = useTranslation()
 
     return (
         <>
@@ -11,7 +13,7 @@ const selfExclusionPolicy = () =>{
 
             <main className="page">
                 <div className="container">
-                    <ContentNavigator page="self_exclusion_policy" lang="ka"/>
+                    <ContentNavigator page="self_exclusion_policy" lang={i18n.language}/>
                     <div className="page-wrapper">
                         <div className="row">
                             <div className="col-12">
@@ -60,4 +62,4 @@ const selfExclusionPolicy = () =>{
     )
 }
 
-export default selfExclusionPolicy
+export default SelfExclusionPolicy

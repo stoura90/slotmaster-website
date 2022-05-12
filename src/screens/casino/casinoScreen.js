@@ -8,9 +8,12 @@ import {useParams} from "react-router-dom";
 import {CustomDropdown} from "../../components/dropdown/dropDown";
 import {filter} from "../../assets/img/icons/icons";
 import {useNav} from "../../core/hooks/useNav";
+import {useCount} from "../../core/hooks/useCount";
 
 const CasinoScreen = () =>{
     const nav = useNav();
+    const {count} = useCount()
+
     const {t} = useTranslation()
     const [page,setPage]=useState(1)
     const [providers,setProviders]=useState([])
@@ -79,7 +82,7 @@ console.log(selectedProvider)
     },[list,selectedProvider,selectedFilters,searchText])
 
     const getSlotList=()=> {
-        return _.filter(filteredSlotList,(v,k)=>k<page*20);
+        return _.filter(filteredSlotList,(v,k)=>k<page*count());
     }
 
 
@@ -183,7 +186,7 @@ console.log(selectedProvider)
                         </div>
                         {
                             <div className="col-12">
-                                <ShowMore page={page} count={20} length={filteredSlotList.length} setPage={setPage}/>
+                                <ShowMore page={page} count={count()} length={filteredSlotList.length} setPage={setPage}/>
                             </div>
                         }
                     </div>

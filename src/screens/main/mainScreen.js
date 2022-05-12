@@ -17,11 +17,9 @@ const MainScreen = () =>{
     const [resize,setResize]=useState(window.innerWidth)
     const [mainPageSlotList,setMainPageSlotList]=useState([])
     const [mainPageCasinoList,setMainPageCasinoList]=useState([])
-
     const getList = (pageId) =>{
         return Actions.Slot.listByPage({webPageId:pageId})
     }
-
     useEffect(()=>{
         getList(4).then(response=>{
            setMainPageSlotList(response.status? response.data.data:[])
@@ -38,13 +36,7 @@ const MainScreen = () =>{
             })
         }
     },[]);
-
     let slides = <img  src={image_1} alt="1" />;
-
-    const callback = function(index){
-        console.log("callback",index);
-    }
-
     return (
         <>
             <Header page={"main"}/>
@@ -59,8 +51,6 @@ const MainScreen = () =>{
                     {id:3, icon:image_1 }
                 ]} />
             </div>
-
-
             {/*<div className=" slider">
                 <Swp count={3}  data={[
                     //{id:1, icon:prg },
