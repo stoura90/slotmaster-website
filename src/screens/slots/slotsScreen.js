@@ -6,9 +6,11 @@ import "../../assets/styles/_select2.scss"
 import {Actions, useTranslation} from "../../core";
 import _ from "lodash"
 import {CustomDropdown} from "../../components/dropdown/dropDown";
+import {useCount} from "../../core/hooks/useCount";
 
 const SlotsScreen = () =>{
     const {t} = useTranslation()
+    const {count} = useCount()
     const [page,setPage]=useState(1)
     const [selected,setSelected] = useState([])
     const [providers,setProviders]=useState([])
@@ -52,10 +54,7 @@ const SlotsScreen = () =>{
 
         return filtered;
     },[list,selectedProvider,selectedFilters,searchText])
-    const homeClick = () => {
-        setSelectedProvider({name:'All Providers'});
-        loadProvider();
-    }
+
     const loadProvider = () => {
         Actions.Slot.list({webPageId:1}).then(response=> {
             //if(response.status){
@@ -74,7 +73,7 @@ const SlotsScreen = () =>{
     //     Actions.Slot.listByProvider(id,"1").then(response=>setList(response.status?response.data.data:[]))
     // }
     const getSlotList=()=> {
-        return _.filter(filteredSlotList,(v,k)=>k<page*20);
+        return _.filter(filteredSlotList,(v,k)=>k<page*count());
     }
     return (
         <>
@@ -165,11 +164,11 @@ const SlotsScreen = () =>{
                                 <SlotCard  data={getSlotList()} />
                             </div>
                         </div>
-                        {
-                            <div className="col-12">
-                                <ShowMore page={page} count={20} length={filteredSlotList.length} setPage={setPage}/>
-                            </div>
-                        }
+
+                        <div className="col-12">
+                            <ShowMore page={page} count={count()} length={filteredSlotList.length} setPage={setPage}/>
+                        </div>
+
                     </div>
                 </div>
             </main>

@@ -7,9 +7,12 @@ import _ from "lodash"
 import {useParams} from "react-router-dom";
 import {CustomDropdown} from "../../components/dropdown/dropDown";
 import {filter} from "../../assets/img/icons/icons";
+import {useCount} from "../../core/hooks/useCount";
 
 const VirtualsScreen = () =>{
     const  {t} = useTranslation()
+    const {count} = useCount()
+
     const [page,setPage]=useState(1)
     const [providers,setProviders]=useState([])
     const [filters,setFilters]=useState([])
@@ -75,7 +78,7 @@ const VirtualsScreen = () =>{
     },[list,selectedProvider,selectedFilters,searchText])
 
     const getSlotList=()=> {
-        return _.filter(filteredSlotList,(v,k)=>k<page*20);
+        return _.filter(filteredSlotList,(v,k)=>k<page*count());
     }
 
 
@@ -175,7 +178,7 @@ const VirtualsScreen = () =>{
                         </div>
                         {
                             <div className="col-12">
-                                <ShowMore page={page} count={20} length={filteredSlotList.length} setPage={setPage}/>
+                                <ShowMore page={page} count={count()} length={filteredSlotList.length} setPage={setPage}/>
                             </div>
                         }
                     </div>
