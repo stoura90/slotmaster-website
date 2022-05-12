@@ -45,10 +45,12 @@ const MainScreen = () =>{
                 <Carusel3D slides={slides} autoplay={true} interval={7000} onSlideChange={callback}/>
             </div>*/}
 
-            <div className="container slider-container" style={{minHeight:'360px',margin:'10px auto',borderRadius:'6px'}}>
+            <div className="container slider-container" style={{margin:'10px auto',borderRadius:'6px'}}>
                 <NewSWP slide={slides} data={[
+                    {id:1, icon:image_1 },
                     {id:2, icon:image_1 },
-                    {id:3, icon:image_1 }
+                    {id:3, icon:image_1 },
+                    {id:4, icon:image_1 }
                 ]} />
             </div>
             {/*<div className=" slider">

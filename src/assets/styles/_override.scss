@@ -22,9 +22,6 @@
 
 
 }
-.swiper-wrapper {
-
-}
 
 .swiper-slide {
   a {
@@ -34,7 +31,7 @@
       width: 100%;
     }
     .sl_img {
-      height: 19vw;
+      height: 25vw;
       max-height: 360px;
       width: 100%;
       background-position: center top !important;
@@ -607,7 +604,7 @@ label[for="phone-primary"] {font-size: 15px; color: #8f9ec8;}
 @media (max-width: 800px) {
   .swiper-slide {
     .sl_img {
-      height: 50vw !important;
+      height: 30vw !important;
     }
 
   }

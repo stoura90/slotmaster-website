@@ -23084,7 +23084,7 @@ a:hover {
   width: 100%;
 }
 .swiper-slide a .sl_img {
-  height: 19vw;
+  height: 25vw;
   max-height: 360px;
   width: 100%;
   background-position: center top !important;
@@ -23602,7 +23602,7 @@ label[for=phone-primary] {
 }
 @media (max-width: 800px) {
   .swiper-slide .sl_img {
-    height: 50vw !important;
+    height: 30vw !important;
   }
 }
 select {
