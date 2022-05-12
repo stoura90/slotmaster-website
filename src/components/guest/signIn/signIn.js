@@ -155,7 +155,7 @@ const SignIn =() =>{
                             <input type="text" name="email" id="email"
                                    value={loginForm.username} onChange={event => setLoginForm({...loginForm,username:event.target.value})}
                             />
-                            <label htmlFor="email">{t("Email/Username")}</label>
+                            <label htmlFor="email">{t("Email / Username")}</label>
                         </div>
                         <div className="input-label" >
                             <p className={"forgot-password"}><span onClick={()=>{

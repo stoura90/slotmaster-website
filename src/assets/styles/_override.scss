@@ -1,19 +1,49 @@
+.slider-container {
+  .swiper {
+    border-radius: 6px;
+    .swiper-pagination {
+      text-align: right;
+      padding: 0 10px;
+
+      .swiper-pagination-bullet {
+        background: #fff;
+        opacity: .4;
+        &.swiper-pagination-bullet-active {
+          opacity: 1;
+        }
+      }
+    }
+
+    .swiper-button-prev, .swiper-button-next {display: none;}
+    &:hover {
+      .swiper-button-prev, .swiper-button-next {display: block;}
+    }
+  }
+
+
+}
+.swiper-wrapper {
+
+}
 
 .swiper-slide {
   a {
     display: block;
+    background: none !important;
     img {
       width: 100%;
     }
     .sl_img {
-      height: 35vw;
-      max-height: 600px;
+      height: 19vw;
+      max-height: 360px;
       width: 100%;
       background-position: center top !important;
       background-size: cover !important;
+      border-radius: 6px;
     }
   }
 }
+
 
 
 .main-slots-area {
