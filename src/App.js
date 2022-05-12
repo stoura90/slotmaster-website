@@ -11,7 +11,6 @@ import {useUser} from "./core/hooks/useUser";
 
 
 const  App=()=> {
-    const {t,i18n}  = useTranslation()
     const dispatch = useDispatch();
     const event = UseEvent();
     const [loaded,setLoaded]=useState(false)
@@ -28,7 +27,6 @@ const  App=()=> {
         const listener = event.subscribe("plxEvent",(e)=>{
             switch (e?.type) {
                 case "signOut":
-                        console.log(e)
                         localStorage.clear()
                         user.signOut(()=>event.emit('signIn',true))
                     break;

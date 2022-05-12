@@ -5,17 +5,18 @@ import _ from 'lodash'
 import Listeners from "../../utils/listeners";
 import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
+import {UseEvent} from "../../core/hooks/useEvent";
 export const EuropeanView=({view})=>{
     const {i18n} = useTranslation()
     const {User} = useUser();
-    const {lang} = useParams()
+    const ev = UseEvent()
     const dispatch=useDispatch()
     const [token,setToken]=useState("_")
     const SportLogin=(event)=>{
-        document.getElementById("signIn-btn").click()
+        ev.emit("signIn",true)
     }
     const SportRegister=(event)=>{
-        document.getElementById("signUp-btn").click()
+        ev.emit("signUp",true)
     }
     const balanceChangeHandler=(event)=>{
         console.log("balanceChangeHandler",event)
@@ -32,7 +33,7 @@ export const EuropeanView=({view})=>{
         "server":["www.planetaxbet.com","planetaxbet.com"].indexOf(window.location.hostname)>-1?"https://sport.planetaxbet.com/":"https://sport.staging.planetaxbet.com/",
         "token":"_",
         "currentPage":view,
-        "language":lang,
+        "language":i18n.language,
         "timeZone":4,
         "oddsFormat":0,
         "login": SportLogin,
@@ -45,7 +46,9 @@ export const EuropeanView=({view})=>{
         "eventsHandler":eventsHandlerCallback
 
     })
-    useEffect( () => {
+
+
+    useEffect(()=>{
         if (User.isLogged) {
             response.then(res=>{
                 if(res.status){
@@ -56,21 +59,20 @@ export const EuropeanView=({view})=>{
         }else{
             loadFrame(params)
         }
+
         i18n.on('languageChanged', function(lng) {
             window.location.reload()
         })
         return () =>{
             i18n.off("languageChanged")
         }
-    },[])
-
+    },[User.isLogged])
 
 
     const getToken=()=>{
         return  Actions.Sport.token()
     }
     const response = useMemo(async () => await getToken(), []);
-    const listeners=Listeners();
     const loadFrame= (parameters) => {
         window.SportFrame.frame(_.map(parameters, (v, k) => {
             return [k, v]
