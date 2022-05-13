@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {sl2, w2} from '../../assets/img/images';
-import {Footer, Header, ShowMore, SlotCard, Swp} from "../../components";
+import {Footer, Header, NewSWP, ShowMore, SlotCard, Swp} from "../../components";
 import "../../assets/styles/_select2.scss"
 import {Actions, useTranslation} from "../../core";
 import _ from "lodash"
@@ -8,6 +8,8 @@ import {useParams} from "react-router-dom";
 import {CustomDropdown} from "../../components/dropdown/dropDown";
 import {filter} from "../../assets/img/icons/icons";
 import {useCount} from "../../core/hooks/useCount";
+import image_1 from "../../assets/img/slide/image_1.png";
+
 
 const VirtualsScreen = () =>{
     const  {t} = useTranslation()
@@ -82,20 +84,18 @@ const VirtualsScreen = () =>{
     }
 
 
+    let slides = <img  src={image_1} alt="1" />;
     return (
         <>
             <Header page={"virtuals"}/>
 
-            <div className="slider">
-                <Swp count={3}  data={[
-                    {id:2, icon:w2 },
-                    {id:2, icon:sl2 },
-                    {id:3, icon:sl2 },
-                    {id:4, icon:sl2 },
-                    {id:5, icon:sl2 },
-                    {id:6, icon:sl2 },
-                    {id:7, icon:sl2 }
-                ]}/>
+            <div className="container slider-container" style={{margin:'10px auto',borderRadius:'6px'}}>
+                <NewSWP slide={slides} data={[
+                    {id:1, icon:image_1 },
+                    {id:2, icon:image_1 },
+                    {id:3, icon:image_1 },
+                    {id:4, icon:image_1 }
+                ]} />
             </div>
 
             <main className="main" style={{minHeight:'300px'}}>

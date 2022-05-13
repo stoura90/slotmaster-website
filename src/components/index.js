@@ -18,6 +18,7 @@ import ShowMore from "./showMore/ShowMore";
 import Verification from "./account/verification/verification"
 import Finances from "./account/finances/finances"
 import PLXModal from "./modal/PLXModal";
+import PLAlert from "./modal/PLAlert";
 import SvgDot from "./loader/svgdot";
 import ChangePassword from "./account/changePassword/ChangePassword";
 import Transactions from "./account/transactions/transactions";
@@ -27,6 +28,7 @@ import NewSWP from "./newSWP/NewSWP";
 
 export {
     PLXModal,
+    PLAlert,
     Header,
     Footer,
     MainNavigator,

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState} from 'react';
 import { sl2,w2} from '../../assets/img/images';
-import {Carousel, Header, Swp, Footer, Sport,NewSWP} from "../../components";   // Carusel3D
+import {Carousel, Header, Swp, Footer, Sport,NewSWP,PLAlert} from "../../components";   // Carusel3D
 import {Link, useParams} from "react-router-dom";
 import {Actions, useTranslation} from "../../core";
 
@@ -17,6 +17,7 @@ const MainScreen = () =>{
     const [resize,setResize]=useState(window.innerWidth)
     const [mainPageSlotList,setMainPageSlotList]=useState([])
     const [mainPageCasinoList,setMainPageCasinoList]=useState([])
+    const [showAlert,setShowAlert]=useState(false)
     const getList = (pageId) =>{
         return Actions.Slot.listByPage({webPageId:pageId})
     }
@@ -36,6 +37,7 @@ const MainScreen = () =>{
             })
         }
     },[]);
+
     let slides = <img  src={image_1} alt="1" />;
     return (
         <>
@@ -262,6 +264,15 @@ const MainScreen = () =>{
             </main>
 
             <Footer/>
+
+            {
+                showAlert && <PLAlert title="Notification" onClose={()=>setShowAlert(false)}
+                                      footer={<button onClick={()=>setShowAlert(false)}>Close</button>}
+                >
+                    <div className="alert_wrap">licensed by the Government of Curacao and operates under the Master License of Gaming Services Provider, N.V. #365/JAZ as an Information</div>
+                </PLAlert>
+            }
+
 
         </>
     )

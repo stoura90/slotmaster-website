@@ -1,12 +1,13 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {sl2, w2} from '../../assets/img/images';
 import {filter} from '../../assets/img/icons/icons';
-import {Footer, Header, ShowMore, SlotCard, Swp} from "../../components";
+import {Footer, Header, NewSWP, ShowMore, SlotCard, Swp} from "../../components";
 import "../../assets/styles/_select2.scss"
 import {Actions, useTranslation} from "../../core";
 import _ from "lodash"
 import {CustomDropdown} from "../../components/dropdown/dropDown";
 import {useCount} from "../../core/hooks/useCount";
+import image_1 from "../../assets/img/slide/image_1.png";
 
 const SlotsScreen = () =>{
     const {t} = useTranslation()
@@ -75,20 +76,19 @@ const SlotsScreen = () =>{
     const getSlotList=()=> {
         return _.filter(filteredSlotList,(v,k)=>k<page*count());
     }
+
+    let slides = <img  src={image_1} alt="1" />;
     return (
         <>
             <Header page={"slots"}/>
 
-            <div className="slider">
-                <Swp count={3}  data={[
-                    {id:2, icon:w2 },
-                    {id:2, icon:sl2 },
-                    {id:3, icon:sl2 },
-                    {id:4, icon:sl2 },
-                    {id:5, icon:sl2 },
-                    {id:6, icon:sl2 },
-                    {id:7, icon:sl2 }
-                ]}/>
+            <div className="container slider-container" style={{margin:'10px auto',borderRadius:'6px'}}>
+                <NewSWP slide={slides} data={[
+                    {id:1, icon:image_1 },
+                    {id:2, icon:image_1 },
+                    {id:3, icon:image_1 },
+                    {id:4, icon:image_1 }
+                ]} />
             </div>
 
             <main className="main" style={{minHeight:'300px'}}>
