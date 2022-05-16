@@ -8,8 +8,8 @@ import _ from "lodash";
 
 import JWT from "../../models/JWT";
 let jwt  = new JWT()
-const signIn = ({data,loader,sourceId,code,token2fa,header}) =>async (dispatch)=>{
-
+const signIn = ({data,loader,sourceId,code,token2fa,header,token}) =>async (dispatch)=>{
+console.log(token)
     const response = await http.post({
         url:Config.User.SIGN_IN
         ,data:query_string({
@@ -18,6 +18,7 @@ const signIn = ({data,loader,sourceId,code,token2fa,header}) =>async (dispatch)=
             sourceId:sourceId,
             code:code,
             '2fa-token':token2fa,
+            "token":token
         }),
         loader:loader,
         permitAll:true,
