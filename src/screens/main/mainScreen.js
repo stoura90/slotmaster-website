@@ -38,9 +38,11 @@ const MainScreen = () =>{
         }
     },[]);
 
-    let slides = {
+    let slides = [
+        {id:1, icon:image_1 },
+        {id:2, icon:image_2 }
+    ];
 
-    }//<img  src={image_1} alt="1" />;
     return (
         <>
             <Header page={"main"}/>
@@ -50,10 +52,7 @@ const MainScreen = () =>{
             </div>*/}
 
             <div className="container slider-container" style={{margin:'10px auto',borderRadius:'6px'}}>
-                <NewSWP slide={slides} data={[
-                    {id:1, icon:image_1 },
-                    {id:2, icon:image_2 }
-                ]} />
+                <NewSWP data={slides} />
             </div>
             {/*<div className=" slider">
                 <Swp count={3}  data={[

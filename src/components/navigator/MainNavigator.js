@@ -26,7 +26,7 @@ const MainNavigator = ()=>{
                                         <StickFooter/>
                                     </>
                                 )} />
-                        ) :   <Redirect to={'/ru'}/>;
+                        ) :   <Redirect to={'/en'}/>;
                 })}
             </BrowserRouter>
 

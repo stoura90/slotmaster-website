@@ -17,10 +17,10 @@ i18n
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-        fallbackLng: 'ru',
+        fallbackLng: 'en',
         whitelist: ['ru', 'en', 'es'],
         preload: ['ru', 'en', 'es'],
-        lng: localStorage.getItem("i18nextLng")||'ru',
+        lng: localStorage.getItem("i18nextLng")||'en',
         debug: true,
 
         interpolation: {
