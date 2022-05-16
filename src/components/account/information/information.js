@@ -2389,7 +2389,7 @@ const Information = () => {
                                         <div className="col-12 col-md-6">
                                             <div className={`input-label-border`}>
                                                 <input disabled value={infoData.country? (countries.filter(v=> v.id === infoData.country).map(v=> v.title)):''} type="text" name="Country" id="Country"/>
-                                                <label htmlFor="Country">{t("Nationality")}</label>
+                                                <label htmlFor="Country">{t("Country")}</label>
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6">
