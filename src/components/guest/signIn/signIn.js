@@ -57,36 +57,39 @@ const SignIn =() =>{
         setError(null)
 
         const head = showOTP ? {'2fa-token': authData?.access_token} : '';
-
-        const response = await dispatch(Actions.User.signIn({
-            data:loginForm,
-            loader:setSignInLoader,
-            sourceId:authData?.refresh_token,
-            code:otp.join(''),
-            token2fa:authData?.access_token,
-            header:head
-        }))
-        if (response.status) {
-            if(window.location.href.indexOf("playSlot")>-1
-             || window.location.href.indexOf("live")>-1
-             || window.location.href.indexOf("sport")>-1
-            ){
-                window.location.reload()
-                return
-            }
-            setShow(false);
-            setShowOTP(false);
-        } else {
-            if(response?.error){
-                if(response?.error?.error === "otp_required"){
-                    setAuthData(response?.error);
-                    setShowOTP(true);
-                    setReSend(parseInt(response?.error?.expires_in))
+        window.grecaptcha.execute('6LcsE_IdAAAAAElaP_6dOnfzTJD2irfkvp1wzIeS', {action: 'login'}).then(async(token)=> {
+            const response = await dispatch(Actions.User.signIn({
+                data:loginForm,
+                loader:setSignInLoader,
+                sourceId:authData?.refresh_token,
+                code:otp.join(''),
+                token2fa:authData?.access_token,
+                header:head,
+                token:token
+            }))
+            if (response.status) {
+                if(window.location.href.indexOf("playSlot")>-1
+                    || window.location.href.indexOf("live")>-1
+                    || window.location.href.indexOf("sport")>-1
+                ){
+                    window.location.reload()
+                    return
                 }
-            }else{
-                window.top.pushEvent('specified username or password is incorrect','error');
+                setShow(false);
+                setShowOTP(false);
+            } else {
+                if(response?.error){
+                    if(response?.error?.error === "otp_required"){
+                        setAuthData(response?.error);
+                        setShowOTP(true);
+                        setReSend(parseInt(response?.error?.expires_in))
+                    }
+                }else{
+                    window.top.pushEvent('specified username or password is incorrect','error');
+                }
             }
-        }
+        })
+
     }
 
     const onResend =()=>{
