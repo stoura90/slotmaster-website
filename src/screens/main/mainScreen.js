@@ -70,10 +70,7 @@ const MainScreen = () =>{
                 <div className="container" ref={ref}>
                     <div className="row for_widget" style={{margin:'0'}}>
                         <div className="col-12">
-                            {
-                                window.location.pathname.indexOf('/main') !==-1 &&
-                                <Sport.TopMatchesWidget lang={lang}/>
-                            }
+                            <Sport.TopMatchesWidget lang={lang}/>
 
                            {/* <div className="row">
                                 <div className="col-12 d-flex align-items-center justify-content-between justify-content-md-start section-head">
