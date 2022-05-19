@@ -14,10 +14,10 @@ const MainScreen = () =>{
     const {t} = useTranslation()
     const {lang}=useParams();
     const ref=useRef();
-    const [resize,setResize]=useState(window.innerWidth)
-    const [mainPageSlotList,setMainPageSlotList]=useState([])
-    const [mainPageCasinoList,setMainPageCasinoList]=useState([])
-    const [showAlert,setShowAlert]=useState(false)
+    const [resize,setResize]=useState(window.innerWidth);
+    const [mainPageSlotList,setMainPageSlotList]=useState([]);
+    const [mainPageCasinoList,setMainPageCasinoList]=useState([]);
+    const [showAlert,setShowAlert]=useState(false);
     const getList = (pageId) =>{
         return Actions.Slot.listByPage({webPageId:pageId})
     }

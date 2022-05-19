@@ -17,7 +17,9 @@ export const Config ={
       CHECK_SECURITY_QUESTIONS:"/us/v2/api/secured/personal/info/security/questions",
       SAVE_SECURITY_QUESTIONS:"/us/v2/api/secured/personal/info/security/questions/save",
       SAVE_2FA_AUTHENTICATION:"/us/v2/api/secured/personal/info/security/2fa",
-      CONFIRM_SECURITY_QUESTIONS_OTP:"/us/v2/api/secured/personal/info/security/questions"
+      CONFIRM_SECURITY_QUESTIONS_OTP:"/us/v2/api/secured/personal/info/security/questions",
+      GET_COUNTRY_LIST:"/wsd/v1/api/countries",
+      GET_MOBILE_PREFIX_LIST:"/wsd/v1/api/mobile-codes",
    },
    Config:{
       REFRESH_TOKEN:"/v1/api/refresh_token",

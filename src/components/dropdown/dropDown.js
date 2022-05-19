@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./dropdown.scss"
 import {close, multiArrow} from "../../assets/img/icons/icons"
 import _ from 'lodash'
@@ -6,13 +6,19 @@ import PropTypes from "prop-types";
 import {useTranslation} from "../../core";
 import {useNav} from "../../core/hooks/useNav";
 import {value} from "lodash/seq";
+
+import {useOutsideRefSLF} from "../../core/hooks/useOutSideClickSlotFilterRef";
+
+
 export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,showFilter,filters,setFilters,type="custom"})=>{
+
     const nav = useNav();
     const [providers,setProviders]=useState([])
     const [filter,setFilter]=useState([])
     const {t} = useTranslation()
-
-
+    const ref5 = useRef(null);
+    //const ref2 = useRef(null);
+    //const ref3 = useRef(null);
     useEffect(()=>{
         if(setFilter && open){
             document.body.style.overflowY="hidden"
@@ -46,16 +52,15 @@ export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,sh
         setFilters(_.filter(filter,v=>v?.checked))
     },[filter])
 
+    useOutsideRefSLF(ref5)
 
     const renderSelected=()=> {
         const count = _.chain(providers).filter(p=>p.checked).value().length
         return count>0?count:"All";
     }
-
     const renderView = ()=>{
-
         if(showFilter){
-            return open && <div className={"search-input-content"} style={{...style,height:'100%',top:0,position:"fixed"}}>
+            return <div    className={`search-input-content `}  style={{...style,height:'100%',top:0,position:"fixed"}}>
                 <div className={"header-search-container"}>
                     <h3>Filter</h3>
                     <div className={"close-icon"} onClick={()=>setOpen(false)}>
@@ -124,7 +129,7 @@ export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,sh
                 </div>
             </div>
         }else{
-            return open && <div className={"search-input-content"} style={{...style}}>
+            return <div    className={`search-input-content `} style={{...style}}>
 
                 <div className="prov_list">
                     <ul>
@@ -149,7 +154,7 @@ export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,sh
                     setProviders({..._.map(providers,p=>{
                             return{...p,checked:false}
                         })})
-                    setOpen(false)
+                    toggle()
                 }}>
                     Clear
                 </div>
@@ -157,9 +162,16 @@ export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,sh
         }
 
     }
+    const toggle = () =>{
+        if(ref5.current.classList.contains("active")){
+            ref5.current.classList.remove("active")
+        }else{
+            ref5.current.classList.add("active")
+        }
+    }
 
-    return <div className={"slot-custom-search"} >
-        <div className={"slot-search-input"} onClick={()=>setOpen(!open)}>
+    return <div className={"slot-custom-search"}  ref={ref5} >
+        <div className={"slot-search-input"} onClick={toggle}>
             <div className={"search-input"}>
                 <span className={"provider"}>{label}: </span>
                 <span className={"selected"}>{

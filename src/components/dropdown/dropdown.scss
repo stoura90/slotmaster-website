@@ -8,6 +8,13 @@
   height:50px;
   border-radius: 6px;
   cursor: pointer;
+
+  &.active{
+      .search-input-content{
+        display: flex;
+      }
+  }
+
   .slot-search-input{
     width: 100%;
     display: flex;
@@ -41,6 +48,7 @@
         }
     }
   }
+
   .search-input-content{
     position: absolute;
     top: 50px;
@@ -51,11 +59,12 @@
     margin-top:10px;
     border-radius: 6px;
     background-color: #192034;
-    display: flex;
+    display: none;
     overflow: hidden;
     overflow-y: auto;
     padding: 10px;
     flex-direction: column;
+
     .clear-button{
       display: flex;
       align-items: center;

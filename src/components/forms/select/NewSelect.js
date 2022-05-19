@@ -12,10 +12,15 @@ const SelectBox = memo(({id,data,onSelect,value,placeholder,className})=>{
     useOutsideAlerter(ref);
     useOutsideRef2(ref2);
     const selected = useMemo(()=>{
-        let find = data.find(v=>v.id===value)
+        let find;
+        if(className === "prefix"){
+            find = data.find(v=>v.title===value)
+        }else{
+            find = data.find(v=>v.id===value)
+        }
         if(find) return find;
         return null
-    },[value])
+    },[value,data])
 
     const toggleSelect=()=>{
         ref.current.classList.toggle("close-select-box")
@@ -39,7 +44,7 @@ const SelectBox = memo(({id,data,onSelect,value,placeholder,className})=>{
             <label htmlFor={id}>{placeholder}</label>
             {
                 <div className={"select-option-box close-select-box"} ref={ref}>
-                    <input type="text"  ref={ref3} className={"select-box-search"} value={text}  onChange={e=>setText(e.target.value)} />
+                    <input type="text"  ref={ref3} className={"select-box-search"} style={{background:'#151b29'}} value={text}  onChange={e=>setText(e.target.value)} />
                     <ul>
                         {
                             _.map(filterData, (v,k)=> <li key={k} onClick={()=>{

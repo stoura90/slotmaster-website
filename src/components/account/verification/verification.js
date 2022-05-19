@@ -10,8 +10,9 @@ import Select from "../../forms/select/Select"
 import SelectBox from "../../forms/select/NewSelect";
 import {useHistory, useParams} from "react-router-dom";
 import moment from "moment";
+import {ERRORS} from "../../../core/utils/errors";
 
-const countries = [
+/*const countries = [
     {title: 'Afghanistan', id: 'AF'},
     {title: 'Åland Islands', id: 'AX'},
     {title: 'Albania', id: 'AL'},
@@ -255,7 +256,7 @@ const countries = [
     {title: 'Yemen', id: 'YE'},
     {title: 'Zambia', id: 'ZM'},
     {title: 'Zimbabwe', id: 'ZW'}
-]
+]*/
 const currency = [
     /*{  id:'USD',title:"US Dollar" },*/
     {  id:'EUR',title:"Euro" },
@@ -270,12 +271,13 @@ const passportType= [
     {id: "resident_identification",title: "Resident Identification"},
 ]
 
-const MobilePrefixList=[{
-    //"name": "Afghanistan",
-    "id": "93",
-    "title": "+93",
-    "code": "AF"
-},
+/*const MobilePrefixList=[
+    {
+        //"name": "Afghanistan",
+        "id": "93",
+        "title": "+93",
+        "code": "AF"
+    },
     {
         //"name": "Aland Islands",
         "id": "358",
@@ -1722,7 +1724,8 @@ const MobilePrefixList=[{
         "title": "+263",
         "code": "ZW"
     }
-]
+]*/
+
 /*[
     {id:1,title: "+1"},
     {id:673,title: "+673"},
@@ -1770,9 +1773,33 @@ const Confirmation = () => {
     const [errors,setErrors]=useState([])
     const [step,setStep]=useState(1)
     const [otpSource,setOtpSources]=useState(null)
+    const [countries,setCountries]=useState([])
+    const [mobileCode,setMobileCode]=useState([])
     useEffect(()=>{
-        getInfo()
+        getInfo();
+        getCountryList();
+        getMobileCodeList();
     },[])
+
+    const getCountryList = ()=> {
+        Actions.User.getCountryList().then(response=>{
+            if(response.status){
+                setCountries(_.map(response.data, (v,k)=> {
+                    return _.map(v,(val) => {return {title:val.name,id:val.iso3} })
+                })[0])
+            }
+        })
+    }
+
+    const getMobileCodeList = ()=> {
+        Actions.User.getMobileCodeList().then(response=>{
+            if(response.status){
+                setMobileCode(_.map(response.data, (v,k)=> {
+                    return _.map(v,(val) => {return {id:val.code,title:val.title,code:val.iso3} })
+                })[0])
+            }
+        })
+    }
 
     const getInfo = ()=>{
         Actions.User.info().then(response=>{
@@ -1872,11 +1899,32 @@ const Confirmation = () => {
                                 window.pushEvent(t("The operation was performed successfully"),"success")
                                 history.push(`/${lang}/account/info`)
                             }else{
-                                console.log("catch")
-                                ERROR({error:t("error")})
+                                switch (response?.error?.data?.mobile){
+                                    case "mobile_duplicate_error":
+                                        ERROR({error:t(ERRORS["mobile_duplicate_error"])})
+                                    break;
+                                    default:
+                                        ERROR({error:t("error")})
+                                }
+                                switch (response?.error?.data?.mobilePrefix){
+                                    case "mobilePrefix_not_exist":
+                                        ERROR({error:t(ERRORS["mobilePrefix_not_exist"])})
+                                    break;
+                                    default:
+                                        ERROR({error:t("error")})
+                                }
+                                switch (response?.error?.data?.otp){
+                                    case "otp_verify_error":
+                                        ERROR({error:t(ERRORS["otp_verify_error"])})
+                                        break;
+                                    default:
+                                        ERROR({error:t("error")})
+                                }
+
                             }
                         }).catch(e=>{
-                            console.log("catch")
+
+                            console.log("catch",e)
                             ERROR({error:t("error")})
                         })
                     }
@@ -1916,7 +1964,7 @@ const Confirmation = () => {
                                                 <div style={{display:'flex',width:"100%"}}>
                                                     <div style={{width:"100px",marginRight: '10px'}}>
                                                         <SelectBox
-                                                            data={MobilePrefixList}
+                                                            data={mobileCode}
                                                             value={infoData.mobilePrefix}
                                                             placeholder={t("Prefix")}
                                                             //plData={''} plName={t("Choose Sex")}

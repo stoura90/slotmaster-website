@@ -95,8 +95,9 @@ const  resendOtp = ({send,type,prefix,value,additionalParams={},loader,permitAll
 }
 const  verifyOtp = ({verify,type,prefix,value,otp,additionalParams={},loader,permitAll=false}) =>{
     //{type}&prefix={prefix}&value={value}
+    console.log(prefix)
     return http.post({
-        url:verify.replace("{type}",type).replace("{prefix}",prefix).replace("{value}",value).replace('{otp}',otp).concat('&',_.map(additionalParams,(v, k)=>{
+        url:verify.replace("{type}",type).replace("{prefix}",prefix?prefix.toString().replace("+",""):"").replace("{value}",value).replace('{otp}',otp).concat('&',_.map(additionalParams,(v, k)=>{
         return k.concat('=',v)
     }).join('&')),
         loader:loader,
@@ -161,7 +162,7 @@ const verification_phone=({data,loader})=>{
             "sourceId":data?.sourceId,
             "otp":data.otp,
             "mobile":data?.mobile,
-            "mobilePrefix":data.mobilePrefix
+            "mobilePrefix":data.mobilePrefix.replace("+","")
         }),
         headers:{  'Content-Type' : 'text/plain' },
         loader:loader
@@ -212,6 +213,12 @@ const confirmSQOTP =({loader,data})=>{
 const save2faAuthentication =({loader,data})=>{
     return  http.post({url:Config.User.SAVE_2FA_AUTHENTICATION,loader:loader,data:query_string(data)})
 }
+const getCountryList =()=>{
+    return  http.get({url:Config.User.GET_COUNTRY_LIST})
+}
+const getMobileCodeList =()=>{
+    return  http.get({url:Config.User.GET_MOBILE_PREFIX_LIST})
+}
 export default {
   getSecurityQuestion,
     checkSecurityQuestion,
@@ -232,5 +239,7 @@ export default {
     change_password,
     withdraw_coinsPaid,
     save2faAuthentication,
-    confirmSQOTP
+    confirmSQOTP,
+    getCountryList,
+    getMobileCodeList
 }

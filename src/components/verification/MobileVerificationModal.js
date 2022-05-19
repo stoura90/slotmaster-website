@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import PLXModal from "../modal/PLXModal";
 import {SvgDot} from "../index";
 import {UseEvent} from "../../core/hooks/useEvent";
+import {ERRORS} from "../../core/utils/errors";
 
 window.reSendInterval=null;
 export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,verify,onClose,additionalParams,title,permitAll=false})=>{
@@ -66,7 +67,8 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,ve
                         save(true);
                         setError('')
                     }else {
-                        setError('error')
+                        //console.log(response)
+                        setError(response?.error?.resultCode ===404? ERRORS["otp_verify_error"]: 'error')
                         save(false)
                     }
 
