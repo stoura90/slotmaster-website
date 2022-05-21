@@ -49,7 +49,7 @@ const ContactScreen = ()=>{
                                     <div className="d-flex align-items-center contact-item">
                                         <img src={require("../../assets/flags/chat.png").default} alt=""/>
                                             <div className="d-flex flex-column">
-                                                <div className="contact-type-title">{t("Chat")}</div>
+                                                <div className="contact-type-title">{t("Live Chat")}</div>
                                                 <div className="contact-type underline">{t("Write a Message")}</div>
                                             </div>
                                     </div>

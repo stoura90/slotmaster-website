@@ -703,7 +703,7 @@ const Information = () => {
                                         <div className="col-12 col-md-6">
                                             <div className={`input-label-border`}>
                                                 <input disabled value={infoData.gender ? (gender.filter(v=> v.id === infoData.gender).map(v=> v.title)):''} type="text" name="gender" id="gender"/>
-                                                <label htmlFor="gender">{t("gender")}</label>
+                                                <label htmlFor="gender">{t("Gender")}</label>
                                             </div>
                                         </div>
 

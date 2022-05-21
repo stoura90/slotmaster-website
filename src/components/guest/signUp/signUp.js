@@ -10,6 +10,7 @@ import {SvgDot} from "../../index";
 import Http from "../../../core/http/http2";
 import {UseEvent} from "../../../core/hooks/useEvent";
 import {useCookie} from "../../../core/hooks/useCookie";
+import {useDispatch} from "react-redux";
 
 
 
@@ -28,6 +29,7 @@ const CountryList=[
     {id:"BDI",name: "Burundi"},
 ]
 const SignUp =() =>{
+    const dispatch = useDispatch()
     const cookie = useCookie()
     const {t,i18n} = useTranslation();
     const otp = useOTP();
@@ -154,6 +156,33 @@ const SignUp =() =>{
         }
     },[otpDialog])
 
+    const signIn=async (data) => {
+
+
+
+        window.grecaptcha.execute('6LcsE_IdAAAAAElaP_6dOnfzTJD2irfkvp1wzIeS', {action: 'login'}).then(async(token)=> {
+            const response = await dispatch(Actions.User.signIn({
+                data: data,
+
+                token:token
+            }))
+            if (response.status) {
+                if(window.location.href.indexOf("playSlot")>-1
+                    || window.location.href.indexOf("live")>-1
+                    || window.location.href.indexOf("sport")>-1
+                ){
+                    window.location.reload()
+                    return
+                }
+                setShow(false);
+
+            } else {
+                window.top.pushEvent('specified username or password is incorrect','error');
+            }
+        })
+
+    }
+
     const onSignUp=(signUpForm)=>{
 
          window.grecaptcha.execute('6LcsE_IdAAAAAElaP_6dOnfzTJD2irfkvp1wzIeS', {action: 'register'}).then(async(token)=> {
@@ -217,7 +246,8 @@ const SignUp =() =>{
                          //alert("Registration completed successfully")
                          otp.CLOSE();
                          ev.emit('signUp',false);
-                         ev.emit('signIn',true);
+                         //ev.emit('signIn',true);
+                         signIn({username:data.username,password:data.password})
 
                      }else{
                          if(response?.error?.data){
