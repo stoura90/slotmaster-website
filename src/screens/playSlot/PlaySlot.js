@@ -25,7 +25,6 @@ const PlaySlot= () => {
         if(!User.isLogged){
             ev.emit("signIn",true)
         }
-        console.log(navigation.get("uri"))
     },[loaded])
 
     const ping = () => {
