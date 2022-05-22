@@ -124,7 +124,7 @@ console.log(selectedProvider)
                                 }}/>
                             </div>
 
-                            <div className="select-label d-none d-lg-flex me-0">
+                            <div className="select-label  d-lg-flex me-0  filter-label">
                                 <CustomDropdown type={"filter"} label={t("Provider")} data={providers} onSelect={(e)=>{
                                     setSelectedProvider(e)
                                 }} open={providerFilter} setOpen={()=>{
@@ -133,10 +133,10 @@ console.log(selectedProvider)
                                 }}/>
                             </div>
 
-                            <div className="filter-button d-lg-none" data-bs-toggle="modal"
+                            {/*<div className="filter-button d-lg-none" data-bs-toggle="modal"
                                  data-bs-target="#FilterModal" onClick={()=>setShowMobileFilter(!showMobileFilter)} >
                                 <img src={filter} alt="Filter"/>
-                            </div>
+                            </div>*/}
                         </div>
 
                         <div className={"custom-filter-mobile d-lg-none"}>
