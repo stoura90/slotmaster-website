@@ -22,7 +22,7 @@ const SlotCard =({data})=> {
                             </div>
                         </div>
                         <div className="info">
-                            <div className="name">{v.name}</div>
+                            <div className="name" dangerouslySetInnerHTML={{__html:decodeURI(decodeURI(v.name))}}/>
                         </div>
 
                         {/*<div className="slot-card" style={{backgroundImage:`url(${v.imageUrl})`}}>
