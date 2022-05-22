@@ -50,7 +50,7 @@ const ContactScreen = ()=>{
                                         <img src={require("../../assets/flags/chat.png").default} alt=""/>
                                             <div className="d-flex flex-column">
                                                 <div className="contact-type-title">{t("Live Chat")}</div>
-                                                <div className="contact-type underline">{t("Write a Message")}</div>
+                                                <a href="https://direct.lc.chat/14154144/" target="_blank" ><div className="contact-type underline">{t("Write a Message")}</div></a>
                                             </div>
                                     </div>
                                 </div>
