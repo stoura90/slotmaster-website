@@ -78,7 +78,7 @@ const  Carousel = ({data,counter,navigation}) =>{
                                     </div>
                                 </div>
                                 <div className="info">
-                                    <div className="name">{v.name}</div>
+                                    <div className="name" dangerouslySetInnerHTML={{__html:decodeURI(decodeURI(v.name))}}/>
                                 </div>
                             </div>
                         </SwiperSlide>
