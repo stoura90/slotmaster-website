@@ -5,16 +5,17 @@ import {useSLot} from "../../core/hooks/useSLot";
 import {useLoader} from "../../core/hooks/useLoader";
 import './slotCard.scss'
 import Loader from "../loader/loader";
+import {useTranslation} from "../../core";
 const SlotCard =({data})=> {
     const {loader}=useLoader()
     const {play}= useSLot()
-
+    const {t,i18n} = useTranslation()
     return (_.map(data, (v,index)=>{
                 return  (
                     <div className="card-list-item" key={index} >
                         {loader===v.gameId && <Loader/>}
                         <div className="sl-card" style={{backgroundImage:`url(${v.imageUrl})`}} >
-                            <div className="sl-card-hover" onClick={()=>play(v)}>
+                            <div className="sl-card-hover" onClick={()=>window.open(`/${i18n.language}/playSlot?id=${v.id}&gameId=${v.gameId}`)}>
                                 <div className="slot-card-cover "/>
                                 <img src={v.imageUrl} alt="" style={{visibility:"hidden"}} />
                                 <img src={PlayIcon} alt="" className="play-btn" />

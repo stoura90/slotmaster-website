@@ -11,7 +11,6 @@ export function useSLot() {
     const {t,i18n} = useTranslation()
     const ev =UseEvent()
     const play=(slot)=>{
-
         if(!User.User.isLogged){
             ev.emit("signIn",true)
             return;
@@ -30,9 +29,7 @@ export function useSLot() {
 
                 switch (response.data?.data?.type.toLowerCase()){
                     case "html":
-                        win = window.open(`/${i18n.language}/play`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
-                        win.onload=function (){
-                            win.document.write(response.data.data.url.concat(`
+                            document.write(response.data.data.url.concat(`
                             <style>
                              html,body {
                                 padding: 0 !important;
@@ -40,14 +37,10 @@ export function useSLot() {
                              }
                              </style>
                         `))
-                        }
-
 
                         return ;
                     case 'sg_auth':
-                        win = window.open(`/${i18n.language}/play`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630",'planetaxbet.com')
-                        win.onload=function (){
-                            win.document.write(
+                            document.write(
                                 (`
                                 <html>
                                     <head>
@@ -64,13 +57,10 @@ export function useSLot() {
                                 </html>
                             `)
                             )
-                        }
+
                         break;
                     case 'sg_html':
-
-                        win = window.open(`/${i18n.language}/play`,"_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
-                        win.onload=function (){
-                            win.document.write(response.data.data.html.concat(`
+                            document.write(response.data.data.html.concat(`
                             <style>
                              html,body {
                                 padding: 0 !important;
@@ -78,13 +68,16 @@ export function useSLot() {
                              }
                              </style>
                          `).concat(`<script>${response.data.data.script}</script>`))
-                        }
+
 
 
                         break;
                     default:
                         //console.log(response.data.data.url)
+                      // document.getElementById("slot-frame").setAttribute("src",encodeURIComponent(response.data.data.url))
+/*
                         window.open(`/${i18n.language}/playSlot?uri=${encodeURIComponent(response.data.data.url)}`,"_blank","toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
+*/
                     break
                 }
             }else{
