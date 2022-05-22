@@ -43,6 +43,7 @@ export const guestRoutes = [
     { path: '/:lang/privacy_policy', name: 'privacy_policy', exact:false, component:privacy_policy, page:"privacy_policy"},
     { path: '/:lang/responsible_gaming', name: 'responsible_gaming', exact:false, component:responsible_gaming, page:"responsible_gaming"},
     { path: '/:lang/playSlot', name: 'playSlot', exact:false, component:playSlot, page:"playSlot"},
+    { path: '/:lang/play', name: 'playSlot', exact:false, component:()=><div></div>, page:"play"},
     { path: '/:lang/verification', name: 'verification', exact:false, component:verification, page:"verification"},
 
 
@@ -71,6 +72,7 @@ export const userRoutes = [
     { path: '/:lang/privacy_policy', name: 'privacy_policy', exact:false, component:privacy_policy, page:"privacy_policy"},
     { path: '/:lang/responsible_gaming', name: 'responsible_gaming', exact:false, component:responsible_gaming, page:"responsible_gaming"},
     { path: '/:lang/playSlot', name: 'playSlot', exact:false, component:playSlot, page:"playSlot"},
+    { path: '/:lang/play', name: 'playSlot', exact:false, component:()=><div></div>, page:"playSlot"},
     { path: '/:lang/verification', name: 'verification', exact:false, component:verification, page:"verification"},
 ];
 

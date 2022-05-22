@@ -30,7 +30,7 @@ export function useSLot() {
 
                 switch (response.data?.data?.type.toLowerCase()){
                     case "html":
-                        win = window.open(`/${i18n.language}/playSlot`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
+                        win = window.open("", "_self", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
                         win.document.write(response.data.data.url.concat(`
                             <style>
                              html,body {
@@ -42,19 +42,30 @@ export function useSLot() {
 
                         return ;
                     case 'sg_auth':
-                        win = window.open(`/${i18n.language}/playSlot`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
-                        win.document.write(response?.data?.data?.url.concat(`
-                            <style>
-                             html,body {
-                                padding: 0 !important;
-                                margin:0 !important;
-                             }
-                             </style>
-                        `))
+                        win = window.open(`/${i18n.language}/play`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630",'planetaxbet.com')
+                        win.onload=function (){
+                            win.document.write(
+                                (`
+                                <html>
+                                    <head>
+                                    <style>
+                                    html,body {
+                                        padding: 0 !important;
+                                        margin:0 !important;
+                                    }
+                                    </style>
+                                </head>
+                                <body>
+                                    ${response?.data?.data?.url}
+                                </body>
+                                </html>
+                            `)
+                            )
+                        }
                         break;
                     case 'sg_html':
 
-                        win = window.open(`/${i18n.language}/playSlot`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
+                        win = window.open("", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
                         win.document.write(response.data.data.html.concat(`
                             <style>
                              html,body {
@@ -66,7 +77,7 @@ export function useSLot() {
                         break;
                     default:
                         //console.log(response.data.data.url)
-                        window.open(`/${i18n.language}/playSlot?uri=${encodeURIComponent(response.data.data.url)}`,"_blank","toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
+                        window.open(`https://planetaxbet.com/${i18n.language}/playSlot?uri=${encodeURIComponent(response.data.data.url)}`,"_blank","toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
                     break
                 }
             }else{
