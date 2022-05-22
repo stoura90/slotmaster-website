@@ -17,7 +17,7 @@ const StickFooter = () =>{
     return (
         <>
             {
-                User.isLogged && <ul className="stickFooter">
+                User.isLogged && <ul className="stickFooter" id="stickFooter">
                     <li>
                         <Link to={`/${lang}/main`}>
                             <i><img src={stickHome} alt=""/></i>
