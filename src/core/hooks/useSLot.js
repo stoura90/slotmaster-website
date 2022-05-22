@@ -74,7 +74,7 @@ export function useSLot() {
                         break;
                     default:
                         //console.log(response.data.data.url)
-                       document.getElementById("slot-frame").setAttribute("src",encodeURIComponent(response.data.data.url))
+                       document.getElementById("slot-frame").setAttribute("src",(response.data.data.url))
                         //window.open(`/${i18n.language}/playSlot?uri=${encodeURIComponent(response.data.data.url)}`,"_blank","toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
                     break
                 }
