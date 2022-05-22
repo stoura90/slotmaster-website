@@ -30,7 +30,7 @@ export function useSLot() {
 
                 switch (response.data?.data?.type.toLowerCase()){
                     case "html":
-                        win = window.open(`/${i18n.language}/playSlot?uri=play`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
+                        win = window.open(`/${i18n.language}/play`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
                         win.onload=function (){
                             win.document.write(response.data.data.url.concat(`
                             <style>
@@ -45,7 +45,7 @@ export function useSLot() {
 
                         return ;
                     case 'sg_auth':
-                        win = window.open(`/${i18n.language}/playSlot?uri=play`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630",'planetaxbet.com')
+                        win = window.open(`/${i18n.language}/play`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630",'planetaxbet.com')
                         win.onload=function (){
                             win.document.write(
                                 (`
@@ -68,7 +68,7 @@ export function useSLot() {
                         break;
                     case 'sg_html':
 
-                        win = window.open(`/${i18n.language}/playSlot?uri=play`,"_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
+                        win = window.open(`/${i18n.language}/play`,"_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
                         win.onload=function (){
                             win.document.write(response.data.data.html.concat(`
                             <style>
