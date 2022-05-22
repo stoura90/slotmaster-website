@@ -74,6 +74,7 @@ export const userRoutes = [
     { path: '/:lang/playSlot', name: 'playSlot', exact:false, component:playSlot, page:"playSlot"},
     { path: '/:lang/play', name: 'playSlot', exact:false, component:()=><div></div>, page:"playSlot"},
     { path: '/:lang/verification', name: 'verification', exact:false, component:verification, page:"verification"},
+    { path: '/:lang/loader', name: 'verification', exact:false, component:()=><div>please wait</div>, page:"loader"},
 
 ];
 

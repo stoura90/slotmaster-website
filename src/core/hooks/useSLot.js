@@ -29,7 +29,7 @@ export function useSLot() {
 
                 switch (response.data?.data?.type.toLowerCase()){
                     case "html":
-                            document.write(response.data.data.url.concat(`
+                            window.document.write(response.data.data.url.concat(`
                             <style>
                              html,body {
                                 padding: 0 !important;
@@ -40,7 +40,7 @@ export function useSLot() {
 
                         return ;
                     case 'sg_auth':
-                            document.write(
+                        window.document.write(
                                 (`
                                 <html>
                                     <head>
@@ -60,7 +60,7 @@ export function useSLot() {
 
                         break;
                     case 'sg_html':
-                            document.write(response.data.data.html.concat(`
+                        window.document.write(response.data.data.html.concat(`
                             <style>
                              html,body {
                                 padding: 0 !important;

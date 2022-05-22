@@ -1,5 +1,5 @@
 import {useEffect, useLayoutEffect, useState} from "react";
-import {Actions, useTranslation} from "../../core";
+import {Actions, i18n, useTranslation} from "../../core";
 import {useDispatch} from "react-redux";
 import {useUser} from "../../core/hooks/useUser";
 import {Guest} from "../../components";
@@ -8,7 +8,7 @@ import EventEmitter from "../../core/utils/eventEmitter";
 import {useSLot} from "../../core/hooks/useSLot";
 
 const PlaySlot= () => {
-    const {t} = useTranslation()
+    const {t,i18n} = useTranslation()
     const dispatch = useDispatch();
     const {User} = useUser()
     const slot = useSLot()
@@ -30,7 +30,7 @@ const PlaySlot= () => {
     return <div style={{width:'100%', height:'100%'}}>
         <Guest/>
         {
-            User.isLogged? <iframe id="slot-frame"  frameBorder="0" width={"100%"} height={"100%"} />:<div className="modal-backdrop fade "/>
+            User.isLogged? <iframe id="slot-frame" src={`/${i18n.language}/loader`}  frameBorder="0" width={"100%"} height={"100%"} />:<div className="modal-backdrop fade "/>
         }
 
     </div>
