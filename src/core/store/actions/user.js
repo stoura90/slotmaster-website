@@ -219,6 +219,12 @@ const getCountryList =()=>{
 const getMobileCodeList =()=>{
     return  http.get({url:Config.User.GET_MOBILE_PREFIX_LIST})
 }
+const getTransactionHistory =({d1,d2})=>{
+    return  http.get({url:Config.User.GET_TRANSACTION_HISTORY.replace("{d1}",d1).replace("{d2}",d2)})
+}
+const getSlotTransactionHistory =({date})=>{
+    return  http.get({url:Config.User.GET_SLOT_TRANSACTION_HISTORY.replace("{date}",date)})
+}
 export default {
   getSecurityQuestion,
     checkSecurityQuestion,
@@ -241,5 +247,7 @@ export default {
     save2faAuthentication,
     confirmSQOTP,
     getCountryList,
-    getMobileCodeList
+    getMobileCodeList,
+    getTransactionHistory,
+    getSlotTransactionHistory
 }

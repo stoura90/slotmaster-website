@@ -81,5 +81,19 @@
   "Confirm And Continue": "Confirm And Continue",
   "Forgot Username": "Forgot Username",
   "Live Chat": "Live Chat",
-  "Forgot Password": "Forgot Password"
+  "Forgot Password": "Forgot Password",
+  "from": "from",
+  "Date": "Date",
+  "Time": "Time",
+  "Vendor": "Vendor",
+  "Amount": "Amount",
+  "Type": "Type",
+  "Status": "Status",
+  "Filter": "Filter",
+  "None": "None",
+  "withdraw": "withdraw",
+  "to": "to",
+  "Live Casino": "Live Casino",
+  "Transaction History": "Transaction History",
+  "User": "User"
 }

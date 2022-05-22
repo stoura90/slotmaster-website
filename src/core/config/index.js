@@ -20,6 +20,8 @@ export const Config ={
       CONFIRM_SECURITY_QUESTIONS_OTP:"/us/v2/api/secured/personal/info/security/questions",
       GET_COUNTRY_LIST:"/wsd/v1/api/countries",
       GET_MOBILE_PREFIX_LIST:"/wsd/v1/api/mobile-codes",
+      GET_TRANSACTION_HISTORY:"us/v1/api/secured/history/transfers?d1={d1}&d2={d2}",
+      GET_SLOT_TRANSACTION_HISTORY:"us/v1/api/secured/history/transfers/details?date={date}"
    },
    Config:{
       REFRESH_TOKEN:"/v1/api/refresh_token",

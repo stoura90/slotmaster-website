@@ -1,73 +1,3 @@
-.transactions {
-  display: flex !important;
-  flex-direction: row;
-  column-count: unset;
-}
-.transactions li {
-  flex: 1;
-  padding: 0 6px;
-}
-.transactions li:first-child {
-  padding-left: 0;
-}
-.transactions li:last-child {
-  padding-right: 0;
-}
-
-.date-range-picker {
-  width: 100% !important;
-  position: relative;
-  cursor: pointer;
-}
-.date-range-picker .rdrDateRangeWrapper {
-  width: 100% !important;
-}
-.date-range-picker .rdrMonthsVertical {
-  padding-bottom: 40px !important;
-}
-.date-range-picker .rdrMonth {
-  width: 100%;
-}
-.date-range-picker select {
-  background-color: transparent !important;
-  border-color: transparent !important;
-}
-.date-range-picker .select-button {
-  position: absolute;
-  align-items: center;
-  text-transform: capitalize;
-  padding: 5px 20px;
-  font-family: "Proxima Bold";
-  font-weight: 700;
-  font-size: 14px;
-  text-align: left;
-  color: #1f202c;
-  border-radius: 6px;
-  border: 2px solid #3E4962;
-  transition: all 0.15s linear;
-  bottom: 5px;
-  z-index: 222;
-  right: 5px;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-.custom-date-filter {
-  display: flex;
-  width: 100%;
-  border-radius: 4px;
-  background-color: #181e2e !important;
-  color: #8f9ec8;
-  border: 2px solid #1c243a !important;
-  padding: 0 16px;
-  height: 50px;
-  font-weight: 600;
-  font-size: 14px;
-  text-align: left;
-  transition: all 0.15s linear;
-  align-items: center;
-}
-
 .ticket-svg svg {
   height: 20px;
 }
@@ -89,7 +19,7 @@
 
 .slot-transaction-detail {
   color: #c3bfbf;
-  max-height: 400px;
+  max-height: 500px;
   overflow-y: auto;
   font-size: 14px;
   /* Track */
@@ -99,51 +29,24 @@
 .slot-transaction-detail.head {
   margin-top: 10px;
   color: #fff;
-  padding-right: 8px;
 }
-.slot-transaction-detail.head table tr {
-  background: none !important;
-}
-.slot-transaction-detail table {
-  width: 100%;
-}
-.slot-transaction-detail table tr {
+.slot-transaction-detail ul {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: center;
   list-style: none;
   padding: 0;
-  margin: 0;
 }
-.slot-transaction-detail table tr td {
+.slot-transaction-detail ul li {
   flex: 1;
 }
-.slot-transaction-detail table tr td:last-child {
-  max-width: 50px;
+.slot-transaction-detail ul li:first-child {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
-.slot-transaction-detail table tr td.amount {
-  color: #b5a959;
-}
-.slot-transaction-detail table tr td.amount span {
-  padding-left: 5px;
-  font-size: 10px;
-  color: #c3bfbf;
-}
-.slot-transaction-detail table tr td[data-status] {
-  font-size: 12px;
-}
-.slot-transaction-detail table tr td[data-status=WIN] {
-  color: #5d9323;
-}
-.slot-transaction-detail table tr td[data-prov] {
-  font-size: 12px;
-}
-.slot-transaction-detail table tr:nth-child(even) {
-  background: #1f263a;
-}
-.slot-transaction-detail table tr:nth-child(odd) {
-  background: #252c42;
+.slot-transaction-detail ul:nth-child(n) {
+  background: #CCC;
 }
 .slot-transaction-detail::-webkit-scrollbar {
   width: 8px;
@@ -158,8 +61,4 @@
   border-radius: 10px;
 }
 
-.transaction-filter ::-webkit-calendar-picker-indicator {
-  filter: invert(150);
-}
-
-/*# sourceMappingURL=transactions.css.map */
+/*# sourceMappingURL=style.css.map */

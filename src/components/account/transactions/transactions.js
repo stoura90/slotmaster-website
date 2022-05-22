@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState,useMemo} from 'react';
 import './transactions.scss';
-import { useTranslation} from "../../../core";
+import {Actions, useTranslation} from "../../../core";
 import Deposit from '../deposit/Deposit';
 import Withdraw from '../withdraw/Withdraw';
 import {PLXModal, ShowMore} from "../../index";
@@ -8,6 +8,9 @@ import {useNavigation} from "../../../core/hooks/useNavigation";
 import {arrowLeftBack, coinspaid} from "../../../assets/img/icons/icons";
 import {DateRange} from "react-date-range";
 import moment from "moment";
+import {useUser} from "../../../core/hooks/useUser";
+import {useParams} from "react-router-dom";
+import _ from "lodash";
 
 const Transactions = ({onClose}) => {
     const {t} = useTranslation();
@@ -15,6 +18,8 @@ const Transactions = ({onClose}) => {
     const [deposit,setDeposit]=useState(false);
     const [withdraw,setWithdraw]=useState(false);
     const [history,setHistory]=useState(false);
+    const [page,setPage]=useState(1);
+    const count = ()=>20
     const [date, setDate] = useState([
         {
             startDate: new Date(),
@@ -36,11 +41,76 @@ const Transactions = ({onClose}) => {
                 </g>
             </svg>)
     }
+
+    const {User} = useUser();
+    const {lang} = useParams()
+    const [trData,setTrData] = useState(null)
+    const [slotHistoryData,setSlotHistoryData] = useState(null)
+    const [showDetailModal,setShowDetailModal] = useState(false)
+    const [dateRange,setDateRange] = useState({
+        start:moment(new Date((new Date()).getFullYear(), (new Date()).getMonth(),  (new Date()).getDate()-1)).format("YYYY-MM-DD"),
+        end:moment(new Date((new Date()).getFullYear(), (new Date()).getMonth(),  (new Date()).getDate())).format("YYYY-MM-DD")
+    })
+
+    useEffect(()=>{
+        trHistory()
+    },[dateRange]);
+
+    const trHistory=()=> {
+        Actions.User.getTransactionHistory({d1:dateRange.start,d2:dateRange.end})
+            .then(response=>{
+                if(response.status){
+                    setTrData(response?.data?.data)
+                }
+            }).catch((reason)=>{
+            console.log(reason)
+        })
+    }
+
+    const getType=(v)=>{
+        if(v.providerId === "DIGITAIN"){
+            return v.amount < 0 ? 'Bet':'Win'
+        }else{
+            return v.winAmount + ' '+ v.currency
+        }
+    }
+
+    const showDetail=(v)=>{
+        Actions.User.getSlotTransactionHistory({date:v.startDate})
+            .then(response=>{
+                if(response.status){
+                    setSlotHistoryData(response?.data?.data);
+                    setShowDetailModal(true);
+                }
+            }).catch((reason)=>{
+        })
+
+
+    }
+
+    const getIcon=(v)=>{
+        if(v.providerId === "DIGITAIN"){
+            return <div className="ticket-svg"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5.022 5.44l5.626 9.743M4.495 15.776a.624.624 0 01.127-.78 2.5 2.5 0 00-2.45-4.243.624.624 0 01-.739-.28l-.97-1.679a.625.625 0 01.23-.854l12.99-7.5a.625.625 0 01.854.23l.969 1.678a.625.625 0 01-.127.78 2.5 2.5 0 002.45 4.243.624.624 0 01.739.28l.969 1.678a.625.625 0 01-.229.854l-12.99 7.5a.625.625 0 01-.854-.229l-.97-1.678z"></path></g><defs><clipPath id="clip0"><path fill="#b5121b" d="M0 0h20v20H0z"></path></clipPath></defs></svg></div>
+        }else {
+            return <i className="slot-icon"/>
+        }
+    }
+
+    const getStatus=(v)=>{
+        if(v.action === "SummaryRecord"){
+            return <button className="det-button" onClick={()=>showDetail(v)}>Detailed</button>
+        }else{
+            return v.status === 1 ? t("Successful"):t("Pending")
+        }
+    }
+    const transactions=useMemo(()=> {
+        return _.filter(trData,(v,k)=>k<page*count());
+    },[page,trData])
     return (
         <>
             <div className="col-12">
                 <div className="row">
-                    <div className="col-12">
+                    {/*<div className="col-12">
                         <button className="d-flex align-items-center back bg-transparent" onClick={()=>onClose()}>
 
                             <img src={arrowLeftBack} alt=""/>
@@ -82,288 +152,97 @@ const Transactions = ({onClose}) => {
                             </div>
 
                         </div>
+                    </div>*/}
+
+                    <div className="col-12">
+                        <button className="d-flex align-items-center back bg-transparent" onClick={()=>onClose()}>
+
+                            <img src={arrowLeftBack} alt=""/>
+
+                            <div className="tab-headline">Transaction History</div>
+                        </button>
                     </div>
+                    <div className="col-12">
+                        <div className="row px-0 transaction-filter">
+                            <div className="col-12 col-md-3">
+                                <div className={`input-label-border`}>
+                                    <input onChange={e => setDateRange({...dateRange,start:e.target.value})} value={dateRange.start} type="date" name="dob" id="tr-start" />
+                                    <label htmlFor="tr-start">Date: <span>{t("from")}</span></label>
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-3">
+                                <div className={`input-label-border`}>
+                                    <input onChange={e => setDateRange({...dateRange,end:e.target.value})} value={dateRange.end} type="date" name="dob" id="tr-end" />
+                                    <label htmlFor="tr-end">Date: <span>{t("to")}</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="col-12 transaction-table d-none d-md-block">
+
                         <div className="row mx-0 table-head">
                             <div className="col">
-                                <div className="table-th">Date</div>
+                                <div className="table-th">{t('Date')}</div>
                             </div>
                             <div className="col">
-                                <div className="table-th">Time</div>
+                                <div className="table-th">{t("Time")}</div>
                             </div>
                             <div className="col ps-0">
-                                <div className="table-th">Vendor</div>
+                                <div className="table-th">{t("Vendor")}</div>
                             </div>
                             <div className="col">
-                                <div className="table-th">Amount</div>
-                            </div>{/* <div className="col-12 col-md-4 d-none d-md-block">
-                                <div className="select-label">
-                                    <select
-                                        className="select2 select2-checkbox"
-                                        name="vendor"
-                                        multiple
-                                        placeholder="Vendor"
-                                        id="clear"
-                                        type="vendor"
-                                    >
-                                        <option value=""></option>
-                                        <option value="1">Netent</option>
-                                        <option value="2">Bitcoin</option>
-                                        <option value="3">Webmoney</option>
-                                        <option value="4">Jeton</option>
-                                        <option value="5">Skrill</option>
-                                        <option value="6">Ecopayz</option>
-                                        <option value="7">Visa Mastercard</option>
-                                        <option value="8">Dogecoin</option>
-                                        <option disabled>clear</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="col-12 col-md-4 d-none d-md-block">
-                                <div className="select-label">
-                                    <select
-                                        className="select2 select2-checkbox"
-                                        name="type"
-                                        multiple
-                                        placeholder="Type"
-                                        id="clear"
-                                        type="type"
-                                    >
-                                        <option value=""></option>
-                                        <option value="deposit">Deposit</option>
-                                        <option value="withdraw">Withdrawal</option>
-                                        <option disabled>clear</option>
-                                    </select>
-                                </div>
-                            </div>*/}
-                            <div className="col">
-                                <div className="table-th">Type</div>
+                                <div className="table-th">{t("Amount")}</div>
                             </div>
                             <div className="col">
-                                <div className="table-th">Status</div>
+                                <div className="table-th">{t("Type")}</div>
+                            </div>
+                            <div className="col">
+                                <div className="table-th">{t("Status")}</div>
                             </div>
                         </div>
-                        <div className="row mx-0 table-tbody align-items-center">
-                            <div className="col">
-                                <div className="table-td">11/09/2020</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">22:11:19</div>
-                            </div>
-                            <div className="col ps-0">
-                                <div className="table-td">
-                                    <img src={coinspaid} alt=""/>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">100000.00 USD</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">+ Deposit</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td success">Successful</div>
-                            </div>
-                        </div>
-                        <div className="row mx-0 table-tbody align-items-center">
-                            <div className="col">
-                                <div className="table-td">10/09/2020</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">19:11:11</div>
-                            </div>
-                            <div className="col ps-0">
-                                <div className="table-td">
-                                    <img src={coinspaid} alt=""/>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">110.10 USD</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">- Withdrawal</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td canceled">Canceled</div>
-                            </div>
-                        </div>
-                        <div className="row mx-0 table-tbody align-items-center">
-                            <div className="col">
-                                <div className="table-td">10/09/2020</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">19:11:11</div>
-                            </div>
-                            <div className="col ps-0">
-                                <div className="table-td">
-                                    <img src={coinspaid} alt=""/>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">52.00 USD</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">- Withdrawal</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td canceled">Canceled</div>
-                            </div>
-                        </div>
-                        <div className="row mx-0 table-tbody align-items-center">
-                            <div className="col">
-                                <div className="table-td">10/09/2020</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">22:11:19</div>
-                            </div>
-                            <div className="col ps-0">
-                                <div className="table-td">
-                                    <img src={coinspaid} alt=""/>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">100000.00 USD</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">+ Deposit</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td success">Successful</div>
-                            </div>
-                        </div>
-                        <div className="row mx-0 table-tbody align-items-center">
-                            <div className="col">
-                                <div className="table-td">10/09/2020</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">19:11:11</div>
-                            </div>
-                            <div className="col ps-0">
-                                <div className="table-td">
-                                    <img src={coinspaid} alt=""/>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">110.10 USD</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">- Withdrawal</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td canceled">Canceled</div>
-                            </div>
-                        </div>
-                        <div className="row mx-0 table-tbody align-items-center">
-                            <div className="col">
-                                <div className="table-td">11/09/2020</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">22:11:19</div>
-                            </div>
-                            <div className="col ps-0">
-                                <div className="table-td">
-                                    <img src={coinspaid} alt=""/>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">100000.00 USD</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">+ Deposit</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td success">Successful</div>
-                            </div>
-                        </div>
-                        <div className="row mx-0 table-tbody align-items-center">
-                            <div className="col">
-                                <div className="table-td">10/09/2020</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">22:11:19</div>
-                            </div>
-                            <div className="col ps-0">
-                                <div className="table-td">
-                                    <img src={coinspaid} alt=""/>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">100000.00 USD</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">+ Deposit</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td success">Successful</div>
-                            </div>
-                        </div>
-                        <div className="row mx-0 table-tbody align-items-center">
-                            <div className="col">
-                                <div className="table-td">10/09/2020</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">19:11:11</div>
-                            </div>
-                            <div className="col ps-0">
-                                <div className="table-td">
-                                    <img src={coinspaid} alt=""/>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">52.00 USD</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">- Withdrawal</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td success">Successful</div>
-                            </div>
-                        </div>
-                        <div className="row mx-0 table-tbody align-items-center">
-                            <div className="col">
-                                <div className="table-td">10/09/2020</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">19:11:11</div>
-                            </div>
-                            <div className="col ps-0">
-                                <div className="table-td">
-                                    <img src={coinspaid} alt=""/>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">110.10 USD</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">- Withdrawal</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td canceled">Canceled</div>
-                            </div>
-                        </div>
-                        <div className="row mx-0 table-tbody align-items-center">
-                            <div className="col">
-                                <div className="table-td">11/09/2020</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">22:11:19</div>
-                            </div>
-                            <div className="col ps-0">
-                                <div className="table-td">
-                                    <img src={coinspaid} alt=""/>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">100000.00 USD</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td">+ Deposit</div>
-                            </div>
-                            <div className="col">
-                                <div className="table-td success">Successful</div>
-                            </div>
+                        <div className="transaction-list">
+                            {
+                                _.map(transactions, (v,k)=> {
+                                    return (
+                                        <div className="row mx-0 table-tbody align-items-center" key={k}>
+                                            <div className="col">
+                                                <div className="table-td">{v.startDate.split('T')[0]}</div>
+                                            </div>
+                                            <div className="col">
+                                                <div className="table-td">{v.startDate.split('T')[1]}</div>
+                                            </div>
+                                            <div className="col ps-0">
+                                                <div className="table-td">
+                                                    {/*<img src={skrillSmall} alt=""/>*/}
+                                                    {getIcon(v)}
+                                                </div>
+                                            </div>
+                                            <div className="col">
+                                                <div className="table-td tr-amount">
+                                                    {
+                                                        v.action === "SummaryRecord"? (<span>- {v.betAmount+' '+ v.currency}</span> ):( <span>{v.amount +' '+ v.currency}</span> )
+                                                    }
+
+                                                </div>
+                                            </div>
+                                            <div className="col">
+                                                <div className="table-td">{
+                                                    getType(v)
+                                                }</div>
+                                            </div>
+                                            <div className="col">
+                                                <div className="table-td success">{
+                                                    getStatus(v)
+                                                }</div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
                     </div>
+
                     <div className="p-0 m-0 d-md-none">
                         <div className="col-12">
                             <div
@@ -460,11 +339,43 @@ const Transactions = ({onClose}) => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 d-none d-md-block">
-                        <ShowMore page={1} count={20} length={100} setPage={(e)=>console.log(e)}/>
+                    <div className="col-12">
+                        <ShowMore page={page} count={count()} length={trData?trData.length:0} setPage={setPage}/>
                     </div>
                 </div>
             </div>
+            {
+                showDetailModal && <PLXModal title={t("Transaction History")} onClose={()=>setShowDetailModal(false)} className={'slot-transaction-history'} dialogStyle={{width:'700px'}} contentStyle={{width:'700px'}} >
+                    <div className="slot-transaction-detail head">
+                        <table>
+                            <tr>
+                                <td>Provider</td>
+                                <td>Date</td>
+                                <td>Time</td>
+                                <td>Amount</td>
+                                <td>Type</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div className="slot-transaction-detail">
+                    <table>
+                        {
+                            _.map(slotHistoryData, (v,k)=> {
+                                return (
+                                    <tr key={k}>
+                                        <td data-prov="">{v.providerId}</td>
+                                        <td>{v.startDate.split('T')[0]}</td>
+                                        <td>{v.startDate.split('T')[1]}</td>
+                                        <td className="amount">{v.amount}<span>{v.currency}</span></td>
+                                        <td data-status={v.action}>{v.action}</td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </table>
+                    </div>
+                </PLXModal>
+            }
         </>
     )
 }
