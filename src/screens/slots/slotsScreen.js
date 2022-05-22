@@ -113,23 +113,23 @@ const SlotsScreen = () =>{
                                 }}/>
                             </div>
 
-                            <div className="select-label d-none d-lg-flex me-0">
+                            <div className="select-label  d-lg-flex me-0  filter-label">
                                 <CustomDropdown type={"filter"} label={t("Provider")} data={providers} onSelect={setSelectedProvider} open={providerFilter} setOpen={()=>{
                                     setFiltersFilter(false)
                                     setProviderFilter(!providerFilter)
                                 }}/>
                             </div>
-                            <div className="filter-button d-lg-none" data-bs-toggle="modal"
+                            {/*<div className="filter-button d-lg-none" data-bs-toggle="modal"
                                  data-bs-target="#FilterModal" onClick={()=>setShowMobileFilter(!showMobileFilter)} >
                                 <img src={filter} alt="Filter"/>
-                            </div>
+                            </div>*/}
                         </div>
 
-                        <div className={"custom-filter-mobile d-lg-none"}>
+                        {/*<div className={"custom-filter-mobile d-lg-none"}>
                             <CustomDropdown label={t("Provider")}  filters={filters} setFilters={setSelectedFilters} showFilter={true} data={providers} onSelect={setSelected} open={showMobileFilter} setOpen={()=>{
                                 setShowMobileFilter(!showMobileFilter)
                             }} />
-                        </div>
+                        </div>*/}
                         {/*<div className="col-12 section-head">
                             <div className="sl_nav">
                                 <div className="sl_item sl_home" onClick={()=> homeClick()}/>

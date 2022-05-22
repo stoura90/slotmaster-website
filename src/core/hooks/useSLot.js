@@ -84,7 +84,7 @@ export function useSLot() {
                         break;
                     default:
                         //console.log(response.data.data.url)
-                        window.open(`https://planetaxbet.com/${i18n.language}/playSlot?uri=${encodeURIComponent(response.data.data.url)}`,"_blank","toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
+                        window.open(`/${i18n.language}/playSlot?uri=${encodeURIComponent(response.data.data.url)}`,"_blank","toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
                     break
                 }
             }else{

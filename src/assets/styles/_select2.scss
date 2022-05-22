@@ -1,4 +1,21 @@
+
 @import "variables";
+
+.filter-label{
+  margin-left: 10px;
+
+  @media screen and (min-width:768px) {
+    margin-left: 0;
+
+  }
+  @media screen and (max-width:992px) {
+    width: 50px !important;
+  }
+  @media screen and (min-width:992px) {
+
+    width: 100% !important;
+  }
+}
 .select2-container {
   box-sizing: border-box;
   display: inline-block;
@@ -776,7 +793,7 @@
   content:"\f096";
   width:25px;
   height:25px;
-  
+
 }
 .select2-result-label .wrap.checked:before{
   content:"\f14a";

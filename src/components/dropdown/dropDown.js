@@ -1,11 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
 import "./dropdown.scss"
-import {close, multiArrow} from "../../assets/img/icons/icons"
+import {close, filter as filterIcon, multiArrow} from "../../assets/img/icons/icons"
 import _ from 'lodash'
 import PropTypes from "prop-types";
 import {useTranslation} from "../../core";
 import {useNav} from "../../core/hooks/useNav";
-import {value} from "lodash/seq";
 
 import {useOutsideRefSLF} from "../../core/hooks/useOutSideClickSlotFilterRef";
 
@@ -60,7 +59,7 @@ export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,sh
     }
     const renderView = ()=>{
         if(showFilter){
-            return <div    className={`search-input-content `}  style={{...style,height:'100%',top:0,position:"fixed"}}>
+            return <div    className={`search-input-content`}  style={{...style,height:'100%',top:0,position:"fixed"}}>
                 <div className={"header-search-container"}>
                     <h3>Filter</h3>
                     <div className={"close-icon"} onClick={()=>setOpen(false)}>
@@ -72,8 +71,6 @@ export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,sh
                     <ul>
 
                         {
-
-
                             _.map(filter,(p,index)=>{
                                 return  <li key={index} onClick={()=>{
                                     setFilter({
@@ -108,8 +105,7 @@ export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,sh
                 </div>
 
                 <div className={"clear-button"} style={{backgroundColor:'#ffbc00',color:"#192034"}} onClick={()=>{
-
-                    setOpen(false)
+                    toggle()
                 }}>
                     Save
                 </div>
@@ -123,13 +119,13 @@ export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,sh
                             return{...p,checked:false}
                         })})
                     }
-                    setOpen(false)
+                    toggle()
                 }}>
                     Clear
                 </div>
             </div>
         }else{
-            return <div    className={`search-input-content `} style={{...style}}>
+            return <div    className={`search-input-content `}  style={{...style}}>
 
                 <div className="prov_list">
                     <ul>
@@ -154,7 +150,6 @@ export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,sh
                     setProviders({..._.map(providers,p=>{
                             return{...p,checked:false}
                         })})
-                    toggle()
                 }}>
                     Clear
                 </div>
@@ -170,18 +165,27 @@ export const CustomDropdown=({data,label,style ,onSelect,open,setOpen,onClick,sh
         }
     }
 
-    return <div className={"slot-custom-search"}  ref={ref5} >
-        <div className={"slot-search-input"} onClick={toggle}>
-            <div className={"search-input"}>
-                <span className={"provider"}>{label}: </span>
-                <span className={"selected"}>{
-                    renderSelected()
-                }</span>
+    return <div className={`slot-custom-search `}  ref={ref5} >
+        <div className={"slot-search-input"} onClick={()=>toggle()} >
+            <div className="visible-desktop">
+                <div className={"search-input"}>
+                    <span className={"provider"}>{label}: </span>
+                    <span className={"selected"}>{
+                        renderSelected()
+                    }</span>
+                </div>
+                <div   className={"search-arrow-icon d-none d-lg-flex "} >
+                    <div className={"icon"} style={{backgroundImage:`url(${multiArrow})`}}/>
+                </div>
             </div>
-            <div   className={"search-arrow-icon"} >
-                <div className={"icon"} style={{backgroundImage:`url(${multiArrow})`}}/>
+
+            <div   className={"search-arrow-icon visible-mobile"} >
+                <div className={"icon"} style={{ width:'20px',height:'20px',backgroundImage:`url(${filterIcon})`}}/>
             </div>
         </div>
+       {/* <div className="filter-button d-lg-none">
+            <img src={filterIcon} alt="Filter"/>
+        </div>*/}
         {
             renderView()
         }

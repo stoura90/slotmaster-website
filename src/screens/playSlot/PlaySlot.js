@@ -17,13 +17,14 @@ const PlaySlot= () => {
         if(!navigation.get("uri")){
             window.close()
         }
+        console.log(navigation.get("uri"))
         document.body.style.height="100vh"
         document.getElementById("root").style.height="100vh"
         ping().then((e)=>setLoaded(e))
     },[])
     useEffect(()=>{
         if(!User.isLogged){
-            ev.emit("signIn",true)
+            ev.emit('signIn',true)
         }
     },[loaded])
 
@@ -36,6 +37,7 @@ const PlaySlot= () => {
 
 
 
+
         {
             User.isLogged? <iframe src={navigation.get("uri")} frameBorder="0" width={"100%"} height={"100%"}/>:<div className="modal-backdrop fade "/>
         }
@@ -44,3 +46,4 @@ const PlaySlot= () => {
 }
 
 export default PlaySlot;
+
