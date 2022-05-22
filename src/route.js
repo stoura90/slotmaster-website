@@ -50,7 +50,7 @@ export const guestRoutes = [
 ];
 
 export const userRoutes = [
-    { path: '/', name: 'Home', exact:false, component: main , page:"main"},
+    { path: '/', name: 'Home', exact:true, component: main , page:"main"},
     { path: '/:lang', name: 'Home', exact:true, component: main , page:"main"},
     { path: '/:lang/main', name: 'Home', exact:true, component: main, page:"main" },
     { path: '/:lang/main/:params', name: 'Home', exact:true, component: main , page:"main"},

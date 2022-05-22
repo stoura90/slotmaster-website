@@ -12,12 +12,14 @@ import PropTypes from 'prop-types'
 import {Loader} from "../index";
 import {useLoader} from "../../core/hooks/useLoader";
 import {useSLot} from "../../core/hooks/useSLot";
+import {useTranslation} from "../../core";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 
 const  Carousel = ({data,counter,navigation}) =>{
     const [slotList,setSlotList]= useState([])
     const {loader}=useLoader()
+    const {i18n}= useTranslation()
     const [count,setCount] = useState( Math.round(window.innerWidth / 300))
     const {play}= useSLot()
     useEffect(()=> {
@@ -69,7 +71,7 @@ const  Carousel = ({data,counter,navigation}) =>{
                             <div className="main-card-list-item" key={index} >
                                 {/*{loader===v.gameId && <Loader/>}*/}
                                 <div className="sl-card" style={{backgroundImage:`url(${v.imageUrl})`}} >
-                                    <div className="sl-card-hover" onClick={()=>play(v)}>
+                                    <div className="sl-card-hover"  onClick={()=>window.open(`/${i18n.language}/playSlot?id=${v.id}&gameId=${v.gameId}`)}>
                                         <div className="slot-card-cover "/>
                                         <img src={v.imageUrl} alt="" style={{visibility:"hidden"}} />
                                         <img src={PlayIcon} alt="" className="play-btn" />
