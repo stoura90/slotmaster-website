@@ -41,7 +41,19 @@ export function useSLot() {
                         `))
 
                         return ;
+                    case 'sg_auth':
+                        win = window.open(`/${i18n.language}/playSlot`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
+                        win.document.write(response?.data?.data?.url.concat(`
+                            <style>
+                             html,body {
+                                padding: 0 !important;
+                                margin:0 !important;
+                             }
+                             </style>
+                        `))
+                        break;
                     case 'sg_html':
+
                         win = window.open(`/${i18n.language}/playSlot`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
                         win.document.write(response.data.data.html.concat(`
                             <style>
