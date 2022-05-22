@@ -30,8 +30,9 @@ export function useSLot() {
 
                 switch (response.data?.data?.type.toLowerCase()){
                     case "html":
-                        win = window.open("", "_self", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
-                        win.document.write(response.data.data.url.concat(`
+                        win = window.open(`/${i18n.language}/play`, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
+                        win.onload=function (){
+                            win.document.write(response.data.data.url.concat(`
                             <style>
                              html,body {
                                 padding: 0 !important;
@@ -39,6 +40,8 @@ export function useSLot() {
                              }
                              </style>
                         `))
+                        }
+
 
                         return ;
                     case 'sg_auth':
@@ -65,15 +68,19 @@ export function useSLot() {
                         break;
                     case 'sg_html':
 
-                        win = window.open("", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
-                        win.document.write(response.data.data.html.concat(`
+                        win = window.open(`/${i18n.language}/play`,"_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1070,height=630")
+                        win.onload=function (){
+                            win.document.write(response.data.data.html.concat(`
                             <style>
                              html,body {
                                 padding: 0 !important;
                                 margin:0 !important;
                              }
                              </style>
-                        `).concat(`<script>${response.data.data.script}</script>`))
+                         `).concat(`<script>${response.data.data.script}</script>`))
+                        }
+
+
                         break;
                     default:
                         //console.log(response.data.data.url)
