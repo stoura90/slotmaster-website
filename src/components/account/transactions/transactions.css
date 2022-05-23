@@ -162,4 +162,19 @@
   filter: invert(150);
 }
 
+.history-confirm-btn {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.history-confirm-btn button {
+  padding: 5px 15px;
+  border-radius: 3px;
+  background: #b9a440;
+}
+.history-confirm-btn button:hover {
+  cursor: pointer;
+  background: #27ad59;
+}
+
 /*# sourceMappingURL=transactions.css.map */

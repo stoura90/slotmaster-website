@@ -54,7 +54,7 @@ const Transactions = ({onClose}) => {
 
     useEffect(()=>{
         trHistory()
-    },[dateRange]);
+    },[]); // dateRange
 
     const trHistory=()=> {
         Actions.User.getTransactionHistory({d1:dateRange.start,d2:dateRange.end})
@@ -174,6 +174,11 @@ const Transactions = ({onClose}) => {
                                 <div className={`input-label-border`}>
                                     <input onChange={e => setDateRange({...dateRange,end:e.target.value})} value={dateRange.end} type="date" name="dob" id="tr-end" />
                                     <label htmlFor="tr-end">Date: <span>{t("to")}</span></label>
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-3">
+                                <div className={`input-label-border history-confirm-btn`}>
+                                    <button onClick={()=>trHistory()}>Confirm</button>
                                 </div>
                             </div>
                         </div>
