@@ -105,7 +105,12 @@
     color: #fff;
     padding-right: 8px;
     table {
-      tr {background: none !important;}
+      tr {
+        background: none !important;
+        td{
+          &:first-child {max-width: 70px}
+        }
+      }
     }
   }
   table {
@@ -120,6 +125,7 @@
       margin: 0;
       td {
         flex:1;
+        &:first-child {max-width: 70px}
         &:last-child {
           max-width: 50px;
         }
@@ -145,7 +151,6 @@
       &:nth-child(odd) {background: #252c42}
     }
   }
-
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -188,4 +193,71 @@
       background: #27ad59;
     }
   }
+}
+.table-td {
+  p {margin: 0}
+  span {
+    &[data-status="1"] {
+      color: green;
+    }
+  }
+}
+
+.transaction-list {
+  &.mobile {
+    color: #c6d1ed;
+    .date-time {
+      line-height: 14px;
+    }
+    .type {
+      line-height: 12px;
+      p {margin: 0}
+    }
+    .status {
+      .det-button {
+        padding: 0px 8px;
+        line-height: 22px;
+        font-size: 14px;
+      }
+      span {
+        &[data-status="1"]{
+          color: green;
+        }
+      }
+    }
+
+    .date-time,.prov-amount,.type-status {
+      margin: 0;
+    }
+    .prov-amount {
+      line-height: 16px;
+      .provider {
+        font-size: 12px;
+        color: #ccc;
+      }
+    }
+    .type-status {
+      .type {
+
+      }
+    }
+
+  }
+}
+
+@media (max-width: 600px) {
+  .custom-modal {
+    .slot-transaction-history {
+      width: 100%;
+      max-width: calc(100% - 30px);
+      padding: 0 10px;
+      .slot-transaction-detail {
+        td[data-date] {
+          font-size: 11px;
+          line-height: 11px;
+        }
+      }
+    }
+  }
+
 }

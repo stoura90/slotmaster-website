@@ -1,4 +1,14 @@
 @import "variables";
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .navbar {
     width: 100%;
     padding: 0;
@@ -21,10 +31,28 @@
         }
 
         .authorization-interface {
+            .header-amount-box {
+                display: flex;
+                flex-direction: row;
+                margin-right: 20px;
+                align-items: center;
+                img {
+                    width: 20px;
+                    fill:#ccc;
+                    opacity: .8;
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 1;
+                    }
+                    &.rotate {
+                        animation: rotation 2s infinite linear;
+                    }
+                }
+            }
             .navbar-balance {
                 & > * {
                     line-height: 1;
-                    letter-spacing: 1;
+                    letter-spacing: 1px;
                 }
                 .currency {
                     font-family: $proxima;
@@ -40,7 +68,7 @@
                     text-align: right;
                     color: #E6E9F1;
                 }
-                margin-right: 20px;
+                margin-right: 10px;
             }
 
             .account-link {

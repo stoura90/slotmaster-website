@@ -104,6 +104,9 @@
 .slot-transaction-detail.head table tr {
   background: none !important;
 }
+.slot-transaction-detail.head table tr td:first-child {
+  max-width: 70px;
+}
 .slot-transaction-detail table {
   width: 100%;
 }
@@ -118,6 +121,9 @@
 }
 .slot-transaction-detail table tr td {
   flex: 1;
+}
+.slot-transaction-detail table tr td:first-child {
+  max-width: 70px;
 }
 .slot-transaction-detail table tr td:last-child {
   max-width: 50px;
@@ -175,6 +181,55 @@
 .history-confirm-btn button:hover {
   cursor: pointer;
   background: #27ad59;
+}
+
+.table-td p {
+  margin: 0;
+}
+.table-td span[data-status="1"] {
+  color: green;
+}
+
+.transaction-list.mobile {
+  color: #c6d1ed;
+}
+.transaction-list.mobile .date-time {
+  line-height: 14px;
+}
+.transaction-list.mobile .type {
+  line-height: 12px;
+}
+.transaction-list.mobile .type p {
+  margin: 0;
+}
+.transaction-list.mobile .status .det-button {
+  padding: 0px 8px;
+  line-height: 22px;
+  font-size: 14px;
+}
+.transaction-list.mobile .status span[data-status="1"] {
+  color: green;
+}
+.transaction-list.mobile .date-time, .transaction-list.mobile .prov-amount, .transaction-list.mobile .type-status {
+  margin: 0;
+}
+.transaction-list.mobile .prov-amount {
+  line-height: 16px;
+}
+.transaction-list.mobile .prov-amount .provider {
+  font-size: 12px;
+  color: #ccc;
+}
+@media (max-width: 600px) {
+  .custom-modal .slot-transaction-history {
+    width: 100%;
+    max-width: calc(100% - 30px);
+    padding: 0 10px;
+  }
+  .custom-modal .slot-transaction-history .slot-transaction-detail td[data-date] {
+    font-size: 11px;
+    line-height: 11px;
+  }
 }
 
 /*# sourceMappingURL=transactions.css.map */

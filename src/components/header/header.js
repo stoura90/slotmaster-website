@@ -1,24 +1,43 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {logoM, sl2} from "../../assets/img/images";
 import {useUser} from "../../core/hooks/useUser";
 import {
     account,
     logo2,
-    user_ico
+    user_ico,
+    refresh
 } from '../../assets/img/icons/icons';
 import {Link, useParams} from "react-router-dom";
 import PropTypes from 'prop-types';
-import {useTranslation} from "../../core";
+import {Actions, useTranslation} from "../../core";
 import ChangeLagunge from "../languages/ChangeLagunge";
 import {UseEvent} from "../../core/hooks/useEvent";
+import {useDispatch} from "react-redux";
 const Header = ({page}) =>{
+    const dispatch = useDispatch();
     const {t,i18n} = useTranslation();
     const ev = UseEvent();
     const {User} = useUser();
     const {lang} = useParams();
+    const [loaded,setLoaded]=useState(false);
+    const [rotate,setRotate]=useState(false);
+    let rot ='';
     useEffect(()=>{
         console.log(User)
     },[page])
+
+    useEffect(()=>{
+        rot = setTimeout(function() {
+            setRotate(false);
+        }, 2000);
+    },[rotate])
+
+    const pingBal =  async () => {
+        clearTimeout(rot);
+        setRotate(true);
+        setLoaded(await dispatch(Actions.User.ping()));
+    }
+
     return (
         <header>
             <nav className="navbar navbar-expand-md flex-column">
@@ -40,10 +59,16 @@ const Header = ({page}) =>{
                                                 <div data-user>{User.data.username}</div>
                                                 <div data-pin>id: {User.data.id}</div>
                                             </div>*/}
-                                            <Link to={`/${i18n.language}/account`} className="navbar-balance d-flex flex-column">
-                                                <span className="currency">EUR{/*{User.data.accounts.main.currency.iso3}*/}</span>
-                                                <span className="current-balance">{(User.data.accounts.main.amount).toFixed(2)}</span>
-                                            </Link>
+                                            <div className="header-amount-box">
+
+                                                <Link to={`/${i18n.language}/account`} className="navbar-balance d-flex flex-column">
+                                                    <span className="currency">{User.data.accounts.main.currency.iso3}</span>
+                                                    <span className="current-balance">{(User.data.accounts.main.amount).toFixed(2)}</span>
+                                                </Link>
+                                                <span onClick={()=>!rotate?pingBal():''}><img className={rotate?'rotate':''} src={refresh} alt=""/></span>
+
+                                            </div>
+
 
 
                                             <Link  to={`/${i18n.language}/account/finances?to=withdraw`} className="withdraw-link">{t("withdraw")}</Link>
