@@ -1,0 +1,65 @@
+.casino-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  .item-box {
+    color: #fff;
+    flex: 1 1;
+    position: relative;
+    margin: 0 5px 10px;
+
+    .bg {
+      width: 100%;
+    }
+
+    ul {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      list-style: none;
+      padding: 0 20px;
+      li {
+        &:first-child {flex:1 1;}
+      }
+    }
+
+    .arrow {
+      img {height: 17px}
+    }
+    .provider-logo {
+      img {height: 25px}
+    }
+  }
+}
+@media (max-width: 450px) {
+  .casino-grid {
+    justify-content: center;
+    .item-box {
+      min-width: 100%;
+    }
+  }
+}
+@media (max-width: 767px) {
+  .casino-grid {
+    justify-content: center;
+    .item-box {
+      flex: 1 calc(50% - 10px);
+      max-width: calc(50% - 10px);
+    }
+  }
+}
+@media (max-width: 991px) {
+  .casino-grid {
+    .item-box {
+      .arrow {
+        img {height: 15px}
+      }
+      .provider-logo {
+        img {height: 15px}
+      }
+    }
+  }
+}

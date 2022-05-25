@@ -1,7 +1,8 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {sl2, w2} from '../../assets/img/images';
 import {Footer, Header, NewSWP, ShowMore, SlotCard, Swp} from "../../components";
-import "../../assets/styles/_select2.scss"
+import "../../assets/styles/_select2.scss";
+import "./casinoScreen.scss";
 import {Actions, useTranslation} from "../../core";
 import _ from "lodash"
 import {useParams} from "react-router-dom";
@@ -10,6 +11,15 @@ import {filter} from "../../assets/img/icons/icons";
 import {useNav} from "../../core/hooks/useNav";
 import {useCount} from "../../core/hooks/useCount";
 import image_1 from "../../assets/img/slide/image_1.png";
+import {
+    arrow,
+    vetgames,
+    betgames_img,
+    evolution,
+    evolution_img,
+    vivogames,
+    vivogames_img, betgames
+} from "../../assets/img/casino/images";
 
 const CasinoScreen = () =>{
     const nav = useNav();
@@ -101,8 +111,31 @@ console.log(selectedProvider)
             </div>
 
             <main className="main" style={{minHeight:'300px'}}>
-                <div className="container wrapper">
-                    <div className="row">
+                <div className="container">
+                    <div className="casino-grid">
+                        <div className="item-box">
+                            <img className="bg" src={evolution_img}/>
+                            <ul>
+                                <li className="provider-logo"><img src={evolution}/></li>
+                                <li className="arrow"><img src={arrow}/></li>
+                            </ul>
+                        </div>
+                        <div className="item-box">
+                            <img className="bg" src={vivogames_img}/>
+                            <ul>
+                                <li className="provider-logo"><img src={vivogames}/></li>
+                                <li className="arrow"><img src={arrow}/></li>
+                            </ul>
+                        </div>
+                        <div className="item-box">
+                            <img className="bg" src={betgames_img}/>
+                            <ul>
+                                <li className="provider-logo"><img src={betgames}/></li>
+                                <li className="arrow"><img src={arrow}/></li>
+                            </ul>
+                        </div>
+                    </div>
+                    {/*<div className="row">
 
                         <div className="col-12 d-flex align-items-center main-filter slot">
                             <div className="search">
@@ -133,10 +166,10 @@ console.log(selectedProvider)
                                 }}/>
                             </div>
 
-                            {/*<div className="filter-button d-lg-none" data-bs-toggle="modal"
+                            <div className="filter-button d-lg-none" data-bs-toggle="modal"
                                  data-bs-target="#FilterModal" onClick={()=>setShowMobileFilter(!showMobileFilter)} >
                                 <img src={filter} alt="Filter"/>
-                            </div>*/}
+                            </div>
                         </div>
 
                         <div className={"custom-filter-mobile d-lg-none"}>
@@ -148,7 +181,7 @@ console.log(selectedProvider)
                             }}/>
                         </div>
 
-                        {/*<div className="col-12 section-head">
+                        <div className="col-12 section-head">
                             <div className="sl_nav">
                                 <div className="sl_item sl_home" onClick={()=> homeClick()}/>
                                 {
@@ -165,7 +198,7 @@ console.log(selectedProvider)
                                     }
                                 </ul>
                             </div>
-                        </div>*/}
+                        </div>
                         <div className="col-12 d-flex align-items-center section-head">
 
                         </div>
@@ -187,7 +220,7 @@ console.log(selectedProvider)
                                 <ShowMore page={page} count={count()} length={filteredSlotList.length} setPage={setPage}/>
                             </div>
                         }
-                    </div>
+                    </div>*/}
                 </div>
             </main>
             <Footer/>

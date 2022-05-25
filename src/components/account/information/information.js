@@ -716,7 +716,7 @@ const Information = () => {
                                         <div className="col-12 col-md-6">
                                             <div className={`input-label-border`}>
                                                 <input value={currency[0].title} type="text" name="currency" id="currency" disabled/>
-                                                <label htmlFor="currency">{t("currency")}</label>
+                                                <label htmlFor="currency">{t("Currency")}</label>
                                             </div>
                                         </div>
 
@@ -755,7 +755,7 @@ const Information = () => {
                                                 type="button"
                                                 onClick={()=>getPrimaryOtp()}
                                             >
-                                                {t("2FA Autorization")}
+                                                {t("2FA Authentication")}
                                             </button>
                                         </div>
                                         <div className="col-12 order-1 order-md-3">

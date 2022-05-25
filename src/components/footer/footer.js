@@ -148,7 +148,7 @@ const Footer =()=>{
                         <h6 style={{textAlign:'right',color:'#C6D1ED'}}>Follow Us</h6>
                         <div style={{justifyContent:'right'}} className="d-none d-md-flex social-list">
                                 <a
-                                    href="#"
+                                    href="https://www.facebook.com/Planetaxbet"
                                     target="_blank"
                                     className="d-flex align-items-center justify-content-center social-item rounded-circle"
                                 >
@@ -176,7 +176,7 @@ const Footer =()=>{
                                     <i className="fab fa-twitter twitter"/>
                                 </a>
                                 <a
-                                    href="#"
+                                    href="https://discord.gg/sbjFXbbcBK"
                                     target="_blank"
                                     className="d-flex align-items-center justify-content-center social-item rounded-circle"
                                 >

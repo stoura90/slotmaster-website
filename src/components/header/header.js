@@ -112,7 +112,7 @@ const Header = ({page}) =>{
                                             onClick={()=>ev.emit('signUp',true)}
                                             id={"signUp-btn"}
                                         >
-                                            {t("Sing Up")}
+                                            {t("Sign Up")}
                                         </button>
                                     </>
                                 }
