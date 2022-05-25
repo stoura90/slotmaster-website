@@ -16,17 +16,13 @@ export function useSLot() {
             return;
         }
         setLoader(slot.gameId);
-
         Actions.Slot.play({...slot,lang:i18n.language}).then(response=>{
-            console.log('response',response)
+            console.log(response)
             if(response.status && response.data?.resultCode===0){
                 let win;
                 if(response.data.data?.type ===null){
                     response.data.data.type = "url";
                 }
-
-
-
                 switch (response.data?.data?.type.toLowerCase()){
                     case "html":
                             window.document.write(response.data.data.url.concat(`
@@ -73,6 +69,15 @@ export function useSLot() {
 
                         break;
                     default:
+                        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                        console.log(slot,isMobile)
+                        if(isMobile && slot?.gameType==="casino" ) {
+                            setTimeout(()=>{
+                                window.location.href=response.data.data.url
+                            },10)
+                            return;
+                        }
+
                         //console.log(response.data.data.url)
                         document.getElementById("stickFooter").style.display="none"
                        document.getElementById("slot-frame").setAttribute("src",(response.data.data.url))

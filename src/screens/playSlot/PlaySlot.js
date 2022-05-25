@@ -17,7 +17,7 @@ const PlaySlot= () => {
     const ev  = new EventEmitter()
     useLayoutEffect(()=>{
         if(navigation.get("id")){
-            slot.play({id:navigation.get("id"),gameId:navigation.get("gameId")});
+            slot.play({id:navigation.get("id"),gameId:navigation.get("gameId"),gameType:navigation.get("gameType")});
         }else{
             window.close();
         }
