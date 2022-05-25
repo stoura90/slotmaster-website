@@ -2,6 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {sl2, w2} from '../../assets/img/images';
 import {Footer, Header, NewSWP, ShowMore, SlotCard, Swp} from "../../components";
 import "../../assets/styles/_select2.scss"
+import "./virtualsScreen.scss"
 import {Actions, useTranslation} from "../../core";
 import _ from "lodash"
 import {useParams} from "react-router-dom";
@@ -9,6 +10,13 @@ import {CustomDropdown} from "../../components/dropdown/dropDown";
 import {filter} from "../../assets/img/icons/icons";
 import {useCount} from "../../core/hooks/useCount";
 import image_1 from "../../assets/img/slide/image_1.png";
+import {
+    arrow,
+    onetwogaming,
+    onetwologo,
+    goldenrace,
+    goldenrace_img
+} from "../../assets/img/virtuals/images";
 
 
 const VirtualsScreen = () =>{
@@ -99,8 +107,24 @@ const VirtualsScreen = () =>{
             </div>
 
             <main className="main" style={{minHeight:'300px'}}>
-                <div className="container wrapper">
-                    <div className="row">
+                <div className="container">
+                    <div className="virtual-grid">
+                        <div className="item-box">
+                            <img className="bg" src={goldenrace_img}/>
+                            <ul>
+                                <li className="provider-logo"><img src={goldenrace}/></li>
+                                <li className="arrow"><img src={arrow}/></li>
+                            </ul>
+                        </div>
+                        <div className="item-box">
+                            <img className="bg" src={onetwogaming}/>
+                            <ul>
+                                <li className="provider-logo"><img src={onetwologo}/></li>
+                                <li className="arrow"><img src={arrow}/></li>
+                            </ul>
+                        </div>
+                    </div>
+                    {/*<div className="row">
 
                         <div className="col-12 d-flex align-items-center main-filter slot">
                             <div className="search">
@@ -129,10 +153,10 @@ const VirtualsScreen = () =>{
                                 }}/>
                             </div>
 
-                            {/*<div className="filter-button d-lg-none" data-bs-toggle="modal"
+                            <div className="filter-button d-lg-none" data-bs-toggle="modal"
                                  data-bs-target="#FilterModal" onClick={()=>setProviderFilter(!providerFilter)} >
                                 <img src={filter} alt="Filter"/>
-                            </div>*/}
+                            </div>
                         </div>
 
                         <div className={"custom-filter-mobile d-lg-none"}>
@@ -142,7 +166,7 @@ const VirtualsScreen = () =>{
                             }}/>
                         </div>
 
-                        {/*<div className="col-12 section-head">
+                        <div className="col-12 section-head">
                             <div className="sl_nav">
                                 <div className="sl_item sl_home" onClick={()=> homeClick()}/>
                                 {
@@ -159,7 +183,7 @@ const VirtualsScreen = () =>{
                                     }
                                 </ul>
                             </div>
-                        </div>*/}
+                        </div>
                         <div className="col-12 d-flex align-items-center section-head">
 
                         </div>
@@ -181,7 +205,7 @@ const VirtualsScreen = () =>{
                                 <ShowMore page={page} count={count()} length={filteredSlotList.length} setPage={setPage}/>
                             </div>
                         }
-                    </div>
+                    </div>*/}
                 </div>
             </main>
             <Footer/>

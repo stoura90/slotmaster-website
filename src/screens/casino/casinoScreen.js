@@ -13,12 +13,12 @@ import {useCount} from "../../core/hooks/useCount";
 import image_1 from "../../assets/img/slide/image_1.png";
 import {
     arrow,
-    vetgames,
+    betgames,
     betgames_img,
     evolution,
     evolution_img,
     vivogames,
-    vivogames_img, betgames
+    vivogames_img,
 } from "../../assets/img/casino/images";
 
 const CasinoScreen = () =>{

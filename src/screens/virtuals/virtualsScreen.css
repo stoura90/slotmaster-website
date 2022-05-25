@@ -1,0 +1,65 @@
+.virtual-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.virtual-grid .item-box {
+  color: #fff;
+  max-width: 33.33%;
+  position: relative;
+  margin: 0 5px 10px;
+}
+.virtual-grid .item-box .bg {
+  width: 100%;
+}
+.virtual-grid .item-box ul {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0 20px;
+}
+.virtual-grid .item-box ul li:first-child {
+  flex: 1 1;
+}
+.virtual-grid .item-box .arrow img {
+  height: 17px;
+}
+.virtual-grid .item-box .provider-logo img {
+  height: 25px;
+}
+
+@media (max-width: 450px) {
+  .virtual-grid {
+    justify-content: center;
+  }
+  .virtual-grid .item-box {
+    min-width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  .virtual-grid {
+    justify-content: center;
+  }
+  .virtual-grid .item-box {
+    flex: 1 calc(50% - 10px);
+    max-width: calc(50% - 10px);
+  }
+}
+@media (max-width: 991px) {
+  .virtual-grid .item-box {
+    max-width: unset;
+    flex: 1 1;
+  }
+  .virtual-grid .item-box .arrow img {
+    height: 15px;
+  }
+  .virtual-grid .item-box .provider-logo img {
+    height: 15px;
+  }
+}
+
+/*# sourceMappingURL=virtualsScreen.css.map */
