@@ -20,7 +20,7 @@ import {
 
 
 const VirtualsScreen = () =>{
-    const  {t} = useTranslation()
+    const  {t,i18n} = useTranslation()
     const {count} = useCount()
 
     const [page,setPage]=useState(1)
@@ -109,14 +109,14 @@ const VirtualsScreen = () =>{
             <main className="main" style={{minHeight:'300px'}}>
                 <div className="container">
                     <div className="virtual-grid">
-                        <div className="item-box">
+                        <div className="item-box"  onClick={()=>window.open(`/${i18n.language}/playSlot?id=1049&gameId=10114`)}>
                             <img className="bg" src={goldenrace_img}/>
                             <ul>
                                 <li className="provider-logo"><img src={goldenrace}/></li>
                                 <li className="arrow"><img src={arrow}/></li>
                             </ul>
                         </div>
-                        <div className="item-box">
+                        <div className="item-box"  onClick={()=>window.open(`/${i18n.language}/playSlot?id=431&gameId=1001`)}>
                             <img className="bg" src={onetwogaming}/>
                             <ul>
                                 <li className="provider-logo"><img src={onetwologo}/></li>
