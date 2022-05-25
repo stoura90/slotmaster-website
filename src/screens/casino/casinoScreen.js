@@ -25,7 +25,7 @@ const CasinoScreen = () =>{
     const nav = useNav();
     const {count} = useCount()
 
-    const {t} = useTranslation()
+    const {t,i18n} = useTranslation()
     const [page,setPage]=useState(1)
     const [providers,setProviders]=useState([])
     const [filters,setFilters]=useState([])
@@ -113,21 +113,21 @@ console.log(selectedProvider)
             <main className="main" style={{minHeight:'300px'}}>
                 <div className="container">
                     <div className="casino-grid">
-                        <div className="item-box">
+                        <div className="item-box" onClick={()=>window.open(`/${i18n.language}/playSlot?id=1106&gameId=105&gameType=casino`)}>
                             <img className="bg" src={evolution_img}/>
                             <ul>
                                 <li className="provider-logo"><img src={evolution}/></li>
                                 <li className="arrow"><img src={arrow}/></li>
                             </ul>
                         </div>
-                        <div className="item-box">
+                        <div className="item-box" onClick={()=>window.open(`/${i18n.language}/playSlot?id=11&gameId=e864e7d293376c830c58d7ddddf9983f8d852718&gameType=casino`)}>
                             <img className="bg" src={vivogames_img}/>
                             <ul>
                                 <li className="provider-logo"><img src={vivogames}/></li>
                                 <li className="arrow"><img src={arrow}/></li>
                             </ul>
                         </div>
-                        <div className="item-box">
+                        <div className="item-box" onClick={()=>window.open(`/${i18n.language}/playSlot?id=34&gameId=5687990baddbb934621c0b80b0f5f989f521d1a5&gameType=casino`)}>
                             <img className="bg" src={betgames_img}/>
                             <ul>
                                 <li className="provider-logo"><img src={betgames}/></li>
@@ -135,7 +135,7 @@ console.log(selectedProvider)
                             </ul>
                         </div>
                     </div>
-                    {/*<div className="row">
+                   {/* <div className="row">
 
                         <div className="col-12 d-flex align-items-center main-filter slot">
                             <div className="search">
