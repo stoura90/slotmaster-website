@@ -37,21 +37,7 @@ export function useSLot() {
                         return ;
                     case 'sg_auth':
                         window.document.write(
-                                (`
-                                <html>
-                                    <head>
-                                    <style>
-                                    html,body {
-                                        padding: 0 !important;
-                                        margin:0 !important;
-                                    }
-                                    </style>
-                                </head>
-                                <body>
-                                    ${response?.data?.data?.url}
-                                </body>
-                                </html>
-                            `)
+                            response?.data?.data?.url
                             )
 
                         break;

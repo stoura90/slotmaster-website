@@ -163,7 +163,6 @@ const SignUp =() =>{
         window.grecaptcha.execute('6LcsE_IdAAAAAElaP_6dOnfzTJD2irfkvp1wzIeS', {action: 'login'}).then(async(token)=> {
             const response = await dispatch(Actions.User.signIn({
                 data: data,
-
                 token:token
             }))
             if (response.status) {
