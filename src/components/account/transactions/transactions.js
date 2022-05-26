@@ -371,7 +371,7 @@ const Transactions = ({onClose}) => {
                         </div>*/}
                     </div>
                     <div className="col-12">
-                        <ShowMore page={page} count={count()} length={trData?trData.length:0} setPage={setPage}/>
+                        <ShowMore page={page} count={count()} length={trData?trData.length:0} setPage={setPage} type="transfer"/>
                     </div>
                 </div>
             </div>

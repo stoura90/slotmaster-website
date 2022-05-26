@@ -54,7 +54,7 @@
 @media (max-width: 991px) {
   .virtual-grid {
     .item-box {
-      max-width: unset;
+      //max-width: unset;
       flex: 1 1;
       .arrow {
         img {height: 15px}

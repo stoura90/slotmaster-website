@@ -1,13 +1,14 @@
 import { useEffect, useState} from 'react'
 
 import {Actions, useTranslation} from "./core";
-import { Guest, MainNavigator, } from "./components";
+import {Guest, MainNavigator, PLAlert,} from "./components";
 import {useDispatch} from "react-redux";
 import OTP from "./components/verification";
 import {useNav} from "./core/hooks/useNav";
 import {useCookie} from "./core/hooks/useCookie";
 import {UseEvent} from "./core/hooks/useEvent";
 import {useUser} from "./core/hooks/useUser";
+import EventEmitter from "./core/utils/eventEmitter";
 
 
 const  App=()=> {
@@ -17,6 +18,20 @@ const  App=()=> {
     const cookie = useCookie()
     const nav  = useNav();
     const user = useUser()
+
+    const [showNotify,setShowNotify]=useState({
+        show:false,
+        text:'',
+        type:''
+    });
+
+    useEffect(()=>{
+        const signInFormEvent= event.subscribe("notify",setShowNotify)
+        return ()=>{
+            signInFormEvent.unsubscribe()
+        }
+    },[])
+
     useEffect( () => {
        if(nav.get("cxd")){
             //აფილეიტები
@@ -60,6 +75,14 @@ const  App=()=> {
                   <div>verif modal</div>
               </Modal>
           }*/}
+
+            {
+                showNotify.show && <PLAlert data={showNotify} title={showNotify?.title} onClose={()=>setShowNotify({...showNotify,show:false})}
+                                      footer={<button onClick={()=>setShowNotify({...showNotify,show:false})}>Close</button>}
+                >
+                    <div className="alert_wrap">{showNotify.text}</div>
+                </PLAlert>
+            }
         </>
   )
 }

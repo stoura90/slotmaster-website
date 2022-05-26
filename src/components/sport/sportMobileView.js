@@ -30,6 +30,7 @@ export const SportMobileView=()=>{
         "clearSiteStyles":false,
         "onUniqueIdChange":(uuid)=>console.log(uuid),
         "onBalanceChange":balanceChangeHandler,
+        "currency":"EUR",
         "events":{
             onAppMount:()=>console.log("app Mount"),
             onAppUnmount:()=>console.log("app unmount"),

@@ -67,6 +67,7 @@ const SignIn =() =>{
                 header:head,
                 token:token
             }))
+            console.log('asdadas',response)
             if (response.status) {
                 if(window.location.href.indexOf("playSlot")>-1
                     || window.location.href.indexOf("live")>-1
@@ -79,13 +80,27 @@ const SignIn =() =>{
                 setShowOTP(false);
             } else {
                 if(response?.error){
+
                     if(response?.error?.error === "otp_required"){
                         setAuthData(response?.error);
                         setShowOTP(true);
                         setReSend(parseInt(response?.error?.expires_in))
+                    }else{
+                        ev.emit('notify', {
+                            show:true,
+                            text:'specified username or password is incorrect',
+                            type:'error',
+                            title:'Log In Error'
+                        })
                     }
                 }else{
-                    window.top.pushEvent('specified username or password is incorrect','error');
+                    //window.top.pushEvent('specified username or password is incorrect','error');
+                    ev.emit('notify', {
+                        show:true,
+                        text:'specified username or password is incorrect',
+                        type:'error',
+                        title:'Log In Error'
+                    })
                 }
             }
         })
@@ -285,7 +300,7 @@ const SignIn =() =>{
                                             ref3.current.focus()
                                         }
                                     }}/>
-                                    <input type="number" ref={ref5} value={otp[4]} onChange={(e)=>{
+                                {/*    <input type="number" ref={ref5} value={otp[4]} onChange={(e)=>{
 
                                         if(e.target.value){
                                             if(e.target.value.length>1){
@@ -314,7 +329,7 @@ const SignIn =() =>{
                                             setOtp([...otp])
                                             ref5.current.focus()
                                         }
-                                    }}/>
+                                    }}/>*/}
                                 </div>
                                 <div className="countDown">
                                     {/*<input type="text" name="code" id="code" value={code} onChange={e=>setCode(e.target.value)} className="for-confirm"/>*/}

@@ -116,13 +116,13 @@ const VirtualsScreen = () =>{
                                 <li className="arrow"><img src={arrow}/></li>
                             </ul>
                         </div>
-                        <div className="item-box"  onClick={()=>window.open(`/${i18n.language}/playSlot?id=431&gameId=1001`)}>
+                        {/*<div className="item-box"  onClick={()=>window.open(`/${i18n.language}/playSlot?id=431&gameId=1001`)}>
                             <img className="bg" src={onetwogaming}/>
                             <ul>
                                 <li className="provider-logo"><img src={onetwologo}/></li>
                                 <li className="arrow"><img src={arrow}/></li>
                             </ul>
-                        </div>
+                        </div>*/}
                     </div>
                     {/*<div className="row">
 
