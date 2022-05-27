@@ -20136,7 +20136,7 @@ input.for-confirm {
   padding: 0;
 }
 .main-card-list-item .sl-card {
-  padding-bottom: 120%;
+  padding-bottom: 75%;
   border-radius: 6px;
   background-position: center top !important;
   background-size: cover !important;
@@ -20276,6 +20276,30 @@ input.for-confirm {
     transform: rotate(360deg);
   }
 }
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes rotation {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotation {
+  from {
+    -o-transform: rotate(0deg);
+  }
+  to {
+    -o-transform: rotate(360deg);
+  }
+}
 .navbar {
   width: 100%;
   padding: 0;
@@ -20314,6 +20338,9 @@ input.for-confirm {
   opacity: 1;
 }
 .navbar .navbar-head .authorization-interface .header-amount-box img.rotate {
+  -webkit-animation: rotation 2s infinite linear;
+  -moz-animation: rotation 2s infinite linear;
+  -o-animation: rotation 2s infinite linear;
   animation: rotation 2s infinite linear;
 }
 .navbar .navbar-head .authorization-interface .navbar-balance {
@@ -23712,16 +23739,17 @@ select {
     align-items: flex-start !important;
   }
   .footer .foot-wrap .mob-col {
-    width: 50%;
+    width: 100%;
     margin-bottom: 0;
   }
   .footer .foot-wrap .mob-col .footer-menu {
-    justify-content: flex-start;
+    justify-content: center;
     margin: 0;
   }
   .footer .foot-wrap .mob-col .footer-menu li {
     width: 100%;
     margin: 5px 0;
+    text-align: center;
   }
   .footer .crypto i {
     margin-right: 9px;
@@ -23734,9 +23762,6 @@ select {
   .authorization-interface .withdraw-link,
 .authorization-interface .deposit-link {
     display: none !important;
-  }
-  .authorization-interface .navbar-balance {
-    margin-right: 0 !important;
   }
 
   .account-billing-info .mob-balance-btn {

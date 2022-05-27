@@ -242,12 +242,19 @@ const Transactions = ({onClose}) => {
                         <div className="transaction-list">
                             {
                                 _.map(transactions, (v,k)=> {
+
+                                    let d = v.startDate.split('T')[0] +' '+ v.startDate.split('T')[1];
+                                    let testDateUtc = moment.utc(d);
+                                    let localDate = testDateUtc.local();
+                                    let newDate = localDate.format('YYYY-MM-DD HH:mm:ss')
+                                    //console.log(d, newDate);
+
                                     return (
                                         <div className="row mx-0 table-tbody align-items-center" key={k}>
                                             <div className="col">
                                                 <div className="table-td">
-                                                    <span>{v.startDate.split('T')[1]}</span><br/>
-                                                    <span style={{fontSize:'12px'}}>{v.startDate.split('T')[0]}</span>
+                                                    <span>{newDate.split(' ')[1]}</span><br/>
+                                                    <span style={{fontSize:'12px'}}>{newDate.split(' ')[0]}</span>
                                                 </div>
                                             </div>
                                             {/*<div className="col">
@@ -391,10 +398,17 @@ const Transactions = ({onClose}) => {
                     <table>
                         {
                             _.map(slotHistoryData, (v,k)=> {
+
+                                let d = v.startDate.split('T')[0] +' '+ v.startDate.split('T')[1];
+                                let testDateUtc = moment.utc(d);
+                                let localDate = testDateUtc.local();
+                                let newDate = localDate.format('YYYY-MM-DD HH:mm:ss')
+                                //console.log(d, newDate);
+
                                 return (
                                     <tr key={k}>
                                         <td data-prov="">{v.providerId}</td>
-                                        <td data-date=""><span>{v.startDate.split('T')[0]}</span> <span>{v.startDate.split('T')[1]}</span></td>
+                                        <td data-date=""><span>{newDate.split(' ')[0]}</span> <span>{newDate.split(' ')[1]}</span></td>
                                         <td className="amount">{v.amount}<span>{v.currency}</span></td>
                                         <td data-status={v.action}>{v.action}</td>
                                     </tr>

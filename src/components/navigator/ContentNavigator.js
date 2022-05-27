@@ -8,7 +8,7 @@ const ContentNavigator = ({page,lang})=>{
     return (
 
         <div className="row scroll">
-                <div className="col-auto col-md-3 col-lg-3 col-xl-2">
+                {/*<div className="col-auto col-md-3 col-lg-3 col-xl-2">
                     <a href="#" className="page-link">About Us</a>
                 </div>
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
@@ -19,7 +19,7 @@ const ContentNavigator = ({page,lang})=>{
                 </div>
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
                     <a href="#" className="page-link">Affiliates</a>
-                </div>
+                </div>*/}
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
                     <Link to={`/${lang}/terms`} className={`page-link  ${page==='terms'?'active':''}` }>Terms and conditions</Link>
                 </div>
@@ -38,9 +38,9 @@ const ContentNavigator = ({page,lang})=>{
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
                     <Link to={`/${lang}/responsible_gaming`} className={`page-link  ${page==='responsible_gaming'?'active':''}` }>Responsible Gaming</Link>
                 </div>
-                <div className="col-auto col-md-3 col-lg-3 col-xl-2">
+                {/*<div className="col-auto col-md-3 col-lg-3 col-xl-2">
                     <a href="#" className="page-link">Underage Policy</a>
-                </div>
+                </div>*/}
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
                     <Link to={`/${lang}/self_exclusion_policy`} className={`page-link  ${page==='self_exclusion_policy'?'active':''}` }>Self Exclusion Policy</Link>
                 </div>

@@ -36,13 +36,13 @@ const  Carousel = ({data,counter,navigation}) =>{
             spaceBetween={12}
             //slidesPerView={count}
             navigation={navigation}
-            scrollbar={{ draggable: true }}
+            //scrollbar={{ draggable: true }}
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log('slide change')}
 
             breakpoints={{
                 1200: {
-                    slidesPerView: 6,
+                    slidesPerView: 5,
                 },
                 992: {
                     slidesPerView: 5,
@@ -53,16 +53,36 @@ const  Carousel = ({data,counter,navigation}) =>{
                 576: {
                     slidesPerView: 3,
                 },
-                400: {
-                    slidesPerView: 3,
+                300: {
+                    slidesPerView: 2,
                 },
-                200: {
-                    slidesPerView: 3,
-                },
-                160: {
+                100: {
                     slidesPerView: 1,
                 }
             }}
+
+
+/*            1200: {
+        slidesPerView: 4,
+    },
+    992: {
+        slidesPerView: 5,
+    },
+    768: {
+        slidesPerView: 4,
+    },
+    576: {
+        slidesPerView: 3,
+    },
+    400: {
+        slidesPerView: 3,
+    },
+    200: {
+        slidesPerView: 3,
+    },
+    160: {
+        slidesPerView: 1,
+    }*/
         >
             {
                 _.map(slotList, (v,index)=>{
