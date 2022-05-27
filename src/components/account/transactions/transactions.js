@@ -305,12 +305,16 @@ const Transactions = ({onClose}) => {
                         <div className="transaction-list mobile">
                             {
                                 _.map(transactions, (v,k)=> {
+                                    let d = v.startDate.split('T')[0] +' '+ v.startDate.split('T')[1];
+                                    let testDateUtc = moment.utc(d);
+                                    let localDate = testDateUtc.local();
+                                    let newDate = localDate.format('YYYY-MM-DD HH:mm:ss')
                                     return (
                                         <div className="col-12 transaction-mb" key={k}>
                                             <div className="row table-tbody align-items-center">
                                                 <div className="col-3 date-time">
-                                                    <span>{v.startDate.split('T')[1]}</span><br/>
-                                                    <span style={{fontSize:'12px'}}>{v.startDate.split('T')[0]}</span>
+                                                    <span>{newDate.split(' ')[1]}</span><br/>
+                                                    <span style={{fontSize:'12px'}}>{newDate.split(' ')[0]}</span>
                                                 </div>
                                                 <div className="col-6 prov-amount">
                                                     <div className="provider">
