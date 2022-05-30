@@ -685,14 +685,15 @@ select{
         align-items: flex-start !important;
       }
       .mob-col {
-        width: 50%;
+        width: 100%;
         margin-bottom: 0;
         .footer-menu {
-          justify-content: flex-start;
+          justify-content: center;
           margin: 0;
           li {
             width: 100%;
             margin: 5px 0;
+            text-align: center;
           }
         }
       }

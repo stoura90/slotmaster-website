@@ -33,16 +33,16 @@ const Footer =()=>{
             <div className="container">
                 <div className="row gx-0 align-items-center foot-wrap">
                     <div className="col-12 d-md-none">
-                        <h6 style={{textAlign:'left',color:'#C6D1ED',paddingLeft:'3px'}}>Follow Us</h6>
-                        <div className="d-flex align-items-center justify-content-between social-list">
+                        {/*<h6 style={{textAlign:'center',color:'#C6D1ED',paddingLeft:'3px'}}>Follow Us</h6>*/}
+                        <div className="d-flex align-items-center justify-content-center social-list">
                             <a
-                                href="#"
+                                href="https://www.facebook.com/Planetaxbet"
                                 target="_blank"
                                 className="d-flex align-items-center justify-content-center social-item rounded-circle"
                             >
                                 <i className="fab fa-facebook-f facebook"/>
                             </a>
-                            <a
+                        {/*    <a
                                 href="#"
                                 target="_blank"
                                 className="d-flex align-items-center justify-content-center social-item rounded-circle"
@@ -62,9 +62,9 @@ const Footer =()=>{
                                 className="d-flex align-items-center justify-content-center social-item rounded-circle"
                             >
                                 <i className="fab fa-twitter twitter"/>
-                            </a>
+                            </a>*/}
                             <a
-                                href="#"
+                                href="https://discord.gg/sbjFXbbcBK"
                                 target="_blank"
                                 className="d-flex align-items-center justify-content-center social-item rounded-circle"
                             >
@@ -74,7 +74,7 @@ const Footer =()=>{
                     </div>
                     <div className="mob-col col-12 col-lg-3" >
                         <ul className="footer-menu">
-                            <li>
+                            {/*<li>
                                 <a href="#">{t("About Us")}</a>
                             </li>
                             <li>
@@ -85,22 +85,29 @@ const Footer =()=>{
                             </li>
                             <li>
                                 <a href="#">{t('Affiliates')}</a>
-                            </li>
+                            </li>*/}
                             <li>
                                 <Link to={`/${i18n.language}/terms`}>{t("Terms and conditions")}</Link>
                             </li>
                             <li>
                                 <Link to={`/${i18n.language}/contact`}>{t("Contact Us")}</Link>
                             </li>
-                        </ul>
-                    </div>
-                    <div className="mob-col col-12 col-lg-3">
-                        <ul className="footer-menu">
+
                             <li><Link to={`/${i18n.language}/privacy`}>{t("Privacy Policy")}</Link></li>
                             <li><Link to={`/${i18n.language}/kyc_aml`}>{t("KYC/AML Policy")}</Link></li>
                             <li className="d-none d-md-flex"><Link to={`/${i18n.language}/responsible_gaming`}>{t("Responsible Gaming")}</Link></li>
                             <li><Link to={`/${i18n.language}/self_exclusion_policy`}>{t("Self Exclusion Policy")}</Link></li>
-                            <li><a href="#">{t("Underage Gaming Policy")}</a></li>
+
+                        </ul>
+                    </div>
+                    <div className="mob-col col-12 col-lg-3">
+                        <ul className="footer-menu">
+
+                            {/*<li><Link to={`/${i18n.language}/privacy`}>{t("Privacy Policy")}</Link></li>
+                            <li><Link to={`/${i18n.language}/kyc_aml`}>{t("KYC/AML Policy")}</Link></li>
+                            <li className="d-none d-md-flex"><Link to={`/${i18n.language}/responsible_gaming`}>{t("Responsible Gaming")}</Link></li>
+                            <li><Link to={`/${i18n.language}/self_exclusion_policy`}>{t("Self Exclusion Policy")}</Link></li>*/}
+                            {/*<li><a href="#">{t("Underage Gaming Policy")}</a></li>*/}
                         </ul>
                     </div>
                     <div className="col-12 col-lg-6">
@@ -154,27 +161,27 @@ const Footer =()=>{
                                 >
                                     <i className="fab fa-facebook-f facebook"/>
                                 </a>
-                                <a
+                                {/*<a
                                     href="#"
                                     target="_blank"
                                     className="d-flex align-items-center justify-content-center social-item rounded-circle"
                                 >
                                     <i className="fab fa-reddit-alien reddit"/>
-                                </a>
-                                <a
+                                </a>*/}
+                                {/*<a
                                     href="#"
                                     target="_blank"
                                     className="d-flex align-items-center justify-content-center social-item rounded-circle"
                                 >
                                     <i className="fab fa-instagram instagram"/>
-                                </a>
-                                <a
+                                </a>*/}
+                                {/*<a
                                     href="#"
                                     target="_blank"
                                     className="d-flex align-items-center justify-content-center social-item rounded-circle"
                                 >
                                     <i className="fab fa-twitter twitter"/>
-                                </a>
+                                </a>*/}
                                 <a
                                     href="https://discord.gg/sbjFXbbcBK"
                                     target="_blank"

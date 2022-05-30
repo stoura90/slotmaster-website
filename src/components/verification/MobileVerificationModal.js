@@ -120,7 +120,7 @@ export const MobileVerificationModal = ({number,prefix,onSubmit,err,send,save,ve
                 }
             }} className="confirm-form">
                 <p className="confirm-text">
-                    {t("A 6-digit SMS code was sent to")}:
+                    {t("A 4-digit SMS code was sent to")}:
                     <span className="phone-num">{phone}</span>. {t("Please enter the code in the field below to confirm")}:
                 </p>
                 <div className="input-label-border">
