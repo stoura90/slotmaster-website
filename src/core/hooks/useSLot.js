@@ -36,10 +36,15 @@ export function useSLot() {
 
                         return ;
                     case 'sg_auth':
-                        window.document.write(
-                            response?.data?.data?.url
-                            )
-
+                       let data = response.data.data.url;
+                        window.document.write(data.concat(`
+                            <style>
+                             html,body {
+                                padding: 0 !important;
+                                margin:0 !important;
+                             }
+                             </style>
+                         `).concat(`<script>${data}</script>`))
                         break;
                     case 'sg_html':
                         window.document.write(response.data.data.html.concat(`
