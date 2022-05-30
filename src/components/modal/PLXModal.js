@@ -1,9 +1,10 @@
 import {close} from "../../assets/img/icons/icons";
 import PropTypes from "prop-types";
 
-const PLXModal = ({children,title,footer,onClickBackDrop,closeButton,onClose,contentStyle,dialogStyle,className})=>{
+const PLXModal = ({children,title,footer,onClickBackDrop,closeButton,onClose,contentStyle,dialogStyle,className,parentIdName})=>{
     return  (
         <div
+            id={parentIdName}
             className="custom-modal"
             onClick={()=>onClickBackDrop()}
 

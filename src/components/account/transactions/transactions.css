@@ -100,6 +100,7 @@
   margin-top: 10px;
   color: #fff;
   padding-right: 8px;
+  overflow: unset;
 }
 .slot-transaction-detail.head table tr {
   background: none !important;
@@ -164,6 +165,28 @@
   border-radius: 10px;
 }
 
+@media screen and (orientation: landscape) {
+  #slot-transaction-history .modal-dialog-centered {
+    max-height: 100vh;
+  }
+  #slot-transaction-history .modal-dialog-centered .modal-content {
+    max-height: 100vh;
+  }
+}
+.transaction-filter {
+  display: flex;
+  flex-direction: row;
+}
+.transaction-filter .field-col {
+  max-width: 250px;
+  flex: 1;
+}
+.transaction-filter .field-col .input-label-border {
+  display: flex;
+}
+.transaction-filter .field-col .input-label-border input {
+  flex: 1;
+}
 .transaction-filter ::-webkit-calendar-picker-indicator {
   filter: invert(150);
 }
@@ -177,6 +200,7 @@
   padding: 5px 15px;
   border-radius: 3px;
   background: #b9a440;
+  color: #000;
 }
 .history-confirm-btn button:hover {
   cursor: pointer;
@@ -206,6 +230,7 @@
   padding: 0px 8px;
   line-height: 22px;
   font-size: 14px;
+  color: #000;
 }
 .transaction-list.mobile .status span[data-status="1"] {
   color: green;
@@ -229,6 +254,23 @@
   .custom-modal .slot-transaction-history .slot-transaction-detail td[data-date] {
     font-size: 11px;
     line-height: 11px;
+  }
+}
+@media (max-width: 768px) {
+  .transaction-filter .field-col.btn-field {
+    max-width: unset;
+    flex: 1;
+    width: unset;
+  }
+}
+@media (max-width: 550px) {
+  .transaction-filter .field-col {
+    max-width: 100%;
+    min-width: 100%;
+    margin-bottom: 15px;
+  }
+  .transaction-filter .field-col.btn-field .history-confirm-btn {
+    justify-content: right;
   }
 }
 

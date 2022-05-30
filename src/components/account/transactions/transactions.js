@@ -196,20 +196,20 @@ const Transactions = ({onClose}) => {
                         </button>
                     </div>
                     <div className="col-12">
-                        <div className="row px-0 transaction-filter">
-                            <div className="col-12 col-md-3">
+                        <div className="row transaction-filter">
+                            <div className="field-col">
                                 <div className={`input-label-border`}>
                                     <input onChange={e => setDateRange({...dateRange,start:e.target.value})} value={dateRange.start} type="date" name="dob" id="tr-start" />
                                     <label htmlFor="tr-start">Date: <span>{t("from")}</span></label>
                                 </div>
                             </div>
-                            <div className="col-12 col-md-3">
+                            <div className="field-col">
                                 <div className={`input-label-border`}>
                                     <input onChange={e => setDateRange({...dateRange,end:e.target.value})} value={dateRange.end} type="date" name="dob" id="tr-end" />
                                     <label htmlFor="tr-end">Date: <span>{t("to")}</span></label>
                                 </div>
                             </div>
-                            <div className="col-12 col-md-3">
+                            <div className="field-col btn-field">
                                 <div className={`input-label-border history-confirm-btn`}>
                                     <button onClick={()=>trHistory()}>Confirm</button>
                                 </div>
@@ -387,7 +387,7 @@ const Transactions = ({onClose}) => {
                 </div>
             </div>
             {
-                showDetailModal && <PLXModal title={t("Transaction History")} onClose={()=>setShowDetailModal(false)} className={'slot-transaction-history'} dialogStyle={{width:'700px'}} contentStyle={{width:'700px'}} >
+                showDetailModal && <PLXModal title={t("Transaction History")} onClose={()=>setShowDetailModal(false)} parentIdName="slot-transaction-history" className={'slot-transaction-history'} dialogStyle={{width:'700px'}} contentStyle={{width:'700px'}} >
                     <div className="slot-transaction-detail head">
                         <table>
                             <tr>
