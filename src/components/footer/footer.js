@@ -87,6 +87,9 @@ const Footer =()=>{
                                 <a href="#">{t('Affiliates')}</a>
                             </li>*/}
                             <li>
+                                <Link to={`/${i18n.language}/aboutUs`}>{t("About Us")}</Link>
+                            </li>
+                            <li>
                                 <Link to={`/${i18n.language}/terms`}>{t("Terms and conditions")}</Link>
                             </li>
                             <li>

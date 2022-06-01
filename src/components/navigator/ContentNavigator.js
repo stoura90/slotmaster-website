@@ -20,6 +20,9 @@ const ContentNavigator = ({page,lang})=>{
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
                     <a href="#" className="page-link">Affiliates</a>
                 </div>*/}
+            <div className="col-auto col-md-3 col-lg-3 col-xl-2">
+                <Link to={`/${lang}/aboutUs`} className={`page-link  ${page==='aboutUs'?'active':''}` }>About Us</Link>
+            </div>
                 <div className="col-auto col-md-3 col-lg-3 col-xl-2">
                     <Link to={`/${lang}/terms`} className={`page-link  ${page==='terms'?'active':''}` }>Terms and conditions</Link>
                 </div>
