@@ -50,6 +50,7 @@ const Balance = ({route}) =>{
                 <div className="d-flex flex-column flex-md-row align-items-md-center">
                     <span className="user-fullname">{User.data.username}</span>
                     <span className="user-id">({User.data.id})</span>
+
                 </div>
                 <a className="user-logout d-flex align-items-center" onClick={()=>{
                     signOut(()=>{
@@ -170,17 +171,24 @@ const Balance = ({route}) =>{
                                 className="d-flex align-items-center justify-content-between nav-link"
                             >
                                 <span>{t("Account Verification")}</span>
-                                <div className="verify_status">
-                                    {infoData?.verifyStatus === 0 ? infoData?.hasUserRequestedVerify? <span className={"pending"}>Pending</span>:<span className={"unverified"}>Unverified</span>:<span className={"verified"}>Verified</span>}
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="16"
-                                        height="16"
-                                        viewBox="0 0 16 16"
-                                    >
-                                        <path id="add" d="M14.571,6.571H9.714a.286.286,0,0,1-.286-.286V1.429a1.429,1.429,0,0,0-2.857,0V6.286a.286.286,0,0,1-.286.286H1.429a1.429,1.429,0,0,0,0,2.857H6.286a.286.286,0,0,1,.286.286v4.857a1.429,1.429,0,1,0,2.857,0V9.714a.286.286,0,0,1,.286-.286h4.857a1.429,1.429,0,1,0,0-2.857Zm0,0"/>
-                                    </svg>
-                                </div>
+                                {
+
+                                    infoData?.verifyStatus && (
+                                        <div className="verify_status">
+
+                                            {infoData?.verifyStatus === 0 ? infoData?.hasUserRequestedVerify? <span className={"unverified"}>{ t("Not Verified")}</span>:<span className={"unverified"}>{ t("Not Verified")}</span>:infoData?.hasUserRequestedVerify? <span className={"unverified"}>{ t("Not Verified")}</span>:<span className={"verified"}>{t("Verified")}</span>}
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="16"
+                                                height="16"
+                                                viewBox="0 0 16 16"
+                                            >
+                                                <path id="add" d="M14.571,6.571H9.714a.286.286,0,0,1-.286-.286V1.429a1.429,1.429,0,0,0-2.857,0V6.286a.286.286,0,0,1-.286.286H1.429a1.429,1.429,0,0,0,0,2.857H6.286a.286.286,0,0,1,.286.286v4.857a1.429,1.429,0,1,0,2.857,0V9.714a.286.286,0,0,1,.286-.286h4.857a1.429,1.429,0,1,0,0-2.857Zm0,0"/>
+                                            </svg>
+                                        </div>
+                                    )
+                                }
+
 
                             </Link>
                         </li>
