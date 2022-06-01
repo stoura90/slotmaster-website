@@ -103,7 +103,7 @@ export const EmailVerificationModal = ({email,err,onSubmit,onClose,send,save,ver
                 }
             }} className="confirm-form">
                 <p className="confirm-text">
-                    {t("A 6-digit Email code was sent to")}:
+                    {t("A 4-digit Email code was sent to")}:
                     <br/>
                     <span className="phone-num">{email}</span><br/> {t("Please enter the code in the field below to confirm")}:
                 </p>
