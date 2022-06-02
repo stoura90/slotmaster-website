@@ -97,23 +97,26 @@ const Withdraw = ({onClose})=>{
                     }} className="personal-data">
                         <br/>
 
-                        <div className="new-input-label" >
-                        <SelectBox
-                            data={currencyList}
-                            id={"crypto-currency"}
-                            placeholder={t("currency")}
-                            className="crypto-currency"
-                            value={selectedCurrency.id}
-                            onSelect={e => setSelectedCurrency(e)}
-                        />
+                        <div className="new-input-label" style={{marginBottom:'0px'}}>
+                            <SelectBox
+                                data={currencyList}
+                                id={"crypto-currency"}
+                                placeholder={t("currency")}
+                                className="crypto-currency"
+                                value={selectedCurrency.id}
+                                onSelect={e => setSelectedCurrency(e)}
+                            />
+                            {
+                                exRate? <p style={{color:'#8594c1',fontSize:'12px',margin:'4px 3px'}}>
+                                        {exRate?.exchangeRate?.rateFrom} {exRate.currency} ~ {exRate?.exchangeRate?.rateTo} {exRate.toCurrency}
+                                    </p>:''
+
+                            }
+
                         </div>
                         {
                             exRate? <>
-                                <p style={{color:'#8594c1',fontSize:'12px',margin:'4px 3px'}}>
-                                    {exRate?.exchangeRate?.rateFrom} {exRate.currency} ~ {exRate?.exchangeRate?.rateTo} {exRate.toCurrency}
-                                </p>
-
-                                <div className="new-input-label" >
+                                <div className="new-input-label">
                                     <div className="input-box">
                                         <input type={"number"} name="Amount" id="amount" value={withdraw?.amount} onChange={event => {
                                             setWithdraw({...withdraw,amount:event.target.value});
@@ -123,8 +126,9 @@ const Withdraw = ({onClose})=>{
                                         <label htmlFor="amount">EUR</label>
                                         {/*{t("Money")}*/}
                                     </div>
-
+                                    <p style={{color:'#8594c1',fontSize:'12px',margin:'4px 3px'}}>Min Withdraw: {exRate?.exchangeRate?.minAmountFrom} {exRate.currency}</p>
                                 </div>
+
 
                                 <div className="new-input-label">
                                     <div className="input-box">

@@ -45,7 +45,6 @@ const  App=()=> {
                         localStorage.clear()
                         user.signOut(()=>event.emit('signIn',true))
                     break;
-
                 default: break;
             }
         })
@@ -77,9 +76,7 @@ const  App=()=> {
           }*/}
 
             {
-                showNotify.show && <PLAlert data={showNotify} title={showNotify?.title} onClose={()=>setShowNotify({...showNotify,show:false})}
-                                      footer={<button onClick={()=>setShowNotify({...showNotify,show:false})}>Close</button>}
-                >
+                showNotify.show && <PLAlert data={showNotify} title={showNotify?.title} onClose={()=>setShowNotify({...showNotify,show:false})} footer={<button onClick={()=>setShowNotify({...showNotify,show:false})}>Close</button>}>
                     <div className="alert_wrap">{showNotify.text}</div>
                 </PLAlert>
             }

@@ -779,10 +779,7 @@ const Information = () => {
                 </div>
             </div>
             {
-                openChangePass && <ChangePassword
-                title={t("Change Password")}
-                onClose={setOpenChangePass}
-                />
+                openChangePass && <ChangePassword title={t("Change Password")} onClose={setOpenChangePass}/>
             }
             {
                 open2FA && (

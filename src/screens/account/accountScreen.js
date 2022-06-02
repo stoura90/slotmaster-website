@@ -12,6 +12,8 @@ const AccountScreen = () =>{
         switch(route){
             case "verification":return <Verification/>
             case "finances":return <Finances/>
+            case "transactions":return <Transactions/>
+            case "info":return <Information/>
             default : return <Information/>
         }
     }

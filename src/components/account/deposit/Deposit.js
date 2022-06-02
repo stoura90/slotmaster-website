@@ -81,6 +81,7 @@ const Deposit = ({onClose})=>{
                     (qrData?.url) ? (
                         <>
                             <p style={{color:'#8594c1',fontSize:'12px',margin:'4px 3px'}}>{qrData?.exchangeRate?.rateFrom} {qrData.currency}  ~ {qrData?.exchangeRate?.rateTo} {qrData.toCurrency}</p>
+                            <p style={{color:'#8594c1',fontSize:'12px',margin:'4px 3px'}}>Min deposit:  {qrData?.exchangeRate?.minAmountFrom} {qrData.currency}</p>
                             <br/>
                             <a href={qr?.url} target={"_blank"} style={{textAlign:'center',borderRadius:'3px'}}>
                                 <QRCode value={qrData?.url} fgColor={"black"} size={150} logoImage={logoM_jpg} />

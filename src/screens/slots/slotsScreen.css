@@ -1,0 +1,158 @@
+.slot-new-filter {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.slot-new-filter button {
+  flex: 1;
+  max-width: 170px;
+  margin-right: 10px;
+  background: #1D243A;
+  font-family: "Proxima Regular", Helvetica, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #4D5A7D;
+  border-radius: 6px;
+  text-align: left;
+  padding: 0 16px;
+  height: 50px;
+}
+.slot-new-filter button.active {
+  color: #8f9ec8;
+}
+.slot-new-filter button:hover {
+  cursor: pointer;
+  background: #1e263d;
+}
+.slot-new-filter .search {
+  flex: 1;
+}
+.slot-new-filter .search input {
+  padding: 10px 43px 16px;
+}
+
+.slot-nav ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+.slot-nav ul li {
+  flex: auto;
+  color: #8F9EC8;
+  height: 50px;
+  margin: 0px 0px;
+  padding: 12px 12px;
+  border-bottom: 2px solid #1D2332;
+}
+.slot-nav ul li img {
+  margin-right: 5px;
+}
+.slot-nav ul li.active {
+  border-bottom: 2px solid #ccc;
+  color: #ccc;
+}
+.slot-nav ul li:hover {
+  cursor: pointer;
+  border-bottom: 2px solid #ccc;
+}
+.slot-nav.dropdown ul {
+  flex-wrap: wrap;
+}
+.slot-nav.dropdown ul li {
+  white-space: nowrap;
+}
+
+.slot-nav-mob {
+  display: none !important;
+}
+
+@media (max-width: 991px) {
+  .slot-new-filter button {
+    max-width: 120px;
+  }
+
+  .slot-nav {
+    overflow: hidden;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+  }
+  .slot-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .slot-nav ul {
+    flex-wrap: nowrap;
+  }
+  .slot-nav ul li {
+    white-space: nowrap;
+  }
+
+  .slot-nav-mob {
+    display: flex !important;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .slot-nav-mob button {
+    background: #1D243A;
+    font-family: "Proxima Regular", Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #4D5A7D;
+    border-radius: 6px;
+    text-align: left;
+    padding: 0 16px;
+    height: 50px;
+    margin-top: -18px;
+  }
+  .slot-nav-mob button svg {
+    height: 30px;
+    fill: #8f9ec8;
+  }
+  .slot-nav-mob.active button svg {
+    transform: rotate(180deg);
+  }
+}
+@media (max-width: 767px) {
+  .slot-new-filter .search {
+    order: 1;
+    margin: 0 5px;
+  }
+  .slot-new-filter .search input {
+    margin: 0;
+    padding: 13px 16px 13px 30px;
+  }
+  .slot-new-filter .search input::placeholder {
+    color: #192034;
+  }
+  .slot-new-filter button {
+    order: 2;
+    margin: 0 5px;
+    max-width: unset;
+    flex: auto;
+  }
+}
+@media (max-width: 400px) {
+  .slot-new-filter .search input {
+    padding: 9px 16px 9px 30px;
+    border-radius: 4px;
+    background: #1D243A;
+  }
+  .slot-new-filter button {
+    padding: 0 10px;
+    font-size: 14px;
+    height: 40px;
+    border-radius: 4px;
+  }
+
+  .slot-nav ul li {
+    flex: 1 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/*# sourceMappingURL=slotsScreen.css.map */

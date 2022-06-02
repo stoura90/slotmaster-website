@@ -3,11 +3,60 @@ import {sl2, w2} from '../../assets/img/images';
 import {filter} from '../../assets/img/icons/icons';
 import {Footer, Header, NewSWP, ShowMore, SlotCard, Swp} from "../../components";
 import "../../assets/styles/_select2.scss"
+import "./slotsScreen.scss"
 import {Actions, useTranslation} from "../../core";
 import _ from "lodash"
 import {CustomDropdown} from "../../components/dropdown/dropDown";
 import {useCount} from "../../core/hooks/useCount";
+import {
+    icon61,
+    icon70,
+    icon71,
+    icon55,
+    icon57,
+    icon72,
+    icon73,
+    icon74,
+    icon59,
+    icon60,
+    icon80,
+    icon76,
+    icon47,
+    icon79,
+    icon58,
+    icon65,
+    icon49,
+    icon86,
+    icon77,
+    icon56,
+    icon63,
+} from "../../assets/img/slot-nav/icon";
 import image_1 from "../../assets/img/slide/image_1.png";
+import slnav1 from "../../assets/img/slot-nav/caleta.png";
+
+const slIcon = {
+    '61':icon61,
+    '70':icon70,
+    '71':icon71,
+    '55':icon55,
+    '57':icon57,
+    '72':icon72,
+    '73':icon73,
+    '74':icon74,
+    '59':icon59,
+    '60':icon60,
+    '80':icon80,
+    '76':icon76,
+    '47':icon47,
+    '79':icon79,
+    '58':icon58,
+    '65':icon65,
+    '49':icon49,
+    '86':icon86,
+    '77':icon77,
+    '56':icon56,
+    '63':icon63,
+}
 
 const SlotsScreen = () =>{
     const {t} = useTranslation()
@@ -23,6 +72,7 @@ const SlotsScreen = () =>{
     const [selectedFilters,setSelectedFilters] = useState([])
 
     const [showMobileFilter,setShowMobileFilter] = useState(false)
+    const [slMobNav,setSlMobNav] = useState(false)
     const [selectedProvider,setSelectedProvider]=useState({name:'All Providers'})
     useEffect(()=>{
         loadProvider();
@@ -36,6 +86,14 @@ const SlotsScreen = () =>{
             setPage(1)
         }
     },[selectedProvider,selectedFilters,searchText])
+
+    useEffect(()=>{
+
+        setSelectedProvider(_.filter(providers,v=>v?.checked))
+
+        console.log(providers)
+    },[providers])
+
     const filteredSlotList = useMemo(()=>{
         let filtered =list;
         if(searchText.trim().length>0){
@@ -77,6 +135,7 @@ const SlotsScreen = () =>{
         return _.filter(filteredSlotList,(v,k)=>k<page*count());
     }
 
+
     let slides = <img  src={image_1} alt="1" />;
     return (
         <>
@@ -91,10 +150,79 @@ const SlotsScreen = () =>{
                 ]} />
             </div>
 
+            <div></div>
+
             <main className="main" style={{minHeight:'300px'}}>
                 <div className="container wrapper">
                     <div className="row">
-                        <div className="col-12 d-flex align-items-center main-filter slot">
+                        <div className="col-12 d-flex align-items-center slot-new-filter">
+                            <button className={`${_.size(_.filter(providers,v=>v.checked))===0?'active':''}`} onClick={()=>{
+                                setProviders([..._.map(providers,(v,k)=>{
+                                    v.checked=false;
+                                    return v;
+                                })])
+                            }}>All</button>
+                            <button>Trending</button>
+                            <button>Most Liked</button>
+                            <div className="search">
+                                <input
+                                    type="text"
+                                    name="search"
+                                    className="search"
+                                    placeholder={t("Search")}
+                                    value={searchText}
+                                    onChange={e=>setSearchText(e.target.value)}
+                                />
+                                <span className="btn-search"></span>
+                            </div>
+                        </div>
+                        <div className={`col-12 d-flex align-items-center slot-nav ${slMobNav?'dropdown':''}`}>
+                            <ul>
+                                {
+                                    //console.log(providers)
+                                    _.map(providers,(p,index)=>{
+                                        return  <li key={index} className={`${p.checked?'active':""}`} onClick={()=>{
+                                            setProviders([..._.map(providers,(v,k)=>{
+                                                v.checked=(k===index);
+                                                return v;
+                                            })])
+                                        }}><img src={slIcon[p.id]}/> {p.name}</li>
+                                    })
+                                }
+                            </ul>
+                        </div>
+
+                        <div className={`col-12 d-flex align-items-center slot-nav-mob ${slMobNav?'active':''} `}>
+                            <button onClick={()=>{
+                                setSlMobNav(!slMobNav)
+                            }}>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z"/></svg>
+                            </button>
+                        </div>
+
+                        {/*<div className={`col-12 d-flex align-items-center slot-nav-mob ${slMobNav?'active':'hide'} `}>
+                            <ul>
+                                {
+                                    _.map(providers,(p,index)=>{
+                                        return  <li key={index} className={`${p.checked?'active':""}`} onClick={()=>{
+                                            setProviders([..._.map(providers,(v,k)=>{
+                                                v.checked=(k===index);
+                                                return v;
+                                            })])
+                                            //setSlMobNav(!slMobNav)
+                                        }}><img src={slIcon[p.id]}/> {p.name}</li>
+                                    })
+                                }
+                            </ul>
+                            <button onClick={()=>{
+                                setSlMobNav(!slMobNav)
+                            }}>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z"/></svg>
+                            </button>
+                        </div>*/}
+                    </div>
+                    <div className="row">
+                        {/*<div className="col-12 d-flex align-items-center main-filter slot">
                             <div className="search">
                                 <input
                                     type="text"
@@ -119,11 +247,7 @@ const SlotsScreen = () =>{
                                     setProviderFilter(!providerFilter)
                                 }}/>
                             </div>
-                            {/*<div className="filter-button d-lg-none" data-bs-toggle="modal"
-                                 data-bs-target="#FilterModal" onClick={()=>setShowMobileFilter(!showMobileFilter)} >
-                                <img src={filter} alt="Filter"/>
-                            </div>*/}
-                        </div>
+                        </div>*/}
 
                         {/*<div className={"custom-filter-mobile d-lg-none"}>
                             <CustomDropdown label={t("Provider")}  filters={filters} setFilters={setSelectedFilters} showFilter={true} data={providers} onSelect={setSelected} open={showMobileFilter} setOpen={()=>{
