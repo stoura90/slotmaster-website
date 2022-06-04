@@ -2,7 +2,7 @@ import Header from './header/header';
 import Footer from "./footer/footer";
 import MainNavigator from './navigator/MainNavigator';
 import ContentNavigator from './navigator/ContentNavigator';
-import  Guest from './guest/guest';
+import Guest from './guest/guest';
 import Modal from "./modal/modal";
 import Button from './button/button'
 import Carousel from "./swiper/swiper";

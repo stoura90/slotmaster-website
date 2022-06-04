@@ -43,7 +43,7 @@ const Recover = () =>{
                 Actions.User.recoverUserName({...form, token:token}).then(response=>{
                     console.log(response)
                     setType(null);
-                    eventEmitter.emit('signIn',false);
+                    eventEmitter.emit('ev.emit(\'withdrawModal\', true)',false);
                     window.pushEvent(`username გადმოგზავნილია`,'success');
                 }).catch(reason => window.pushEvent(`დაფიქსირდა შეცდომა`,'error'))
             });

@@ -9,6 +9,9 @@ import {useCookie} from "./core/hooks/useCookie";
 import {UseEvent} from "./core/hooks/useEvent";
 import {useUser} from "./core/hooks/useUser";
 import EventEmitter from "./core/utils/eventEmitter";
+import Deposit from "./components/account/deposit/Deposit";
+import DepositModal from "./components/account/deposit/DepositModal";
+import WithdrawModal from "./components/account/withdraw/WithdrawModal";
 
 
 const  App=()=> {
@@ -17,7 +20,9 @@ const  App=()=> {
     const [loaded,setLoaded]=useState(false)
     const cookie = useCookie()
     const nav  = useNav();
-    const user = useUser()
+    const user = useUser();
+    const [depositModal,setDepositModal]=useState(false);
+    const [withdrawModal,setWithdrawModal]=useState(false);
 
     const [showNotify,setShowNotify]=useState({
         show:false,
@@ -27,8 +32,12 @@ const  App=()=> {
 
     useEffect(()=>{
         const signInFormEvent= event.subscribe("notify",setShowNotify)
+        const depositModal= event.subscribe("depositModal",setDepositModal)
+        const withdrawModal= event.subscribe("withdrawModal",setWithdrawModal)
         return ()=>{
             signInFormEvent.unsubscribe()
+            depositModal.unsubscribe()
+            withdrawModal.unsubscribe()
         }
     },[])
 
@@ -58,6 +67,7 @@ const  App=()=> {
     const ping =  async () => {
         setLoaded(await dispatch(Actions.User.ping()))
     }
+
     return  loaded && (<>
           <MainNavigator/>
 
@@ -75,11 +85,17 @@ const  App=()=> {
               </Modal>
           }*/}
 
+
+            {withdrawModal ? <WithdrawModal onClose={()=> setWithdrawModal(false)}/> : ''}
+            {depositModal ? <DepositModal onClose={()=> setDepositModal(false)}/> : ''}
+
             {
                 showNotify.show && <PLAlert data={showNotify} title={showNotify?.title} onClose={()=>setShowNotify({...showNotify,show:false})} footer={<button onClick={()=>setShowNotify({...showNotify,show:false})}>Close</button>}>
                     <div className="alert_wrap">{showNotify.text}</div>
                 </PLAlert>
             }
+
+
         </>
   )
 }

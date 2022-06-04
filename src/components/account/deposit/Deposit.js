@@ -117,6 +117,7 @@ const Deposit = ({onClose})=>{
             </div>
         </PLXModal>
     }
+
     return (
         <>
             {QRGenerator()}

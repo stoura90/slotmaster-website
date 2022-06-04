@@ -71,10 +71,19 @@ const Header = ({page}) =>{
 
 
 
-                                            <Link  to={`/${i18n.language}/account/finances?to=withdraw`} className="withdraw-link">{t("withdraw")}</Link>
-                                            <Link  to={`/${i18n.language}/account/finances?to=deposit`} className="deposit-link">{t("deposit")}</Link>
+                                            <div onClick={()=>ev.emit('withdrawModal', true)} className="withdraw-link">{t("withdraw")}</div>
+                                            <div onClick={()=>ev.emit('depositModal', true)} className="deposit-link">{t("deposit")}</div>
                                             <Link  to={`/${i18n.language}/account`} className="account-link"><img src={user_ico} alt=""/></Link>
-                                        {/*<button
+                                        {/*
+
+                                        ev.emit('notify', {
+                            show:true,
+                            text:'specified username or password is incorrect',
+                            type:'error',
+                            title:'Log In Error'
+                        })
+
+                                        <button
                                             className="navbar-toggler"
                                             type="button"
                                             data-bs-toggle="collapse"
